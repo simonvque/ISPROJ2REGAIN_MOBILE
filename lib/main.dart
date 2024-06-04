@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
     //   home: const NavigationMenu(),
     // );
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Regain',
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,

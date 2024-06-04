@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/add.dart';
+import 'package:regain_mobile/profile/profile_page.dart';
 
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class NavigationMenu extends StatefulWidget {
 class _NavigationMenuState extends State<NavigationMenu> {
   int _currentIndex = 0;
   List<Widget> body = const [
-    Placeholder(color: Colors.transparent),
+    ProfilePage(),
     Placeholder(color: Colors.transparent),
     Placeholder(color: Colors.transparent),
     Placeholder(color: Colors.transparent),
@@ -30,7 +31,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+     // appBar: AppBar(),
       body: Center(
         child: body[_currentIndex],
       ),
