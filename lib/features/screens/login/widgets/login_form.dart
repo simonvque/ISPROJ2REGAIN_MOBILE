@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:regain_mobile/nav.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
+import '../../homepage/homepage.dart';
 import '../../registration/registration.dart';
 
 class LoginForm extends StatefulWidget {
@@ -77,10 +79,10 @@ class _LoginFormState extends State<LoginForm> {
                 onPressed: () {
 
                   // ------------------------ ADD VALIDATION ------------------------
-                  // Navigator.pushReplacement(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => HomepageScreen()),
-                  // );
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => NavigationMenu()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
