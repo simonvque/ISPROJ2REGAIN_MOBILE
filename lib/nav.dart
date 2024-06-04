@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/add.dart';
+import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/profile/profile_page.dart';
 
 class NavigationMenu extends StatefulWidget {
@@ -13,7 +14,7 @@ class NavigationMenu extends StatefulWidget {
 class _NavigationMenuState extends State<NavigationMenu> {
   int _currentIndex = 0;
   List<Widget> body = const [
-    ProfilePage(),
+    HomepageScreen(),
     Placeholder(color: Colors.transparent),
     Placeholder(color: Colors.transparent),
     Placeholder(color: Colors.transparent),
