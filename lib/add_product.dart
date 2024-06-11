@@ -25,7 +25,15 @@ class _AddProductState extends State<AddProduct> {
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text('Choose Image'),
+              child: Text(
+                'Choose Image',
+                style: TextStyle(
+                  color: Color(0xFF3C3C3C),
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                  //fontFamily: 'Montserrat',
+                ),
+              ),
             ),
           ),
           Padding(
@@ -45,7 +53,14 @@ class _AddProductState extends State<AddProduct> {
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text('Add Details'),
+              child: Text(
+                'Add Details',
+                style: TextStyle(
+                  color: Color(0xFF3C3C3C),
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
           Container(
@@ -54,6 +69,7 @@ class _AddProductState extends State<AddProduct> {
             child: TextFormField(
               decoration: InputDecoration(
                 hintText: 'Name of the Product',
+                hintStyle: TextStyle(fontSize: 15.0),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -64,6 +80,7 @@ class _AddProductState extends State<AddProduct> {
             child: TextFormField(
               decoration: InputDecoration(
                 hintText: 'Price',
+                hintStyle: TextStyle(fontSize: 15.0),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -78,6 +95,7 @@ class _AddProductState extends State<AddProduct> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: 'Category',
+                      hintStyle: TextStyle(fontSize: 15.0),
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -91,6 +109,7 @@ class _AddProductState extends State<AddProduct> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: 'Weight',
+                      hintStyle: TextStyle(fontSize: 15.0),
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -106,6 +125,7 @@ class _AddProductState extends State<AddProduct> {
               decoration: InputDecoration(
                 hintText:
                     'Please provide a brief description of the recyclable product',
+                hintStyle: TextStyle(fontSize: 15.0),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -116,6 +136,7 @@ class _AddProductState extends State<AddProduct> {
             child: TextFormField(
               decoration: InputDecoration(
                 hintText: 'Location',
+                hintStyle: TextStyle(fontSize: 15.0),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -158,7 +179,11 @@ class _AddProductState extends State<AddProduct> {
                 backgroundColor: const Color(0xFF12CF8A),
                 foregroundColor: Colors.white,
               ),
-              child: Text('Add Product'),
+              child: Text('Add Product',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    //fontFamily: 'Montserrat',
+                  )),
               onPressed: () {},
             ),
           ),
