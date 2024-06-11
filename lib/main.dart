@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
 import 'package:regain_mobile/nav.dart';
+import 'package:regain_mobile/test.dart';
 
 void main() {
   runApp(MyApp());
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
       ),
-      home: LoginScreen(),
+      home: HomeScreen(),
     );
   }
 }
