@@ -32,7 +32,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     // appBar: AppBar(),
+      // appBar: AppBar(),
       body: Center(
         child: body[_currentIndex],
       ),
@@ -50,6 +50,8 @@ class _NavigationMenuState extends State<NavigationMenu> {
           );
         }),
       ),
+      resizeToAvoidBottomInset:
+          false, // This makes floating action bottom to stay in place instead of rising when keyboard pops up
       bottomNavigationBar: BottomNavigationBar(
         // elevation: 20.0,
         type: BottomNavigationBarType.fixed,

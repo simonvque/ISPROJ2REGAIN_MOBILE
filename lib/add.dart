@@ -24,7 +24,15 @@ class _AddState extends State<Add> {
             alignment: Alignment.center,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-              child: Text('Product'),
+              child: Text(
+                'Product',
+                style: TextStyle(
+                  color: Color(0xFF3C3C3C),
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w500,
+                  //fontFamily: 'Montserrat',
+                ),
+              ),
             ),
           ),
           Padding(
@@ -54,7 +62,15 @@ class _AddState extends State<Add> {
             alignment: Alignment.center,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-              child: Text('Equipment'),
+              child: Text(
+                'Equipment',
+                style: TextStyle(
+                  color: Color(0xFF3C3C3C),
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w500,
+                  //fontFamily: 'Montserrat',
+                ),
+              ),
             ),
           ),
           Padding(
