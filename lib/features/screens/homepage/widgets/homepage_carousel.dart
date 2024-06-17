@@ -20,27 +20,37 @@ class ReGainCarousel extends StatelessWidget {
     final controller = Get.put(HomepageController());
     return Column(
       children: [
-        CarouselSlider(
-          options: CarouselOptions(
-              viewportFraction: 1,
-              onPageChanged: (index, _) => controller.updatePageIndicator(index)
-          ), items: banners.map((url) => ReGainRoundedImage(imageUrl: url)).toList()
+        Stack(
+          children: [
+            CarouselSlider(
+                options: CarouselOptions(
+                    viewportFraction: 1,
+                    onPageChanged: (index, _) => controller.updatePageIndicator(index)
+                ),
+                items: banners.map((url) => ReGainRoundedImage(imageUrl: url)).toList()
+            ),
+            Positioned(
+              bottom: 8.0,  // Adjust this value as needed
+              left: 0,
+              right: 0,
+              child: Obx(
+                    () => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for(int i = 0; i < banners.length; i++)
+                      ReGainCircularContainer(
+                        width: 8,
+                        height: 8,
+                        margin: EdgeInsets.only(right: 4),
+                        backgroundColor: controller.carouselCurrentIndex.value == i ? Colors.black : Colors.grey,
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: ReGainSizes.spaceBtwItems),
-        Obx(
-          () => Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for(int i = 0; i < banners.length; i++)
-              ReGainCircularContainer(
-                width: 8,
-                height: 8,
-                margin: EdgeInsets.only(right: 4),
-                backgroundColor: controller.carouselCurrentIndex.value == i ? Colors.black : Colors.grey,
-              ),
-            ],
-          ),
-        )
       ],
     );
   }

@@ -3,7 +3,7 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:regain_mobile/features/screens/login/widgets/login_form.dart';
 import 'package:regain_mobile/features/screens/login/widgets/login_logo.dart';
 
-import '../../../common/spacing_styles.dart';
+import '../../../common/styles/spacing_styles.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
