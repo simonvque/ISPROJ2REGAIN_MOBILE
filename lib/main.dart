@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
+import 'package:regain_mobile/features/screens/login/orders/myorders.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/features/screens/selectedItem/selected_item.dart';
 import 'package:regain_mobile/nav.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
       ),
       // home: HomeScreen(),
-      home: Checkout(),
+      home: OrderTrackingPage(),
     );
   }
 }
