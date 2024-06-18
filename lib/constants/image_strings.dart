@@ -12,4 +12,8 @@ class ReGainImages{
   //homepage
   static const String carousel1 = "assets/images/homepage/carousel.png";
   static const String plastic = "assets/images/homepage/plastic.png";
+
+  //profile
+    static const String exProfilePic = "assets/images/profile/profileSam.jpg";
+    static const String exProductPic = "assets/images/profile/plastic_straw.png";
 }
