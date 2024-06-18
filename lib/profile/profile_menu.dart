@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/profile/combal_page.dart';
 import 'package:regain_mobile/profile/contactus_page.dart';
 import 'package:regain_mobile/profile/edit_profile_page.dart';
+import 'package:regain_mobile/profile/seller_profile_page.dart';
 import 'package:regain_mobile/profile/settings_page.dart';
+import 'package:regain_mobile/profile/transactions_page.dart';
+import 'package:regain_mobile/profile/util/transactions_data.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({super.key});
@@ -17,7 +21,7 @@ class ProfileMenu extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const EditProfilePage()));
+                      builder: (context) => TransactionsPage(transactions: transactions,)));
             },
             child: Row(
               children: <Widget>[
@@ -43,7 +47,7 @@ class ProfileMenu extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const EditProfilePage()));
+                      builder: (context) => const CommissionPage()));
             },
             child: Row(
               children: <Widget>[
@@ -66,10 +70,7 @@ class ProfileMenu extends StatelessWidget {
             )),
         StyleButtonMenu(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const EditProfilePage()));
+              //insert code here
             },
             child: Row(
               children: <Widget>[
@@ -182,9 +183,13 @@ class ProfileMenu extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const EditProfilePage()));
+                          builder: (context) => const SellerProfilePage() //temporary view
+                          )
+                      );
                 },
-                child: const Text('Logout'))),
+                child: const Text('Logout')
+                ),
+                ),
       ],
     );
   }
@@ -210,7 +215,7 @@ class StyleButtonMenu extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 0))
               .copyWith(
                   overlayColor:
-                      const MaterialStatePropertyAll(Colors.transparent)),
+                      const WidgetStatePropertyAll(Colors.transparent)),
           onPressed: onPressed,
           child: child),
     );
