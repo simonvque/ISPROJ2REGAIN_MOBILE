@@ -48,8 +48,8 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
       ),
-      // home: HomeScreen(),
-      home: ReviewsPage(),
+       home: HomeScreen(),
+      //home: ReviewsPage(),
     );
   }
 }

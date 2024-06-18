@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/profile/report_page.dart';
+import 'package:regain_mobile/constants/colors.dart';
 
-AppBar buildAppBar (BuildContext context, dynamic title){
+AppBar buildAppBar (BuildContext context, dynamic title,
+{
+  bool showReportButton = false
+}){
    
   return AppBar(
-    backgroundColor: Colors.green,
-    leading: const BackButton(color: Colors.white,),
+    backgroundColor: green,
+    leading: const BackButton(color: white,),
     centerTitle: false,
     titleSpacing: 1.0,
     title: Text(title, style: const TextStyle(
@@ -13,5 +18,16 @@ AppBar buildAppBar (BuildContext context, dynamic title){
       fontSize: 22,
       ),
     ),
+    actions: showReportButton ?
+    [
+      IconButton(
+        icon: const Icon(Icons.flag_outlined, color: Colors.white), 
+        onPressed: () { 
+          Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ReportPage()));
+         },
+      ),
+    ]
+    : null,
   );
 }
