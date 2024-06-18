@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/profile/combal_page.dart';
 import 'package:regain_mobile/profile/contactus_page.dart';
 import 'package:regain_mobile/profile/edit_profile_page.dart';
@@ -21,25 +23,17 @@ class ProfileMenu extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => TransactionsPage(transactions: transactions,)));
+                      builder: (context) => TransactionsPage(
+                            transactions: transactions,
+                          )));
             },
-            child: Row(
+            child: const Row(
               children: <Widget>[
-                SizedBox(
-                  height: 25,
-                  width: 25,
-                  child: Image.asset('assets/icons/traHis.png'),
-                ),
-                const Spacer(flex: 4),
-                const StyleBtnTxt('Transaction history'),
-                const Spacer(flex: 40),
-                SizedBox(
-                    height: 12,
-                    width: 12,
-                    child: Opacity(
-                      opacity: 0.7,
-                      child: Image.asset('assets/icons/arrow.png'),
-                    ))
+                Icon(CupertinoIcons.doc_on_clipboard),
+                Spacer(flex: 4),
+                StyleBtnTxt('Transaction history'),
+                Spacer(flex: 40),
+                Icon(CupertinoIcons.chevron_forward),
               ],
             )),
         StyleButtonMenu(
@@ -49,46 +43,26 @@ class ProfileMenu extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => const CommissionPage()));
             },
-            child: Row(
+            child: const Row(
               children: <Widget>[
-                SizedBox(
-                  height: 25,
-                  width: 25,
-                  child: Image.asset('assets/icons/comBal.png'),
-                ),
-                const Spacer(flex: 4),
-                const StyleBtnTxt('Commission balance'),
-                const Spacer(flex: 40),
-                SizedBox(
-                    height: 12,
-                    width: 12,
-                    child: Opacity(
-                      opacity: 0.7,
-                      child: Image.asset('assets/icons/arrow.png'),
-                    ))
+                Icon(CupertinoIcons.creditcard),
+                Spacer(flex: 4),
+                StyleBtnTxt('Commission balance'),
+                Spacer(flex: 40),
+                Icon(CupertinoIcons.chevron_forward),
               ],
             )),
         StyleButtonMenu(
             onPressed: () {
               //insert code here
             },
-            child: Row(
+            child: const Row(
               children: <Widget>[
-                SizedBox(
-                  height: 25,
-                  width: 25,
-                  child: Image.asset('assets/icons/penPts.png'),
-                ),
-                const Spacer(flex: 3),
-                const StyleBtnTxt('Penalty points'),
-                const Spacer(flex: 40),
-                SizedBox(
-                    height: 12,
-                    width: 12,
-                    child: Opacity(
-                      opacity: 0.7,
-                      child: Image.asset('assets/icons/arrow.png'),
-                    ))
+                Icon(CupertinoIcons.exclamationmark_circle),
+                Spacer(flex: 3),
+                StyleBtnTxt('Penalty points'),
+                Spacer(flex: 40),
+                Icon(CupertinoIcons.chevron_forward),
               ],
             )),
         StyleButtonMenu(
@@ -96,50 +70,27 @@ class ProfileMenu extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const SettingsPage()));
           },
-          child: Row(
+          child: const Row(
             children: <Widget>[
-              SizedBox(
-                height: 25,
-                width: 25,
-                child: Image.asset('assets/icons/settings.png'),
-              ),
-              const Spacer(flex: 2),
-              const StyleBtnTxt('Settings'),
-              const Spacer(flex: 40),
-              SizedBox(
-                  height: 12,
-                  width: 12,
-                  child: Opacity(
-                    opacity: 0.7,
-                    child: Image.asset('assets/icons/arrow.png'),
-                  ))
+              Icon(CupertinoIcons.settings),
+              Spacer(flex: 2),
+              StyleBtnTxt('Settings'),
+              Spacer(flex: 40),
+              Icon(CupertinoIcons.chevron_forward),
             ],
           ),
         ),
         StyleButtonMenu(
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const EditProfilePage()));
+            // code here
           },
-          child: Row(
+          child: const Row(
             children: <Widget>[
-              SizedBox(
-                height: 25,
-                width: 25,
-                child: Image.asset('assets/icons/faqs.png'),
-              ),
-              const Spacer(flex: 2),
-              const StyleBtnTxt('FAQs'),
-              const Spacer(flex: 40),
-              SizedBox(
-                  height: 12,
-                  width: 12,
-                  child: Opacity(
-                    opacity: 0.7,
-                    child: Image.asset('assets/icons/arrow.png'),
-                  ))
+              Icon(CupertinoIcons.question_circle),
+              Spacer(flex: 2),
+              StyleBtnTxt('FAQs'),
+              Spacer(flex: 40),
+              Icon(CupertinoIcons.chevron_forward),
             ],
           ),
         ),
@@ -148,23 +99,13 @@ class ProfileMenu extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ContactUsPage()));
           },
-          child: Row(
+          child: const Row(
             children: <Widget>[
-              SizedBox(
-                height: 25,
-                width: 25,
-                child: Image.asset('assets/icons/contactUs.png'),
-              ),
-              const Spacer(flex: 2),
-              const StyleBtnTxt('Contact us'),
-              const Spacer(flex: 40),
-              SizedBox(
-                  height: 12,
-                  width: 12,
-                  child: Opacity(
-                    opacity: 0.7,
-                    child: Image.asset('assets/icons/arrow.png'),
-                  ))
+              Icon(CupertinoIcons.chat_bubble_2),
+              Spacer(flex: 2),
+              StyleBtnTxt('Contact us'),
+              Spacer(flex: 40),
+              Icon(CupertinoIcons.chevron_forward),
             ],
           ),
         ),
@@ -172,24 +113,23 @@ class ProfileMenu extends StatelessWidget {
           height: 12,
         ),
         SizedBox(
-            width: 350,
-            child: FilledButton(
-                style: FilledButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8))),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SellerProfilePage() //temporary view
-                          )
-                      );
-                },
-                child: const Text('Logout')
-                ),
-                ),
+          width: 350,
+          child: FilledButton(
+              style: FilledButton.styleFrom(
+                  backgroundColor: green,
+                  foregroundColor: white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8))),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const SellerProfilePage() //temporary view
+                        ));
+              },
+              child: const Text('Logout')),
+        ),
       ],
     );
   }
