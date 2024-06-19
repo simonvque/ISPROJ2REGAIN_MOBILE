@@ -7,7 +7,7 @@ import 'package:regain_mobile/profile/settings_page.dart';
 import 'package:regain_mobile/profile/transactions_page.dart';
 import 'package:regain_mobile/profile/util/transactions_data.dart';
 
-import '../constants/button_styles.dart';
+import '../themes/elements/button_styles.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({super.key});

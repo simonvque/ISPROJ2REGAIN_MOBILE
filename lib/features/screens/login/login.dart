@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:regain_mobile/features/screens/login/widgets/login_form.dart';
 import 'package:regain_mobile/features/screens/login/widgets/login_logo.dart';
 
 import '../../../common/styles/spacing_styles.dart';
-import '../../../constants/colors.dart';
-import '../../../constants/image_strings.dart';
-import '../../../constants/sizes.dart';
-import '../../../constants/text_strings.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:regain_mobile/nav.dart';
+
 import '../../../../constants/colors.dart';
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
+import '../../../../themes/elements/input fields/password_textbox.dart';
+import '../../../../themes/elements/input fields/regain_textbox.dart';
+import '../../forgotPassword/forgot_password.dart';
 import '../../homepage/homepage.dart';
 import '../../registration/registration.dart';
 
@@ -26,45 +29,33 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Username
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: ReGainTexts.username,
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: green),
-              ),
-            ),
-          ),
+          const RegainTextbox(labelText: ReGainTexts.logIn, isUnderlineBorder: true),
+          // TextFormField(
+          //   decoration: const InputDecoration(labelText: ReGainTexts.logIn),
+          // ),
           const SizedBox(height: ReGainSizes.spaceBtwInputFields),
 
           // Password
-          TextFormField(
-            obscureText: !isPasswordVisible, // Toggle obscureText based on isPasswordVisible
-            decoration: InputDecoration(
-              labelText: ReGainTexts.password,
-              suffixIcon: IconButton(
-                icon: isPasswordVisible ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
-                onPressed: () {
-                  setState(() {
-                    isPasswordVisible = !isPasswordVisible;
-                  });
-                },
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: green),
-              ),
-            ),
-          ),
-          SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
+          const PasswordTextFormField(labelText: ReGainTexts.password),
+          // TextFormField(
+          //   decoration: const InputDecoration(labelText: ReGainTexts.password, suffixIcon: Icon(Iconsax.eye_slash)),
+          // ),
+          const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
 
           // Forgot Password
           Row(
             children: [
               Spacer(), // Pushes the "Forgot Password" text to the right
               TextButton(
-                onPressed: () {},
-                child: const Text(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ForgetPasswordScreen()),
+                  );
+                },
+                child: Text(
                   ReGainTexts.forgotPassword,
-                  style: TextStyle(color: black),
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
             ],
@@ -81,7 +72,7 @@ class _LoginFormState extends State<LoginForm> {
                   // ------------------------ ADD VALIDATION ------------------------
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => NavigationMenu()),
+                    MaterialPageRoute(builder: (context) => HomepageScreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -91,9 +82,9 @@ class _LoginFormState extends State<LoginForm> {
                   foregroundColor: white,
                   backgroundColor: green,
                 ),
-                child: const Text(
+                child: Text(
                   ReGainTexts.logIn,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: white),
                 ),
               ),
             ),
@@ -105,9 +96,9 @@ class _LoginFormState extends State<LoginForm> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   "Don’t have ReGain account?",
-                  style: TextStyle(color: Colors.black),
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 TextButton(
                   onPressed: () {
@@ -116,12 +107,9 @@ class _LoginFormState extends State<LoginForm> {
                       MaterialPageRoute(builder: (context) => RegistrationScreen()),
                     );
                   },
-                  child: const Text(
+                  child: Text(
                     "Sign up",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
               ],

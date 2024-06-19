@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:regain_mobile/features/screens/registration/registration_verified.dart';
 
 import '../../../constants/colors.dart';
 
 class RegistrationOtp extends StatelessWidget{
   const RegistrationOtp({super.key});
+
+  final String mobileNumber = "1234567890";
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +19,20 @@ class RegistrationOtp extends StatelessWidget{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 'Enter Verification Code',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
-              const Text(
-                'Please send your OTP code sent to your mobile number ******2348',
-                style: TextStyle(fontSize: 16),
+
+              Text(
+                'Please send your OTP code sent to your mobile number $mobileNumber',
+                style: Theme.of(context).textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -45,20 +48,17 @@ class RegistrationOtp extends StatelessWidget{
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       "Didn’t receive it?",
-                      style: TextStyle(color: Colors.black),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     TextButton(
                       onPressed: () {
                         // ------- SEND OTP ------
                       },
-                      child: const Text(
+                      child: Text(
                         "Resend OTP",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
                   ],
@@ -86,9 +86,9 @@ class RegistrationOtp extends StatelessWidget{
                       foregroundColor: white,
                       backgroundColor: green,
                     ),
-                    child: const Text(
+                    child: Text(
                       'Submit',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: white),
                     ),
                   ),
                 ),

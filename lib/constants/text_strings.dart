@@ -25,4 +25,8 @@ class ReGainTexts{
   static const String signUpTitle = "Welcome to ReGain";
   static const String signUpSubtitle = "Your first step towards a more sustainable future together.";
 
+  //Forgot Password
+  static const String forgotPasswordTitle = "Forgot Password";
+  static const String forgotPasswordSubtitle = "Do not worry sometimes people can forget too, enter your contact number and we will send you a password reset link.";
+
 }

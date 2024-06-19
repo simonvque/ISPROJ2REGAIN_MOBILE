@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/device_utility.dart';
 import '../../../../helper_functions.dart';
+import '../../../controllers/onboarding_controller.dart';
 
 class OnboardingNext extends StatelessWidget {
   const OnboardingNext({
@@ -14,13 +16,13 @@ class OnboardingNext extends StatelessWidget {
     return Positioned(
       right: 0,
       left: 0,
-      bottom: TDeviceUtils.getBottomNavigationBarHeight() + 100,
+      bottom: ReGainDeviceUtils.getBottomNavigationBarHeight() + 100,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: SizedBox(
           width: ReGainHelperFunctions.screenWidth() / 2,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () => OnBoardingController.instance.nextPage(),
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -28,7 +30,7 @@ class OnboardingNext extends StatelessWidget {
               foregroundColor: white,
               backgroundColor: green,
             ),
-            child: const Text("Next"),
+            child: Text("Next", style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: white)),
           ),
         ),
       ),
@@ -36,3 +38,4 @@ class OnboardingNext extends StatelessWidget {
   }
 
 }
+

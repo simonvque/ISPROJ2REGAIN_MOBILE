@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/constants/button_styles.dart';
-import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/profile/app_bar.dart';
 import 'package:regain_mobile/profile/edit_profile_page.dart';
 import 'package:regain_mobile/profile/profile_menu.dart';
 import 'package:regain_mobile/profile/util/user_data.dart';
+
+import '../themes/elements/button_styles.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

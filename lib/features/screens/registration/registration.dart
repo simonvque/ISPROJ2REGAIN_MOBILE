@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:regain_mobile/features/screens/registration/registration_otp.dart';
+
 import '../../../common/styles/spacing_styles.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
 import '../../../constants/text_strings.dart';
+import '../../../themes/elements/input fields/password_textbox.dart';
+import '../../../themes/elements/input fields/regain_textbox.dart';
 import '../login/login.dart';
 
 
@@ -60,65 +62,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // Username
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: ReGainTexts.username,
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: green),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: ReGainSizes.spaceBtwInputFields),
+                      const RegainTextbox(labelText: ReGainTexts.logIn, isUnderlineBorder: true),
+                      const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
 
                       // Password
-                      TextFormField(
-                        obscureText: !isPasswordVisible, // Toggle obscureText based on isPasswordVisible
-                        decoration: InputDecoration(
-                          labelText: ReGainTexts.password,
-                          suffixIcon: IconButton(
-                            icon: isPasswordVisible ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
-                            onPressed: () {
-                              setState(() {
-                                isPasswordVisible = !isPasswordVisible;
-                              });
-                            },
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: green),
-                          ),
-                        ),
-                      ),
+                      const PasswordTextFormField(labelText: ReGainTexts.password),
                       const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
 
                       // Confirm Password
-                      TextFormField(
-                        obscureText: !isConfirmPasswordVisible, // Toggle obscureText based on isConfirmPasswordVisible
-                        decoration: InputDecoration(
-                          labelText: ReGainTexts.confirmPassword,
-                          suffixIcon: IconButton(
-                            icon: isConfirmPasswordVisible ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
-                            onPressed: () {
-                              setState(() {
-                                isConfirmPasswordVisible = !isConfirmPasswordVisible;
-                              });
-                            },
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: green),
-                          ),
-                        ),
-                      ),
+                      const PasswordTextFormField(labelText: ReGainTexts.confirmPassword),
                       const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
 
                       // Contact Number
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: ReGainTexts.contactNumber,
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: green),
-                          ),
-                        ),
-                      ),
+                      const RegainTextbox(labelText: ReGainTexts.contactNumber, keyboardType: TextInputType.phone, isUnderlineBorder: true),
                       const SizedBox(height: ReGainSizes.spaceBtwInputFields),
 
                       // Are you part of the waste sector?
@@ -203,9 +159,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               "Already have an account?",
-                              style: TextStyle(color: black),
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             TextButton(
                               onPressed: () {
@@ -214,12 +170,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   MaterialPageRoute(builder: (context) => LoginScreen()),
                                 );
                               },
-                              child: const Text(
+                              child: Text(
                                 "Log In",
-                                style: TextStyle(
-                                  color: black,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ),
                           ],

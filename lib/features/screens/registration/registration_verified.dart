@@ -23,9 +23,9 @@ class RegistrationVerified extends StatelessWidget {
                 height: 200,
               ),
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 'Your account has been verified successfully.',
-                style: TextStyle(fontSize: 16),
+                style: Theme.of(context).textTheme.titleSmall,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
@@ -50,9 +50,9 @@ class RegistrationVerified extends StatelessWidget {
                       foregroundColor: white,
                       backgroundColor: green,
                     ),
-                    child: const Text(
+                    child: Text(
                       'Done',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: white),
                     ),
                   ),
                 ),

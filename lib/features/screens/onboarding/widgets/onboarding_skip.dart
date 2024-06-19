@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/device_utility.dart';
 import '../../../../constants/sizes.dart';
+import '../../../controllers/onboarding_controller.dart';
 
 class OnboardingSkip extends StatelessWidget {
   const OnboardingSkip({
@@ -12,18 +15,16 @@ class OnboardingSkip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: TDeviceUtils.getAppBarHeight(),
+      top: ReGainDeviceUtils.getAppBarHeight(),
       right: ReGainSizes.defaultSpace,
       child: TextButton(
-        onPressed: (){},
+        onPressed: () => OnBoardingController.instance.skipPage(),
         style: TextButton.styleFrom(
           foregroundColor: green,
         ),
         child: Text(
           'Skip',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: green),
         ),
       ),
     );

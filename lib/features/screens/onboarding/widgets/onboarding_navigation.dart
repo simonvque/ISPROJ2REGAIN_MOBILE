@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/device_utility.dart';
+import '../../../controllers/onboarding_controller.dart';
 
 class OnboardingNavigation extends StatelessWidget {
   const OnboardingNavigation({
@@ -11,12 +14,17 @@ class OnboardingNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = OnBoardingController.instance;
+
     return Positioned(
-      bottom: TDeviceUtils.getBottomNavigationBarHeight() + 80,
+      bottom: ReGainDeviceUtils.getBottomNavigationBarHeight() + 80,
       left: 0,
-      right: 0, // Stretch the Positioned widget horizontally
+      right: 0,
       child: Center(
-        child: SmoothPageIndicator( controller: PageController(),  count: 4,
+        child: SmoothPageIndicator(
+          controller: controller.pageController,
+          onDotClicked: controller.dotNavigationClick,
+          count: 4,
           effect: ExpandingDotsEffect(activeDotColor: green, dotHeight: 6, dotWidth: 6,
           ),
         ),
