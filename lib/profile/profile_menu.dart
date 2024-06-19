@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/profile/combal_page.dart';
 import 'package:regain_mobile/profile/contactus_page.dart';
-import 'package:regain_mobile/profile/edit_profile_page.dart';
 import 'package:regain_mobile/profile/seller_profile_page.dart';
 import 'package:regain_mobile/profile/settings_page.dart';
 import 'package:regain_mobile/profile/transactions_page.dart';
 import 'package:regain_mobile/profile/util/transactions_data.dart';
+
+import '../constants/button_styles.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({super.key});
@@ -18,118 +18,96 @@ class ProfileMenu extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const StyleLabelTxt('PROFILE MENU'),
-        StyleButtonMenu(
-            onPressed: () {
-              Navigator.push(
-                  context,
+      
+        RegainButtons(
+          text: 'Transaction History',
+          onPressed: (){
+            Navigator.push(context,
                   MaterialPageRoute(
                       builder: (context) => TransactionsPage(
-                            transactions: transactions,
-                          )));
-            },
-            child: const Row(
-              children: <Widget>[
-                Icon(CupertinoIcons.doc_on_clipboard),
-                Spacer(flex: 4),
-                StyleBtnTxt('Transaction history'),
-                Spacer(flex: 40),
-                Icon(CupertinoIcons.chevron_forward),
-              ],
-            )),
-        StyleButtonMenu(
-            onPressed: () {
-              Navigator.push(
-                  context,
+                            transactions: transactions,),
+                          ),
+                          );
+          },
+          type: ButtonType.transparentOutlined,
+          size: ButtonSize.large,
+          leftIcon: CupertinoIcons.doc_on_clipboard,
+          rightIcon: CupertinoIcons.chevron_forward,
+          ),
+
+        RegainButtons(
+          text: 'Commission balance',
+          onPressed: (){
+            Navigator.push(context,
                   MaterialPageRoute(
-                      builder: (context) => const CommissionPage()));
-            },
-            child: const Row(
-              children: <Widget>[
-                Icon(CupertinoIcons.creditcard),
-                Spacer(flex: 4),
-                StyleBtnTxt('Commission balance'),
-                Spacer(flex: 40),
-                Icon(CupertinoIcons.chevron_forward),
-              ],
-            )),
-        StyleButtonMenu(
-            onPressed: () {
-              //insert code here
-            },
-            child: const Row(
-              children: <Widget>[
-                Icon(CupertinoIcons.exclamationmark_circle),
-                Spacer(flex: 3),
-                StyleBtnTxt('Penalty points'),
-                Spacer(flex: 40),
-                Icon(CupertinoIcons.chevron_forward),
-              ],
-            )),
-        StyleButtonMenu(
-          onPressed: () {
+                      builder: (context) => const CommissionPage(),
+                          ),
+                          );
+          },
+          type: ButtonType.transparentOutlined,
+          size: ButtonSize.large,
+          leftIcon: CupertinoIcons.creditcard,
+          rightIcon: CupertinoIcons.chevron_forward,
+          ),
+
+        RegainButtons(
+          text: 'Penalty points',
+          onPressed: (){
+            //penalty points page
+          },
+          type: ButtonType.transparentOutlined,
+          size: ButtonSize.large,
+          leftIcon: CupertinoIcons.exclamationmark_circle,
+          rightIcon: CupertinoIcons.chevron_forward,
+          ),
+
+        RegainButtons(
+          text: 'Settings',
+          onPressed: (){
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const SettingsPage()));
           },
-          child: const Row(
-            children: <Widget>[
-              Icon(CupertinoIcons.settings),
-              Spacer(flex: 2),
-              StyleBtnTxt('Settings'),
-              Spacer(flex: 40),
-              Icon(CupertinoIcons.chevron_forward),
-            ],
+          type: ButtonType.transparentOutlined,
+          size: ButtonSize.large,
+          leftIcon: CupertinoIcons.settings,
+          rightIcon: CupertinoIcons.chevron_forward,
           ),
-        ),
-        StyleButtonMenu(
-          onPressed: () {
-            // code here
+
+        RegainButtons(
+          text: 'FAQs',
+          onPressed: (){
+            //FAQs page
           },
-          child: const Row(
-            children: <Widget>[
-              Icon(CupertinoIcons.question_circle),
-              Spacer(flex: 2),
-              StyleBtnTxt('FAQs'),
-              Spacer(flex: 40),
-              Icon(CupertinoIcons.chevron_forward),
-            ],
+          type: ButtonType.transparentOutlined,
+          size: ButtonSize.large,
+          leftIcon: CupertinoIcons.question_circle,
+          rightIcon: CupertinoIcons.chevron_forward,
           ),
-        ),
-        StyleButtonMenu(
-          onPressed: () {
+          
+        RegainButtons(
+          text: 'Contact us',
+          onPressed: (){
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ContactUsPage()));
           },
-          child: const Row(
-            children: <Widget>[
-              Icon(CupertinoIcons.chat_bubble_2),
-              Spacer(flex: 2),
-              StyleBtnTxt('Contact us'),
-              Spacer(flex: 40),
-              Icon(CupertinoIcons.chevron_forward),
-            ],
+          type: ButtonType.transparentOutlined,
+          size: ButtonSize.large,
+          leftIcon: CupertinoIcons.chat_bubble_2,
+          rightIcon: CupertinoIcons.chevron_forward,
           ),
-        ),
+
         const SizedBox(
           height: 12,
         ),
-        SizedBox(
-          width: 350,
-          child: FilledButton(
-              style: FilledButton.styleFrom(
-                  backgroundColor: green,
-                  foregroundColor: white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8))),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const SellerProfilePage() //temporary view
-                        ));
-              },
-              child: const Text('Logout')),
-        ),
+        RegainButtons(
+          text: 'Logout',
+          onPressed: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SellerProfilePage()));
+          },
+          type: ButtonType.filled,
+          size: ButtonSize.large,
+          ),
       ],
     );
   }

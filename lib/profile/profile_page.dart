@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/constants/button_styles.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/profile/app_bar.dart';
@@ -15,7 +16,8 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       appBar: buildAppBar(context, 'My profile'),
-      body: Container(
+      body: SingleChildScrollView(
+      child: Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -32,21 +34,29 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            SizedBox(
-                width: 222,
-                child: FilledButton(
-                    style: FilledButton.styleFrom(
-                        backgroundColor: green,
-                        foregroundColor: white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8))),
-                    onPressed: () {
+
+            RegainButtons(
+              text: 'Edit profile', 
+              onPressed: (){
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const EditProfilePage()));
-                    },
-                    child: const Text('Edit profile'))),
+                      },
+              type: ButtonType.filled,
+              size: ButtonSize.small,
+              ),
+            // SizedBox(
+            //     width: 222,
+            //     child: FilledButton(
+            //         style: FilledButton.styleFrom(
+            //             backgroundColor: green,
+            //             foregroundColor: white,
+            //             shape: RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(8))),
+            //         onPressed: () {
+            //         },
+            //         child: const Text('Edit profile'))),
             const SizedBox(
               height: 30,
             ),
@@ -54,6 +64,7 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
       ),
+    ),
     );
   }
 }
