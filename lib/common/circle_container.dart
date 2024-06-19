@@ -30,8 +30,8 @@ class ReGainCircularContainer extends StatelessWidget{
       margin: margin,
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius),
-        color: backgroundColor
+          borderRadius: BorderRadius.circular(radius),
+          color: backgroundColor
       ),
       child: child,
     );

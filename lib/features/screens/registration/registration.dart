@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:regain_mobile/features/screens/registration/registration_otp.dart';
-import '../../../common/spacing_styles.dart';
+import '../../../common/styles/spacing_styles.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
