@@ -8,10 +8,10 @@ class AppTheme{
 
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat-Regular',
     brightness: Brightness.light,
-    primaryColor: green,
+    colorSchemeSeed: green,
     scaffoldBackgroundColor: white,
-    textTheme: ReGainTextTheme.lightTextTheme,
+    textTheme: ReGainTextTheme.lightTextTheme(),
   );
 }
