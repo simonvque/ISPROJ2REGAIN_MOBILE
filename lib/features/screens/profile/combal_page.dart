@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/profile/app_bar.dart';
+import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 
 class CommissionPage extends StatelessWidget {
   const CommissionPage({super.key});
@@ -47,7 +47,8 @@ class CommissionPage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20), // Add spacing between the container and the button
+            const SizedBox(
+                height: 20), // Add spacing between the container and the button
             SizedBox(
               width: 350,
               child: FilledButton(

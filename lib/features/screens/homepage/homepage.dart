@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/features/screens/homepage/widgets/homepage_cards.dart';
 import 'package:regain_mobile/features/screens/homepage/widgets/homepage_carousel.dart';
-import 'package:regain_mobile/profile/profile_page.dart';
+import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
@@ -59,7 +59,8 @@ class HomepageScreen extends StatelessWidget {
                             dropdownColor: green,
                             iconEnabledColor: white,
                             isExpanded: true,
-                            items: <String>['Recyclables', 'Equipments'].map((String value) {
+                            items: <String>['Recyclables', 'Equipments']
+                                .map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
@@ -83,13 +84,15 @@ class HomepageScreen extends StatelessWidget {
                         // ----------------------------- GO TO PROFILE PAGE -----------------------------
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ProfilePage()),
+                          MaterialPageRoute(
+                              builder: (context) => ProfilePage()),
                         );
                       },
                       child: const Column(
                         children: <Widget>[
                           CircleAvatar(
-                            backgroundImage: NetworkImage('https://lh4.googleusercontent.com/proxy/diAq9zObVXZOBQ-35PuawibY4uFDrnmQUd18A7cvh_e661B0Y4HFLCyVmCZE8DmsExSSrAaaTazBZ92XxJuIjT-tBBbpdXWJ3OVM1TRbmzg3u8z4KKcTg3VZLtRJ8LIdvg'),
+                            backgroundImage: NetworkImage(
+                                'https://lh4.googleusercontent.com/proxy/diAq9zObVXZOBQ-35PuawibY4uFDrnmQUd18A7cvh_e661B0Y4HFLCyVmCZE8DmsExSSrAaaTazBZ92XxJuIjT-tBBbpdXWJ3OVM1TRbmzg3u8z4KKcTg3VZLtRJ8LIdvg'),
                           ),
                           SizedBox(height: 4),
                           Text(
@@ -148,17 +151,18 @@ class HomepageScreen extends StatelessWidget {
               padding: EdgeInsets.all(ReGainSizes.defaultSpace),
               child: Column(
                 children: [
-                  ReGainCarousel(banners: [ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1]),
+                  ReGainCarousel(banners: [
+                    ReGainImages.carousel1,
+                    ReGainImages.carousel1,
+                    ReGainImages.carousel1,
+                    ReGainImages.carousel1
+                  ]),
                 ],
               ),
             ),
           ],
         ),
       ),
-
-
     );
   }
 }
-
-

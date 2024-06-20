@@ -1,4 +1,4 @@
-class ReGainTexts{
+class ReGainTexts {
   // GLOBAL texts
 
   // ONBOARDING texts
@@ -7,10 +7,14 @@ class ReGainTexts{
   static const String onboardingTitle3 = "Junk shops browse your recyclables";
   static const String onboardingTitle4 = "Negotiate & Transact";
 
-  static const String onboardingSubtitle1 = "Conveniently gather recyclable materials from the comfort of your home, contributing to a cleaner environment.";
-  static const String onboardingSubtitle2 = "Conveniently gather recyclable materials from the comfort of your home, contributing to a cleaner environment.";
-  static const String onboardingSubtitle3 = "Showcase your recyclable items to junk shops, making it easy for them to find what they need.";
-  static const String onboardingSubtitle4 = "Get ready to negotiate with ease and seal the deal with confidence. Let's make recycling rewarding together!";
+  static const String onboardingSubtitle1 =
+      "Conveniently gather recyclable materials from the comfort of your home, contributing to a cleaner environment.";
+  static const String onboardingSubtitle2 =
+      "Conveniently gather recyclable materials from the comfort of your home, contributing to a cleaner environment.";
+  static const String onboardingSubtitle3 =
+      "Showcase your recyclable items to junk shops, making it easy for them to find what they need.";
+  static const String onboardingSubtitle4 =
+      "Get ready to negotiate with ease and seal the deal with confidence. Let's make recycling rewarding together!";
 
   //Authentication Texts
   static const String username = "Username";
@@ -23,10 +27,14 @@ class ReGainTexts{
 
   //Registration Texts
   static const String signUpTitle = "Welcome to ReGain";
-  static const String signUpSubtitle = "Your first step towards a more sustainable future together.";
+  static const String signUpSubtitle =
+      "Your first step towards a more sustainable future together.";
 
   //Forgot Password
   static const String forgotPasswordTitle = "Forgot Password";
-  static const String forgotPasswordSubtitle = "Do not worry sometimes people can forget too, enter your contact number and we will send you a password reset link.";
+  static const String forgotPasswordSubtitle =
+      "Do not worry sometimes people can forget too, enter your contact number and we will send you a password reset link.";
 
+  //Profile Texts
+  static const String labelName = "PROFILE MENU";
 }

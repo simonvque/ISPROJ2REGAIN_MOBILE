@@ -1,5 +1,5 @@
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/profile/app_bar.dart';
+import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 import 'package:flutter/material.dart';
 
 class EditProfilePage extends StatelessWidget {

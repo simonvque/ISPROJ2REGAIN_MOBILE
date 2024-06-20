@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/add.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
-import 'package:regain_mobile/profile/profile_page.dart';
+import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({Key? key}) : super(key: key);

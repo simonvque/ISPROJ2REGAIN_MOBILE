@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
-import 'package:regain_mobile/profile/app_bar.dart';
-import 'package:regain_mobile/profile/profile_menu.dart';
-import 'package:regain_mobile/profile/profile_page.dart';
+import 'package:regain_mobile/features/screens/profile/app_bar.dart';
+import 'package:regain_mobile/features/screens/profile/profile_menu.dart';
+import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 
 /*
 TO FIX: STATE WHEN ALREADY IN THE ADD DETAILS SECTION, THE BACKBTN FROM APP BAR 
