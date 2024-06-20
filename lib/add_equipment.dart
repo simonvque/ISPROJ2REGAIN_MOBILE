@@ -12,6 +12,7 @@ class _AddEquipmentState extends State<AddEquipment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF12CF8A),
         foregroundColor: Colors.white,
         title: const Text('Add Equipment Listing'),
         iconTheme: IconThemeData(color: Colors.white),
@@ -133,8 +134,8 @@ class _AddEquipmentState extends State<AddEquipment> {
             ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(5, 10, 5, 5),
-            height: MediaQuery.of(context).size.height * 0.08,
+            padding: EdgeInsets.fromLTRB(5, 10, 5, 20),
+            height: MediaQuery.of(context).size.height * 0.10,
             width: MediaQuery.of(context).size.width * 0.9,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(

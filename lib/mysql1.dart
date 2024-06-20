@@ -7,8 +7,8 @@ class Mysql1 {
         '10.0.2.2', // e.g., '10.0.2.2' for Android emulator, or your server's IP
     port: 3306, // Default MySQL port
     user: 'root',
-    password: '772323Shi',
-    db: 'regain',
+    password: 'rootPw202324',
+    db: 'isproj2regain',
   );
 
   // Create a singleton instance of DatabaseHelper

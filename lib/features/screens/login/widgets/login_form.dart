@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-
+import 'package:regain_mobile/mysql1.dart';
+import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 import '../../../../constants/colors.dart';
@@ -25,6 +26,20 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   bool isPasswordVisible = false; // Track whether password is visible or not
 
+  // connect to sql database -- check mysql1 file for connection details
+  void initState() {
+    super.initState();
+    _testDatabaseConnection();
+  }
+
+  void _testDatabaseConnection() async {
+    try {
+      await Mysql1.instance.testConnection();
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -32,7 +47,8 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Username
-          const RegainTextbox(labelText: ReGainTexts.logIn, isUnderlineBorder: true),
+          const RegainTextbox(
+              labelText: ReGainTexts.logIn, isUnderlineBorder: true),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.logIn),
           // ),
@@ -53,7 +69,8 @@ class _LoginFormState extends State<LoginForm> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ForgetPasswordScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => ForgetPasswordScreen()),
                   );
                 },
                 child: Text(
@@ -68,11 +85,13 @@ class _LoginFormState extends State<LoginForm> {
           // Login button
           RegainButtons(
             text: ReGainTexts.logIn,
-            onPressed: (){
+            onPressed: () {
               // --- Add validation ---
 
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const HomepageScreen()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NavigationMenu()));
             },
             type: ButtonType.filled,
             size: ButtonSize.large,
@@ -92,7 +111,8 @@ class _LoginFormState extends State<LoginForm> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => RegistrationScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => RegistrationScreen()),
                     );
                   },
                   child: Text(
