@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/add.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
+import 'package:regain_mobile/features/screens/orders/myorders.dart';
 import 'package:regain_mobile/profile/profile_page.dart';
 
 class NavigationMenu extends StatefulWidget {
@@ -13,12 +14,12 @@ class NavigationMenu extends StatefulWidget {
 
 class _NavigationMenuState extends State<NavigationMenu> {
   int _currentIndex = 0;
-  List<Widget> body = const [
+  List<Widget> body = [
     HomepageScreen(),
     Placeholder(color: Colors.transparent),
     Placeholder(color: Colors.transparent),
     Placeholder(color: Colors.transparent),
-    Placeholder(color: Colors.transparent),
+    OrderTrackingPage(),
   ];
 
   void _onItemTapped(int newIndex) {
