@@ -1,4 +1,4 @@
-class ReGainSizes{
+class ReGainSizes {
   //padding and margin
   static const double xs = 4.0;
   static const double sm = 8.0;
@@ -27,9 +27,11 @@ class ReGainSizes{
   static const double appBarHeight = 56.0;
 
   //spacing
-  static const double defaultSpace = 24.0;
+  static const double minimalSpace = 8.0;
   static const double spaceBtwItems = 16.0;
+  static const double defaultSpace = 24.0;
   static const double spaceBtwSections = 32.0;
+  static const double largeSpace = 40.0;
 
   // Product item dimensions
   static const double productImageSize = 120.0;
@@ -55,5 +57,4 @@ class ReGainSizes{
 
   // Grid view spacing
   static const double gridViewSpacing = 16.0;
-
 }

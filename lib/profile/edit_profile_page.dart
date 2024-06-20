@@ -1,6 +1,8 @@
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/profile/app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 class EditProfilePage extends StatelessWidget {
   const EditProfilePage({super.key});
@@ -84,55 +86,16 @@ class EditProfilePage extends StatelessWidget {
                   floatingLabelStyle: TextStyle(color: green)),
               // Implement logic to update junk shop name
             ),
-            const SizedBox(height: 20),
+            const SizedBox(
+                height: ReGainSizes
+                    .largeSpace), // TO FIX: put button at the bottom w/o using sizedbox?
 
-            // Manage Listings Section
-            const Text(
-              'Manage Listings',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            ListTile(
-              title: const Text('Item 1'), // Replace with actual item name
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      // Implement logic to edit item
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      // Implement logic to delete item
-                    },
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              title: const Text('Item 2'), // Replace with actual item name
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      // Implement logic to edit item
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      // Implement logic to delete item
-                    },
-                  ),
-                ],
-              ),
-            ),
-            // Add more ListTiles for each item or listing
+            RegainButtons(
+              text: 'Save',
+              onPressed: () {},
+              type: ButtonType.filled,
+              size: ButtonSize.large,
+            )
           ],
         ),
       ),
