@@ -1,58 +1,68 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/features/screens/homepage/widgets/homepage_cards.dart';
-import 'package:regain_mobile/features/screens/homepage/widgets/homepage_carousel.dart';
-import 'package:regain_mobile/profile/profile_page.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
+import '../homepage/widgets/homepage_cards.dart';
+import '../homepage/widgets/homepage_carousel.dart';
 
-class HomepageScreen extends StatelessWidget {
-  const HomepageScreen({
-    super.key,
-  });
+class HomepageScreen extends StatefulWidget {
+  const HomepageScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomepageScreen> {
+  String _selectedValue = 'Recyclables'; // Initial value
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(130.0),
-
-        // SEARCH
-        child: AppBar(
-          backgroundColor: green,
-          flexibleSpace: Padding(
-            padding: const EdgeInsets.all(8.0),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Green container background
+          Container(
+            color: green,
+            padding: const EdgeInsets.all(ReGainSizes.spaceBtwItems),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.search),
-                      hintText: 'Search',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: white,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Search bar
+                SizedBox(
+                  width: double.infinity,
+                  child: Container(
+                    padding: const EdgeInsets.all(ReGainSizes.md),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(ReGainSizes.cardRadiusXs),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.search, color: Colors.grey),
+                        const SizedBox(height: ReGainSizes.spaceBtwItems / 2),
+                        Text("Search", style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey)),
+                      ],
                     ),
                   ),
                 ),
 
-                // CATEGORY | FILTER | PROFILE
-                SizedBox(height: 10),
+                const SizedBox(height: ReGainSizes.spaceBtwItems),
+
+                // Dropdown, filter icon, and profile picture
                 Row(
-                  children: <Widget>[
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Dropdown menu
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        padding: const EdgeInsets.symmetric(horizontal: ReGainSizes.md),
                         decoration: BoxDecoration(
                           color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(ReGainSizes.cardRadiusXs),
+                          border: Border.all(color: white),
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
@@ -64,37 +74,50 @@ class HomepageScreen extends StatelessWidget {
                                 value: value,
                                 child: Text(
                                   value,
-                                  style: const TextStyle(color: white),
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
                                 ),
                               );
                             }).toList(),
-                            onChanged: (_) {},
-                            value: 'Recyclables',
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _selectedValue = newValue!;
+                              });
+                            },
+                            value: _selectedValue,
                           ),
                         ),
                       ),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.filter_list, color: white),
-                      onPressed: () {},
+
+                    // Filter icon
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: ReGainSizes.md),
+                      child: IconButton(
+                        icon: const Icon(Icons.filter_list, color: Colors.white),
+                        onPressed: () {
+                          ////////////////////////////////////////////////
+                        },
+                      ),
                     ),
+
+                    // Profile picture
                     InkWell(
                       onTap: () {
                         // ----------------------------- GO TO PROFILE PAGE -----------------------------
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ProfilePage()),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => ProfilePage()),
+                        // );
                       },
-                      child: const Column(
+                      child: Column(
                         children: <Widget>[
-                          CircleAvatar(
+                          const CircleAvatar(
                             backgroundImage: NetworkImage('https://lh4.googleusercontent.com/proxy/diAq9zObVXZOBQ-35PuawibY4uFDrnmQUd18A7cvh_e661B0Y4HFLCyVmCZE8DmsExSSrAaaTazBZ92XxJuIjT-tBBbpdXWJ3OVM1TRbmzg3u8z4KKcTg3VZLtRJ8LIdvg'),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             'My Profile',
-                            style: TextStyle(color: Colors.white),
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
                           ),
                         ],
                       ),
@@ -104,61 +127,161 @@ class HomepageScreen extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ),
 
-      // body: const SingleChildScrollView(
-      //   child: Padding(
-      //     padding: EdgeInsets.all(ReGainSizes.sm),
-      //     child: ReGainCarousel(banners: [ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1],),
-      //   )
-      // )
-
-      // body: const CardItems(
-      //   items: [
-      //     {
-      //       'imagePath': ReGainImages.onboardingImage3,
-      //       'title': 'Copper nail',
-      //       'location': 'Pasig City',
-      //       'price': 'PHP 450',
-      //       'sellerImagePath': null,
-      //       'seller': '@heyitscee',
-      //       'weight': '5 kg',
-      //       'category': 'Metal',
-      //       'isSellerDropOff': true,
-      //     },
-      //     {
-      //       'imagePath': ReGainImages.plastic,
-      //       'title': 'Plastic Straw',
-      //       'location': 'Pasay City',
-      //       'price': 'PHP 100',
-      //       'sellerImagePath': null,
-      //       'seller': '@isaejen_',
-      //       'weight': '3 kg',
-      //       'category': 'Plastic',
-      //       'isSellerDropOff': false,
-      //     },
-      //   ],
-      // ),
-
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(ReGainSizes.defaultSpace),
+          const Expanded(
+            child: SingleChildScrollView(
               child: Column(
                 children: [
-                  ReGainCarousel(banners: [ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1]),
+
+                  // carousel
+                  Padding(
+                    padding: EdgeInsets.all(ReGainSizes.sm),
+                    child: ReGainCarousel(banners: [ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1],),
+                  ),
+
+                  // grid view items
+                  CardItems(
+                    items: [
+                      {
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },
+                    ],
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-
-
     );
   }
+
 }
-
-
