@@ -14,6 +14,7 @@ class _AddProductState extends State<AddProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF12CF8A),
         foregroundColor: Colors.white,
         title: const Text('Add Product Listing'),
         iconTheme: IconThemeData(color: Colors.white),
