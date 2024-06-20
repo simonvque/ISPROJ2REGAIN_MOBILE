@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
+import '../../../constants/sizes.dart';
+import '../../../themes/elements/button_styles.dart';
 import '../login/login.dart';
 
 class RegistrationVerified extends StatelessWidget {
@@ -28,35 +30,19 @@ class RegistrationVerified extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleSmall,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 40),
 
-              Padding(
-                padding: EdgeInsets.only(top: 32.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
+              const SizedBox(height: ReGainSizes.spaceBtwSections),
 
-                      // ------------------------ ADD VALIDATION ------------------------
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      foregroundColor: white,
-                      backgroundColor: green,
-                    ),
-                    child: Text(
-                      'Done',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: white),
-                    ),
-                  ),
-                ),
+              RegainButtons(
+                text: 'Done',
+                onPressed: (){
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => const LoginScreen()));
+                },
+                type: ButtonType.filled,
+                size: ButtonSize.large,
               ),
+
             ],
           ),
         ),

@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:regain_mobile/features/screens/registration/registration_verified.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/sizes.dart';
+import '../../../constants/text_strings.dart';
+import '../../../themes/elements/button_styles.dart';
 
 class RegistrationOtp extends StatelessWidget{
   const RegistrationOtp({super.key});
@@ -65,34 +68,19 @@ class RegistrationOtp extends StatelessWidget{
                 ),
               ),
 
-              const SizedBox(height: 32),
-              Padding(
-                padding: EdgeInsets.only(top: 18.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
+              const SizedBox(height: ReGainSizes.spaceBtwSections),
 
-                      // ------------------------ ADD VALIDATION ------------------------
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => RegistrationVerified()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      foregroundColor: white,
-                      backgroundColor: green,
-                    ),
-                    child: Text(
-                      'Submit',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: white),
-                    ),
-                  ),
-                ),
+              RegainButtons(
+                text: ReGainTexts.signUp,
+                onPressed: (){
+                  // --- Add validation ---
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => const RegistrationVerified()));
+                },
+                type: ButtonType.filled,
+                size: ButtonSize.medium,
               ),
+
             ],
           ),
         ),

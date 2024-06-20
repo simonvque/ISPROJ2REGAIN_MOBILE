@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
+import 'package:regain_mobile/themes/elements/button_styles.dart';
+
 import '../../../../constants/colors.dart';
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
+import '../../../../profile/seller_profile_page.dart';
 import '../../../../themes/elements/input fields/password_textbox.dart';
 import '../../../../themes/elements/input fields/regain_textbox.dart';
 import '../../forgotPassword/forgot_password.dart';
@@ -60,34 +63,19 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ],
           ),
+          const SizedBox(height: ReGainSizes.spaceBtwSections),
 
           // Login button
-          Padding(
-            padding: EdgeInsets.only(top: 32.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
+          RegainButtons(
+            text: ReGainTexts.logIn,
+            onPressed: (){
+              // --- Add validation ---
 
-                  // ------------------------ ADD VALIDATION ------------------------
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomepageScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  foregroundColor: white,
-                  backgroundColor: green,
-                ),
-                child: Text(
-                  ReGainTexts.logIn,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: white),
-                ),
-              ),
-            ),
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const HomepageScreen()));
+            },
+            type: ButtonType.filled,
+            size: ButtonSize.large,
           ),
 
           // Sign up
