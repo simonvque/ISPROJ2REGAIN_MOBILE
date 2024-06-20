@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
-import 'package:regain_mobile/features/screens/login/orders/myorders.dart';
+import 'package:regain_mobile/features/screens/orders/myorders.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/features/screens/orders/review.dart';
 import 'package:regain_mobile/features/screens/selectedItem/selected_item.dart';
 import 'package:regain_mobile/nav.dart';
+import 'package:regain_mobile/profile/profile_menu.dart';
+import 'package:regain_mobile/profile/profile_page.dart';
+import 'package:regain_mobile/profile/report_page.dart';
+import 'package:regain_mobile/profile/seller_profile_page.dart';
 import 'package:regain_mobile/test.dart';
 
 void main() {
@@ -48,7 +53,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
       ),
-      home: LoginScreen(),
+      home: SelectedItemScreen(),
       //home: HomeScreen(),
       //home: ReviewsPage(),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/features/screens/offer/offerpopup.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 
@@ -30,7 +31,8 @@ class SelectedItemScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Plastic Straw',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         'PHP 100',
@@ -44,7 +46,8 @@ class SelectedItemScreen extends StatelessWidget {
                       const SizedBox(height: 16),
                       Text(
                         'More Details',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 8),
                       Column(
@@ -97,7 +100,8 @@ class SelectedItemScreen extends StatelessWidget {
                       const SizedBox(height: 16),
                       Text(
                         'About Seller',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -130,7 +134,8 @@ class SelectedItemScreen extends StatelessWidget {
                       // Add reviews section here
                       Text(
                         'Reviews',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 8),
                       Wrap(
@@ -185,7 +190,12 @@ class SelectedItemScreen extends StatelessWidget {
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
-                  // -------------------- PLACE OFFER --------------------
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return OfferPricePopup(); // Display OfferPricePopup as a dialog
+                    },
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
