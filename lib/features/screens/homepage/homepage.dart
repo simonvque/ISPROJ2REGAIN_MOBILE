@@ -4,7 +4,6 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
-import '../../../themes/elements/input fields/regain_textbox.dart';
 import '../homepage/widgets/homepage_cards.dart';
 import '../homepage/widgets/homepage_carousel.dart';
 
@@ -32,26 +31,23 @@ class _HomeScreenState extends State<HomepageScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Search bar
-
-                const RegainTextbox(hintText: 'Search', prefixIcon: Icon(Icons.search), fillColor: white, focusedBorderColor: white, noBorder: true,),
-
-                // SizedBox(
-                //   width: double.infinity,
-                //   child: Container(
-                //     padding: const EdgeInsets.all(ReGainSizes.md),
-                //     decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       borderRadius: BorderRadius.circular(ReGainSizes.cardRadiusXs),
-                //     ),
-                //     child: Row(
-                //       children: [
-                //         const Icon(Icons.search, color: Colors.grey),
-                //         const SizedBox(height: ReGainSizes.spaceBtwItems / 2),
-                //         Text("Search", style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey)),
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Container(
+                    padding: const EdgeInsets.all(ReGainSizes.md),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(ReGainSizes.cardRadiusXs),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.search, color: Colors.grey),
+                        const SizedBox(height: ReGainSizes.spaceBtwItems / 2),
+                        Text("Search", style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey)),
+                      ],
+                    ),
+                  ),
+                ),
 
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
 
