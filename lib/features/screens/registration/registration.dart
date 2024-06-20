@@ -6,6 +6,7 @@ import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
 import '../../../constants/text_strings.dart';
+import '../../../themes/elements/button_styles.dart';
 import '../../../themes/elements/input fields/password_textbox.dart';
 import '../../../themes/elements/input fields/regain_textbox.dart';
 import '../login/login.dart';
@@ -123,35 +124,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: ReGainSizes.spaceBtwInputFields),
 
                       // SignUp button
-                      Padding(
-                        padding: const EdgeInsets.only(top: 32.0),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // --------------------- ADD VALIDATION HERE ---------------------
+                      const SizedBox(height: ReGainSizes.spaceBtwSections),
 
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => RegistrationOtp()),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              foregroundColor: white,
-                              backgroundColor: green,
-                            ),
-                            child: const Text(
-                              ReGainTexts.signUp,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
+                      RegainButtons(
+                        text: ReGainTexts.signUp,
+                        onPressed: (){
+                          // --- Add validation ---
+
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => const RegistrationOtp()));
+                        },
+                        type: ButtonType.filled,
+                        size: ButtonSize.large,
                       ),
 
                       Padding(

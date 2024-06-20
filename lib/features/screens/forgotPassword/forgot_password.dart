@@ -36,7 +36,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     // ------------------------ ADD VALIDATION ------------------------
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ResetPasswordScreen()),
+                      MaterialPageRoute(builder: (context) => const ResetPasswordScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
