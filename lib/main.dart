@@ -9,6 +9,7 @@ import 'package:regain_mobile/features/screens/selectedItem/selected_item.dart';
 import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/profile/profile_page.dart';
 import 'package:regain_mobile/test.dart';
+import 'package:regain_mobile/themes/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,11 +47,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Regain',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
-      ),
-      home: OnBoardingScreen(),
+      theme: AppTheme.lightTheme,
+      // theme: ThemeData(
+      //   visualDensity: VisualDensity.adaptivePlatformDensity,
+      //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
+      // ),
+      home: LoginScreen(),
       //home: HomeScreen(),
       //home: ReviewsPage(),
     );
