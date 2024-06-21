@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:regain_mobile/mysql1.dart';
 import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
@@ -25,20 +24,6 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   bool isPasswordVisible = false; // Track whether password is visible or not
-
-  // connect to sql database -- check mysql1 file for connection details
-  void initState() {
-    super.initState();
-    _testDatabaseConnection();
-  }
-
-  void _testDatabaseConnection() async {
-    try {
-      await Mysql1.instance.testConnection();
-    } catch (e) {
-      print('Error: $e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
