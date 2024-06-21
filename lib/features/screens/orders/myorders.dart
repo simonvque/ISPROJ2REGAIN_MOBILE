@@ -151,7 +151,7 @@ class OrderStatusPage extends StatelessWidget {
     return Center(
       child: Text(
         title,
-        style: TextStyle(fontSize: 24),
+        style: Theme.of(context).textTheme.headlineMedium
       ),
     );
   }

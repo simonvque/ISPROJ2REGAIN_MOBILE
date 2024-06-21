@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/constants/sizes.dart';
+
+import '../../../constants/text_strings.dart';
+import '../../../themes/elements/button_styles.dart';
 
 void main() {
   runApp(ReviewsPage());
@@ -35,52 +39,40 @@ class _ReviewPageState extends State<ReviewsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                 Text(
                   'Seller',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'Montserrat-Bold',
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge
                 ),
-                SizedBox(height: 16),
-                const Row(
+                const SizedBox(height: ReGainSizes.spaceBtwItems),
+                 Row(
                   children: [
                     CircleAvatar(
                       radius: 30,
                       backgroundImage:
                           NetworkImage('https://via.placeholder.com/150'),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: ReGainSizes.spaceBtwItems),
                     Text(
                       '@username',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Montserrat-Medium',
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ],
                 ),
-                SizedBox(height: 24),
-                const Text(
+                const SizedBox(height: ReGainSizes.defaultSpace),
+                Text(
                   'How was your experience?',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'Montserrat-Bold',
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: ReGainSizes.spaceBtwItems),
                 StarRating(
                   onRatingChanged: (rating) {
                     // Handle the rating change
                   },
                 ),
-                SizedBox(height: 24),
-                const Text(
+                const SizedBox(height: ReGainSizes.spaceBtwItems),
+                Text(
                   'Write Feedback',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'Montserrat-Bold',
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge
                 ),
                 SizedBox(height: 16),
                 const TextField(
@@ -96,34 +88,18 @@ class _ReviewPageState extends State<ReviewsPage> {
                     hintText: 'Add feedback here...',
                   ),
                 ),
-                SizedBox(height: 110),
-                Container(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 1.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Add your confirmation logic here
-                      },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Color(0xFF12CF8A),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        minimumSize: Size(double.infinity, 50),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Text(
-                          'Submit',
-                          style: TextStyle(
-                              fontSize: 15, fontFamily: 'Montserrat-ExtraBold'),
-                        ),
-                      ),
-                    ),
-                  ),
+
+                const SizedBox(height: 110),
+
+                RegainButtons(
+                  text: 'Submit',
+                  onPressed: () {
+                    // Add your confirmation logic here
+                  },
+                  type: ButtonType.filled,
+                  size: ButtonSize.large,
                 ),
+
               ],
             ),
           ),

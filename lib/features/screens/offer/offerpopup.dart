@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/themes/elements/button_styles.dart';
+import 'package:regain_mobile/themes/elements/input%20fields/regain_textbox.dart';
+
+import '../../../constants/sizes.dart';
 
 class OfferPricePopup extends StatelessWidget {
   @override
@@ -29,69 +33,74 @@ class OfferPricePopup extends StatelessWidget {
         children: <Widget>[
           Row(
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 backgroundImage: AssetImage(
                     'assets/images/profile/profileSam.jpg'), // Replace with your image asset
                 radius: 20,
               ),
-              SizedBox(width: 10),
+              const SizedBox(height: ReGainSizes.spaceBtwItems / 2),
               Expanded(
                 child: Text(
                   '@sammysalami is selling this for PHP 100',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'Montserrat-Bold',
-                  ),
+                  style: Theme.of(context).textTheme.labelLarge
                 ),
               ),
             ],
           ),
           Divider(height: 20, color: Colors.grey),
-          SizedBox(height: 10),
+          const SizedBox(width: ReGainSizes.spaceBtwItems),
           Text(
             'Enter offer value:',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              fontFamily: 'Montserrat-Bold',
-            ),
+            style: Theme.of(context).textTheme.titleLarge
           ),
-          SizedBox(height: 10),
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Type your offer here',
-              hintStyle: TextStyle(
-                  fontFamily:
-                      'Montserrat-Regular', // Change the font family here
-                  fontSize: 16,
-                  color: Colors.black),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.green),
-              ),
-            ),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
+          const SizedBox(height: ReGainSizes.spaceBtwItems / 2),
+          const RegainTextbox(hintText: 'Type your offer here', isUnderlineBorder: true, keyboardType: TextInputType.phone),
+          // TextField(
+          //   decoration: InputDecoration(
+          //     hintText: 'Type your offer here',
+          //     hintStyle: TextStyle(
+          //         fontFamily:
+          //             'Montserrat-Regular', // Change the font family here
+          //         fontSize: 16,
+          //         color: Colors.black),
+          //     focusedBorder: UnderlineInputBorder(
+          //       borderSide: BorderSide(color: Colors.green),
+          //     ),
+          //   ),
+          // ),
+          const SizedBox(height: ReGainSizes.defaultSpace),
+
+          RegainButtons(
+            text: 'Place Offer',
             onPressed: () {
               // Add your confirmation logic here
             },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Color(0xFF12CF8A),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              minimumSize: Size(double.infinity, 50),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Place Offer',
-                style:
-                    TextStyle(fontSize: 12, fontFamily: 'Montserrat-ExtraBold'),
-              ),
-            ),
+            type: ButtonType.filled,
+            size: ButtonSize.large,
           ),
+
+          // ElevatedButton(
+          //   onPressed: () {
+          //     // Add your confirmation logic here
+          //   },
+          //   style: ElevatedButton.styleFrom(
+          //     foregroundColor: Colors.white,
+          //     backgroundColor: Color(0xFF12CF8A),
+          //     shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.circular(8.0),
+          //     ),
+          //     minimumSize: Size(double.infinity, 50),
+          //   ),
+          //   child: const Padding(
+          //     padding: EdgeInsets.all(16.0),
+          //     child: Text(
+          //       'Place Offer',
+          //       style:
+          //           TextStyle(fontSize: 12, fontFamily: 'Montserrat-ExtraBold'),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
