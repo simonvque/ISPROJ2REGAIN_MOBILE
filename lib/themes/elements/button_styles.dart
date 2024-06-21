@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
 
 enum ButtonType { outlined, filled, transparentOutlined, text }
+
 enum ButtonSize { small, medium, large }
 
 class RegainButtons extends StatelessWidget {
@@ -123,19 +124,17 @@ class RegainButtons extends StatelessWidget {
         style = FilledButton.styleFrom(
             backgroundColor: green,
             foregroundColor: white,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8))
-        );
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
         break;
       case ButtonType.transparentOutlined:
         style = OutlinedButton.styleFrom(
-            foregroundColor: Colors.black87,
-            side: const BorderSide(color: Colors.transparent),
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 0)
-        ).copyWith(
-          overlayColor:
-          const WidgetStatePropertyAll(Colors.transparent),
+                foregroundColor: Colors.black87,
+                side: const BorderSide(color: Colors.transparent),
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(left: 0))
+            .copyWith(
+          overlayColor: const WidgetStatePropertyAll(Colors.transparent),
         );
         break;
       case ButtonType.text:
@@ -145,6 +144,8 @@ class RegainButtons extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
+        ).copyWith(
+          overlayColor: const WidgetStatePropertyAll(Colors.transparent),
         );
         break;
     }

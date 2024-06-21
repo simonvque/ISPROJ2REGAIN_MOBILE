@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/constants/sizes.dart';
@@ -28,14 +29,13 @@ class ProfilePage extends StatelessWidget {
                 backgroundImage: AssetImage(ReGainImages.exProfilePic),
               ),
               const SizedBox(
-                height: ReGainSizes.minimalSpace,
+                height: ReGainSizes.spaceBtwItems / 4,
               ),
               StyleUsernameTxt('@${user.username}'),
               StyleBodyTxt(user.contactNum),
               const SizedBox(
-                height: ReGainSizes.minimalSpace,
+                height: ReGainSizes.spaceBtwItems,
               ),
-
               RegainButtons(
                 text: 'Edit profile',
                 onPressed: () {
@@ -47,19 +47,18 @@ class ProfilePage extends StatelessWidget {
                 type: ButtonType.filled,
                 size: ButtonSize.small,
               ),
-              // SizedBox(
-              //     width: 222,
-              //     child: FilledButton(
-              //         style: FilledButton.styleFrom(
-              //             backgroundColor: green,
-              //             foregroundColor: white,
-              //             shape: RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(8))),
-              //         onPressed: () {
-              //         },
-              //         child: const Text('Edit profile'))),
               const SizedBox(
-                height: ReGainSizes.largeSpace,
+                height: ReGainSizes.spaceBtwItems,
+              ),
+              RegainButtons(
+                text: 'My orders',
+                onPressed: () {},
+                type: ButtonType.text,
+                size: ButtonSize.small,
+                leftIcon: CupertinoIcons.bag,
+              ),
+              const SizedBox(
+                height: ReGainSizes.spaceBtwItems,
               ),
               const ProfileMenu()
             ],

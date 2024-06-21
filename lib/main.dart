@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
       //   visualDensity: VisualDensity.adaptivePlatformDensity,
       //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
       // ),
-      home: Checkout(),
+      home: const LoginScreen(),
       //home: ReviewsPage(),
     );
   }
