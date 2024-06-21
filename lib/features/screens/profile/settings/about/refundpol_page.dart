@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/profile/app_bar.dart';
+import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 class RefundPolicyPage extends StatelessWidget {
@@ -9,8 +9,7 @@ class RefundPolicyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context, 'Return and refund policy'),
-      body: const Markdown(
-        data:"""
+      body: const Markdown(data: """
 
 # __Terms of Use Agreement__
 ### Acceptance of Terms
@@ -116,8 +115,7 @@ Response to Infringement: Upon receipt of a valid notice of infringement, ReGain
 4.5 Reservation of Rights
 No Waiver: The failure of Regain to enforce any rights or provisions of these terms shall not constitute a waiver of such rights or provisions.
 Reservation of Rights: All rights not expressly granted herein are reserved by ReGain.
-"""
-      ),
+"""),
     );
   }
 }
