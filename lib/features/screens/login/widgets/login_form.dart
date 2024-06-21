@@ -7,7 +7,7 @@ import 'package:regain_mobile/themes/elements/button_styles.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
-import '../../../../profile/seller_profile_page.dart';
+import '../../profile/seller_profile_page.dart';
 import '../../../../themes/elements/input fields/password_textbox.dart';
 import '../../../../themes/elements/input fields/regain_textbox.dart';
 import '../../forgotPassword/forgot_password.dart';
