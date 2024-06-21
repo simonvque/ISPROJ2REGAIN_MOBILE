@@ -5,55 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
 
-
-// class RegainTextbox extends StatelessWidget {
-//   final String? labelText;
-//   final String? hintText;
-//   final Color focusedBorderColor;
-//   final TextInputType keyboardType;
-//   final Widget? prefixIcon;
-//   final Widget? suffixIcon;
-//   final bool isUnderlineBorder;
-//
-//   const RegainTextbox({
-//     Key? key,
-//     this.labelText,
-//     this.hintText,
-//     this.focusedBorderColor = green,
-//     this.keyboardType = TextInputType.text,
-//     this.prefixIcon,
-//     this.suffixIcon,
-//     this.isUnderlineBorder = false, // Default to border on all sides
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextFormField(
-//       keyboardType: keyboardType,
-//       decoration: InputDecoration(
-//         labelText: labelText,
-//         hintText: hintText,
-//         prefixIcon: prefixIcon,
-//         suffixIcon: suffixIcon,
-//         border: isUnderlineBorder
-//             ? UnderlineInputBorder(
-//           borderSide: BorderSide(color: focusedBorderColor),
-//         )
-//             : OutlineInputBorder(
-//           borderSide: BorderSide(color: focusedBorderColor),
-//         ),
-//         focusedBorder: isUnderlineBorder
-//             ? UnderlineInputBorder(
-//           borderSide: BorderSide(color: focusedBorderColor),
-//         )
-//             : OutlineInputBorder(
-//           borderSide: BorderSide(color: focusedBorderColor),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class RegainTextbox extends StatelessWidget {
   final String? labelText;
   final String? hintText;
@@ -65,19 +16,21 @@ class RegainTextbox extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool isUnderlineBorder;
+  final bool noBorder;
 
   const RegainTextbox({
     Key? key,
     this.labelText,
     this.hintText,
-    this.focusedBorderColor = green,
-    this.fontColor = black,
-    this.iconColor = black,
-    this.fillColor = white,
+    this.focusedBorderColor = Colors.green,
+    this.fontColor = Colors.black,
+    this.iconColor = Colors.black,
+    this.fillColor = Colors.white,
     this.keyboardType = TextInputType.text,
     this.prefixIcon,
     this.suffixIcon,
-    this.isUnderlineBorder = false, // Default to border on all sides
+    this.isUnderlineBorder = false,
+    this.noBorder = false,
   }) : super(key: key);
 
   @override
@@ -103,20 +56,33 @@ class RegainTextbox extends StatelessWidget {
             : null,
         filled: true,
         fillColor: fillColor,
-        border: isUnderlineBorder
+        border: noBorder
+            ? InputBorder.none
+            : (isUnderlineBorder
             ? UnderlineInputBorder(
           borderSide: BorderSide(color: focusedBorderColor),
         )
             : OutlineInputBorder(
           borderSide: BorderSide(color: focusedBorderColor),
-        ),
-        focusedBorder: isUnderlineBorder
+        )),
+        enabledBorder: noBorder
+            ? InputBorder.none
+            : (isUnderlineBorder
             ? UnderlineInputBorder(
           borderSide: BorderSide(color: focusedBorderColor),
         )
             : OutlineInputBorder(
           borderSide: BorderSide(color: focusedBorderColor),
-        ),
+        )),
+        focusedBorder: noBorder
+            ? InputBorder.none
+            : (isUnderlineBorder
+            ? UnderlineInputBorder(
+          borderSide: BorderSide(color: focusedBorderColor),
+        )
+            : OutlineInputBorder(
+          borderSide: BorderSide(color: focusedBorderColor),
+        )),
       ),
     );
   }
