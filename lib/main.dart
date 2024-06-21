@@ -60,7 +60,6 @@ class MyApp extends StatelessWidget {
       //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
       // ),
       home: const LoginScreen(),
-      //home: ReviewsPage(),
     );
   }
 }
