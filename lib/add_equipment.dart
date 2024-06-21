@@ -85,31 +85,31 @@ class _AddEquipmentState extends State<AddEquipment> {
               ),
             ),
           ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 5, 10),
-                  height: MediaQuery.of(context).size.height * 0.09,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Category',
-                      hintStyle: TextStyle(fontSize: 15.0),
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Container(
-                  padding: EdgeInsets.all(10.0),
-                  height: MediaQuery.of(context).size.height * 0.09,
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   children: <Widget>[
+          //     // Expanded(
+          //     //   flex: 2,
+          //     //   child: Container(
+          //     //     padding: EdgeInsets.fromLTRB(10, 10, 5, 10),
+          //     //     height: MediaQuery.of(context).size.height * 0.09,
+          //     //     child: TextFormField(
+          //     //       decoration: InputDecoration(
+          //     //         hintText: 'Category',
+          //     //         hintStyle: TextStyle(fontSize: 15.0),
+          //     //         border: OutlineInputBorder(),
+          //     //       ),
+          //     //     ),
+          //     //   ),
+          //     // ),
+          //     Expanded(
+          //       flex: 3,
+          //       child: Container(
+          //         padding: EdgeInsets.all(10.0),
+          //         height: MediaQuery.of(context).size.height * 0.09,
+          //       ),
+          //     ),
+          //   ],
+          // ),
           Container(
             padding: EdgeInsets.all(10.0),
             height: MediaQuery.of(context).size.height * 0.18,
