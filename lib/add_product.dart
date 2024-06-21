@@ -9,6 +9,7 @@ class AddProduct extends StatefulWidget {
 
 class _AddProductState extends State<AddProduct> {
   bool? isChecked = false;
+  String? _selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -88,17 +89,55 @@ class _AddProductState extends State<AddProduct> {
           ),
           Row(
             children: <Widget>[
+              // Expanded(
+              //   flex: 2,
+              //   child: Container(
+              //     padding: EdgeInsets.fromLTRB(10, 10, 5, 10),
+              //     height: MediaQuery.of(context).size.height * 0.09,
+              //     child: TextFormField(
+              //       decoration: InputDecoration(
+              //         hintText: 'Category',
+              //         hintStyle: TextStyle(fontSize: 15.0),s
+              //         border: OutlineInputBorder(),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Expanded(
                 flex: 2,
                 child: Container(
                   padding: EdgeInsets.fromLTRB(10, 10, 5, 10),
                   height: MediaQuery.of(context).size.height * 0.09,
-                  child: TextFormField(
+                  child: DropdownButtonFormField(
+                    hint: Text('Category', style: TextStyle(fontSize: 15.0)),
                     decoration: InputDecoration(
-                      hintText: 'Category',
-                      hintStyle: TextStyle(fontSize: 15.0),
+                      // labelText:
+                      //     'Category', // >>>>>> actually what's the categories here
+                      // labelStyle: TextStyle(
+                      //     fontSize: 15.0,
+                      //     color: Colors.grey.shade700,
+                      //     fontWeight: FontWeight.w100),
                       border: OutlineInputBorder(),
                     ),
+                    items: <String>['one', 'two', 'three', 'four', 'five']
+                        .map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(backgroundColor: Colors.white),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedValue = newValue!;
+                      });
+                    },
+                    value: _selectedValue,
                   ),
                 ),
               ),
