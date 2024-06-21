@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
+import '../../../constants/text_strings.dart';
+import '../../../themes/elements/button_styles.dart';
 import '../offer/offerpopup.dart';
 
 // class SelectedItemScreen extends StatelessWidget {
@@ -394,8 +396,9 @@ class SelectedItemScreen extends StatelessWidget {
               },
             ),
             Expanded(
-              child: ElevatedButton(
-                onPressed: () {
+              child: RegainButtons(
+                text: 'Place Offer',
+                onPressed: (){
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -403,18 +406,10 @@ class SelectedItemScreen extends StatelessWidget {
                     },
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  foregroundColor: Colors.white,
-                  backgroundColor: green,
-                ),
-                child: const Text(
-                  'Place Offer',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                type: ButtonType.filled,
+                size: ButtonSize.small,
               ),
+
             ),
           ],
         ),
