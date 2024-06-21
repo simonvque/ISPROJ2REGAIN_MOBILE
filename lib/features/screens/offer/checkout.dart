@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../themes/elements/button_styles.dart';
+
 class Checkout extends StatefulWidget {
   const Checkout({super.key});
 
@@ -40,12 +42,9 @@ class _CheckoutState extends State<Checkout> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                     Text(
                       'Order Details',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontFamily: 'Montserrat-Bold',
-                      ),
+                      style: Theme.of(context).textTheme.headlineMedium
                     ),
                     const SizedBox(height: 10),
                     Container(
@@ -64,32 +63,28 @@ class _CheckoutState extends State<Checkout> {
                             height: 100,
                           ),
                           const SizedBox(width: 10),
-                          const Expanded(
+                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Item Name: Example Item',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
+                                    style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                                 SizedBox(height: 5),
                                 Text(
                                   'Location: Example Location',
-                                  style: TextStyle(fontSize: 16),
+                                    style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 SizedBox(height: 5),
                                 Text(
                                   'Weight: 2kg',
-                                  style: TextStyle(fontSize: 16),
+                                    style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 SizedBox(height: 5),
                                 Text(
                                   'Total Price: \$50.00',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                                    style: Theme.of(context).textTheme.bodyLarge
                                 ),
                               ],
                             ),
@@ -107,13 +102,10 @@ class _CheckoutState extends State<Checkout> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Payment Details',
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontFamily: 'Montserrat-Bold',
-                        ),
+                          style: Theme.of(context).textTheme.headlineSmall
                       ),
                       Row(
                         children: [
@@ -127,12 +119,9 @@ class _CheckoutState extends State<Checkout> {
                               });
                             },
                           ),
-                          const Text(
+                           Text(
                             'Cash on Delivery',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'Montserrat-Regular',
-                            ),
+                              style: Theme.of(context).textTheme.bodyMedium
                           ),
                           Radio(
                             value: 'gcash',
@@ -144,12 +133,9 @@ class _CheckoutState extends State<Checkout> {
                               });
                             },
                           ),
-                          const Text(
+                           Text(
                             'GCash',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'Montserrat-Regular',
-                            ),
+                              style: Theme.of(context).textTheme.bodyMedium
                           ),
                         ],
                       ),
@@ -165,22 +151,16 @@ class _CheckoutState extends State<Checkout> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Shipping Details',
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontFamily: 'Montserrat-Bold',
-                        ),
+                          style: Theme.of(context).textTheme.headlineSmall
                       ),
                       SizedBox(height: 10),
-                      const Text(
+                      Text(
                         ' Delivery method',
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'Montserrat-Medium',
-                        ),
+                          style: Theme.of(context).textTheme.titleMedium
                       ),
                       Row(
                         children: [
@@ -194,23 +174,17 @@ class _CheckoutState extends State<Checkout> {
                               });
                             },
                           ),
-                          const Text(
+                           Text(
                             'Buyer Pick-Up',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'Montserrat-Regular',
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium
                           ),
                         ],
                       ),
                       SizedBox(height: 10),
-                      const Text(
+                      Text(
                         ' Preferred Delivery Date',
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'Montserrat-Medium',
-                        ),
+                          style: Theme.of(context).textTheme.titleMedium
                       ),
                       GestureDetector(
                         onTap: _showDatePicker,
@@ -227,9 +201,7 @@ class _CheckoutState extends State<Checkout> {
                             children: [
                               Text(
                                 '${_selectedDateTime.month}/${_selectedDateTime.day}/${_selectedDateTime.year}',
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat-Regular',
-                                ),
+                                style: Theme.of(context).textTheme.bodySmall,
                               ),
                               const Icon(CupertinoIcons.calendar),
                             ],
@@ -242,32 +214,13 @@ class _CheckoutState extends State<Checkout> {
               ),
               SizedBox(height: 120),
               //CONFIRM BUTTON
-              Container(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Add your confirmation logic here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Color(0xFF12CF8A),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      minimumSize: Size(double.infinity, 50),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Text(
-                        'Confirm Order',
-                        style: TextStyle(
-                            fontSize: 15, fontFamily: 'Montserrat-ExtraBold'),
-                      ),
-                    ),
-                  ),
-                ),
+              RegainButtons(
+                text: 'Confirm Order',
+                onPressed: () {
+                  // Add your confirmation logic here
+                },
+                type: ButtonType.filled,
+                size: ButtonSize.large,
               ),
             ],
           ),
