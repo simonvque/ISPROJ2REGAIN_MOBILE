@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:regain_mobile/features/screens/filter.dart';
+import 'package:regain_mobile/features/screens/awareness.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
@@ -53,9 +53,12 @@ class _HomeScreenState extends State<HomepageScreen> {
                 //   ),
                 // ),
 
-                const SizedBox(height: ReGainSizes.spaceBtwItems),
-
-                const RegainTextbox(hintText: 'Search', prefixIcon: Icon(Icons.search), fillColor: white, fontColor: black, focusedBorderColor: white),
+                const RegainTextbox(
+                    hintText: 'Search',
+                    prefixIcon: Icon(Icons.search),
+                    fillColor: white,
+                    fontColor: black,
+                    focusedBorderColor: white),
 
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
 
@@ -66,10 +69,12 @@ class _HomeScreenState extends State<HomepageScreen> {
                     // Dropdown menu
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: ReGainSizes.md),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: ReGainSizes.md),
                         decoration: BoxDecoration(
                           color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(ReGainSizes.cardRadiusXs),
+                          borderRadius:
+                              BorderRadius.circular(ReGainSizes.cardRadiusXs),
                           border: Border.all(color: white),
                         ),
                         child: DropdownButtonHideUnderline(
@@ -77,12 +82,16 @@ class _HomeScreenState extends State<HomepageScreen> {
                             dropdownColor: green,
                             iconEnabledColor: white,
                             isExpanded: true,
-                            items: <String>['Recyclables', 'Equipments'].map((String value) {
+                            items: <String>['Recyclables', 'Equipments']
+                                .map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
                                   value,
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(color: Colors.white),
                                 ),
                               );
                             }).toList(),
@@ -99,12 +108,13 @@ class _HomeScreenState extends State<HomepageScreen> {
 
                     // Filter icon
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: ReGainSizes.md),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: ReGainSizes.md),
                       child: IconButton(
-                        icon: const Icon(Icons.filter_list, color: Colors.white),
+                        icon:
+                            const Icon(Icons.filter_list, color: Colors.white),
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => FilterScreen()));
+                          ////////////////////////////////////////////////
                         },
                       ),
                     ),
@@ -115,18 +125,23 @@ class _HomeScreenState extends State<HomepageScreen> {
                         //----------------------------- GO TO PROFILE PAGE -----------------------------
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ProfilePage()),
+                          MaterialPageRoute(
+                              builder: (context) => ProfilePage()),
                         );
                       },
                       child: Column(
                         children: <Widget>[
                           const CircleAvatar(
-                            backgroundImage: NetworkImage('https://lh4.googleusercontent.com/proxy/diAq9zObVXZOBQ-35PuawibY4uFDrnmQUd18A7cvh_e661B0Y4HFLCyVmCZE8DmsExSSrAaaTazBZ92XxJuIjT-tBBbpdXWJ3OVM1TRbmzg3u8z4KKcTg3VZLtRJ8LIdvg'),
+                            backgroundImage: NetworkImage(
+                                'https://lh4.googleusercontent.com/proxy/diAq9zObVXZOBQ-35PuawibY4uFDrnmQUd18A7cvh_e661B0Y4HFLCyVmCZE8DmsExSSrAaaTazBZ92XxJuIjT-tBBbpdXWJ3OVM1TRbmzg3u8z4KKcTg3VZLtRJ8LIdvg'),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             'My Profile',
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(color: Colors.white),
                           ),
                         ],
                       ),
@@ -137,22 +152,35 @@ class _HomeScreenState extends State<HomepageScreen> {
             ),
           ),
 
-          const Expanded(
+          Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-
                   // carousel
                   Padding(
                     padding: EdgeInsets.all(ReGainSizes.sm),
-                    child: ReGainCarousel(banners: [ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1],),
+                    child: GestureDetector(
+                        onDoubleTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AwarenessFeature()));
+                        },
+                        child: ReGainCarousel(
+                          banners: [
+                            ReGainImages.carousel1,
+                            ReGainImages.carousel1,
+                            ReGainImages.carousel1,
+                            ReGainImages.carousel1
+                          ],
+                        )),
                   ),
 
                   // grid view items
                   CardItems(
                     items: [
                       {
-                        'imagePath': ReGainImages.onboardingImage1,
+                        'imagePath': ReGainImages.onboardingImage3,
                         'title': 'Copper nail',
                         'location': 'Pasig City',
                         'price': 'PHP 450',
@@ -161,8 +189,8 @@ class _HomeScreenState extends State<HomepageScreen> {
                         'weight': '5 kg',
                         'category': 'Metal',
                         'isSellerDropOff': true,
-                        'isFavorite': false
-                      },{
+                      },
+                      {
                         'imagePath': ReGainImages.onboardingImage3,
                         'title': 'Copper nail',
                         'location': 'Pasig City',
@@ -171,9 +199,9 @@ class _HomeScreenState extends State<HomepageScreen> {
                         'seller': '@heyitscee',
                         'weight': '5 kg',
                         'category': 'Metal',
-                        'isSellerDropOff': false,
-                        'isFavorite': true
-                      },{
+                        'isSellerDropOff': true,
+                      },
+                      {
                         'imagePath': ReGainImages.onboardingImage3,
                         'title': 'Copper nail',
                         'location': 'Pasig City',
@@ -182,8 +210,117 @@ class _HomeScreenState extends State<HomepageScreen> {
                         'seller': '@heyitscee',
                         'weight': '5 kg',
                         'category': 'Metal',
-                        'isSellerDropOff': false,
-                        'isFavorite': true
+                        'isSellerDropOff': true,
+                      },
+                      {
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },
+                      {
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },
+                      {
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },
+                      {
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },
+                      {
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },
+                      {
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },
+                      {
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },
+                      {
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },
+                      {
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                      },
+                      {
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
                       },
                     ],
                   ),
@@ -195,5 +332,4 @@ class _HomeScreenState extends State<HomepageScreen> {
       ),
     );
   }
-
 }
