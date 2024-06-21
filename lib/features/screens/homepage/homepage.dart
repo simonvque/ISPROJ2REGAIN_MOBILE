@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:regain_mobile/features/screens/awareness.dart';
+import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
@@ -126,7 +127,7 @@ class _HomeScreenState extends State<HomepageScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfilePage()),
+                              builder: (context) => const ProfilePage()),
                         );
                       },
                       child: Column(
