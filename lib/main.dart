@@ -14,7 +14,6 @@ import 'package:regain_mobile/profile/profile_menu.dart';
 import 'package:regain_mobile/profile/profile_page.dart';
 import 'package:regain_mobile/profile/report_page.dart';
 import 'package:regain_mobile/profile/seller_profile_page.dart';
-import 'package:regain_mobile/test.dart';
 import 'package:regain_mobile/themes/theme.dart';
 
 import 'add_equipment.dart';
