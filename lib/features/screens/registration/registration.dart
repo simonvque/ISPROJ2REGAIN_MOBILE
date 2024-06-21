@@ -11,7 +11,6 @@ import '../../../themes/elements/input fields/password_textbox.dart';
 import '../../../themes/elements/input fields/regain_textbox.dart';
 import '../login/login.dart';
 
-
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
 
@@ -63,19 +62,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // Username
-                      const RegainTextbox(labelText: ReGainTexts.username, isUnderlineBorder: true),
-                      const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
+                      const RegainTextbox(
+                          labelText: ReGainTexts.username,
+                          isUnderlineBorder: true),
+                      const SizedBox(
+                          height: ReGainSizes.spaceBtwInputFields / 2),
 
                       // Password
-                      const PasswordTextFormField(labelText: ReGainTexts.password, isUnderlineBorder: true,),
-                      const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
+                      const PasswordTextFormField(
+                          labelText: ReGainTexts.password),
+                      const SizedBox(
+                          height: ReGainSizes.spaceBtwInputFields / 2),
 
                       // Confirm Password
-                      const PasswordTextFormField(labelText: ReGainTexts.confirmPassword, isUnderlineBorder: true),
-                      const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
+                      const PasswordTextFormField(
+                          labelText: ReGainTexts.confirmPassword),
+                      const SizedBox(
+                          height: ReGainSizes.spaceBtwInputFields / 2),
 
                       // Contact Number
-                      const RegainTextbox(labelText: ReGainTexts.contactNumber, keyboardType: TextInputType.phone, isUnderlineBorder: true),
+                      const RegainTextbox(
+                          labelText: ReGainTexts.contactNumber,
+                          keyboardType: TextInputType.phone,
+                          isUnderlineBorder: true),
                       const SizedBox(height: ReGainSizes.spaceBtwInputFields),
 
                       // Are you part of the waste sector?
@@ -108,7 +117,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     title: Text('Info'),
-                                    content: Text('Information about being part of the waste sector.'),
+                                    content: Text(
+                                        'Information about being part of the waste sector.'),
                                     actions: [
                                       TextButton(
                                         child: Text('OK'),
@@ -130,11 +140,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                       RegainButtons(
                         text: ReGainTexts.signUp,
-                        onPressed: (){
+                        onPressed: () {
                           // --- Add validation ---
 
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => const RegistrationOtp()));
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RegistrationOtp()));
                         },
                         type: ButtonType.filled,
                         size: ButtonSize.large,
@@ -153,7 +166,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               onPressed: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()),
                                 );
                               },
                               child: Text(
