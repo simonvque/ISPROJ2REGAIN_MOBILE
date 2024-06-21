@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/add_product.dart';
+import 'package:regain_mobile/add/add_product.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
@@ -16,7 +16,7 @@ import 'package:regain_mobile/profile/report_page.dart';
 import 'package:regain_mobile/profile/seller_profile_page.dart';
 import 'package:regain_mobile/themes/theme.dart';
 
-import 'add_equipment.dart';
+import 'add/add_equipment.dart';
 
 void main() {
   runApp(MyApp());
