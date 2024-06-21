@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:regain_mobile/features/screens/awareness.dart';
+import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
 import '../../../constants/text_strings.dart';
-import '../../../profile/profile_page.dart';
 import '../../../themes/elements/input fields/regain_textbox.dart';
 import '../homepage/widgets/homepage_cards.dart';
 import '../homepage/widgets/homepage_carousel.dart';
@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomepageScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfilePage()),
+                              builder: (context) => const ProfilePage()),
                         );
                       },
                       child: Column(
