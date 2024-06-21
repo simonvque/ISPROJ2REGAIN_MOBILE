@@ -37,4 +37,13 @@ class ReGainTexts {
 
   //Profile Screen Text
   static const String lblProfileMenu = "PROFILE MENU";
+  static const String lblSettingsAcc = "ACCOUNT & SECURITY";
+  static const String lblSettingsAbt = "ABOUT REGAIN";
+
+  //Penalty points text
+  static const String penaltyTitle = "My Score Credit";
+  static const String aboutPenPal =
+      r'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+      'In hac habitasse platea dictumst. Nunc sed blandit libero volutpat sed cras ornare arcu dui. '
+      'Rhoncus dolor purus non enim praesent elementum. Justo eget magna fermentum iaculis eu non diam phasellus.';
 }

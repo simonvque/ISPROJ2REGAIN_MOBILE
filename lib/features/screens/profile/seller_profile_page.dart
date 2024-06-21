@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/profile/profile_page.dart';
-import 'package:regain_mobile/profile/util/user_data.dart';
+import 'package:regain_mobile/features/screens/profile/profile_page.dart';
+import 'package:regain_mobile/features/screens/profile/util/user_data.dart';
 import 'app_bar.dart';
 
 /* TO FIX:
@@ -49,8 +49,8 @@ class SellerProfilePage extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const StyleUsernameTxt('Samantha Jones'),
-                        StyleBodyTxt('@${user.username}'),
+                        //            const StyleUsernameTxt('Samantha Jones'),
+                        //        StyleBodyTxt('@${user.username}'),
                       ],
                     ),
                     const SizedBox(
@@ -59,15 +59,15 @@ class SellerProfilePage extends StatelessWidget {
                     const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        StyleBodyTxt('Joined June 2024'),
+                        //         StyleBodyTxt('Joined June 2024'),
                         SizedBox(height: 5),
-                        StyleBodyTxt('Verified')
+                        //        StyleBodyTxt('Verified')
                       ],
                     ),
                   ],
                 ),
                 const SizedBox(height: 4),
-                const StyleBodyTxt('4.2'),
+                //const StyleBodyTxt('4.2'),
                 //const StyleBodyTxt('junkshop name'),
               ],
             ),
