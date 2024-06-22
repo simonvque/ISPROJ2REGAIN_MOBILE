@@ -29,7 +29,9 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(CupertinoIcons.arrow_left, color: Colors.white),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           title: const Text(
             'My Orders',

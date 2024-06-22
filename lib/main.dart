@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/add_product.dart';
+import 'package:regain_mobile/add/add_product.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
@@ -10,14 +10,15 @@ import 'package:regain_mobile/features/screens/registration/registration_otp.dar
 import 'package:regain_mobile/features/screens/registration/registration_verified.dart';
 import 'package:regain_mobile/features/screens/selectedItem/selected_item.dart';
 import 'package:regain_mobile/nav.dart';
-import 'package:regain_mobile/profile/profile_menu.dart';
-import 'package:regain_mobile/profile/profile_page.dart';
-import 'package:regain_mobile/profile/report_page.dart';
-import 'package:regain_mobile/profile/seller_profile_page.dart';
+import 'package:regain_mobile/features/screens/profile/profile_menu.dart';
+import 'package:regain_mobile/features/screens/profile/profile_page.dart';
+import 'package:regain_mobile/features/screens/profile/report_page.dart';
+import 'package:regain_mobile/features/screens/profile/seller_profile_page.dart';
 import 'package:regain_mobile/themes/theme.dart';
 
 import 'add_equipment.dart';
 import 'features/screens/offer/offerpopup.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -60,8 +61,8 @@ class MyApp extends StatelessWidget {
       //   visualDensity: VisualDensity.adaptivePlatformDensity,
       //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
       // ),
-      home: OfferPricePopup(),
-      //home: ReviewsPage(),
+
+      home: const LoginScreen(),
     );
   }
 }

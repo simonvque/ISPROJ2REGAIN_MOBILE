@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/profile/app_bar.dart';
+import 'package:regain_mobile/constants/sizes.dart';
+import 'package:regain_mobile/features/screens/profile/app_bar.dart';
+import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 class CommissionPage extends StatelessWidget {
   const CommissionPage({super.key});
@@ -16,8 +18,7 @@ class CommissionPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.90,
-                height: MediaQuery.of(context).size.height * 0.21,
-                padding: const EdgeInsets.all(22),
+                height: MediaQuery.of(context).size.height * 0.25,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.grey,
@@ -26,42 +27,37 @@ class CommissionPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    StyleTxt('Your total balance:'),
-                    SizedBox(height: 10),
+                    StyleTxt('Your total balance:'), // to constant text
+                    SizedBox(height: ReGainSizes.spaceBtwItems / 4),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         StyleBalTxt('PHP 14.00'),
-                        SizedBox(width: 3),
+                        SizedBox(width: ReGainSizes.spaceBtwItems / 4),
                         Padding(
                           padding: EdgeInsets.only(bottom: 10),
-                          child: StyleTxt('/50.00', color: Colors.grey),
+                          child: StyleTxt('/50.00',
+                              color: Colors.grey), // to constant
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    StyleStatTxt('below limit'),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 20), // Add spacing between the container and the button
-            SizedBox(
-              width: 350,
-              child: FilledButton(
-                style: FilledButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Text('Pay my balance'),
-              ),
-            ),
+
+            //button
+            const SizedBox(height: ReGainSizes.largeSpace),
+            RegainButtons(
+              text: 'Pay my balance',
+              onPressed: () {},
+              type: ButtonType.filled,
+              size: ButtonSize.large,
+            )
           ],
         ),
       ),
