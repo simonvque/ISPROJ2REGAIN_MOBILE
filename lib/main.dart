@@ -16,7 +16,9 @@ import 'package:regain_mobile/features/screens/profile/report_page.dart';
 import 'package:regain_mobile/features/screens/profile/seller_profile_page.dart';
 import 'package:regain_mobile/themes/theme.dart';
 
-import 'add/add_equipment.dart';
+import 'add_equipment.dart';
+import 'features/screens/offer/offerpopup.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -59,6 +61,7 @@ class MyApp extends StatelessWidget {
       //   visualDensity: VisualDensity.adaptivePlatformDensity,
       //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
       // ),
+
       home: const LoginScreen(),
     );
   }
