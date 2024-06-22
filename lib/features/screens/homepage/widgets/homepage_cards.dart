@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../constants/colors.dart';
-import '../../selectedItem/selected_item.dart';
+import '../selected_item.dart';
 
 // class CardItems extends StatelessWidget {
 //   final List<Map<String, dynamic>> items;

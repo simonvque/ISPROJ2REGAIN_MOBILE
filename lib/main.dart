@@ -8,7 +8,7 @@ import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/features/screens/orders/review.dart';
 import 'package:regain_mobile/features/screens/registration/registration_otp.dart';
 import 'package:regain_mobile/features/screens/registration/registration_verified.dart';
-import 'package:regain_mobile/features/screens/selectedItem/selected_item.dart';
+import 'package:regain_mobile/features/screens/homepage/selected_item.dart';
 import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu.dart';
 import 'package:regain_mobile/features/screens/profile/profile_page.dart';
@@ -16,7 +16,6 @@ import 'package:regain_mobile/features/screens/profile/report_page.dart';
 import 'package:regain_mobile/features/screens/profile/seller_profile_page.dart';
 import 'package:regain_mobile/themes/theme.dart';
 
-import 'add_equipment.dart';
 import 'features/screens/offer/offerpopup.dart';
 
 
