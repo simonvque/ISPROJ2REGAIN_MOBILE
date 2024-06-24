@@ -18,7 +18,6 @@ import 'package:regain_mobile/themes/theme.dart';
 
 import 'features/screens/offer/offerpopup.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -61,7 +60,7 @@ class MyApp extends StatelessWidget {
       //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
       // ),
 
-      home: const LoginScreen(),
+      home: LoginScreen(),
     );
   }
 }
