@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 class PasswordTextFormField extends StatefulWidget {
   final String labelText;
   final Color focusedBorderColor;
+  final TextEditingController? controller;
 
   const PasswordTextFormField({
     Key? key,
     required this.labelText,
+    this.controller,
     this.focusedBorderColor = Colors.green, // default color if not provided
   }) : super(key: key);
 
   @override
-  PasswordTextFormFieldState createState() =>
-      PasswordTextFormFieldState();
+  PasswordTextFormFieldState createState() => PasswordTextFormFieldState();
 }
 
-class PasswordTextFormFieldState
-    extends State<PasswordTextFormField> {
+class PasswordTextFormFieldState extends State<PasswordTextFormField> {
   bool _isPasswordVisible = false;
 
   @override
