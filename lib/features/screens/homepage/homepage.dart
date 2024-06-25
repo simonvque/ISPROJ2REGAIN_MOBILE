@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:regain_mobile/features/screens/awareness.dart';
+import 'package:regain_mobile/features/screens/awareness/awareness.dart';
 import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 
 import '../../../constants/colors.dart';
