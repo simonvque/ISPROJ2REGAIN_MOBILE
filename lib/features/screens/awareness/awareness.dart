@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/features/controllers/awareness_tab_controller.dart';
 
 class AwarenessFeature extends StatefulWidget {
   const AwarenessFeature({super.key});
@@ -11,14 +10,15 @@ class AwarenessFeature extends StatefulWidget {
 }
 
 class _AwarenessFeatureState extends State<AwarenessFeature> {
-  // final List<bool> _isSelected = [
-  //   true,
-  //   false,
-  //   false
-  // ]; // Track selection state for each tab
+  final List<bool> _isSelected = [
+    true,
+    false,
+    false,
+    false
+  ]; // Track selection state for each tab
 
-  // final PageController _pageController =
-  //     PageController(); // PageController to control PageView
+  final PageController _pageController =
+      PageController(); // PageController to control PageView
 
   @override
   Widget build(BuildContext context) {
@@ -38,27 +38,32 @@ class _AwarenessFeatureState extends State<AwarenessFeature> {
       body: Column(
         children: <Widget>[
           _buildCaptionTitle(context),
-          const Divider(),
-          _buildTabBar(context)
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(vertical: 8.0),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //     children: _buildTabs(),
-          //   ),
-          // ),
-          // Expanded(
-          //   child: PageView(
-          //     controller: _pageController, // Attach PageController to PageView
-          //     onPageChanged: (index) {
-          //       setState(() {
-          //         // _currentPageIndex = index;
-          //         _updateSelection(index);
-          //       });
-          //     },
-          //     children: _buildPages(),
-          //   ),
-          // ),
+          //const Divider(),
+          // _buildTabBar(context)
+          Container(
+            decoration: BoxDecoration(
+                border: Border(
+              top: BorderSide(color: Colors.grey.shade400),
+              bottom: BorderSide(color: Colors.grey.shade400),
+            )),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: _buildTabs(),
+            ),
+          ),
+          // const Divider(),
+          Expanded(
+            child: PageView(
+              controller: _pageController, // Attach PageController to PageView
+              onPageChanged: (index) {
+                setState(() {
+                  // _currentPageIndex = index;
+                  _updateSelection(index);
+                });
+              },
+              children: _buildPages(),
+            ),
+          ),
         ],
       ),
     );
@@ -108,97 +113,93 @@ class _AwarenessFeatureState extends State<AwarenessFeature> {
         ),
       );
 
-  Widget _buildTabBar(BuildContext context) => MaterialApp(
-        home: AwarenessTabController(),
-      );
+  // Widget _buildTabBar(BuildContext context) => MaterialApp(
+  //       home: AwarenessTabController(),
+  //     );
 
-  // // Widget _buildTabBar(BuildContext context) => Row(
-  // //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-  // //       children: [_buildTabs()],
-  // //     );
+  // Widget _buildTabBar(BuildContext context) => Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //       children: [_buildTabs()],
+  //     );
 
-  // List<Widget> _buildTabs() {
-  //   List<Widget> tabs = [];
-  //   for (int i = 0; i < _isSelected.length; i++) {
-  //     tabs.add(_buildTabItem(i));
-  //   }
-  //   return tabs;
-  // }
+  List<Widget> _buildTabs() {
+    List<Widget> tabs = [];
+    for (int i = 0; i < _isSelected.length; i++) {
+      tabs.add(_buildTabItem(i));
+    }
+    return tabs;
+  }
 
-  // Widget _buildTabItem(int index) {
-  //   return GestureDetector(
-  //     onTap: () {
-  //       setState(() {
-  //         // _currentPageIndex = index;
-  //         _updateSelection(index);
-  //         _pageController.jumpToPage(index); // Jump to the selected page
-  //       });
-  //     },
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         border: Border(
-  //           bottom: BorderSide(
-  //             color:
-  //                 _isSelected[index] ? Color(0xFF12CF8A) : Colors.transparent,
-  //             width: 2.0,
-  //           ),
-  //         ),
-  //       ),
-  //       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-  //       child: Text(
-  //         _getPageTitle(index),
-  //         style: TextStyle(
-  //           fontSize: 12,
-  //           fontWeight: FontWeight.bold,
-  //           color:
-  //               _isSelected[index] ? Color(0xFF12CF8A) : Colors.grey.shade700,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+  Widget _buildTabItem(int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          // _currentPageIndex = index;
+          _updateSelection(index);
+          _pageController.jumpToPage(index); // Jump to the selected page
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: _isSelected[index] ? green : Colors.transparent,
+              width: 2.0,
+            ),
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+        child: Text(
+          _getPageTitle(index),
+          style: TextStyle(
+            fontSize: 12,
+            color: _isSelected[index] ? green : black,
+          ),
+        ),
+      ),
+    );
+  }
 
-  // List<Widget> _buildPages() {
-  //   return [
-  //     AwarenessStatusPage(title: 'Tips & Guides'),
-  //     AwarenessStatusPage(title: 'News'),
-  //     AwarenessStatusPage(title: 'Website Locator'),
-  //     AwarenessStatusPage(title: 'Events'),
-  //   ];
-  // }
+  List<Widget> _buildPages() {
+    return [
+      AwarenessStatusPage(title: 'Tips & Guides'),
+      AwarenessStatusPage(title: 'News'),
+      AwarenessStatusPage(title: 'Website Locator'),
+      AwarenessStatusPage(title: 'Events'),
+    ];
+  }
 
-  // void _updateSelection(int index) {
-  //   for (int i = 0; i < _isSelected.length; i++) {
-  //     _isSelected[i] = (i == index);
-  //   }
-  // }
+  void _updateSelection(int index) {
+    for (int i = 0; i < _isSelected.length; i++) {
+      _isSelected[i] = (i == index);
+    }
+  }
 
-  // String _getPageTitle(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       return 'Tips & Guides';
-  //     case 1:
-  //       return 'News';
-  //     case 2:
-  //       return 'Website Locator';
-  //     case 3:
-  //       return 'Events';
-  //     default:
-  //       return '';
-  //   }
-  // }
+  String _getPageTitle(int index) {
+    switch (index) {
+      case 0:
+        return 'Tips & Guides';
+      case 1:
+        return 'News';
+      case 2:
+        return 'Website Locator';
+      case 3:
+        return 'Events';
+      default:
+        return '';
+    }
+  }
 }
 
-// class AwarenessStatusPage extends StatelessWidget {
-//   final String title;
+class AwarenessStatusPage extends StatelessWidget {
+  final String title;
 
-//   const AwarenessStatusPage({super.key, required this.title});
+  const AwarenessStatusPage({super.key, required this.title});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Text(title, style: Theme.of(context).textTheme.headlineMedium),
-//     );
-//   }
-// }
-
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(title, style: Theme.of(context).textTheme.headlineMedium),
+    );
+  }
+}
