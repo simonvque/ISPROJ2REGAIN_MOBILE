@@ -35,58 +35,75 @@ class _LoginFormState extends State<LoginForm> {
       isLoading = true;
     });
 
-    try {
-      final response = await http.post(
-        Uri.parse(
-            'http://192.168.68.105:3000/login'), // Update with your server URL
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'username': _usernameController.text,
-          'password': _passwordController.text,
-        }),
+    final loginSuccessful = await _attemptLogin(
+      _usernameController.text,
+      _passwordController.text,
+    );
+
+    setState(() {
+      isLoading = false;
+    });
+
+    if (loginSuccessful) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const NavigationMenu()),
       );
-
-      setState(() {
-        isLoading = false;
-      });
-
-      if (response.statusCode == 200) {
-        // Save the token using flutter_secure_storage
-        final token = json.decode(response.body)['token'];
-        await _secureStorage.write(key: 'token', value: token);
-
-        // Navigate to the home screen
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const NavigationMenu()),
-        );
-      } else {
-        // Show error message
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text('Login failed. Please check your credentials.')),
-        );
-      }
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-      // Handle any errors that occur during the HTTP request
-      print('Error during login: $e');
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(
-                'Failed to connect to the server. Please try again later.')),
+        const SnackBar(
+            content: Text('Login failed. Please check your credentials.')),
       );
     }
   }
 
+  Future<bool> _attemptLogin(String username, String password) async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+            'http://10.0.2.2:3000/login'), // Use 10.0.2.2 for Android emulator
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'username': username,
+          'password': password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final token = json.decode(response.body)['token'];
+        await _secureStorage.write(key: 'token', value: token);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print('Error during login: $e');
+      return false;
+    }
+  }
+
   void _onLoginPressed() {
-    if (!isLoading) {
+    if (!isLoading && _validateInputs()) {
       _login();
     }
+  }
+
+  bool _validateInputs() {
+    if (_usernameController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Username cannot be empty.')),
+      );
+      return false;
+    }
+    if (_passwordController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Password cannot be empty.')),
+      );
+      return false;
+    }
+    return true;
   }
 
   @override
@@ -113,14 +130,13 @@ class _LoginFormState extends State<LoginForm> {
           // Forgot Password
           Row(
             children: [
-              Spacer(),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ForgetPasswordScreen(),
-                    ),
+                        builder: (context) => ForgetPasswordScreen()),
                   );
                 },
                 child: Text(
@@ -134,11 +150,18 @@ class _LoginFormState extends State<LoginForm> {
 
           // Login button
           RegainButtons(
-            text: isLoading ? 'Logging in...' : ReGainTexts.logIn,
+            text: isLoading ? ' ' : ReGainTexts.logIn,
             onPressed: _onLoginPressed,
             type: ButtonType.filled,
             size: ButtonSize.large,
           ),
+
+          // Loading indicator
+          if (isLoading)
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0),
+              child: Center(child: CircularProgressIndicator()),
+            ),
 
           // Sign up
           Padding(
@@ -155,8 +178,7 @@ class _LoginFormState extends State<LoginForm> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RegistrationScreen(),
-                      ),
+                          builder: (context) => RegistrationScreen()),
                     );
                   },
                   child: Text(
