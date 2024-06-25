@@ -6,17 +6,22 @@ AppBar buildAppBar(BuildContext context, dynamic title,
     {bool showReportButton = false}) {
   return AppBar(
     backgroundColor: green,
-    leading: const BackButton(
-      color: white,
-    ),
+    // leading: const BackButton(
+    //   color: white,
+    // ),
+    iconTheme: const IconThemeData(
+        color: white), // no need for BackButton so it'll be automatic
     centerTitle: false,
     titleSpacing: 1.0,
-    title: Text(
-      title,
-      style: const TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 22,
+    title: Padding(
+      padding: const EdgeInsets.fromLTRB(12.0, 0, 0, 0), // adjust if needed
+      child: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 22,
+        ),
       ),
     ),
     actions: showReportButton
