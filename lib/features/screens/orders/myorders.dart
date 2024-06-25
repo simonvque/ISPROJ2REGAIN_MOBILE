@@ -151,10 +151,7 @@ class OrderStatusPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.headlineMedium
-      ),
+      child: Text(title, style: Theme.of(context).textTheme.headlineMedium),
     );
   }
 }

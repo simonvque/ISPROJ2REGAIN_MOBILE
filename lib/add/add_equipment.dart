@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/constants/colors.dart';
 
 class AddEquipment extends StatefulWidget {
   const AddEquipment({super.key});
@@ -12,10 +13,10 @@ class _AddEquipmentState extends State<AddEquipment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF12CF8A),
-        foregroundColor: Colors.white,
+        backgroundColor: green,
+        foregroundColor: white,
         title: const Text('Add Equipment Listing'),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: white),
       ),
       body: SingleChildScrollView(
           child: Column(
@@ -27,9 +28,9 @@ class _AddEquipmentState extends State<AddEquipment> {
               child: Text(
                 'Choose Image',
                 style: TextStyle(
-                  color: Color(0xFF3C3C3C),
+                  color: black,
                   fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                   //fontFamily: 'Montserrat',
                 ),
               ),
@@ -55,9 +56,9 @@ class _AddEquipmentState extends State<AddEquipment> {
               child: Text(
                 'Add Details',
                 style: TextStyle(
-                  color: Color(0xFF3C3C3C),
+                  color: black,
                   fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                   //fontFamily: 'Montserrat',
                 ),
               ),
@@ -141,8 +142,8 @@ class _AddEquipmentState extends State<AddEquipment> {
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                backgroundColor: const Color(0xFF12CF8A),
-                foregroundColor: Colors.white,
+                backgroundColor: green,
+                foregroundColor: white,
               ),
               child: Text('Add Equipment',
                   style: TextStyle(
