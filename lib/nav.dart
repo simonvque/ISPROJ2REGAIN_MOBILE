@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/add/add.dart';
+import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/features/screens/orders/myorders.dart';
 import 'package:regain_mobile/features/screens/profile/profile_page.dart';
@@ -18,7 +19,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
     HomepageScreen(),
     Placeholder(color: Colors.transparent),
     Placeholder(color: Colors.transparent),
-    Placeholder(color: Colors.transparent),
+    ChatApp(),
     ProfilePage(),
   ];
 
