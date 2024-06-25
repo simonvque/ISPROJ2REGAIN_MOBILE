@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/constants/colors.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({super.key});
@@ -15,24 +16,24 @@ class _AddProductState extends State<AddProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF12CF8A),
-        foregroundColor: Colors.white,
+        backgroundColor: green,
+        foregroundColor: white,
         title: const Text('Add Product Listing'),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: white),
       ),
       body: SingleChildScrollView(
           child: Column(
         children: [
-          Align(
+          const Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
                 'Choose Image',
                 style: TextStyle(
-                  color: Color(0xFF3C3C3C),
+                  color: black,
                   fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                   //fontFamily: 'Montserrat',
                 ),
               ),
@@ -45,31 +46,31 @@ class _AddProductState extends State<AddProduct> {
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.15,
                 width: MediaQuery.of(context).size.width * 0.30,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.grey,
                 ),
               ),
             ),
           ),
-          Align(
+          const Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0),
               child: Text(
                 'Add Details',
                 style: TextStyle(
-                  color: Color(0xFF3C3C3C),
+                  color: black,
                   fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             height: MediaQuery.of(context).size.height * 0.09,
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Name of the Product',
                 hintStyle: TextStyle(fontSize: 15.0),
                 border: OutlineInputBorder(),
@@ -77,10 +78,10 @@ class _AddProductState extends State<AddProduct> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             height: MediaQuery.of(context).size.height * 0.09,
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Price',
                 hintStyle: TextStyle(fontSize: 15.0),
                 border: OutlineInputBorder(),
@@ -89,34 +90,15 @@ class _AddProductState extends State<AddProduct> {
           ),
           Row(
             children: <Widget>[
-              // Expanded(
-              //   flex: 2,
-              //   child: Container(
-              //     padding: EdgeInsets.fromLTRB(10, 10, 5, 10),
-              //     height: MediaQuery.of(context).size.height * 0.09,
-              //     child: TextFormField(
-              //       decoration: InputDecoration(
-              //         hintText: 'Category',
-              //         hintStyle: TextStyle(fontSize: 15.0),s
-              //         border: OutlineInputBorder(),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Expanded(
                 flex: 2,
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 5, 10),
+                  padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
                   height: MediaQuery.of(context).size.height * 0.09,
                   child: DropdownButtonFormField(
-                    hint: Text('Category', style: TextStyle(fontSize: 15.0)),
-                    decoration: InputDecoration(
-                      // labelText:
-                      //     'Category', // >>>>>> actually what's the categories here
-                      // labelStyle: TextStyle(
-                      //     fontSize: 15.0,
-                      //     color: Colors.grey.shade700,
-                      //     fontWeight: FontWeight.w100),
+                    hint: const Text('Category',
+                        style: TextStyle(fontSize: 15.0)),
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                     ),
                     items: <String>['one', 'two', 'three', 'four', 'five']
@@ -128,7 +110,7 @@ class _AddProductState extends State<AddProduct> {
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium
-                              ?.copyWith(backgroundColor: Colors.white),
+                              ?.copyWith(backgroundColor: white),
                         ),
                       );
                     }).toList(),
@@ -144,10 +126,10 @@ class _AddProductState extends State<AddProduct> {
               Expanded(
                 flex: 3,
                 child: Container(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   height: MediaQuery.of(context).size.height * 0.09,
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Weight',
                       hintStyle: TextStyle(fontSize: 15.0),
                       border: OutlineInputBorder(),
@@ -158,11 +140,11 @@ class _AddProductState extends State<AddProduct> {
             ],
           ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             height: MediaQuery.of(context).size.height * 0.18,
             child: TextFormField(
               maxLines: 5,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText:
                     'Please provide a brief description of the recyclable product',
                 hintStyle: TextStyle(fontSize: 15.0),
@@ -171,10 +153,10 @@ class _AddProductState extends State<AddProduct> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             height: MediaQuery.of(context).size.height * 0.09,
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Location',
                 hintStyle: TextStyle(fontSize: 15.0),
                 border: OutlineInputBorder(),
@@ -193,14 +175,14 @@ class _AddProductState extends State<AddProduct> {
                       });
                     }),
               ),
-              Expanded(
+              const Expanded(
                 flex: 5,
                 child: Text('Will you be providing delivery to the buyer?'),
               ),
               Expanded(
                   flex: 1,
                   child: IconButton(
-                    icon: Icon(Icons.info_outline),
+                    icon: const Icon(Icons.info_outline),
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('info about delivery')));
@@ -209,17 +191,17 @@ class _AddProductState extends State<AddProduct> {
             ],
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(5, 10, 5, 20),
+            padding: const EdgeInsets.fromLTRB(5, 10, 5, 20),
             height: MediaQuery.of(context).size.height * 0.10,
             width: MediaQuery.of(context).size.width * 0.9,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                backgroundColor: const Color(0xFF12CF8A),
-                foregroundColor: Colors.white,
+                backgroundColor: green,
+                foregroundColor: white,
               ),
-              child: Text('Add Product',
+              child: const Text('Add Product',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     //fontFamily: 'Montserrat',

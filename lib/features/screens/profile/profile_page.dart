@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/features/screens/orders/myorders.dart';
 import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 import 'package:regain_mobile/features/screens/profile/util/user_data.dart';
 import '../../../constants/image_strings.dart';
@@ -51,7 +52,12 @@ class ProfilePage extends StatelessWidget {
               ),
               RegainButtons(
                 text: 'My orders',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OrderTrackingPage()));
+                },
                 type: ButtonType.text,
                 size: ButtonSize.small,
                 leftIcon: CupertinoIcons.bag,
