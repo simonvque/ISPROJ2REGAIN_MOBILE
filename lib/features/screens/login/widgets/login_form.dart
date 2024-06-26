@@ -32,14 +32,14 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Username
-          const RegainTextbox(labelText: ReGainTexts.logIn, isUnderlineBorder: true),
+          const RegainTextbox(labelText: ReGainTexts.username, isUnderlineBorder: true),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.logIn),
           // ),
           const SizedBox(height: ReGainSizes.spaceBtwInputFields),
 
           // Password
-          const PasswordTextFormField(labelText: ReGainTexts.password),
+          const PasswordTextFormField(labelText: ReGainTexts.password, isUnderlineBorder: true),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.password, suffixIcon: Icon(Iconsax.eye_slash)),
           // ),

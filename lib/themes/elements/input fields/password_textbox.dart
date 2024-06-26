@@ -1,43 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/themes/elements/input%20fields/regain_textbox.dart';
+
+import '../../../constants/colors.dart';
 
 class PasswordTextFormField extends StatefulWidget {
   final String labelText;
   final Color focusedBorderColor;
+  final TextEditingController? controller;
+  final bool isUnderlineBorder;
 
   const PasswordTextFormField({
     Key? key,
     required this.labelText,
-    this.focusedBorderColor = Colors.green, // default color if not provided
+    this.controller,
+    this.focusedBorderColor = green,
+    this.isUnderlineBorder = false,
   }) : super(key: key);
 
   @override
-  PasswordTextFormFieldState createState() =>
-      PasswordTextFormFieldState();
+  PasswordTextFormFieldState createState() => PasswordTextFormFieldState();
 }
 
-class PasswordTextFormFieldState
-    extends State<PasswordTextFormField> {
+class PasswordTextFormFieldState extends State<PasswordTextFormField> {
   bool _isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return RegainTextbox(
+      controller: widget.controller,
+      labelText: widget.labelText,
+      focusedBorderColor: widget.focusedBorderColor,
       obscureText: !_isPasswordVisible,
-      decoration: InputDecoration(
-        labelText: widget.labelText,
-        suffixIcon: IconButton(
-          icon: _isPasswordVisible
-              ? Icon(Icons.visibility_off)
-              : Icon(Icons.visibility),
-          onPressed: () {
-            setState(() {
-              _isPasswordVisible = !_isPasswordVisible;
-            });
-          },
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: widget.focusedBorderColor),
-        ),
+      isUnderlineBorder: widget.isUnderlineBorder,
+      suffixIcon: IconButton(
+        icon: _isPasswordVisible
+            ? Icon(Icons.visibility_off)
+            : Icon(Icons.visibility),
+        onPressed: () {
+          setState(() {
+            _isPasswordVisible = !_isPasswordVisible;
+          });
+        },
       ),
     );
   }
