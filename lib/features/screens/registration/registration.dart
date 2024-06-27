@@ -19,6 +19,9 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  // global key
+  final _formKey = GlobalKey<FormState>();
+
   bool isWasteSector = false;
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
@@ -27,162 +30,166 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: ReGainSpacingStyle.paddingWithAppBarHeight,
-          child: Column(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image(
-                    image: AssetImage(ReGainImages.appLogo),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      ReGainTexts.signUpTitle,
-                      style: Theme.of(context).textTheme.headlineMedium,
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: ReGainSpacingStyle.paddingWithAppBarHeight,
+            child: Column(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image(
+                      image: AssetImage(ReGainImages.appLogo),
                     ),
-                  ),
-                  const SizedBox(height: ReGainSizes.sm),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4.0),
-                    child: Text(
-                      ReGainTexts.signUpSubtitle,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        ReGainTexts.signUpTitle,
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Form(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 32.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // Username
-                      const RegainTextbox(
-                          labelText: ReGainTexts.username,
-                          isUnderlineBorder: true),
-                      const SizedBox(
-                          height: ReGainSizes.spaceBtwInputFields / 2),
-
-                      // Password
-                      const PasswordTextFormField(
-                          labelText: ReGainTexts.password),
-                      const SizedBox(
-                          height: ReGainSizes.spaceBtwInputFields / 2),
-
-                      // Confirm Password
-                      const PasswordTextFormField(
-                          labelText: ReGainTexts.confirmPassword),
-                      const SizedBox(
-                          height: ReGainSizes.spaceBtwInputFields / 2),
-
-                      // Contact Number
-                      const RegainTextbox(
-                          labelText: ReGainTexts.contactNumber,
-                          keyboardType: TextInputType.phone,
-                          isUnderlineBorder: true),
-                      const SizedBox(height: ReGainSizes.spaceBtwInputFields),
-
-                      // Are you part of the waste sector?
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Checkbox(
-                                  value: isWasteSector,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      isWasteSector = value!;
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  'Are you part of the waste sector?',
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.info_outline),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text('Info'),
-                                    content: Text(
-                                        'Information about being part of the waste sector.'),
-                                    actions: [
-                                      TextButton(
-                                        child: Text('OK'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ],
+                    const SizedBox(height: ReGainSizes.sm),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        ReGainTexts.signUpSubtitle,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        textAlign: TextAlign.center,
                       ),
+                    ),
+                  ],
+                ),
+                Form(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 32.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Username
+                        const RegainTextbox(
+                            labelText: ReGainTexts.username,
+                            isUnderlineBorder: true),
+                        const SizedBox(
+                            height: ReGainSizes.spaceBtwInputFields / 2),
 
-                      // SignUp button
-                      const SizedBox(height: ReGainSizes.spaceBtwSections),
+                        // Password
+                        const PasswordTextFormField(
+                            labelText: ReGainTexts.password),
+                        const SizedBox(
+                            height: ReGainSizes.spaceBtwInputFields / 2),
 
-                      RegainButtons(
-                        text: ReGainTexts.signUp,
-                        onPressed: () {
-                          // --- Add validation ---
+                        // Confirm Password
+                        const PasswordTextFormField(
+                            labelText: ReGainTexts.confirmPassword),
+                        const SizedBox(
+                            height: ReGainSizes.spaceBtwInputFields / 2),
 
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const RegistrationOtp()));
-                        },
-                        type: ButtonType.filled,
-                        size: ButtonSize.large,
-                      ),
+                        // Contact Number
+                        const RegainTextbox(
+                            labelText: ReGainTexts.contactNumber,
+                            keyboardType: TextInputType.phone,
+                            isUnderlineBorder: true),
+                        const SizedBox(height: ReGainSizes.spaceBtwInputFields),
 
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        // Are you part of the waste sector?
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Already have an account?",
-                              style: Theme.of(context).textTheme.bodyMedium,
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Checkbox(
+                                    value: isWasteSector,
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        isWasteSector = value!;
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    'Are you part of the waste sector?',
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
                             ),
-                            TextButton(
+                            IconButton(
+                              icon: Icon(Icons.info_outline),
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()),
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Info'),
+                                      content: Text(
+                                          'Information about being part of the waste sector.'),
+                                      actions: [
+                                        TextButton(
+                                          child: Text('OK'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 );
                               },
-                              child: Text(
-                                "Log In",
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+
+                        // SignUp button
+                        const SizedBox(height: ReGainSizes.spaceBtwSections),
+
+                        RegainButtons(
+                          text: ReGainTexts.signUp,
+                          onPressed: () {
+                            // --- Add validation ---
+
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegistrationOtp()));
+                          },
+                          type: ButtonType.filled,
+                          size: ButtonSize.large,
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Already have an account?",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginScreen()),
+                                  );
+                                },
+                                child: Text(
+                                  "Log In",
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

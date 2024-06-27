@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/add/add.dart';
+import 'package:regain_mobile/features/screens/listings/add.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/favorites.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
