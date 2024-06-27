@@ -10,17 +10,18 @@ part 'user_model.g.dart';
 class UserModel with _$UserModel {
   factory UserModel({
     int? id,
-    int? role,
-    String? firstName,
-    String? lastName,
+    @Default(2) int? role,
+    @Default('') String? firstName,
+    @Default('') String? lastName,
     required String username,
     required String contactNumber,
     required String password,
-    String? email,
+    @Default('') String? email,
     int? address,
     @Default('Active') String accountStatus,
-    int? penaltyPoints,
-    double? commissionBalance,
+    @Default(0) int? penaltyPoints,
+    @Default(0.00) double? commissionBalance,
+    @Default('') String? junkshopName,
 
     //@Uint8ListConverter() Uint8List? image, ---> causes dart build_runner to error due to null check. May be due to the type coverter
   }) = _UserModel;

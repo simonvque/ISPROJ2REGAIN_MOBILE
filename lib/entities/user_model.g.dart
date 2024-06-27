@@ -9,17 +9,19 @@ part of 'user_model.dart';
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
     _$UserModelImpl(
       id: (json['id'] as num?)?.toInt(),
-      role: (json['role'] as num?)?.toInt(),
-      firstName: json['firstName'] as String?,
-      lastName: json['lastName'] as String?,
+      role: (json['role'] as num?)?.toInt() ?? 2,
+      firstName: json['firstName'] as String? ?? '',
+      lastName: json['lastName'] as String? ?? '',
       username: json['username'] as String,
       contactNumber: json['contactNumber'] as String,
       password: json['password'] as String,
-      email: json['email'] as String?,
+      email: json['email'] as String? ?? '',
       address: (json['address'] as num?)?.toInt(),
       accountStatus: json['accountStatus'] as String? ?? 'Active',
-      penaltyPoints: (json['penaltyPoints'] as num?)?.toInt(),
-      commissionBalance: (json['commissionBalance'] as num?)?.toDouble(),
+      penaltyPoints: (json['penaltyPoints'] as num?)?.toInt() ?? 0,
+      commissionBalance:
+          (json['commissionBalance'] as num?)?.toDouble() ?? 0.00,
+      junkshopName: json['junkshopName'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -36,4 +38,5 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'accountStatus': instance.accountStatus,
       'penaltyPoints': instance.penaltyPoints,
       'commissionBalance': instance.commissionBalance,
+      'junkshopName': instance.junkshopName,
     };

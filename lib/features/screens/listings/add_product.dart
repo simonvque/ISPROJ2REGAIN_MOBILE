@@ -185,7 +185,8 @@ class _AddProductState extends State<AddProduct> {
                   child: IconButton(
                     icon: const Icon(Icons.info_outline),
                     onPressed: () {
-                      ReGainHelperFunctions.showSnackBar('info about delivery');
+                      ReGainHelperFunctions.showSnackBar(
+                          context, 'info about delivery');
                     },
                   )),
             ],

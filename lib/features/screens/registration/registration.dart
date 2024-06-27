@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
-import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/features/screens/registration/registration_otp.dart';
 import 'package:regain_mobile/helper_functions.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 
 import '../../../common/styles/spacing_styles.dart';
 import '../../../constants/colors.dart';
@@ -239,7 +239,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           .addUser(user)
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
-          ReGainHelperFunctions.showSnackBar(response.message);
+          ReGainHelperFunctions.showSnackBar(context, response.message);
           resetFields();
         }
       });
@@ -249,6 +249,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void resetFields() {
     usernameController.clear();
     passwordController.clear();
+    matchingPasswordController.clear();
     contactNumberController.clear();
   }
 
@@ -256,6 +257,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void dispose() {
     usernameController.dispose();
     passwordController.dispose();
+    matchingPasswordController.dispose();
     contactNumberController.dispose();
     super.dispose();
   }
