@@ -13,11 +13,13 @@ class RegainTextbox extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool isUnderlineBorder;
-  final TextEditingController? controller;
+  TextEditingController? controller;
+  FormFieldValidator<String>? validator;
 
-  const RegainTextbox({
+  RegainTextbox({
     Key? key,
     this.controller,
+    this.validator,
     this.labelText,
     this.hintText,
     this.focusedBorderColor = green,
@@ -34,6 +36,7 @@ class RegainTextbox extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      validator: validator,
       keyboardType: keyboardType,
       style: TextStyle(color: fontColor),
       decoration: InputDecoration(

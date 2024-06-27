@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class ReGainHelperFunctions{
-
-  static void showSnackBar(String message){
+class ReGainHelperFunctions {
+  static void showSnackBar(String message) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
       SnackBar(content: Text(message)),
     );
@@ -12,50 +11,50 @@ class ReGainHelperFunctions{
 
   static void showAlert(String title, String message) {
     showDialog(
-        context: Get.context!,
-        builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: [
-          TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Ok")
-          ),
-        ],
-      );
-    },
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text("Ok")),
+          ],
+        );
+      },
     );
   }
 
-  static void navigateToScreen(BuildContext context, Widget screen){
+  static void navigateToScreen(BuildContext context, Widget screen) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => screen),
     );
   }
 
-  static String truncateText(String text, int maxLength){
-    if(text.length <= maxLength){
+  static String truncateText(String text, int maxLength) {
+    if (text.length <= maxLength) {
       return text;
-    } else{
+    } else {
       return '${text.substring(0, maxLength)}...';
     }
   }
 
-  static Size screenSize(){
+  static Size screenSize() {
     return MediaQuery.of(Get.context!).size;
   }
 
-  static double screenHeight(){
+  static double screenHeight() {
     return MediaQuery.of(Get.context!).size.height;
   }
 
-  static double screenWidth(){
+  static double screenWidth() {
     return MediaQuery.of(Get.context!).size.width;
   }
 
-  static String getFormattedDate(DateTime date, {String format = 'dd MM yyyy'}){
+  static String getFormattedDate(DateTime date,
+      {String format = 'dd MM yyyy'}) {
     return DateFormat(format).format(date);
   }
 }

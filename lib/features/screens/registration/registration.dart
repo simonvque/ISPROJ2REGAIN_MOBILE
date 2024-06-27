@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:regain_mobile/constants/ENUMS.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/features/screens/registration/registration_otp.dart';
+import 'package:regain_mobile/helper_functions.dart';
 
 import '../../../common/styles/spacing_styles.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
 import '../../../constants/text_strings.dart';
+import '../../../entities/user_model.dart';
 import '../../../themes/elements/button_styles.dart';
 import '../../../themes/elements/input fields/password_textbox.dart';
 import '../../../themes/elements/input fields/regain_textbox.dart';
@@ -25,6 +30,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool isWasteSector = false;
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
+
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final matchingPasswordController = TextEditingController();
+  final contactNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,26 +77,48 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         // Username
-                        const RegainTextbox(
+                        RegainTextbox(
+                            controller: usernameController,
+                            validator: (value) {
+                              // insert validations here
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a username';
+                              }
+                            },
                             labelText: ReGainTexts.username,
                             isUnderlineBorder: true),
                         const SizedBox(
                             height: ReGainSizes.spaceBtwInputFields / 2),
 
                         // Password
-                        const PasswordTextFormField(
+                        PasswordTextFormField(
+                            controller: passwordController,
+                            validator: (value) {
+                              // insert validations here
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a password';
+                              }
+                            },
                             labelText: ReGainTexts.password),
                         const SizedBox(
                             height: ReGainSizes.spaceBtwInputFields / 2),
 
-                        // Confirm Password
-                        const PasswordTextFormField(
+                        // Confirm Password >> NOT YET IMPLEMENTED
+                        PasswordTextFormField(
+                            controller: matchingPasswordController,
+                            validator: (value) {
+                              if (value == null ||
+                                  value != passwordController.text) {
+                                return 'Please confirm your password';
+                              }
+                            },
                             labelText: ReGainTexts.confirmPassword),
                         const SizedBox(
                             height: ReGainSizes.spaceBtwInputFields / 2),
 
                         // Contact Number
-                        const RegainTextbox(
+                        RegainTextbox(
+                            controller: contactNumberController,
                             labelText: ReGainTexts.contactNumber,
                             keyboardType: TextInputType.phone,
                             isUnderlineBorder: true),
@@ -146,15 +178,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                         RegainButtons(
                           text: ReGainTexts.signUp,
-                          onPressed: () {
-                            // --- Add validation ---
+                          onPressed: addUser,
+                          // onPressed: () {
+                          //   // --- Add validation ---
 
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RegistrationOtp()));
-                          },
+                          //   Navigator.pushReplacement(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //           builder: (context) =>
+                          //               const RegistrationOtp()));
+                          // },
                           type: ButtonType.filled,
                           size: ButtonSize.large,
                         ),
@@ -170,10 +203,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.push(
+                                  Navigator.pushNamed(
                                     context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginScreen()),
+                                    routeLogin,
                                   );
                                 },
                                 child: Text(
@@ -194,5 +226,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
       ),
     );
+  }
+
+  void addUser() {
+    if (_formKey.currentState!.validate()) {
+      final user = UserModel(
+        username: usernameController.text,
+        contactNumber: contactNumberController.text,
+        password: passwordController.text,
+      );
+      Provider.of<AppDataProvider>(context, listen: false)
+          .addUser(user)
+          .then((response) {
+        if (response.responseStatus == ResponseStatus.SAVED) {
+          ReGainHelperFunctions.showSnackBar(response.message);
+          resetFields();
+        }
+      });
+    }
+  }
+
+  void resetFields() {
+    usernameController.clear();
+    passwordController.clear();
+    contactNumberController.clear();
+  }
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    contactNumberController.dispose();
+    super.dispose();
   }
 }
