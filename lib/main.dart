@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/features/screens/listings/add_product.dart';
+import 'package:regain_mobile/features/screens/awareness/awareness.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
 import 'package:regain_mobile/features/screens/orders/myorders.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/features/screens/orders/review.dart';
+import 'package:regain_mobile/features/screens/registration/registration.dart';
 import 'package:regain_mobile/features/screens/registration/registration_otp.dart';
 import 'package:regain_mobile/features/screens/registration/registration_verified.dart';
 import 'package:regain_mobile/features/screens/homepage/selected_item.dart';
@@ -57,7 +61,13 @@ class MyApp extends StatelessWidget {
       //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
       // ),
 
-      home: NavigationMenu(),
+      home: LoginScreen(),
+      routes: {
+        routeLogin: (context) => LoginScreen(),
+        routeHomepage: (context) => HomepageScreen(),
+        routeNavMenu: (context) => NavigationMenu(),
+        routeRegistration: (context) => RegistrationScreen(),
+      },
     );
   }
 }

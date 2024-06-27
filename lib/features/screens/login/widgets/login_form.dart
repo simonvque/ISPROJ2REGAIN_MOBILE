@@ -24,7 +24,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  bool isPasswordVisible = false; 
+  bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +34,16 @@ class _LoginFormState extends State<LoginForm> {
         children: [
           // Username
 
-          const RegainTextbox(labelText: ReGainTexts.username, isUnderlineBorder: true),
+          const RegainTextbox(
+              labelText: ReGainTexts.username, isUnderlineBorder: true),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.logIn),
           // ),
           const SizedBox(height: ReGainSizes.spaceBtwInputFields),
 
           // Password
-          const PasswordTextFormField(labelText: ReGainTexts.password, isUnderlineBorder: true),
+          const PasswordTextFormField(
+              labelText: ReGainTexts.password, isUnderlineBorder: true),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.password, suffixIcon: Icon(Iconsax.eye_slash)),
           // ),
@@ -55,7 +57,8 @@ class _LoginFormState extends State<LoginForm> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ForgetPasswordScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => ForgetPasswordScreen()),
                   );
                 },
                 child: Text(
@@ -70,12 +73,13 @@ class _LoginFormState extends State<LoginForm> {
           // Login button
           RegainButtons(
             text: ReGainTexts.logIn,
-
-            onPressed: (){
+            onPressed: () {
               // --- Add validation ---
 
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const NavigationMenu()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NavigationMenu()));
             },
             type: ButtonType.filled,
             size: ButtonSize.large,
@@ -93,9 +97,9 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(builder: (context) => RegistrationScreen()),
+                      routeRegistration,
                     );
                   },
                   child: Text(
