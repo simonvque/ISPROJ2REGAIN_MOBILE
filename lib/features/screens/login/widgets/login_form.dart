@@ -90,10 +90,9 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => RegistrationScreen()),
+                      routeRegistration,
                     );
                   },
                   child: Text(

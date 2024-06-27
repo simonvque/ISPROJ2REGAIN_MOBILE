@@ -47,3 +47,9 @@ class ReGainTexts {
       'In hac habitasse platea dictumst. Nunc sed blandit libero volutpat sed cras ornare arcu dui. '
       'Rhoncus dolor purus non enim praesent elementum. Justo eget magna fermentum iaculis eu non diam phasellus.';
 }
+
+//Route Texts
+const String routeLogin = "LoginScreen";
+const String routeHomepage = "HomepageScreen";
+const String routeNavMenu = "NavigationMenu";
+const String routeRegistration = "RegistrationScreen";
