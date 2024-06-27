@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:regain_mobile/features/screens/awareness/awareness.dart';
 import 'package:regain_mobile/features/screens/filter.dart';
 
 import '../../../constants/colors.dart';
@@ -37,7 +39,7 @@ class _HomeScreenState extends State<HomepageScreen> {
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
 
                 // Search bar
-                const RegainTextbox(
+                RegainTextbox(
                     hintText: 'Search',
                     prefixIcon: Icon(Icons.search),
                     fillColor: white,
@@ -109,10 +111,11 @@ class _HomeScreenState extends State<HomepageScreen> {
                     InkWell(
                       onTap: () {
                         // ----------------------------- GO TO PROFILE PAGE -----------------------------
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => ProfilePage()),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfilePage()),
+                        );
                       },
                       child: Column(
                         children: <Widget>[
@@ -137,20 +140,28 @@ class _HomeScreenState extends State<HomepageScreen> {
             ),
           ),
 
-          const Expanded(
+          Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   // carousel
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: ReGainSizes.sm),
-                    child: ReGainCarousel(
-                      banners: [
-                        ReGainImages.carousel1,
-                        ReGainImages.carousel1,
-                        ReGainImages.carousel1,
-                        ReGainImages.carousel1
-                      ],
+                    child: GestureDetector(
+                      onDoubleTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AwarenessFeature()));
+                      },
+                      child: ReGainCarousel(
+                        banners: [
+                          ReGainImages.carousel1,
+                          ReGainImages.carousel1,
+                          ReGainImages.carousel1,
+                          ReGainImages.carousel1
+                        ],
+                      ),
                     ),
                   ),
 
