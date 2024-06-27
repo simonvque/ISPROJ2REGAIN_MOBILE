@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomepageScreen> {
                 //   ),
                 // ),
 
-                const RegainTextbox(
+                RegainTextbox(
                     hintText: 'Search',
                     prefixIcon: Icon(Icons.search),
                     fillColor: white,

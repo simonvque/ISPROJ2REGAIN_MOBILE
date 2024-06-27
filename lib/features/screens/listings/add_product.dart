@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/helper_functions.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({super.key});
@@ -184,8 +185,7 @@ class _AddProductState extends State<AddProduct> {
                   child: IconButton(
                     icon: const Icon(Icons.info_outline),
                     onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('info about delivery')));
+                      ReGainHelperFunctions.showSnackBar('info about delivery');
                     },
                   )),
             ],

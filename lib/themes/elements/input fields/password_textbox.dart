@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class PasswordTextFormField extends StatefulWidget {
   final String labelText;
   final Color focusedBorderColor;
-  final TextEditingController? controller;
+  TextEditingController? controller;
+  FormFieldValidator<String>? validator;
 
-  const PasswordTextFormField({
+  PasswordTextFormField({
     Key? key,
-    required this.labelText,
     this.controller,
+    this.validator,
+    required this.labelText,
     this.focusedBorderColor = Colors.green, // default color if not provided
   }) : super(key: key);
 
@@ -23,6 +25,7 @@ class PasswordTextFormFieldState extends State<PasswordTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
+      validator: widget.validator,
       obscureText: !_isPasswordVisible,
       decoration: InputDecoration(
         labelText: widget.labelText,

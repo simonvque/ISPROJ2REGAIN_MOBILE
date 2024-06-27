@@ -40,22 +40,21 @@ class OfferPricePopup extends StatelessWidget {
               ),
               const SizedBox(height: ReGainSizes.spaceBtwItems / 2),
               Expanded(
-                child: Text(
-                  '@sammysalami is selling this for PHP 100',
-                  style: Theme.of(context).textTheme.labelLarge
-                ),
+                child: Text('@sammysalami is selling this for PHP 100',
+                    style: Theme.of(context).textTheme.labelLarge),
               ),
             ],
           ),
           Divider(height: 20, color: Colors.grey),
           const SizedBox(width: ReGainSizes.spaceBtwItems),
-          Text(
-            'Enter offer value:',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge
-          ),
+          Text('Enter offer value:',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: ReGainSizes.spaceBtwItems / 2),
-          const RegainTextbox(hintText: 'Type your offer here', isUnderlineBorder: true, keyboardType: TextInputType.phone),
+          RegainTextbox(
+              hintText: 'Type your offer here',
+              isUnderlineBorder: true,
+              keyboardType: TextInputType.phone),
           // TextField(
           //   decoration: InputDecoration(
           //     hintText: 'Type your offer here',
