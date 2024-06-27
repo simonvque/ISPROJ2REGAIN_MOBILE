@@ -1,7 +1,6 @@
-import 'package:regain_mobile/model/response_model.dart';
-
-import '../model/User.dart';
+import 'package:regain_mobile/entities/response_model.dart';
+import 'package:regain_mobile/entities/user_model.dart';
 
 abstract class DataSource {
-  Future<ResponseModel> addUser(User user);
+  Future<ResponseModel> addUser(UserModel user);
 }

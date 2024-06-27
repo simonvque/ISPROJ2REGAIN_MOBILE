@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/features/screens/listings/add_product.dart';
 import 'package:regain_mobile/features/screens/awareness/awareness.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
@@ -20,7 +22,8 @@ import 'package:regain_mobile/features/screens/profile/seller_profile_page.dart'
 import 'package:regain_mobile/themes/theme.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => AppDataProvider(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
