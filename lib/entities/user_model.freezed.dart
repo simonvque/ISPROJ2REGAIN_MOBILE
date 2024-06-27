@@ -44,6 +44,8 @@ mixin _$UserModel {
   set penaltyPoints(int? value) => throw _privateConstructorUsedError;
   double? get commissionBalance => throw _privateConstructorUsedError;
   set commissionBalance(double? value) => throw _privateConstructorUsedError;
+  String? get junkshopName => throw _privateConstructorUsedError;
+  set junkshopName(String? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,7 +70,8 @@ abstract class $UserModelCopyWith<$Res> {
       int? address,
       String accountStatus,
       int? penaltyPoints,
-      double? commissionBalance});
+      double? commissionBalance,
+      String? junkshopName});
 }
 
 /// @nodoc
@@ -96,6 +99,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? accountStatus = null,
     Object? penaltyPoints = freezed,
     Object? commissionBalance = freezed,
+    Object? junkshopName = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -146,6 +150,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.commissionBalance
           : commissionBalance // ignore: cast_nullable_to_non_nullable
               as double?,
+      junkshopName: freezed == junkshopName
+          ? _value.junkshopName
+          : junkshopName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -170,7 +178,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
       int? address,
       String accountStatus,
       int? penaltyPoints,
-      double? commissionBalance});
+      double? commissionBalance,
+      String? junkshopName});
 }
 
 /// @nodoc
@@ -196,6 +205,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? accountStatus = null,
     Object? penaltyPoints = freezed,
     Object? commissionBalance = freezed,
+    Object? junkshopName = freezed,
   }) {
     return _then(_$UserModelImpl(
       id: freezed == id
@@ -246,6 +256,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.commissionBalance
           : commissionBalance // ignore: cast_nullable_to_non_nullable
               as double?,
+      junkshopName: freezed == junkshopName
+          ? _value.junkshopName
+          : junkshopName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -255,17 +269,18 @@ class __$$UserModelImplCopyWithImpl<$Res>
 class _$UserModelImpl implements _UserModel {
   _$UserModelImpl(
       {this.id,
-      this.role,
-      this.firstName,
-      this.lastName,
+      this.role = 2,
+      this.firstName = '',
+      this.lastName = '',
       required this.username,
       required this.contactNumber,
       required this.password,
-      this.email,
+      this.email = '',
       this.address,
       this.accountStatus = 'Active',
-      this.penaltyPoints,
-      this.commissionBalance});
+      this.penaltyPoints = 0,
+      this.commissionBalance = 0.00,
+      this.junkshopName = ''});
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
@@ -273,10 +288,13 @@ class _$UserModelImpl implements _UserModel {
   @override
   int? id;
   @override
+  @JsonKey()
   int? role;
   @override
+  @JsonKey()
   String? firstName;
   @override
+  @JsonKey()
   String? lastName;
   @override
   String username;
@@ -285,6 +303,7 @@ class _$UserModelImpl implements _UserModel {
   @override
   String password;
   @override
+  @JsonKey()
   String? email;
   @override
   int? address;
@@ -292,13 +311,18 @@ class _$UserModelImpl implements _UserModel {
   @JsonKey()
   String accountStatus;
   @override
+  @JsonKey()
   int? penaltyPoints;
   @override
+  @JsonKey()
   double? commissionBalance;
+  @override
+  @JsonKey()
+  String? junkshopName;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, role: $role, firstName: $firstName, lastName: $lastName, username: $username, contactNumber: $contactNumber, password: $password, email: $email, address: $address, accountStatus: $accountStatus, penaltyPoints: $penaltyPoints, commissionBalance: $commissionBalance)';
+    return 'UserModel(id: $id, role: $role, firstName: $firstName, lastName: $lastName, username: $username, contactNumber: $contactNumber, password: $password, email: $email, address: $address, accountStatus: $accountStatus, penaltyPoints: $penaltyPoints, commissionBalance: $commissionBalance, junkshopName: $junkshopName)';
   }
 
   @JsonKey(ignore: true)
@@ -328,7 +352,8 @@ abstract class _UserModel implements UserModel {
       int? address,
       String accountStatus,
       int? penaltyPoints,
-      double? commissionBalance}) = _$UserModelImpl;
+      double? commissionBalance,
+      String? junkshopName}) = _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
@@ -369,6 +394,9 @@ abstract class _UserModel implements UserModel {
   @override
   double? get commissionBalance;
   set commissionBalance(double? value);
+  @override
+  String? get junkshopName;
+  set junkshopName(String? value);
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
