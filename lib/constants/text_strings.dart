@@ -53,3 +53,5 @@ const String routeLogin = "LoginScreen";
 const String routeHomepage = "HomepageScreen";
 const String routeNavMenu = "NavigationMenu";
 const String routeRegistration = "RegistrationScreen";
+const String routeProfilePage = "ProfilePage";
+const String routeAdd = "Add";
