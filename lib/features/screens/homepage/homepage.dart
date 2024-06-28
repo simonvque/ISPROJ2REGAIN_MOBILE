@@ -53,6 +53,8 @@ class _HomeScreenState extends State<HomepageScreen> {
                 //   ),
                 // ),
 
+                const SizedBox(height: ReGainSizes.spaceBtwItems),
+
                 const RegainTextbox(hintText: 'Search', prefixIcon: Icon(Icons.search), fillColor: white, fontColor: black, focusedBorderColor: white),
 
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
