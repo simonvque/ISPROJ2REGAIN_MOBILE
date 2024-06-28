@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/add/add.dart';
+import 'package:regain_mobile/features/screens/chatfeatures/inbox.dart';
+import 'package:regain_mobile/features/screens/favorites.dart';
+import 'package:regain_mobile/features/screens/filter.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
-import 'package:regain_mobile/features/screens/orders/myorders.dart';
-import 'package:regain_mobile/features/screens/profile/profile_page.dart';
+
+import 'add/add.dart';
 
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({Key? key}) : super(key: key);
@@ -14,12 +16,12 @@ class NavigationMenu extends StatefulWidget {
 
 class _NavigationMenuState extends State<NavigationMenu> {
   int _currentIndex = 0;
-  List<Widget> body = [
+  List<Widget> body = const [
     HomepageScreen(),
+    FavoritesScreen(),
     Placeholder(color: Colors.transparent),
+    InboxScreen(),
     Placeholder(color: Colors.transparent),
-    Placeholder(color: Colors.transparent),
-    ProfilePage(),
   ];
 
   void _onItemTapped(int newIndex) {
@@ -78,8 +80,8 @@ class _NavigationMenuState extends State<NavigationMenu> {
             label: 'Chat',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Profile',
+            icon: Icon(Icons.checklist),
+            label: 'Orders',
           ),
         ],
       ),
