@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:regain_mobile/nav.dart';
 
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
@@ -72,7 +73,7 @@ class _LoginFormState extends State<LoginForm> {
               // --- Add validation ---
 
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const HomepageScreen()));
+                  MaterialPageRoute(builder: (context) => const NavigationMenu()));
             },
             type: ButtonType.filled,
             size: ButtonSize.large,

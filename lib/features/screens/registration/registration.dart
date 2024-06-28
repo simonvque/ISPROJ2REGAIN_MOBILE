@@ -63,15 +63,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // Username
-                      const RegainTextbox(labelText: ReGainTexts.logIn, isUnderlineBorder: true),
+                      const RegainTextbox(labelText: ReGainTexts.username, isUnderlineBorder: true),
                       const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
 
                       // Password
-                      const PasswordTextFormField(labelText: ReGainTexts.password),
+                      const PasswordTextFormField(labelText: ReGainTexts.password, isUnderlineBorder: true,),
                       const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
 
                       // Confirm Password
-                      const PasswordTextFormField(labelText: ReGainTexts.confirmPassword),
+                      const PasswordTextFormField(labelText: ReGainTexts.confirmPassword, isUnderlineBorder: true),
                       const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
 
                       // Contact Number

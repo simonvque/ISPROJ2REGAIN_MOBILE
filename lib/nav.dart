@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/add.dart';
+import 'package:regain_mobile/features/screens/chatfeatures/inbox.dart';
+import 'package:regain_mobile/features/screens/favorites.dart';
+import 'package:regain_mobile/features/screens/filter.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/profile/profile_page.dart';
 
@@ -15,9 +18,9 @@ class _NavigationMenuState extends State<NavigationMenu> {
   int _currentIndex = 0;
   List<Widget> body = const [
     HomepageScreen(),
+    FavoritesScreen(),
     Placeholder(color: Colors.transparent),
-    Placeholder(color: Colors.transparent),
-    Placeholder(color: Colors.transparent),
+    InboxScreen(),
     Placeholder(color: Colors.transparent),
   ];
 
