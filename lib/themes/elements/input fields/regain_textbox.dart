@@ -1,40 +1,62 @@
-// TODO Implement this library.import 'package:flutter/material.dart';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-import '../../../constants/colors.dart';
-
-
+// import 'package:flutter/material.dart';
+//
+// import '../../../constants/colors.dart';
+//
 // class RegainTextbox extends StatelessWidget {
 //   final String? labelText;
 //   final String? hintText;
 //   final Color focusedBorderColor;
+//   final Color fontColor;
+//   final Color iconColor;
+//   final Color fillColor;
+//   final Color hintAndLabelTextColor;
 //   final TextInputType keyboardType;
 //   final Widget? prefixIcon;
 //   final Widget? suffixIcon;
 //   final bool isUnderlineBorder;
+//   final TextEditingController? controller;
 //
 //   const RegainTextbox({
 //     Key? key,
+//     this.controller,
 //     this.labelText,
 //     this.hintText,
 //     this.focusedBorderColor = green,
+//     this.fontColor = black,
+//     this.iconColor = black,
+//     this.fillColor = white,
+//     this.hintAndLabelTextColor = black,
 //     this.keyboardType = TextInputType.text,
 //     this.prefixIcon,
 //     this.suffixIcon,
-//     this.isUnderlineBorder = false, // Default to border on all sides
+//     this.isUnderlineBorder = false,
 //   }) : super(key: key);
 //
 //   @override
 //   Widget build(BuildContext context) {
 //     return TextFormField(
+//       controller: controller,
 //       keyboardType: keyboardType,
+//       style: TextStyle(color: fontColor),
 //       decoration: InputDecoration(
 //         labelText: labelText,
+//         labelStyle: TextStyle(color: hintAndLabelTextColor), // Set label text color
 //         hintText: hintText,
-//         prefixIcon: prefixIcon,
-//         suffixIcon: suffixIcon,
+//         hintStyle: TextStyle(color: hintAndLabelTextColor), // Set hint text color
+//         prefixIcon: prefixIcon != null
+//             ? IconTheme(
+//           data: IconThemeData(color: iconColor),
+//           child: prefixIcon!,
+//         )
+//             : null,
+//         suffixIcon: suffixIcon != null
+//             ? IconTheme(
+//           data: IconThemeData(color: iconColor),
+//           child: suffixIcon!,
+//         )
+//             : null,
+//         filled: true,
+//         fillColor: fillColor,
 //         border: isUnderlineBorder
 //             ? UnderlineInputBorder(
 //           borderSide: BorderSide(color: focusedBorderColor),
@@ -54,6 +76,10 @@ import '../../../constants/colors.dart';
 //   }
 // }
 
+import 'package:flutter/material.dart';
+
+import '../../../constants/colors.dart';
+
 class RegainTextbox extends StatelessWidget {
   final String? labelText;
   final String? hintText;
@@ -65,9 +91,11 @@ class RegainTextbox extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool isUnderlineBorder;
+  final TextEditingController? controller;
 
   const RegainTextbox({
     Key? key,
+    this.controller,
     this.labelText,
     this.hintText,
     this.focusedBorderColor = green,
@@ -83,6 +111,7 @@ class RegainTextbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       keyboardType: keyboardType,
       style: TextStyle(color: fontColor),
       decoration: InputDecoration(
@@ -91,32 +120,32 @@ class RegainTextbox extends StatelessWidget {
         hintStyle: TextStyle(color: fontColor),
         prefixIcon: prefixIcon != null
             ? IconTheme(
-          data: IconThemeData(color: iconColor),
-          child: prefixIcon!,
-        )
+                data: IconThemeData(color: iconColor),
+                child: prefixIcon!,
+              )
             : null,
         suffixIcon: suffixIcon != null
             ? IconTheme(
-          data: IconThemeData(color: iconColor),
-          child: suffixIcon!,
-        )
+                data: IconThemeData(color: iconColor),
+                child: suffixIcon!,
+              )
             : null,
         filled: true,
         fillColor: fillColor,
         border: isUnderlineBorder
             ? UnderlineInputBorder(
-          borderSide: BorderSide(color: focusedBorderColor),
-        )
+                borderSide: BorderSide(color: focusedBorderColor),
+              )
             : OutlineInputBorder(
-          borderSide: BorderSide(color: focusedBorderColor),
-        ),
+                borderSide: BorderSide(color: focusedBorderColor),
+              ),
         focusedBorder: isUnderlineBorder
             ? UnderlineInputBorder(
-          borderSide: BorderSide(color: focusedBorderColor),
-        )
+                borderSide: BorderSide(color: focusedBorderColor),
+              )
             : OutlineInputBorder(
-          borderSide: BorderSide(color: focusedBorderColor),
-        ),
+                borderSide: BorderSide(color: focusedBorderColor),
+              ),
       ),
     );
   }
