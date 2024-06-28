@@ -239,8 +239,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           .addUser(user)
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
-          ReGainHelperFunctions.showSnackBar(context, response.message);
           resetFields();
+          Navigator.pushNamed(context, routeLogin);
+          ReGainHelperFunctions.showSnackBar(context, response.message);
         }
       });
     }
