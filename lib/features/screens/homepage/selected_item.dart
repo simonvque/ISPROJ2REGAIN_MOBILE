@@ -1,10 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/features/screens/offer/offerpopup.dart';
+
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
+import '../../../themes/elements/button_styles.dart';
+import '../offer/offerpopup.dart';
 
-class SelectedItemScreen extends StatelessWidget {
-  const SelectedItemScreen({super.key});
+class SelectedItemScreen extends StatefulWidget {
+  @override
+  _SelectedItemScreenState createState() => _SelectedItemScreenState();
+}
+
+class _SelectedItemScreenState extends State<SelectedItemScreen> {
+  // Declare variables for item details
+  final String item = 'Plastic Straw';
+  final String price = 'PHP 100';
+  final String description =
+      'Hello! I have 2 bags of plastic straws available at my home. They are mostly made of polypropylene. Is anyone interested? Already 2 years long now. It is essential to understand that these straws are durable and can be used for various purposes. They are eco-friendly and can be recycled. Please let me know if you are interested.';
+
+  final String category = 'Plastic';
+  final String weight = '1 kg';
+  final String location = 'Pasig City';
+  final bool isSellerDropOff = false;
+  bool isFavorite = false;
+  bool isDescriptionExpanded = false;
+
+  void toggleFavorite() {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+  }
+
+  void toggleDescription() {
+    setState(() {
+      isDescriptionExpanded = !isDescriptionExpanded;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +60,29 @@ class SelectedItemScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Plastic Straw',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
+                        item,
+                        style: Theme.of(context).textTheme.headlineLarge,
                       ),
                       Text(
-                        'PHP 100',
-                        style: TextStyle(fontSize: 20, color: green),
+                        price,
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: green),
                       ),
                       const SizedBox(height: 16),
-                      Text(
-                        'Hello! I have 2 bags of plastic straws available at my home. They are mostly made of polypropylene. Is anyone interested? Already 2 years long now.',
-                        style: TextStyle(fontSize: 16),
+                      GestureDetector(
+                        onTap: toggleDescription,
+                        child: Text(
+                          isDescriptionExpanded
+                              ? description
+                              : (description.length > 100
+                              ? '${description.substring(0, 100)} Show More'
+                              : description),
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
                       const SizedBox(height: 16),
                       Text(
                         'More Details',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 8),
                       Column(
@@ -58,7 +93,8 @@ class SelectedItemScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 const SizedBox(width: 8),
-                                Text('Plastic'),
+                                Text('Type: '),
+                                Text(category),
                               ],
                             ),
                           ),
@@ -67,7 +103,8 @@ class SelectedItemScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 const SizedBox(width: 8),
-                                Text('1 kg'),
+                                Text('Net Weight: '),
+                                Text(weight),
                               ],
                             ),
                           ),
@@ -77,7 +114,7 @@ class SelectedItemScreen extends StatelessWidget {
                               children: [
                                 Icon(Icons.location_pin),
                                 const SizedBox(width: 8),
-                                Text('Pasig City'),
+                                Text(location),
                               ],
                             ),
                           ),
@@ -86,8 +123,8 @@ class SelectedItemScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Icon(
-                                  Icons.check_circle,
-                                  color: green,
+                                  isSellerDropOff ? Icons.check_circle : Icons.cancel,
+                                  color: isSellerDropOff ? Colors.green : Colors.red,
                                   size: 20,
                                 ),
                                 const SizedBox(width: 8),
@@ -100,14 +137,13 @@ class SelectedItemScreen extends StatelessWidget {
                       const SizedBox(height: 16),
                       Text(
                         'About Seller',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 8),
                       Row(
                         children: [
                           CircleAvatar(
-                            backgroundImage: AssetImage('assets/profile.png'),
+                            backgroundImage: AssetImage('assets/profile.png'), // Replace with actual profile image
                             radius: 24,
                           ),
                           const SizedBox(width: 16),
@@ -116,8 +152,7 @@ class SelectedItemScreen extends StatelessWidget {
                             children: [
                               Text(
                                 '@isaejen_',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                               Row(
                                 children: [
@@ -131,11 +166,9 @@ class SelectedItemScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      // Add reviews section here
                       Text(
                         'Reviews',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 8),
                       Wrap(
@@ -143,7 +176,7 @@ class SelectedItemScreen extends StatelessWidget {
                         children: reviewTags.map((tag) {
                           return Chip(
                             label: Text(tag),
-                            backgroundColor: Colors.green,
+                            backgroundColor: green,
                             labelStyle: TextStyle(color: white),
                             side: BorderSide.none,
                           );
@@ -172,7 +205,7 @@ class SelectedItemScreen extends StatelessWidget {
             child: IconButton(
               icon: Icon(Icons.flag, color: Colors.white),
               onPressed: () {
-                // ---------------- GO TO REPORT PAGE ----------------
+                // Navigate to report page or perform action
               },
             ),
           ),
@@ -182,20 +215,23 @@ class SelectedItemScreen extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              icon: Icon(Icons.favorite_border),
-              onPressed: () {
-                // -------------------- SAVE TO FAVORITES --------------------
-              },
+              icon: Icon(
+                isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: isFavorite ? Colors.red : null,
+              ),
+              onPressed: toggleFavorite,
             ),
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
+                  // -------------------- PLACE OFFER --------------------
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return OfferPricePopup(); // Display OfferPricePopup as a dialog
                     },
                   );
+
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
