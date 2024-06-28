@@ -15,7 +15,6 @@ import 'package:regain_mobile/features/screens/profile/report_page.dart';
 import 'package:regain_mobile/features/screens/profile/seller_profile_page.dart';
 import 'package:regain_mobile/themes/theme.dart';
 
-import 'add_equipment.dart';
 
 void main() {
   runApp(MyApp());
