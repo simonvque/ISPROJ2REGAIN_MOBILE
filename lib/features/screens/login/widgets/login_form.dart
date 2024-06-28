@@ -25,87 +25,6 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
-  bool isLoading = false;
-
-  Future<void> _login() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    final loginSuccessful = await _attemptLogin(
-      _usernameController.text,
-      _passwordController.text,
-    );
-
-    setState(() {
-      isLoading = false;
-    });
-
-    if (loginSuccessful) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const NavigationMenu()),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Login failed. Please check your credentials.')),
-      );
-    }
-  }
-
-  Future<bool> _attemptLogin(String username, String password) async {
-    try {
-      final response = await http.post(
-        Uri.parse(
-            'http://10.0.2.2:3000/login'), // Use 10.0.2.2 for Android emulator
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'username': username,
-          'password': password,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        final token = json.decode(response.body)['token'];
-        await _secureStorage.write(key: 'token', value: token);
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      print('Error during login: $e');
-      return false;
-    }
-  }
-
-  void _onLoginPressed() {
-    if (!isLoading && _validateInputs()) {
-      _login();
-    }
-  }
-
-  bool _validateInputs() {
-    if (_usernameController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Username cannot be empty.')),
-      );
-      return false;
-    }
-    if (_passwordController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Password cannot be empty.')),
-      );
-      return false;
-    }
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -114,7 +33,6 @@ class _LoginFormState extends State<LoginForm> {
         children: [
           // Username
           RegainTextbox(
-            controller: _usernameController,
             labelText: ReGainTexts.logIn,
             isUnderlineBorder: true,
           ),
@@ -122,7 +40,6 @@ class _LoginFormState extends State<LoginForm> {
 
           // Password
           PasswordTextFormField(
-            controller: _passwordController,
             labelText: ReGainTexts.password,
           ),
           const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
@@ -150,18 +67,16 @@ class _LoginFormState extends State<LoginForm> {
 
           // Login button
           RegainButtons(
-            text: isLoading ? ' ' : ReGainTexts.logIn,
-            onPressed: _onLoginPressed,
+            text: ReGainTexts.logIn,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomepageScreen()),
+              );
+            },
             type: ButtonType.filled,
             size: ButtonSize.large,
           ),
-
-          // Loading indicator
-          if (isLoading)
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Center(child: CircularProgressIndicator()),
-            ),
 
           // Sign up
           Padding(
