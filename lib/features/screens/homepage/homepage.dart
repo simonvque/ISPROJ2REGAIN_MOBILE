@@ -6,7 +6,6 @@ import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
 import '../../../constants/text_strings.dart';
-import '../../../profile/profile_page.dart';
 import '../../../themes/elements/input fields/regain_textbox.dart';
 import '../homepage/widgets/homepage_cards.dart';
 import '../homepage/widgets/homepage_carousel.dart';
