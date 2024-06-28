@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/add_product.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
