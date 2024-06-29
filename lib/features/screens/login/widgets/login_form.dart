@@ -24,7 +24,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  bool isPasswordVisible = false; // Track whether password is visible or not
+  bool isPasswordVisible = false; 
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +33,7 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Username
+
           const RegainTextbox(labelText: ReGainTexts.username, isUnderlineBorder: true),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.logIn),
@@ -69,6 +70,7 @@ class _LoginFormState extends State<LoginForm> {
           // Login button
           RegainButtons(
             text: ReGainTexts.logIn,
+
             onPressed: (){
               // --- Add validation ---
 
