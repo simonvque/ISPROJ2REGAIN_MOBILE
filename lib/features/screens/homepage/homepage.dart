@@ -11,6 +11,7 @@ import '../homepage/widgets/homepage_cards.dart';
 import '../homepage/widgets/homepage_carousel.dart';
 import '../profile/profile_page.dart';
 
+
 class HomepageScreen extends StatefulWidget {
   const HomepageScreen({super.key});
 
@@ -34,26 +35,11 @@ class _HomeScreenState extends State<HomepageScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Search bar
-                // SizedBox(
-                //   width: double.infinity,
-                //   child: Container(
-                //     padding: const EdgeInsets.all(ReGainSizes.md),
-                //     decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       borderRadius: BorderRadius.circular(ReGainSizes.cardRadiusXs),
-                //     ),
-                //     child: Row(
-                //       children: [
-                //         const Icon(Icons.search, color: Colors.grey),
-                //         const SizedBox(height: ReGainSizes.spaceBtwItems / 2),
-                //         Text("Search", style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey)),
-                //       ],
-                //     ),
-                //   ),
-                // ),
 
-                const RegainTextbox(hintText: 'Search', prefixIcon: Icon(Icons.search), fillColor: white, fontColor: black, focusedBorderColor: white),
+                const SizedBox(height: ReGainSizes.spaceBtwItems),
+
+                // Search bar
+                const RegainTextbox(hintText: 'Search', prefixIcon: Icon(Icons.search), fillColor: white, focusedBorderColor: white),
 
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
 
@@ -80,7 +66,7 @@ class _HomeScreenState extends State<HomepageScreen> {
                                 value: value,
                                 child: Text(
                                   value,
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: white),
                                 ),
                               );
                             }).toList(),
@@ -99,10 +85,12 @@ class _HomeScreenState extends State<HomepageScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: ReGainSizes.md),
                       child: IconButton(
-                        icon: const Icon(Icons.filter_list, color: Colors.white),
+                        icon: const Icon(Icons.filter_list, color: white),
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => FilterScreen()));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => FilterScreen()),
+                          );
                         },
                       ),
                     ),
@@ -110,11 +98,11 @@ class _HomeScreenState extends State<HomepageScreen> {
                     // Profile picture
                     InkWell(
                       onTap: () {
-                        //----------------------------- GO TO PROFILE PAGE -----------------------------
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ProfilePage()),
-                        );
+                        // ----------------------------- GO TO PROFILE PAGE -----------------------------
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => ProfilePage()),
+                        // );
                       },
                       child: Column(
                         children: <Widget>[
@@ -124,7 +112,7 @@ class _HomeScreenState extends State<HomepageScreen> {
                           const SizedBox(height: 4),
                           Text(
                             'My Profile',
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: white),
                           ),
                         ],
                       ),
@@ -142,7 +130,7 @@ class _HomeScreenState extends State<HomepageScreen> {
 
                   // carousel
                   Padding(
-                    padding: EdgeInsets.all(ReGainSizes.sm),
+                    padding: EdgeInsets.symmetric(horizontal: ReGainSizes.sm),
                     child: ReGainCarousel(banners: [ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1],),
                   ),
 
@@ -150,7 +138,7 @@ class _HomeScreenState extends State<HomepageScreen> {
                   CardItems(
                     items: [
                       {
-                        'imagePath': ReGainImages.onboardingImage1,
+                        'imagePath': ReGainImages.onboardingImage3,
                         'title': 'Copper nail',
                         'location': 'Pasig City',
                         'price': 'PHP 450',
@@ -160,6 +148,39 @@ class _HomeScreenState extends State<HomepageScreen> {
                         'category': 'Metal',
                         'isSellerDropOff': true,
                         'isFavorite': false
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                        'isFavorite': true
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                        'isFavorite': true
+                      },{
+                        'imagePath': ReGainImages.onboardingImage3,
+                        'title': 'Copper nail',
+                        'location': 'Pasig City',
+                        'price': 'PHP 450',
+                        'sellerImagePath': null,
+                        'seller': '@heyitscee',
+                        'weight': '5 kg',
+                        'category': 'Metal',
+                        'isSellerDropOff': true,
+                        'isFavorite': true
                       },{
                         'imagePath': ReGainImages.onboardingImage3,
                         'title': 'Copper nail',
