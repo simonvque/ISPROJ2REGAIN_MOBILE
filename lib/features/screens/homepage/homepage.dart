@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:regain_mobile/features/screens/awareness/awareness.dart';
 import 'package:regain_mobile/features/screens/filter.dart';
 
 import '../../../constants/colors.dart';
@@ -10,7 +12,6 @@ import '../../../themes/elements/input fields/regain_textbox.dart';
 import '../homepage/widgets/homepage_cards.dart';
 import '../homepage/widgets/homepage_carousel.dart';
 import '../profile/profile_page.dart';
-
 
 class HomepageScreen extends StatefulWidget {
   const HomepageScreen({super.key});
@@ -35,11 +36,14 @@ class _HomeScreenState extends State<HomepageScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
 
                 // Search bar
-                const RegainTextbox(hintText: 'Search', prefixIcon: Icon(Icons.search), fillColor: white, focusedBorderColor: white),
+                RegainTextbox(
+                    hintText: 'Search',
+                    prefixIcon: Icon(Icons.search),
+                    fillColor: white,
+                    focusedBorderColor: white),
 
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
 
@@ -50,10 +54,12 @@ class _HomeScreenState extends State<HomepageScreen> {
                     // Dropdown menu
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: ReGainSizes.md),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: ReGainSizes.md),
                         decoration: BoxDecoration(
                           color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(ReGainSizes.cardRadiusXs),
+                          borderRadius:
+                              BorderRadius.circular(ReGainSizes.cardRadiusXs),
                           border: Border.all(color: white),
                         ),
                         child: DropdownButtonHideUnderline(
@@ -61,12 +67,16 @@ class _HomeScreenState extends State<HomepageScreen> {
                             dropdownColor: green,
                             iconEnabledColor: white,
                             isExpanded: true,
-                            items: <String>['Recyclables', 'Equipments'].map((String value) {
+                            items: <String>['Recyclables', 'Equipments']
+                                .map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
                                   value,
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: white),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(color: white),
                                 ),
                               );
                             }).toList(),
@@ -83,13 +93,15 @@ class _HomeScreenState extends State<HomepageScreen> {
 
                     // Filter icon
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: ReGainSizes.md),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: ReGainSizes.md),
                       child: IconButton(
                         icon: const Icon(Icons.filter_list, color: white),
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => FilterScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => FilterScreen()),
                           );
                         },
                       ),
@@ -99,20 +111,25 @@ class _HomeScreenState extends State<HomepageScreen> {
                     InkWell(
                       onTap: () {
                         // ----------------------------- GO TO PROFILE PAGE -----------------------------
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => ProfilePage()),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfilePage()),
+                        );
                       },
                       child: Column(
                         children: <Widget>[
                           const CircleAvatar(
-                            backgroundImage: NetworkImage('https://lh4.googleusercontent.com/proxy/diAq9zObVXZOBQ-35PuawibY4uFDrnmQUd18A7cvh_e661B0Y4HFLCyVmCZE8DmsExSSrAaaTazBZ92XxJuIjT-tBBbpdXWJ3OVM1TRbmzg3u8z4KKcTg3VZLtRJ8LIdvg'),
+                            backgroundImage: NetworkImage(
+                                'https://lh4.googleusercontent.com/proxy/diAq9zObVXZOBQ-35PuawibY4uFDrnmQUd18A7cvh_e661B0Y4HFLCyVmCZE8DmsExSSrAaaTazBZ92XxJuIjT-tBBbpdXWJ3OVM1TRbmzg3u8z4KKcTg3VZLtRJ8LIdvg'),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             'My Profile',
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: white),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(color: white),
                           ),
                         ],
                       ),
@@ -123,15 +140,29 @@ class _HomeScreenState extends State<HomepageScreen> {
             ),
           ),
 
-          const Expanded(
+          Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-
                   // carousel
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: ReGainSizes.sm),
-                    child: ReGainCarousel(banners: [ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1,ReGainImages.carousel1],),
+                    child: GestureDetector(
+                      onDoubleTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AwarenessFeature()));
+                      },
+                      child: ReGainCarousel(
+                        banners: [
+                          ReGainImages.carousel1,
+                          ReGainImages.carousel1,
+                          ReGainImages.carousel1,
+                          ReGainImages.carousel1
+                        ],
+                      ),
+                    ),
                   ),
 
                   // grid view items
@@ -148,7 +179,8 @@ class _HomeScreenState extends State<HomepageScreen> {
                         'category': 'Metal',
                         'isSellerDropOff': true,
                         'isFavorite': false
-                      },{
+                      },
+                      {
                         'imagePath': ReGainImages.onboardingImage3,
                         'title': 'Copper nail',
                         'location': 'Pasig City',
@@ -159,7 +191,8 @@ class _HomeScreenState extends State<HomepageScreen> {
                         'category': 'Metal',
                         'isSellerDropOff': true,
                         'isFavorite': true
-                      },{
+                      },
+                      {
                         'imagePath': ReGainImages.onboardingImage3,
                         'title': 'Copper nail',
                         'location': 'Pasig City',
@@ -170,7 +203,8 @@ class _HomeScreenState extends State<HomepageScreen> {
                         'category': 'Metal',
                         'isSellerDropOff': true,
                         'isFavorite': true
-                      },{
+                      },
+                      {
                         'imagePath': ReGainImages.onboardingImage3,
                         'title': 'Copper nail',
                         'location': 'Pasig City',
@@ -181,7 +215,8 @@ class _HomeScreenState extends State<HomepageScreen> {
                         'category': 'Metal',
                         'isSellerDropOff': true,
                         'isFavorite': true
-                      },{
+                      },
+                      {
                         'imagePath': ReGainImages.onboardingImage3,
                         'title': 'Copper nail',
                         'location': 'Pasig City',
@@ -192,7 +227,8 @@ class _HomeScreenState extends State<HomepageScreen> {
                         'category': 'Metal',
                         'isSellerDropOff': false,
                         'isFavorite': true
-                      },{
+                      },
+                      {
                         'imagePath': ReGainImages.onboardingImage3,
                         'title': 'Copper nail',
                         'location': 'Pasig City',
@@ -214,5 +250,4 @@ class _HomeScreenState extends State<HomepageScreen> {
       ),
     );
   }
-
 }

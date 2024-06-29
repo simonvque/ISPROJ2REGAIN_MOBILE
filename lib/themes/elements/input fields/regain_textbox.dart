@@ -14,12 +14,14 @@ class RegainTextbox extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool isUnderlineBorder;
-  final TextEditingController? controller;
+  TextEditingController? controller;
+  FormFieldValidator<String>? validator;
   final bool obscureText;
 
-  const RegainTextbox({
+  RegainTextbox({
     Key? key,
     this.controller,
+    this.validator,
     this.labelText,
     this.hintText,
     this.focusedBorderColor = green,
@@ -38,6 +40,7 @@ class RegainTextbox extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      validator: validator,
       keyboardType: keyboardType,
       obscureText: obscureText,
       style: TextStyle(color: fontColor),
@@ -48,32 +51,32 @@ class RegainTextbox extends StatelessWidget {
         hintStyle: TextStyle(color: hintAndLabelTextColor),
         prefixIcon: prefixIcon != null
             ? IconTheme(
-          data: IconThemeData(color: iconColor),
-          child: prefixIcon!,
-        )
+                data: IconThemeData(color: iconColor),
+                child: prefixIcon!,
+              )
             : null,
         suffixIcon: suffixIcon != null
             ? IconTheme(
-          data: IconThemeData(color: iconColor),
-          child: suffixIcon!,
-        )
+                data: IconThemeData(color: iconColor),
+                child: suffixIcon!,
+              )
             : null,
         filled: true,
         fillColor: fillColor,
         border: isUnderlineBorder
             ? UnderlineInputBorder(
-          borderSide: BorderSide(color: focusedBorderColor),
-        )
+                borderSide: BorderSide(color: focusedBorderColor),
+              )
             : OutlineInputBorder(
-          borderSide: BorderSide(color: focusedBorderColor),
-        ),
+                borderSide: BorderSide(color: focusedBorderColor),
+              ),
         focusedBorder: isUnderlineBorder
             ? UnderlineInputBorder(
-          borderSide: BorderSide(color: focusedBorderColor),
-        )
+                borderSide: BorderSide(color: focusedBorderColor),
+              )
             : OutlineInputBorder(
-          borderSide: BorderSide(color: focusedBorderColor),
-        ),
+                borderSide: BorderSide(color: focusedBorderColor),
+              ),
       ),
     );
   }

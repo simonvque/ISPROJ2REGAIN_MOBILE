@@ -139,7 +139,6 @@
 //   }
 // }
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -190,19 +189,11 @@ class _FilterScreen extends State<FilterScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                    'Location',
-                    style: Theme.of(context).textTheme.titleLarge
-                ),
+                Text('Location', style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
-                const RegainTextbox(hintText: 'All of Philippines'),
-
+                RegainTextbox(hintText: 'All of Philippines'),
                 const SizedBox(height: ReGainSizes.spaceBtwSections),
-
-                Text(
-                    'Category',
-                    style: Theme.of(context).textTheme.titleLarge
-                ),
+                Text('Category', style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
                 Wrap(
                   spacing: 8.0,
@@ -250,26 +241,22 @@ class _FilterScreen extends State<FilterScreen> {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: ReGainSizes.spaceBtwSections),
-
-                Text(
-                    'Price',
-                    style: Theme.of(context).textTheme.titleLarge
-                ),
+                Text('Price', style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
-                const RegainTextbox(hintText: 'Minimum Price', keyboardType: TextInputType.phone,),
-                const SizedBox(height: ReGainSizes.spaceBtwInputFields),
-                const RegainTextbox(hintText: 'Maximum Price', keyboardType: TextInputType.phone,),
-
+                RegainTextbox(
+                  hintText: 'Minimum Price',
+                  keyboardType: TextInputType.phone,
+                ),
+                SizedBox(height: ReGainSizes.spaceBtwInputFields),
+                RegainTextbox(
+                  hintText: 'Maximum Price',
+                  keyboardType: TextInputType.phone,
+                ),
                 const SizedBox(height: ReGainSizes.spaceBtwSections),
-
-                Text(
-                  'Delivery Option',
-                    style: Theme.of(context).textTheme.titleLarge
-                ),
+                Text('Delivery Option',
+                    style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
-
                 Row(
                   children: [
                     Switch(
@@ -281,15 +268,11 @@ class _FilterScreen extends State<FilterScreen> {
                         });
                       },
                     ),
-                    Text(
-                      'Seller Drop-off',
-                        style: Theme.of(context).textTheme.bodyMedium
-                    ),
+                    Text('Seller Drop-off',
+                        style: Theme.of(context).textTheme.bodyMedium),
                   ],
                 ),
-
                 const SizedBox(height: ReGainSizes.spaceBtwSections),
-
                 RegainButtons(
                   text: 'Submit',
                   onPressed: () {
@@ -304,12 +287,9 @@ class _FilterScreen extends State<FilterScreen> {
         ),
       ),
       theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: const AppBarTheme(color: green),
-        fontFamily: 'Montserrat-Regular'
-      ),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          appBarTheme: const AppBarTheme(color: green),
+          fontFamily: 'Montserrat-Regular'),
     );
   }
 }
-
-

@@ -11,7 +11,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -19,24 +19,27 @@ class ForgetPasswordScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(ReGainTexts.forgotPasswordTitle, style: Theme.of(context).textTheme.headlineMedium),
+            Text(ReGainTexts.forgotPasswordTitle,
+                style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: ReGainSizes.spaceBtwItems),
-            Text(ReGainTexts.forgotPasswordSubtitle, style: Theme.of(context).textTheme.labelMedium),
+            Text(ReGainTexts.forgotPasswordSubtitle,
+                style: Theme.of(context).textTheme.labelMedium),
             const SizedBox(height: ReGainSizes.spaceBtwItems),
-
-            const RegainTextbox(labelText: ReGainTexts.contactNumber, prefixIcon: Icon(Iconsax.call), keyboardType: TextInputType.phone),
-
+            RegainTextbox(
+                labelText: ReGainTexts.contactNumber,
+                prefixIcon: Icon(Iconsax.call),
+                keyboardType: TextInputType.phone),
             Padding(
               padding: EdgeInsets.only(top: 32.0),
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-
                     // ------------------------ ADD VALIDATION ------------------------
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const ResetPasswordScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => const ResetPasswordScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -48,7 +51,10 @@ class ForgetPasswordScreen extends StatelessWidget {
                   ),
                   child: Text(
                     "Submit",
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: white),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(color: white),
                   ),
                 ),
               ),

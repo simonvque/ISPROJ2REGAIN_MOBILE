@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/add/add_equipment.dart';
-import 'package:regain_mobile/add/add_product.dart';
+import 'package:regain_mobile/features/screens/listings/add_equipment.dart';
+import 'package:regain_mobile/features/screens/listings/add_product.dart';
 
 class Add extends StatefulWidget {
   const Add({super.key});
