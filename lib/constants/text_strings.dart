@@ -55,3 +55,8 @@ const String routeNavMenu = "NavigationMenu";
 const String routeRegistration = "RegistrationScreen";
 const String routeProfilePage = "ProfilePage";
 const String routeAdd = "Add";
+
+class Roles {
+  static const String uHH = "ROLE_USER_HOUSEHOLD";
+  static const String uJS = "ROLE_USER_JUNKSHOP";
+}

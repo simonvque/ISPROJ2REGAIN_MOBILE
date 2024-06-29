@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
-import 'package:regain_mobile/entities/error_details_model.dart';
-import 'package:regain_mobile/entities/response_model.dart';
-import 'package:regain_mobile/entities/user_model.dart';
+import 'package:regain_mobile/model/error_details_model.dart';
+import 'package:regain_mobile/model/response_model.dart';
+import 'package:regain_mobile/model/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class AppDataSource extends DataSource {

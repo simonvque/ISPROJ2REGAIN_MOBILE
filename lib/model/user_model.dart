@@ -10,14 +10,13 @@ part 'user_model.g.dart';
 class UserModel with _$UserModel {
   factory UserModel({
     int? id,
-    @Default(2) int? role,
+    required String role,
     @Default('') String? firstName,
     @Default('') String? lastName,
     required String username,
     required String contactNumber,
     required String password,
     @Default('') String? email,
-    int? address,
     @Default('Active') String accountStatus,
     @Default(0) int? penaltyPoints,
     @Default(0.00) double? commissionBalance,

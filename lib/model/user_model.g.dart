@@ -9,14 +9,13 @@ part of 'user_model.dart';
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
     _$UserModelImpl(
       id: (json['id'] as num?)?.toInt(),
-      role: (json['role'] as num?)?.toInt() ?? 2,
+      role: json['role'] as String,
       firstName: json['firstName'] as String? ?? '',
       lastName: json['lastName'] as String? ?? '',
       username: json['username'] as String,
       contactNumber: json['contactNumber'] as String,
       password: json['password'] as String,
       email: json['email'] as String? ?? '',
-      address: (json['address'] as num?)?.toInt(),
       accountStatus: json['accountStatus'] as String? ?? 'Active',
       penaltyPoints: (json['penaltyPoints'] as num?)?.toInt() ?? 0,
       commissionBalance:
@@ -34,7 +33,6 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'contactNumber': instance.contactNumber,
       'password': instance.password,
       'email': instance.email,
-      'address': instance.address,
       'accountStatus': instance.accountStatus,
       'penaltyPoints': instance.penaltyPoints,
       'commissionBalance': instance.commissionBalance,

@@ -22,8 +22,8 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 mixin _$UserModel {
   int? get id => throw _privateConstructorUsedError;
   set id(int? value) => throw _privateConstructorUsedError;
-  int? get role => throw _privateConstructorUsedError;
-  set role(int? value) => throw _privateConstructorUsedError;
+  String get role => throw _privateConstructorUsedError;
+  set role(String value) => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   set firstName(String? value) => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
@@ -36,8 +36,6 @@ mixin _$UserModel {
   set password(String value) => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   set email(String? value) => throw _privateConstructorUsedError;
-  int? get address => throw _privateConstructorUsedError;
-  set address(int? value) => throw _privateConstructorUsedError;
   String get accountStatus => throw _privateConstructorUsedError;
   set accountStatus(String value) => throw _privateConstructorUsedError;
   int? get penaltyPoints => throw _privateConstructorUsedError;
@@ -60,14 +58,13 @@ abstract class $UserModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
-      int? role,
+      String role,
       String? firstName,
       String? lastName,
       String username,
       String contactNumber,
       String password,
       String? email,
-      int? address,
       String accountStatus,
       int? penaltyPoints,
       double? commissionBalance,
@@ -88,14 +85,13 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @override
   $Res call({
     Object? id = freezed,
-    Object? role = freezed,
+    Object? role = null,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? username = null,
     Object? contactNumber = null,
     Object? password = null,
     Object? email = freezed,
-    Object? address = freezed,
     Object? accountStatus = null,
     Object? penaltyPoints = freezed,
     Object? commissionBalance = freezed,
@@ -106,10 +102,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      role: freezed == role
+      role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String,
       firstName: freezed == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -134,10 +130,6 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      address: freezed == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as int?,
       accountStatus: null == accountStatus
           ? _value.accountStatus
           : accountStatus // ignore: cast_nullable_to_non_nullable
@@ -168,14 +160,13 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? id,
-      int? role,
+      String role,
       String? firstName,
       String? lastName,
       String username,
       String contactNumber,
       String password,
       String? email,
-      int? address,
       String accountStatus,
       int? penaltyPoints,
       double? commissionBalance,
@@ -194,14 +185,13 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? role = freezed,
+    Object? role = null,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? username = null,
     Object? contactNumber = null,
     Object? password = null,
     Object? email = freezed,
-    Object? address = freezed,
     Object? accountStatus = null,
     Object? penaltyPoints = freezed,
     Object? commissionBalance = freezed,
@@ -212,10 +202,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      role: freezed == role
+      role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String,
       firstName: freezed == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -240,10 +230,6 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      address: freezed == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as int?,
       accountStatus: null == accountStatus
           ? _value.accountStatus
           : accountStatus // ignore: cast_nullable_to_non_nullable
@@ -269,14 +255,13 @@ class __$$UserModelImplCopyWithImpl<$Res>
 class _$UserModelImpl implements _UserModel {
   _$UserModelImpl(
       {this.id,
-      this.role = 2,
+      required this.role,
       this.firstName = '',
       this.lastName = '',
       required this.username,
       required this.contactNumber,
       required this.password,
       this.email = '',
-      this.address,
       this.accountStatus = 'Active',
       this.penaltyPoints = 0,
       this.commissionBalance = 0.00,
@@ -288,8 +273,7 @@ class _$UserModelImpl implements _UserModel {
   @override
   int? id;
   @override
-  @JsonKey()
-  int? role;
+  String role;
   @override
   @JsonKey()
   String? firstName;
@@ -306,8 +290,6 @@ class _$UserModelImpl implements _UserModel {
   @JsonKey()
   String? email;
   @override
-  int? address;
-  @override
   @JsonKey()
   String accountStatus;
   @override
@@ -322,7 +304,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, role: $role, firstName: $firstName, lastName: $lastName, username: $username, contactNumber: $contactNumber, password: $password, email: $email, address: $address, accountStatus: $accountStatus, penaltyPoints: $penaltyPoints, commissionBalance: $commissionBalance, junkshopName: $junkshopName)';
+    return 'UserModel(id: $id, role: $role, firstName: $firstName, lastName: $lastName, username: $username, contactNumber: $contactNumber, password: $password, email: $email, accountStatus: $accountStatus, penaltyPoints: $penaltyPoints, commissionBalance: $commissionBalance, junkshopName: $junkshopName)';
   }
 
   @JsonKey(ignore: true)
@@ -342,14 +324,13 @@ class _$UserModelImpl implements _UserModel {
 abstract class _UserModel implements UserModel {
   factory _UserModel(
       {int? id,
-      int? role,
+      required String role,
       String? firstName,
       String? lastName,
       required String username,
       required String contactNumber,
       required String password,
       String? email,
-      int? address,
       String accountStatus,
       int? penaltyPoints,
       double? commissionBalance,
@@ -362,8 +343,8 @@ abstract class _UserModel implements UserModel {
   int? get id;
   set id(int? value);
   @override
-  int? get role;
-  set role(int? value);
+  String get role;
+  set role(String value);
   @override
   String? get firstName;
   set firstName(String? value);
@@ -382,9 +363,6 @@ abstract class _UserModel implements UserModel {
   @override
   String? get email;
   set email(String? value);
-  @override
-  int? get address;
-  set address(int? value);
   @override
   String get accountStatus;
   set accountStatus(String value);
