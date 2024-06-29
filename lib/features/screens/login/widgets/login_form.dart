@@ -1,10 +1,7 @@
-import 'dart:convert';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart' as http;
-
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:regain_mobile/nav.dart';
+
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 import '../../../../constants/colors.dart';
@@ -18,13 +15,17 @@ import '../../homepage/homepage.dart';
 import '../../registration/registration.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _LoginFormState createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
+  bool isPasswordVisible = false; 
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -32,28 +33,29 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Username
-          RegainTextbox(
-            labelText: ReGainTexts.logIn,
-            isUnderlineBorder: true,
-          ),
+
+          const RegainTextbox(labelText: ReGainTexts.username, isUnderlineBorder: true),
+          // TextFormField(
+          //   decoration: const InputDecoration(labelText: ReGainTexts.logIn),
+          // ),
           const SizedBox(height: ReGainSizes.spaceBtwInputFields),
 
           // Password
-          PasswordTextFormField(
-            labelText: ReGainTexts.password,
-          ),
+          const PasswordTextFormField(labelText: ReGainTexts.password, isUnderlineBorder: true),
+          // TextFormField(
+          //   decoration: const InputDecoration(labelText: ReGainTexts.password, suffixIcon: Icon(Iconsax.eye_slash)),
+          // ),
           const SizedBox(height: ReGainSizes.spaceBtwInputFields / 2),
 
           // Forgot Password
           Row(
             children: [
-              const Spacer(),
+              Spacer(), // Pushes the "Forgot Password" text to the right
               TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => ForgetPasswordScreen()),
+                    MaterialPageRoute(builder: (context) => ForgetPasswordScreen()),
                   );
                 },
                 child: Text(
@@ -68,11 +70,12 @@ class _LoginFormState extends State<LoginForm> {
           // Login button
           RegainButtons(
             text: ReGainTexts.logIn,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomepageScreen()),
-              );
+
+            onPressed: (){
+              // --- Add validation ---
+
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const NavigationMenu()));
             },
             type: ButtonType.filled,
             size: ButtonSize.large,
@@ -92,8 +95,7 @@ class _LoginFormState extends State<LoginForm> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => RegistrationScreen()),
+                      MaterialPageRoute(builder: (context) => RegistrationScreen()),
                     );
                   },
                   child: Text(
