@@ -6,8 +6,6 @@ import 'package:regain_mobile/features/screens/chatfeatures/inbox.dart';
 import 'package:regain_mobile/features/screens/listings/add.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/favorites.dart';
-import 'package:regain_mobile/features/screens/favorites.dart';
-
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 
 class NavigationMenu extends StatefulWidget {

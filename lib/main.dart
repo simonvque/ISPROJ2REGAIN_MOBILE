@@ -12,7 +12,6 @@ import 'package:regain_mobile/features/screens/orders/myorders.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/features/screens/orders/review.dart';
 import 'package:regain_mobile/features/screens/registration/registration.dart';
-import 'package:regain_mobile/features/screens/registration/registration.dart';
 import 'package:regain_mobile/features/screens/registration/registration_otp.dart';
 import 'package:regain_mobile/features/screens/registration/registration_verified.dart';
 import 'package:regain_mobile/features/screens/homepage/selected_item.dart';
