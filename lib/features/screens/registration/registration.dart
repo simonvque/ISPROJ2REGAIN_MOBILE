@@ -10,7 +10,7 @@ import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
 import '../../../constants/text_strings.dart';
-import '../../../entities/user_model.dart';
+import '../../../model/user_model.dart';
 import '../../../themes/elements/button_styles.dart';
 import '../../../themes/elements/input fields/password_textbox.dart';
 import '../../../themes/elements/input fields/regain_textbox.dart';
@@ -229,8 +229,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   void addUser() {
+    String role;
+    if (isWasteSector) {
+      role = Roles.uJS;
+    } else {
+      role = Roles.uHH;
+    }
     if (_formKey.currentState!.validate()) {
       final user = UserModel(
+        role: role,
         username: usernameController.text,
         contactNumber: contactNumberController.text,
         password: passwordController.text,
