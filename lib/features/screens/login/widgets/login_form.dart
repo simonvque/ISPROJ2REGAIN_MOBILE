@@ -34,7 +34,7 @@ class _LoginFormState extends State<LoginForm> {
         children: [
           // Username
 
-          const RegainTextbox(
+          RegainTextbox(
               labelText: ReGainTexts.username, isUnderlineBorder: true),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.logIn),
@@ -42,7 +42,7 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: ReGainSizes.spaceBtwInputFields),
 
           // Password
-          const PasswordTextFormField(
+          PasswordTextFormField(
               labelText: ReGainTexts.password, isUnderlineBorder: true),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.password, suffixIcon: Icon(Iconsax.eye_slash)),
