@@ -22,12 +22,6 @@ class _FavoritesScreen extends State<FavoritesScreen> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(CupertinoIcons.arrow_left, color: Colors.white),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
           title: const Text(
             'Favorites',
             style: TextStyle(
@@ -56,6 +50,7 @@ class _FavoritesScreen extends State<FavoritesScreen> {
                           'weight': '5 kg',
                           'category': 'Metal',
                           'isSellerDropOff': true,
+                          'isFavorite': true
                         },
                         {
                           'imagePath': ReGainImages.onboardingImage3,

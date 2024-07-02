@@ -57,6 +57,6 @@ const String routeProfilePage = "ProfilePage";
 const String routeAdd = "Add";
 
 class Roles {
-  static const String uHH = "ROLE_USER_HOUSEHOLD";
+  static const String uHH = "ROLE_USER";
   static const String uJS = "ROLE_USER_JUNKSHOP";
 }
