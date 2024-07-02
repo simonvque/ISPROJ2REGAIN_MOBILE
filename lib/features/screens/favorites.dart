@@ -49,9 +49,10 @@ class _FavoritesScreen extends State<FavoritesScreen> {
                           'seller': '@heyitscee',
                           'weight': '5 kg',
                           'category': 'Metal',
-                          'isSellerDropOff': false,
+                          'isSellerDropOff': true,
                           'isFavorite': true
-                        },{
+                        },
+                        {
                           'imagePath': ReGainImages.onboardingImage3,
                           'title': 'Copper nail',
                           'location': 'Pasig City',
@@ -62,7 +63,44 @@ class _FavoritesScreen extends State<FavoritesScreen> {
                           'category': 'Metal',
                           'isSellerDropOff': true,
                           'isFavorite': true
-                        },{
+                        },
+                        {
+                          'imagePath': ReGainImages.onboardingImage3,
+                          'title': 'Copper nail',
+                          'location': 'Pasig City',
+                          'price': 'PHP 450',
+                          'sellerImagePath': null,
+                          'seller': '@heyitscee',
+                          'weight': '5 kg',
+                          'category': 'Metal',
+                          'isSellerDropOff': true,
+                          'isFavorite': true
+                        },
+                        {
+                          'imagePath': ReGainImages.onboardingImage3,
+                          'title': 'Copper nail',
+                          'location': 'Pasig City',
+                          'price': 'PHP 450',
+                          'sellerImagePath': null,
+                          'seller': '@heyitscee',
+                          'weight': '5 kg',
+                          'category': 'Metal',
+                          'isSellerDropOff': false,
+                          'isFavorite': true
+                        },
+                        {
+                          'imagePath': ReGainImages.onboardingImage3,
+                          'title': 'Copper nail',
+                          'location': 'Pasig City',
+                          'price': 'PHP 450',
+                          'sellerImagePath': null,
+                          'seller': '@heyitscee',
+                          'weight': '5 kg',
+                          'category': 'Metal',
+                          'isSellerDropOff': true,
+                          'isFavorite': true
+                        },
+                        {
                           'imagePath': ReGainImages.onboardingImage3,
                           'title': 'Copper nail',
                           'location': 'Pasig City',
@@ -89,8 +127,4 @@ class _FavoritesScreen extends State<FavoritesScreen> {
       ),
     );
   }
-
 }
-
-
-

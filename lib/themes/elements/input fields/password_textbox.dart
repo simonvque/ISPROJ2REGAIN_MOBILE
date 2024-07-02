@@ -6,13 +6,15 @@ import '../../../constants/colors.dart';
 class PasswordTextFormField extends StatefulWidget {
   final String labelText;
   final Color focusedBorderColor;
-  final TextEditingController? controller;
+  TextEditingController? controller;
   final bool isUnderlineBorder;
+  FormFieldValidator<String>? validator;
 
-  const PasswordTextFormField({
+  PasswordTextFormField({
     Key? key,
-    required this.labelText,
     this.controller,
+    this.validator,
+    required this.labelText,
     this.focusedBorderColor = green,
     this.isUnderlineBorder = false,
   }) : super(key: key);
@@ -30,6 +32,7 @@ class PasswordTextFormFieldState extends State<PasswordTextFormField> {
       controller: widget.controller,
       labelText: widget.labelText,
       focusedBorderColor: widget.focusedBorderColor,
+      validator: widget.validator,
       obscureText: !_isPasswordVisible,
       isUnderlineBorder: widget.isUnderlineBorder,
       suffixIcon: IconButton(

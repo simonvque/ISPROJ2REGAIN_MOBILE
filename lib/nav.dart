@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/inbox.dart';
+import 'package:regain_mobile/features/screens/listings/add.dart';
+import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/favorites.dart';
-import 'package:regain_mobile/features/screens/filter.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 
-import 'add/add.dart';
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({Key? key}) : super(key: key);
 
@@ -24,17 +26,18 @@ class _NavigationMenuState extends State<NavigationMenu> {
   ];
 
   void _onItemTapped(int newIndex) {
-    if (newIndex != 2) {
+    if (newIndex != 2 && newIndex != 4) {
       setState(() {
         _currentIndex = newIndex;
       });
+    } else if (newIndex == 4) {
+      Navigator.pushNamed(context, routeProfilePage);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(),
       body: Center(
         child: body[_currentIndex],
       ),
@@ -42,25 +45,22 @@ class _NavigationMenuState extends State<NavigationMenu> {
           FloatingActionButtonLocation.miniCenterDocked,
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
-        foregroundColor: Colors.white,
-        backgroundColor: const Color(0xFF12CF8A),
+        foregroundColor: white,
+        backgroundColor: green,
         child: const Icon(Icons.add),
-        onPressed: () => setState(() {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Add()),
-          );
-        }),
+        onPressed: () {
+          Navigator.pushNamed(context, routeAdd);
+        },
       ),
       resizeToAvoidBottomInset:
           false, // This makes floating action bottom to stay in place instead of rising when keyboard pops up
       bottomNavigationBar: BottomNavigationBar(
         // elevation: 20.0,
         type: BottomNavigationBarType.fixed,
-        // unselectedItemColor: Colors.grey,
-        selectedItemColor: const Color(0xFF12CF8A),
+        // unselectedItemColor: gray,
+        selectedItemColor: green,
         showUnselectedLabels: true,
-        // backgroundColor: Colors.white,
+        // backgroundColor: white,
         currentIndex: _currentIndex,
         onTap: (int newIndex) => _onItemTapped(newIndex),
         items: const [
