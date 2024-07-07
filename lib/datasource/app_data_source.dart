@@ -37,7 +37,7 @@ class AppDataSource extends DataSource {
   @override
   Future<ResponseModel> addUser(UserModel user) async {
     // TODO: implement addUser
-    final url = '$baseUrl${'register/add'}';
+    final url = '$baseUrl${'user/register'}';
     try {
       final response = await http.post(Uri.parse(url),
           headers: header, body: jsonEncode(user));

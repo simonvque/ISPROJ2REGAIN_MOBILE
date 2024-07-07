@@ -58,5 +58,5 @@ const String routeAdd = "Add";
 
 class Roles {
   static const String uHH = "ROLE_USER";
-  static const String uJS = "ROLE_USER_JUNKSHOP";
+  static const String uJS = "ROLE_USER_WS";
 }
