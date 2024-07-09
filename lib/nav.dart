@@ -79,8 +79,8 @@ class _NavigationMenuState extends State<NavigationMenu> {
             label: 'Chat',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.checklist),
-            label: 'Orders',
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Profile',
           ),
         ],
       ),

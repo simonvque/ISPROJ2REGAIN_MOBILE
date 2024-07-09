@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/listings/add.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
       //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
       // ),
 
-      home: LoginScreen(),
+      home: NavigationMenu(),
       routes: {
         routeLogin: (context) => LoginScreen(),
         routeHomepage: (context) => HomepageScreen(),

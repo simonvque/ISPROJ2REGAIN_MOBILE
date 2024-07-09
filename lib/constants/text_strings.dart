@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class ReGainTexts {
   // GLOBAL texts
 
@@ -56,6 +58,7 @@ const String routeRegistration = "RegistrationScreen";
 const String routeProfilePage = "ProfilePage";
 const String routeAdd = "Add";
 
+//to be transferred
 class Roles {
   static const String uHH = "ROLE_USER";
   static const String uJS = "ROLE_USER_WS";
