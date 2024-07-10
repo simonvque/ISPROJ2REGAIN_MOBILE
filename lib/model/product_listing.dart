@@ -8,12 +8,12 @@ part 'product_listing.g.dart';
 class Product with _$Product {
   factory Product(
       {int? productID,
-      required int sellerID,
+      required int? sellerID,
       required String productName,
       @Default('') String? description,
       required double weight,
-      required int location,
-      required int category,
+      required int? location,
+      required int? category,
       required Decimal price,
       required bool canDeliver}) = _Product;
   factory Product.fromJson(Map<String, dynamic> json) =>

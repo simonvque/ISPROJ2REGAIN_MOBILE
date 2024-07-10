@@ -9,11 +9,11 @@ part of 'category.dart';
 _$CategoryImpl _$$CategoryImplFromJson(Map<String, dynamic> json) =>
     _$CategoryImpl(
       categoryID: (json['categoryID'] as num?)?.toInt(),
-      category: json['category'] as String,
+      categoryName: json['categoryName'] as String,
     );
 
 Map<String, dynamic> _$$CategoryImplToJson(_$CategoryImpl instance) =>
     <String, dynamic>{
       'categoryID': instance.categoryID,
-      'category': instance.category,
+      'categoryName': instance.categoryName,
     };

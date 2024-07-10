@@ -4,6 +4,7 @@ import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/helper_functions.dart';
+import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:decimal/decimal.dart';
@@ -18,8 +19,9 @@ class AddProduct extends StatefulWidget {
 class _AddProductState extends State<AddProduct> {
   final tempUser = 1;
 
-  bool? isSellerDelivering = false;
-  String? _selectedValue;
+  bool isSellerDelivering = false;
+  Category? _selectedCategory;
+  String? _selectedLocation;
 
   final _addProductKey = GlobalKey<FormState>();
 
@@ -30,7 +32,15 @@ class _AddProductState extends State<AddProduct> {
   final descController = TextEditingController();
   final locationController = TextEditingController();
 
-  final List<String> categs = Categories.values.map((e) => e.name).toList();
+  @override
+  void didChangeDependencies() {
+    _getData();
+    super.didChangeDependencies();
+  }
+
+  // temporary addresses list
+  final List<String> addresses =
+      TestAddresses.values.map((e) => e.name).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -117,30 +127,33 @@ class _AddProductState extends State<AddProduct> {
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
                     height: MediaQuery.of(context).size.height * 0.09,
-                    child: DropdownButtonFormField(
-                      hint: const Text('Category',
-                          style: TextStyle(fontSize: 15.0)),
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                    child: Consumer<AppDataProvider>(
+                      builder: (context, provider, child) =>
+                          DropdownButtonFormField<Category>(
+                        hint: const Text('Category',
+                            style: TextStyle(fontSize: 15.0)),
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedCategory = value;
+                          });
+                        },
+                        value: _selectedCategory,
+                        items: provider.categoryList
+                            .map((e) => DropdownMenuItem<Category>(
+                                  value: e,
+                                  child: Text(
+                                    '${e.categoryName}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(backgroundColor: white),
+                                  ),
+                                ))
+                            .toList(),
                       ),
-                      items: categs.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(backgroundColor: white),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _selectedValue = newValue!;
-                        });
-                      },
-                      value: _selectedValue,
                     ),
                   ),
                 ),
@@ -173,15 +186,43 @@ class _AddProductState extends State<AddProduct> {
                 ),
               ),
             ),
+            // Container(
+            //   padding: const EdgeInsets.all(10.0),
+            //   height: MediaQuery.of(context).size.height * 0.09,
+            //   child: TextFormField(
+            //     decoration: const InputDecoration(
+            //       hintText: 'Location',
+            //       hintStyle: TextStyle(fontSize: 15.0),
+            //       border: OutlineInputBorder(),
+            //     ),
+            //   ),
+            // ),
             Container(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
               height: MediaQuery.of(context).size.height * 0.09,
-              child: TextFormField(
+              child: DropdownButtonFormField(
+                hint: const Text('Location', style: TextStyle(fontSize: 15.0)),
                 decoration: const InputDecoration(
-                  hintText: 'Location',
-                  hintStyle: TextStyle(fontSize: 15.0),
                   border: OutlineInputBorder(),
                 ),
+                items: addresses.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(backgroundColor: white),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedLocation = value;
+                  });
+                },
+                value: _selectedLocation,
               ),
             ),
             Row(
@@ -192,7 +233,7 @@ class _AddProductState extends State<AddProduct> {
                       value: isSellerDelivering,
                       onChanged: (bool? value) {
                         setState(() {
-                          isSellerDelivering = value;
+                          isSellerDelivering = value!;
                         });
                       }),
                 ),
@@ -236,34 +277,34 @@ class _AddProductState extends State<AddProduct> {
     );
   }
 
-  // void addProduct() {
-  //   if (_addProductKey.currentState!.validate()) {
-  //     final prod = Product(
-  //       productName: productNameController.text,
-  //       sellerID: tempUser,
-  //       price: Decimal.parse(priceController.text),
-  //       category: categs.indexOf(categoryController.text),
-  //       weight: double.parse(weightController.text),
-  //       description: ,
-  //       location: ,
-  //       canDeliver: isSellerDelivering
-  //     );
-  //     Provider.of<AppDataProvider>(context, listen: false)
-  //         .addUser(prod)
-  //         .then((response) {
-  //       if (response.responseStatus == ResponseStatus.SAVED) {
-  //         resetFields();
-  //         Navigator.pushNamed(context, routeLogin);
-  //         ReGainHelperFunctions.showSnackBar(context, response.message);
-  //       }
-  //     });
-  //   }
-  // }
+  void addProduct() {
+    if (_addProductKey.currentState!.validate()) {
+      final prod = Product(
+          productName: productNameController.text,
+          sellerID: tempUser,
+          price: Decimal.parse(priceController.text),
+          category: _selectedCategory?.categoryID,
+          weight: double.parse(weightController.text),
+          description: descController.text,
+          location: addresses.indexOf(locationController.text),
+          canDeliver: isSellerDelivering);
+      Provider.of<AppDataProvider>(context, listen: false)
+          .addProduct(prod)
+          .then((response) {
+        if (response.responseStatus == ResponseStatus.SAVED) {
+          resetFields();
+          Navigator.pushNamed(context, routeHomepage);
+          ReGainHelperFunctions.showSnackBar(context, response.message);
+        }
+      });
+    }
+  }
 
   void resetFields() {
-    priceController.clear();
+    productNameController.clear();
     priceController.clear();
     categoryController.clear();
+    _selectedCategory = null;
     weightController.clear();
     descController.clear();
     locationController.clear();
@@ -272,12 +313,16 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   void dispose() {
-    priceController.dispose();
+    productNameController.dispose();
     priceController.dispose();
     categoryController.dispose();
     weightController.dispose();
     descController.dispose();
     locationController.dispose();
     super.dispose();
+  }
+
+  void _getData() {
+    Provider.of<AppDataProvider>(context, listen: false).getCategories();
   }
 }

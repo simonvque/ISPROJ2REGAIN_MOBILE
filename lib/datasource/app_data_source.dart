@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
+import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/error_details_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
@@ -71,6 +72,22 @@ class AppDataSource extends DataSource {
       return await _getResponseModel(response);
     } catch (error) {
       print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Category>> getCategories() async {
+    final url = '$baseUrl${'category/list'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => Category.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
       rethrow;
     }
   }

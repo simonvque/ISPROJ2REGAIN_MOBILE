@@ -22,8 +22,8 @@ Category _$CategoryFromJson(Map<String, dynamic> json) {
 mixin _$Category {
   int? get categoryID => throw _privateConstructorUsedError;
   set categoryID(int? value) => throw _privateConstructorUsedError;
-  String get category => throw _privateConstructorUsedError;
-  set category(String value) => throw _privateConstructorUsedError;
+  String get categoryName => throw _privateConstructorUsedError;
+  set categoryName(String value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,7 @@ abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
-  $Res call({int? categoryID, String category});
+  $Res call({int? categoryID, String categoryName});
 }
 
 /// @nodoc
@@ -53,16 +53,16 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
   @override
   $Res call({
     Object? categoryID = freezed,
-    Object? category = null,
+    Object? categoryName = null,
   }) {
     return _then(_value.copyWith(
       categoryID: freezed == categoryID
           ? _value.categoryID
           : categoryID // ignore: cast_nullable_to_non_nullable
               as int?,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
+      categoryName: null == categoryName
+          ? _value.categoryName
+          : categoryName // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -76,7 +76,7 @@ abstract class _$$CategoryImplCopyWith<$Res>
       __$$CategoryImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? categoryID, String category});
+  $Res call({int? categoryID, String categoryName});
 }
 
 /// @nodoc
@@ -91,16 +91,16 @@ class __$$CategoryImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? categoryID = freezed,
-    Object? category = null,
+    Object? categoryName = null,
   }) {
     return _then(_$CategoryImpl(
       categoryID: freezed == categoryID
           ? _value.categoryID
           : categoryID // ignore: cast_nullable_to_non_nullable
               as int?,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
+      categoryName: null == categoryName
+          ? _value.categoryName
+          : categoryName // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -109,7 +109,7 @@ class __$$CategoryImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CategoryImpl implements _Category {
-  _$CategoryImpl({this.categoryID, required this.category});
+  _$CategoryImpl({this.categoryID, required this.categoryName});
 
   factory _$CategoryImpl.fromJson(Map<String, dynamic> json) =>
       _$$CategoryImplFromJson(json);
@@ -117,11 +117,11 @@ class _$CategoryImpl implements _Category {
   @override
   int? categoryID;
   @override
-  String category;
+  String categoryName;
 
   @override
   String toString() {
-    return 'Category(categoryID: $categoryID, category: $category)';
+    return 'Category(categoryID: $categoryID, categoryName: $categoryName)';
   }
 
   @JsonKey(ignore: true)
@@ -139,7 +139,7 @@ class _$CategoryImpl implements _Category {
 }
 
 abstract class _Category implements Category {
-  factory _Category({int? categoryID, required String category}) =
+  factory _Category({int? categoryID, required String categoryName}) =
       _$CategoryImpl;
 
   factory _Category.fromJson(Map<String, dynamic> json) =
@@ -149,8 +149,8 @@ abstract class _Category implements Category {
   int? get categoryID;
   set categoryID(int? value);
   @override
-  String get category;
-  set category(String value);
+  String get categoryName;
+  set categoryName(String value);
   @override
   @JsonKey(ignore: true)
   _$$CategoryImplCopyWith<_$CategoryImpl> get copyWith =>

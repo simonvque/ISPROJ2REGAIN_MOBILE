@@ -22,18 +22,18 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
 mixin _$Product {
   int? get productID => throw _privateConstructorUsedError;
   set productID(int? value) => throw _privateConstructorUsedError;
-  int get sellerID => throw _privateConstructorUsedError;
-  set sellerID(int value) => throw _privateConstructorUsedError;
+  int? get sellerID => throw _privateConstructorUsedError;
+  set sellerID(int? value) => throw _privateConstructorUsedError;
   String get productName => throw _privateConstructorUsedError;
   set productName(String value) => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   set description(String? value) => throw _privateConstructorUsedError;
   double get weight => throw _privateConstructorUsedError;
   set weight(double value) => throw _privateConstructorUsedError;
-  int get location => throw _privateConstructorUsedError;
-  set location(int value) => throw _privateConstructorUsedError;
-  int get category => throw _privateConstructorUsedError;
-  set category(int value) => throw _privateConstructorUsedError;
+  int? get location => throw _privateConstructorUsedError;
+  set location(int? value) => throw _privateConstructorUsedError;
+  int? get category => throw _privateConstructorUsedError;
+  set category(int? value) => throw _privateConstructorUsedError;
   Decimal get price => throw _privateConstructorUsedError;
   set price(Decimal value) => throw _privateConstructorUsedError;
   bool get canDeliver => throw _privateConstructorUsedError;
@@ -51,12 +51,12 @@ abstract class $ProductCopyWith<$Res> {
   @useResult
   $Res call(
       {int? productID,
-      int sellerID,
+      int? sellerID,
       String productName,
       String? description,
       double weight,
-      int location,
-      int category,
+      int? location,
+      int? category,
       Decimal price,
       bool canDeliver});
 }
@@ -75,12 +75,12 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
   @override
   $Res call({
     Object? productID = freezed,
-    Object? sellerID = null,
+    Object? sellerID = freezed,
     Object? productName = null,
     Object? description = freezed,
     Object? weight = null,
-    Object? location = null,
-    Object? category = null,
+    Object? location = freezed,
+    Object? category = freezed,
     Object? price = null,
     Object? canDeliver = null,
   }) {
@@ -89,10 +89,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.productID
           : productID // ignore: cast_nullable_to_non_nullable
               as int?,
-      sellerID: null == sellerID
+      sellerID: freezed == sellerID
           ? _value.sellerID
           : sellerID // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       productName: null == productName
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
@@ -105,14 +105,14 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as double,
-      location: null == location
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as int,
-      category: null == category
+              as int?,
+      category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -134,12 +134,12 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
   @useResult
   $Res call(
       {int? productID,
-      int sellerID,
+      int? sellerID,
       String productName,
       String? description,
       double weight,
-      int location,
-      int category,
+      int? location,
+      int? category,
       Decimal price,
       bool canDeliver});
 }
@@ -156,12 +156,12 @@ class __$$ProductImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? productID = freezed,
-    Object? sellerID = null,
+    Object? sellerID = freezed,
     Object? productName = null,
     Object? description = freezed,
     Object? weight = null,
-    Object? location = null,
-    Object? category = null,
+    Object? location = freezed,
+    Object? category = freezed,
     Object? price = null,
     Object? canDeliver = null,
   }) {
@@ -170,10 +170,10 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.productID
           : productID // ignore: cast_nullable_to_non_nullable
               as int?,
-      sellerID: null == sellerID
+      sellerID: freezed == sellerID
           ? _value.sellerID
           : sellerID // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       productName: null == productName
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
@@ -186,14 +186,14 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as double,
-      location: null == location
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as int,
-      category: null == category
+              as int?,
+      category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -226,7 +226,7 @@ class _$ProductImpl implements _Product {
   @override
   int? productID;
   @override
-  int sellerID;
+  int? sellerID;
   @override
   String productName;
   @override
@@ -235,9 +235,9 @@ class _$ProductImpl implements _Product {
   @override
   double weight;
   @override
-  int location;
+  int? location;
   @override
-  int category;
+  int? category;
   @override
   Decimal price;
   @override
@@ -265,12 +265,12 @@ class _$ProductImpl implements _Product {
 abstract class _Product implements Product {
   factory _Product(
       {int? productID,
-      required int sellerID,
+      required int? sellerID,
       required String productName,
       String? description,
       required double weight,
-      required int location,
-      required int category,
+      required int? location,
+      required int? category,
       required Decimal price,
       required bool canDeliver}) = _$ProductImpl;
 
@@ -280,8 +280,8 @@ abstract class _Product implements Product {
   int? get productID;
   set productID(int? value);
   @override
-  int get sellerID;
-  set sellerID(int value);
+  int? get sellerID;
+  set sellerID(int? value);
   @override
   String get productName;
   set productName(String value);
@@ -292,11 +292,11 @@ abstract class _Product implements Product {
   double get weight;
   set weight(double value);
   @override
-  int get location;
-  set location(int value);
+  int? get location;
+  set location(int? value);
   @override
-  int get category;
-  set category(int value);
+  int? get category;
+  set category(int? value);
   @override
   Decimal get price;
   set price(Decimal value);

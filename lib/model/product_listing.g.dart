@@ -9,12 +9,12 @@ part of 'product_listing.dart';
 _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
     _$ProductImpl(
       productID: (json['productID'] as num?)?.toInt(),
-      sellerID: (json['sellerID'] as num).toInt(),
+      sellerID: (json['sellerID'] as num?)?.toInt(),
       productName: json['productName'] as String,
       description: json['description'] as String? ?? '',
       weight: (json['weight'] as num).toDouble(),
-      location: (json['location'] as num).toInt(),
-      category: (json['category'] as num).toInt(),
+      location: (json['location'] as num?)?.toInt(),
+      category: (json['category'] as num?)?.toInt(),
       price: Decimal.fromJson(json['price'] as String),
       canDeliver: json['canDeliver'] as bool,
     );
