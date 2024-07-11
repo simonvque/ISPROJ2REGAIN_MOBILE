@@ -50,14 +50,6 @@ class ReGainTexts {
       'Rhoncus dolor purus non enim praesent elementum. Justo eget magna fermentum iaculis eu non diam phasellus.';
 }
 
-//Route Texts
-const String routeLogin = "LoginScreen";
-const String routeHomepage = "HomepageScreen";
-const String routeNavMenu = "NavigationMenu";
-const String routeRegistration = "RegistrationScreen";
-const String routeProfilePage = "ProfilePage";
-const String routeAdd = "Add";
-
 //to be transferred
 class Roles {
   static const String uHH = "ROLE_USER";

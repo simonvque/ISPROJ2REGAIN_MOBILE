@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
@@ -8,6 +9,9 @@ import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:decimal/decimal.dart';
+import 'package:regain_mobile/provider/category_data_provider.dart';
+import 'package:regain_mobile/provider/product_data_provider.dart';
+import 'package:regain_mobile/routes/route_manager.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({super.key});
@@ -32,10 +36,19 @@ class _AddProductState extends State<AddProduct> {
   final descController = TextEditingController();
   final locationController = TextEditingController();
 
+  List<Category> categList = [];
+
+  // @override
+  // void didChangeDependencies() {
+  //   _getData();
+  //   super.didChangeDependencies();
+  // }
   @override
-  void didChangeDependencies() {
+  void initState() {
     _getData();
-    super.didChangeDependencies();
+    // categList =
+    //     Provider.of<CategoryDataProvider>(context, listen: false).categoryList;
+    super.initState();
   }
 
   // temporary addresses list
@@ -44,6 +57,10 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   Widget build(BuildContext context) {
+    // _getData();
+    // final List<Category> categList =
+    //     Provider.of<CategoryDataProvider>(context, listen: false).categoryList;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: green,
@@ -102,6 +119,7 @@ class _AddProductState extends State<AddProduct> {
               padding: const EdgeInsets.all(10.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
+                controller: productNameController,
                 decoration: const InputDecoration(
                   hintText: 'Name of the Product',
                   hintStyle: TextStyle(fontSize: 15.0),
@@ -113,6 +131,7 @@ class _AddProductState extends State<AddProduct> {
               padding: const EdgeInsets.all(10.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
+                controller: priceController,
                 decoration: const InputDecoration(
                   hintText: 'Price',
                   hintStyle: TextStyle(fontSize: 15.0),
@@ -127,7 +146,7 @@ class _AddProductState extends State<AddProduct> {
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
                     height: MediaQuery.of(context).size.height * 0.09,
-                    child: Consumer<AppDataProvider>(
+                    child: Consumer<CategoryDataProvider>(
                       builder: (context, provider, child) =>
                           DropdownButtonFormField<Category>(
                         hint: const Text('Category',
@@ -145,7 +164,7 @@ class _AddProductState extends State<AddProduct> {
                             .map((e) => DropdownMenuItem<Category>(
                                   value: e,
                                   child: Text(
-                                    '${e.categoryName}',
+                                    e.categoryName,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
@@ -163,6 +182,7 @@ class _AddProductState extends State<AddProduct> {
                     padding: const EdgeInsets.all(10.0),
                     height: MediaQuery.of(context).size.height * 0.09,
                     child: TextFormField(
+                      controller: weightController,
                       decoration: const InputDecoration(
                         hintText: 'Weight',
                         hintStyle: TextStyle(fontSize: 15.0),
@@ -177,6 +197,7 @@ class _AddProductState extends State<AddProduct> {
               padding: const EdgeInsets.all(10.0),
               height: MediaQuery.of(context).size.height * 0.18,
               child: TextFormField(
+                controller: descController,
                 maxLines: 5,
                 decoration: const InputDecoration(
                   hintText:
@@ -268,7 +289,9 @@ class _AddProductState extends State<AddProduct> {
                       fontWeight: FontWeight.w800,
                       //fontFamily: 'Montserrat',
                     )),
-                onPressed: () {},
+                onPressed: () {
+                  addProduct();
+                },
               ),
             ),
           ],
@@ -288,12 +311,12 @@ class _AddProductState extends State<AddProduct> {
           description: descController.text,
           location: addresses.indexOf(locationController.text),
           canDeliver: isSellerDelivering);
-      Provider.of<AppDataProvider>(context, listen: false)
+      Provider.of<ProductDataProvider>(context, listen: false)
           .addProduct(prod)
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
           resetFields();
-          Navigator.pushNamed(context, routeHomepage);
+          Navigator.pushNamed(context, RouteManager.routeNavMenu);
           ReGainHelperFunctions.showSnackBar(context, response.message);
         }
       });
@@ -323,6 +346,6 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void _getData() {
-    Provider.of<AppDataProvider>(context, listen: false).getCategories();
+    Provider.of<CategoryDataProvider>(context, listen: false).getCategories();
   }
 }
