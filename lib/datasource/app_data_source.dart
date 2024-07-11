@@ -77,6 +77,38 @@ class AppDataSource extends DataSource {
   }
 
   @override
+  Future<List<Product>> getAllProducts() async {
+    final url = '$baseUrl${'products'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => Product.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Product>> getProductsByUser(int id) async {
+    final url = '$baseUrl${'products/$id'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => Product.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<List<Category>> getCategories() async {
     final url = '$baseUrl${'category/list'}';
     try {

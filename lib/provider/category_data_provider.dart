@@ -20,9 +20,4 @@ class CategoryDataProvider extends ChangeNotifier {
     _categoryList = await _dataSource.getCategories();
     notifyListeners();
   }
-
-  // Future<void> selectCategory(category) async {
-  //   _selectedCategory = category;
-  //   notifyListeners();
-  // }
 }

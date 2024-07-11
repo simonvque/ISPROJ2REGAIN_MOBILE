@@ -306,7 +306,7 @@ class _AddProductState extends State<AddProduct> {
           productName: productNameController.text,
           sellerID: tempUser,
           price: Decimal.parse(priceController.text),
-          category: _selectedCategory?.categoryID,
+          categoryID: _selectedCategory?.categoryID,
           weight: double.parse(weightController.text),
           description: descController.text,
           location: addresses.indexOf(locationController.text),

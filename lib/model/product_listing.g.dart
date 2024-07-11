@@ -14,7 +14,7 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String? ?? '',
       weight: (json['weight'] as num).toDouble(),
       location: (json['location'] as num?)?.toInt(),
-      category: (json['category'] as num?)?.toInt(),
+      categoryID: (json['categoryID'] as num?)?.toInt(),
       price: Decimal.fromJson(json['price'] as String),
       canDeliver: json['canDeliver'] as bool,
     );
@@ -27,7 +27,7 @@ Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
       'description': instance.description,
       'weight': instance.weight,
       'location': instance.location,
-      'category': instance.category,
+      'categoryID': instance.categoryID,
       'price': instance.price,
       'canDeliver': instance.canDeliver,
     };

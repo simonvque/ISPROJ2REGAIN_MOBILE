@@ -8,5 +8,9 @@ abstract class DataSource {
 
   Future<ResponseModel> addProduct(Product product);
 
+  Future<List<Product>> getAllProducts();
+
+  Future<List<Product>> getProductsByUser(int id);
+
   Future<List<Category>> getCategories();
 }
