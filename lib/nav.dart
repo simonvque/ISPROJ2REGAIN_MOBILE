@@ -7,6 +7,7 @@ import 'package:regain_mobile/features/screens/listings/add.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/favorites.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
+import 'package:regain_mobile/routes/route_manager.dart';
 
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
         _currentIndex = newIndex;
       });
     } else if (newIndex == 4) {
-      Navigator.pushNamed(context, routeProfilePage);
+      Navigator.pushNamed(context, RouteManager.routeProfilePage);
     }
   }
 
@@ -49,7 +50,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
         backgroundColor: green,
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, routeAdd);
+          Navigator.pushNamed(context, RouteManager.routeAdd);
         },
       ),
       resizeToAvoidBottomInset:
@@ -79,8 +80,8 @@ class _NavigationMenuState extends State<NavigationMenu> {
             label: 'Chat',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.checklist),
-            label: 'Orders',
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Profile',
           ),
         ],
       ),

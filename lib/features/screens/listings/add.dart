@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/features/screens/listings/add_equipment.dart';
 import 'package:regain_mobile/features/screens/listings/add_product.dart';
+import 'package:regain_mobile/routes/route_manager.dart';
 
 class Add extends StatefulWidget {
   const Add({super.key});
@@ -52,8 +53,7 @@ class _AddState extends State<Add> {
                     backgroundColor: Colors.green.shade100,
                   ),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AddProduct()));
+                    Navigator.pushNamed(context, RouteManager.routeAddProduct);
                   },
                 ),
               ),
@@ -90,10 +90,8 @@ class _AddState extends State<Add> {
                     backgroundColor: Colors.green.shade100,
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AddEquipment()));
+                    Navigator.pushNamed(
+                        context, RouteManager.routeAddEquipment);
                   },
                 ),
               ),

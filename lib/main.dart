@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/listings/add.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
@@ -20,11 +21,16 @@ import 'package:regain_mobile/features/screens/profile/profile_menu.dart';
 import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 import 'package:regain_mobile/features/screens/profile/report_page.dart';
 import 'package:regain_mobile/features/screens/profile/seller_profile_page.dart';
+import 'package:regain_mobile/provider/category_data_provider.dart';
+import 'package:regain_mobile/provider/product_data_provider.dart';
+import 'package:regain_mobile/routes/route_manager.dart';
 import 'package:regain_mobile/themes/theme.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-      create: (context) => AppDataProvider(), child: MyApp()));
+  runApp(
+      // ChangeNotifierProvider(
+      //   create: (context) => AppDataProvider(), child: MyApp())
+      MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,24 +39,36 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Regain',
-      theme: AppTheme.lightTheme,
-      // theme: ThemeData(
-      //   visualDensity: VisualDensity.adaptivePlatformDensity,
-      //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
-      // ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppDataProvider>(
+            create: (context) => AppDataProvider()),
+        ChangeNotifierProvider<CategoryDataProvider>(
+            create: (context) => CategoryDataProvider()),
+        ChangeNotifierProvider<ProductDataProvider>(
+            create: (context) => ProductDataProvider())
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Regain',
+        theme: AppTheme.lightTheme,
+        // theme: ThemeData(
+        //   visualDensity: VisualDensity.adaptivePlatformDensity,
+        //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
+        // ),
 
-      home: LoginScreen(),
-      routes: {
-        routeLogin: (context) => LoginScreen(),
-        routeHomepage: (context) => HomepageScreen(),
-        routeNavMenu: (context) => NavigationMenu(),
-        routeRegistration: (context) => RegistrationScreen(),
-        routeProfilePage: (context) => ProfilePage(),
-        routeAdd: (context) => Add(),
-      },
+        // home: NavigationMenu(),
+        initialRoute: RouteManager.routeNavMenu,
+        onGenerateRoute: RouteManager.generateRoute,
+        // routes: {
+        //   RouteManager.routeLogin: (context) => LoginScreen(),
+        //   routeHomepage: (context) => HomepageScreen(),
+        //   routeNavMenu: (context) => NavigationMenu(),
+        //   routeRegistration: (context) => RegistrationScreen(),
+        //   routeProfilePage: (context) => ProfilePage(),
+        //   routeAdd: (context) => Add(),
+        // },
+      ),
     );
   }
 }

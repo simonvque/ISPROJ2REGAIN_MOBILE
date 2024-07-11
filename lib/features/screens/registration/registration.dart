@@ -4,6 +4,7 @@ import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/features/screens/registration/registration_otp.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
+import 'package:regain_mobile/routes/route_manager.dart';
 
 import '../../../common/styles/spacing_styles.dart';
 import '../../../constants/colors.dart';
@@ -205,7 +206,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 onPressed: () {
                                   Navigator.pushNamed(
                                     context,
-                                    routeLogin,
+                                    RouteManager.routeLogin,
                                   );
                                 },
                                 child: Text(
@@ -247,7 +248,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
           resetFields();
-          Navigator.pushNamed(context, routeLogin);
+          Navigator.pushNamed(context, RouteManager.routeAdd);
           ReGainHelperFunctions.showSnackBar(context, response.message);
         }
       });

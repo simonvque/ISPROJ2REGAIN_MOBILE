@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
+import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/error_details_model.dart';
+import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
 import 'package:http/http.dart' as http;
@@ -14,30 +16,10 @@ class AppDataSource extends DataSource {
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
 
-  // @override
-  // Future<ResponseModel> addUser(UserModel user) async {
-  //   final url = '$baseUrl${'register/add'}';
-  //   var body = json.encode(user);
-
-  //   http.Response response = await http.post(
-  //     Uri.parse(url),
-  //     headers: header,
-  //     body: body,
-  //   );
-  //   var responseBody = jsonDecode(response.body);
-  //   print(responseBody);
-  //   //UserModel userTwo = UserModel.fromMap(responseMap);
-  //   //ResponseModel responseModel = ResponseModel(responseStatus: response., statusCode: statusCode, message: message, object: object)
-  //   //return responseModel;
-
-  //   // // TODO: implement addUser
-  //   throw UnimplementedError();
-  // }
-
   @override
   Future<ResponseModel> addUser(UserModel user) async {
     // TODO: implement addUser
-    final url = '$baseUrl${'register/add'}';
+    final url = '$baseUrl${'user/register'}';
     try {
       final response = await http.post(Uri.parse(url),
           headers: header, body: jsonEncode(user));
@@ -79,5 +61,66 @@ class AppDataSource extends DataSource {
       );
     }
     return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> addProduct(Product product) async {
+    final url = '$baseUrl${'products/add'}';
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: header, body: jsonEncode(product));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Product>> getAllProducts() async {
+    final url = '$baseUrl${'products'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => Product.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Product>> getProductsByUser(int id) async {
+    final url = '$baseUrl${'products/$id'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => Product.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Category>> getCategories() async {
+    final url = '$baseUrl${'category/list'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => Category.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
+      rethrow;
+    }
   }
 }

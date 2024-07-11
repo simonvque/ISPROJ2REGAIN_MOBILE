@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:regain_mobile/nav.dart';
+import 'package:regain_mobile/routes/route_manager.dart';
 
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
@@ -99,7 +100,7 @@ class _LoginFormState extends State<LoginForm> {
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
-                      routeRegistration,
+                      RouteManager.routeRegistration,
                     );
                   },
                   child: Text(
