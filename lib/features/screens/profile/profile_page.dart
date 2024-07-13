@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:regain_mobile/features/screens/orders/myorders.dart';
 import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 import 'package:regain_mobile/features/screens/profile/util/user_data.dart';
+import 'package:regain_mobile/routes/route_manager.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
 import '../../../themes/elements/button_styles.dart';
@@ -39,10 +40,7 @@ class ProfilePage extends StatelessWidget {
               RegainButtons(
                 text: 'Edit profile',
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditProfilePage()));
+                  Navigator.pushNamed(context, RouteManager.routeEditProfile);
                 },
                 type: ButtonType.filled,
                 size: ButtonSize.small,
@@ -53,10 +51,7 @@ class ProfilePage extends StatelessWidget {
               RegainButtons(
                 text: 'My orders',
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OrderTrackingPage()));
+                  Navigator.pushNamed(context, RouteManager.routeOrderTracking);
                 },
                 type: ButtonType.text,
                 size: ButtonSize.small,

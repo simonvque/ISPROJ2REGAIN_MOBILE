@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:regain_mobile/constants/image_strings.dart';
+import 'package:regain_mobile/model/product_listing.dart';
+import 'package:regain_mobile/model/view_product_model.dart';
+import 'package:regain_mobile/provider/product_data_provider.dart';
 
 import '../selected_item.dart';
 
 class CardItems extends StatelessWidget {
-  final List<Map<String, dynamic>> items;
+  final List<ViewProduct> items;
+  //Product product;
 
   const CardItems({
     required this.items,
+    // this.imagePath,
+
     Key? key,
   }) : super(key: key);
 
@@ -25,20 +33,44 @@ class CardItems extends StatelessWidget {
             (MediaQuery.of(context).size.height * 0.7),
       ),
       itemBuilder: (context, index) {
-        final Map<String, dynamic> item = items[index];
-        return CardItem(
-          item: item,
-        );
+        //final Map<String, dynamic> item = items[index];
+        final ViewProduct item = items[index];
+        return CardItem(item: item);
       },
     );
   }
 }
 
 class CardItem extends StatefulWidget {
-  final Map<String, dynamic> item;
+  //final Map<String, dynamic> item;
+  final ViewProduct item;
+  final dynamic sellerImage;
 
-  const CardItem({
+  //final imagePath;
+
+  // final productID;
+  // final productName;
+  // final location;
+  // final price;
+  // final sellerUsername;
+  // final weight;
+  // final category;
+  // final isSellerDropOff;
+  // final isFavorite;
+
+  CardItem({
     required this.item,
+    this.sellerImage,
+    //required this.imagePath,
+    // required this.productID,
+    // required this.productName,
+    // required this.location,
+    // required this.price,
+    // required this.sellerUsername,
+    // required this.weight,
+    // required this.category,
+    // required this.isSellerDropOff,
+    // required this.isFavorite,
     Key? key,
   }) : super(key: key);
 
@@ -49,15 +81,27 @@ class CardItem extends StatefulWidget {
 class _CardItemState extends State<CardItem> {
   late bool isFavorite;
 
+  List<ViewProduct> productItems = [];
   @override
   void initState() {
+    // _getData();
     super.initState();
-    isFavorite = widget.item['isFavorite'];
+    isFavorite = widget.item.isFavorite;
   }
+
+  // _getData() async {
+  //   //Provider.of<AppDataProvider>(context, listen: false).setUser(1);
+  //   //final userId = Provider.of<AppDataProvider>(context, listen: false).userId;
+  //   final allProducts =
+  //       await Provider.of<ProductDataProvider>(context, listen: false)
+  //           .getAllProductsByUserFave(1);
+
+  //   productItems = allProducts;
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final bool isSellerDropOff = widget.item['isSellerDropOff'];
+    final bool isSellerDropOff = widget.item.canDeliver;
 
     return Card(
       child: InkWell(
@@ -76,7 +120,7 @@ class _CardItemState extends State<CardItem> {
                   width: double.infinity,
                   height: 100,
                   child: Image.asset(
-                    widget.item['imagePath'],
+                    ReGainImages.onboardingImage3,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -89,7 +133,7 @@ class _CardItemState extends State<CardItem> {
                 children: [
                   Expanded(
                     child: Text(
-                      widget.item['title'],
+                      widget.item.productName,
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
@@ -102,9 +146,9 @@ class _CardItemState extends State<CardItem> {
                       color: isFavorite ? Colors.red : Colors.black,
                     ),
                     onPressed: () {
-                      setState(() {
-                        isFavorite = !isFavorite;
-                      });
+                      // setState(() {
+                      //   isFavorite = !isFavorite;
+                      // });
                     },
                   ),
                 ],
@@ -121,7 +165,7 @@ class _CardItemState extends State<CardItem> {
                   ),
                   SizedBox(width: 4),
                   Text(
-                    widget.item['location'],
+                    widget.item.location,
                     style: TextStyle(
                       fontSize: 12.0,
                       color: Colors.grey,
@@ -133,7 +177,7 @@ class _CardItemState extends State<CardItem> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                widget.item['price'],
+                widget.item.price.toString(),
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -142,7 +186,8 @@ class _CardItemState extends State<CardItem> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 6.0),
+              padding:
+                  const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 6.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -155,24 +200,24 @@ class _CardItemState extends State<CardItem> {
                           shape: BoxShape.circle,
                           color: Colors.black,
                         ),
-                        child: widget.item['sellerImagePath'] != null
+                        child: widget.sellerImage != null
                             ? ClipOval(
-                          child: Image.asset(
-                            widget.item['sellerImagePath'],
-                            width: 24,
-                            height: 24,
-                            fit: BoxFit.cover,
-                          ),
-                        )
+                                child: Image.asset(
+                                  ReGainImages.exProfilePic,
+                                  width: 24,
+                                  height: 24,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
                             : Icon(
-                          Icons.person,
-                          color: Colors.white,
-                          size: 16,
-                        ),
+                                Icons.person,
+                                color: Colors.white,
+                                size: 16,
+                              ),
                       ),
                       SizedBox(width: 4),
                       Text(
-                        widget.item['seller'],
+                        widget.item.sellerUsername,
                         style: TextStyle(
                           fontSize: 12.0,
                           color: Colors.black,
@@ -181,7 +226,7 @@ class _CardItemState extends State<CardItem> {
                     ],
                   ),
                   Text(
-                    widget.item['weight'],
+                    widget.item.weight.toString(),
                     style: TextStyle(
                       fontSize: 12.0,
                       color: Colors.black,
@@ -213,7 +258,7 @@ class _CardItemState extends State<CardItem> {
                     ],
                   ),
                   Text(
-                    widget.item['category'],
+                    widget.item.category,
                     style: TextStyle(
                       fontSize: 12.0,
                       color: Colors.black,
@@ -227,4 +272,8 @@ class _CardItemState extends State<CardItem> {
       ),
     );
   }
+
+  // void _getData() {
+
+  // }
 }

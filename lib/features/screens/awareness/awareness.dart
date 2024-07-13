@@ -22,49 +22,60 @@ class _AwarenessFeatureState extends State<AwarenessFeature> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'The Green Zone',
-          style: TextStyle(
-            fontSize: 18.0,
-            color: Colors.white,
-            fontFamily: 'Montserrat-Bold',
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        appBarTheme: const AppBarTheme(color: green),
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(CupertinoIcons.arrow_left, color: white),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: const Text(
+            'The Green Zone',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'Montserrat-Bold',
+            ),
           ),
         ),
-        backgroundColor: green,
-        iconTheme: const IconThemeData(color: white),
-      ),
-      body: Column(
-        children: <Widget>[
-          _buildCaptionTitle(context),
-          //const Divider(),
-          // _buildTabBar(context)
-          Container(
-            decoration: BoxDecoration(
-                border: Border(
-              top: BorderSide(color: Colors.grey.shade400),
-              bottom: BorderSide(color: Colors.grey.shade400),
-            )),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: _buildTabs(),
+        body: Column(
+          children: <Widget>[
+            _buildCaptionTitle(context),
+            //const Divider(),
+            // _buildTabBar(context)
+            Container(
+              decoration: BoxDecoration(
+                  border: Border(
+                top: BorderSide(color: Colors.grey.shade400),
+                bottom: BorderSide(color: Colors.grey.shade400),
+              )),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: _buildTabs(),
+              ),
             ),
-          ),
-          // const Divider(),
-          Expanded(
-            child: PageView(
-              controller: _pageController, // Attach PageController to PageView
-              onPageChanged: (index) {
-                setState(() {
-                  // _currentPageIndex = index;
-                  _updateSelection(index);
-                });
-              },
-              children: _buildPages(),
+            // const Divider(),
+            Expanded(
+              child: PageView(
+                controller:
+                    _pageController, // Attach PageController to PageView
+                onPageChanged: (index) {
+                  setState(() {
+                    // _currentPageIndex = index;
+                    _updateSelection(index);
+                  });
+                },
+                children: _buildPages(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

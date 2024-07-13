@@ -1,4 +1,5 @@
 import 'dart:convert';
+//import 'dart:js_interop';
 
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
@@ -8,6 +9,7 @@ import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:regain_mobile/model/view_product_model.dart';
 
 class AppDataSource extends DataSource {
   // baseUrl = emulator IP + Spring Boot backend port + route
@@ -63,6 +65,8 @@ class AppDataSource extends DataSource {
     return responseModel;
   }
 
+  // PRODUCTS
+
   @override
   Future<ResponseModel> addProduct(Product product) async {
     final url = '$baseUrl${'products/add'}';
@@ -78,7 +82,7 @@ class AppDataSource extends DataSource {
 
   @override
   Future<List<Product>> getAllProducts() async {
-    final url = '$baseUrl${'products'}';
+    final url = '$baseUrl${'products/list'}';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -93,8 +97,25 @@ class AppDataSource extends DataSource {
   }
 
   @override
+  Future<List<ViewProduct>> getAllProductsByUserFave(int id) async {
+    // TODO: implement getAllProductsByUserFave
+    final url = '$baseUrl${'products/viewlist/$id'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => ViewProduct.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<List<Product>> getProductsByUser(int id) async {
-    final url = '$baseUrl${'products/$id'}';
+    final url = '$baseUrl${'products/list/$id'}';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -107,6 +128,23 @@ class AppDataSource extends DataSource {
       rethrow;
     }
   }
+
+  @override
+  Future<Product?> getProductById(int id) async {
+    final url = '$baseUrl${'products/$id'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final map = json.decode(response.body);
+        return Product.fromJson(map);
+      }
+      return null;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  // CATEGORIES
 
   @override
   Future<List<Category>> getCategories() async {

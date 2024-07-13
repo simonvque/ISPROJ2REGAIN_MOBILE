@@ -28,14 +28,14 @@ mixin _$Product {
   set productName(String value) => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   set description(String? value) => throw _privateConstructorUsedError;
-  double get weight => throw _privateConstructorUsedError;
-  set weight(double value) => throw _privateConstructorUsedError;
+  String get weight => throw _privateConstructorUsedError;
+  set weight(String value) => throw _privateConstructorUsedError;
   int? get location => throw _privateConstructorUsedError;
   set location(int? value) => throw _privateConstructorUsedError;
   int? get categoryID => throw _privateConstructorUsedError;
   set categoryID(int? value) => throw _privateConstructorUsedError;
-  Decimal get price => throw _privateConstructorUsedError;
-  set price(Decimal value) => throw _privateConstructorUsedError;
+  String get price => throw _privateConstructorUsedError;
+  set price(String value) => throw _privateConstructorUsedError;
   bool get canDeliver => throw _privateConstructorUsedError;
   set canDeliver(bool value) => throw _privateConstructorUsedError;
 
@@ -54,10 +54,10 @@ abstract class $ProductCopyWith<$Res> {
       int? sellerID,
       String productName,
       String? description,
-      double weight,
+      String weight,
       int? location,
       int? categoryID,
-      Decimal price,
+      String price,
       bool canDeliver});
 }
 
@@ -104,7 +104,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
       weight: null == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -116,7 +116,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as Decimal,
+              as String,
       canDeliver: null == canDeliver
           ? _value.canDeliver
           : canDeliver // ignore: cast_nullable_to_non_nullable
@@ -137,10 +137,10 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
       int? sellerID,
       String productName,
       String? description,
-      double weight,
+      String weight,
       int? location,
       int? categoryID,
-      Decimal price,
+      String price,
       bool canDeliver});
 }
 
@@ -185,7 +185,7 @@ class __$$ProductImplCopyWithImpl<$Res>
       weight: null == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -197,7 +197,7 @@ class __$$ProductImplCopyWithImpl<$Res>
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as Decimal,
+              as String,
       canDeliver: null == canDeliver
           ? _value.canDeliver
           : canDeliver // ignore: cast_nullable_to_non_nullable
@@ -233,13 +233,13 @@ class _$ProductImpl implements _Product {
   @JsonKey()
   String? description;
   @override
-  double weight;
+  String weight;
   @override
   int? location;
   @override
   int? categoryID;
   @override
-  Decimal price;
+  String price;
   @override
   bool canDeliver;
 
@@ -268,10 +268,10 @@ abstract class _Product implements Product {
       required int? sellerID,
       required String productName,
       String? description,
-      required double weight,
+      required String weight,
       required int? location,
       required int? categoryID,
-      required Decimal price,
+      required String price,
       required bool canDeliver}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
@@ -289,8 +289,8 @@ abstract class _Product implements Product {
   String? get description;
   set description(String? value);
   @override
-  double get weight;
-  set weight(double value);
+  String get weight;
+  set weight(String value);
   @override
   int? get location;
   set location(int? value);
@@ -298,8 +298,8 @@ abstract class _Product implements Product {
   int? get categoryID;
   set categoryID(int? value);
   @override
-  Decimal get price;
-  set price(Decimal value);
+  String get price;
+  set price(String value);
   @override
   bool get canDeliver;
   set canDeliver(bool value);
