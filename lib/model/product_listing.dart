@@ -11,10 +11,10 @@ class Product with _$Product {
       required int? sellerID,
       required String productName,
       @Default('') String? description,
-      required double weight,
+      required String weight,
       required int? location,
       required int? categoryID,
-      required Decimal price,
+      required String price,
       required bool canDeliver}) = _Product;
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);

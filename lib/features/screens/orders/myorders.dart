@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/constants/colors.dart';
 
 void main() {
   runApp(OrderTrackingPage());
@@ -28,7 +29,7 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
       home: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(CupertinoIcons.arrow_left, color: Colors.white),
+            icon: const Icon(CupertinoIcons.arrow_left, color: white),
             onPressed: () {
               Navigator.pop(context);
             },

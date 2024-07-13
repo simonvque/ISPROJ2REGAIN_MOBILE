@@ -36,7 +36,7 @@ class _AddProductState extends State<AddProduct> {
   final descController = TextEditingController();
   final locationController = TextEditingController();
 
-  List<Category> categList = [];
+  // List<Category> categList = [];
 
   // @override
   // void didChangeDependencies() {
@@ -46,8 +46,7 @@ class _AddProductState extends State<AddProduct> {
   @override
   void initState() {
     _getData();
-    // categList =
-    //     Provider.of<CategoryDataProvider>(context, listen: false).categoryList;
+
     super.initState();
   }
 
@@ -57,10 +56,6 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   Widget build(BuildContext context) {
-    // _getData();
-    // final List<Category> categList =
-    //     Provider.of<CategoryDataProvider>(context, listen: false).categoryList;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: green,
@@ -305,9 +300,9 @@ class _AddProductState extends State<AddProduct> {
       final prod = Product(
           productName: productNameController.text,
           sellerID: tempUser,
-          price: Decimal.parse(priceController.text),
+          price: priceController.text,
           categoryID: _selectedCategory?.categoryID,
-          weight: double.parse(weightController.text),
+          weight: weightController.text,
           description: descController.text,
           location: addresses.indexOf(locationController.text),
           canDeliver: isSellerDelivering);

@@ -10,6 +10,7 @@ import 'package:regain_mobile/features/screens/profile/seller_profile_page.dart'
 import 'package:regain_mobile/features/screens/profile/settings/settings_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/transactions_page.dart';
 import 'package:regain_mobile/features/screens/profile/util/transactions_data.dart';
+import 'package:regain_mobile/routes/route_manager.dart';
 
 import '../../../themes/elements/button_styles.dart';
 
@@ -29,6 +30,7 @@ class ProfileMenu extends StatelessWidget {
           text: 'Manage listings',
           onPressed: () {
             //add code
+            Navigator.pushNamed(context, RouteManager.routeUserProducts);
           },
           type: ButtonType.transparentOutlined,
           size: ButtonSize.large,

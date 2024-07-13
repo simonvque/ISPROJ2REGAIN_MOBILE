@@ -12,10 +12,10 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
       sellerID: (json['sellerID'] as num?)?.toInt(),
       productName: json['productName'] as String,
       description: json['description'] as String? ?? '',
-      weight: (json['weight'] as num).toDouble(),
+      weight: json['weight'] as String,
       location: (json['location'] as num?)?.toInt(),
       categoryID: (json['categoryID'] as num?)?.toInt(),
-      price: Decimal.fromJson(json['price'] as String),
+      price: json['price'] as String,
       canDeliver: json['canDeliver'] as bool,
     );
 

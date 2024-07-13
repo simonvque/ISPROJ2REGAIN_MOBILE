@@ -11,6 +11,15 @@ import 'package:regain_mobile/model/user_model.dart';
 class AppDataProvider extends ChangeNotifier {
   final DataSource _dataSource = AppDataSource();
 
+  late int _userId;
+
+  get userId => _userId;
+
+  void setUser(int id) {
+    _userId = id;
+    notifyListeners();
+  }
+
   // //private list
   // List<Category> _categoryList = [];
 
