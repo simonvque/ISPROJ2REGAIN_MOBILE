@@ -148,7 +148,6 @@ class AppDataSource extends DataSource {
 
   @override
   Future<List<ViewProduct>> getAllProductsByUserFave(int id) async {
-    // TODO: implement getAllProductsByUserFave
     final url = '$baseUrl${'products/viewlist/$id'}';
     try {
       final response = await http.get(Uri.parse(url));
@@ -189,6 +188,23 @@ class AppDataSource extends DataSource {
         return Product.fromJson(map);
       }
       return null;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  // FAVORITES
+  @override
+  Future<List<ViewProduct>> getUserFavorites(int id) async {
+    final url = '$baseUrl${'favorites/list/$id'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => ViewProduct.fromJson(mapList[index]));
+      }
+      return [];
     } catch (error) {
       rethrow;
     }
