@@ -13,6 +13,14 @@ import 'package:http/http.dart' as http;
 import 'package:regain_mobile/model/view_product_model.dart';
 
 class AppDataSource extends DataSource {
+  static final AppDataSource _instance = AppDataSource._privateConstructor();
+
+  factory AppDataSource() {
+    return _instance;
+  }
+
+  AppDataSource._privateConstructor();
+
   // baseUrl = emulator IP + Spring Boot backend port + route
   final String baseUrl = 'http://10.0.2.2:9191/api/';
 
