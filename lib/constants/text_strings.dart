@@ -43,8 +43,24 @@ class ReGainTexts {
   static const String lblSettingsAcc = "ACCOUNT & SECURITY";
   static const String lblSettingsAbt = "ABOUT REGAIN";
 
+  // button title
+  static const String btnEdit = "Edit";
+  static const String btnDelete = "Delete";
+  static const String btnCancel = "Cancel";
+  static const String btnYes = "Yes, I'm sure";
+  static const String btnNo = "No";
+  static const String alertDelete= "Delete product";
+  static const String alertCancel= "Cancel update?";
+  static const String alertDelMsg = "Are you sure you want to delete this product?";
+  static const String alertEdtMsg = 
+                  'Are you sure you want to cancel your changes?'
+                  ' Any unsaved modifications will be lost.';
+
   //Contact Us Text
   static const String cuHeading = "Having trouble?";
+  static const String cuMessage = 
+                  "If you're experiencing issues or have questions, we're here to help! "
+                  "Please reach out to us by filling out the form below: ";
   static const String cuEmail = "Email";
   static const String cuSubject = "Subject";
 
@@ -59,6 +75,7 @@ class ReGainTexts {
       'In hac habitasse platea dictumst. Nunc sed blandit libero volutpat sed cras ornare arcu dui. '
       'Rhoncus dolor purus non enim praesent elementum. Justo eget magna fermentum iaculis eu non diam phasellus.';
 }
+
 
 //to be transferred
 class Roles {

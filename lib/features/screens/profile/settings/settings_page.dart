@@ -35,6 +35,7 @@ class SettingsPage extends StatelessWidget {
             },
             type: ButtonType.transparentOutlined,
             size: ButtonSize.large,
+            txtSize: BtnTxtSize.large,
             leftIcon: CupertinoIcons.lock_shield,
             rightIcon: CupertinoIcons.chevron_forward,
           ),
@@ -50,6 +51,7 @@ class SettingsPage extends StatelessWidget {
             },
             type: ButtonType.transparentOutlined,
             size: ButtonSize.large,
+            txtSize: BtnTxtSize.large,
             leftIcon: CupertinoIcons.question_circle,
             rightIcon: CupertinoIcons.chevron_forward,
           ),
@@ -63,6 +65,7 @@ class SettingsPage extends StatelessWidget {
             },
             type: ButtonType.transparentOutlined,
             size: ButtonSize.large,
+            txtSize: BtnTxtSize.large,
             leftIcon: CupertinoIcons.doc_plaintext,
             rightIcon: CupertinoIcons.chevron_forward,
           ),
@@ -93,6 +96,7 @@ class LegalPolPage extends StatelessWidget {
                 },
                 type: ButtonType.transparentOutlined,
                 size: ButtonSize.large,
+                txtSize: BtnTxtSize.large,
                 rightIcon: CupertinoIcons.chevron_forward,
               ),
               RegainButtons(
@@ -105,6 +109,7 @@ class LegalPolPage extends StatelessWidget {
                 },
                 type: ButtonType.transparentOutlined,
                 size: ButtonSize.large,
+                txtSize: BtnTxtSize.large,
                 rightIcon: CupertinoIcons.chevron_forward,
               ),
               RegainButtons(
@@ -117,6 +122,7 @@ class LegalPolPage extends StatelessWidget {
                 },
                 type: ButtonType.transparentOutlined,
                 size: ButtonSize.large,
+                txtSize: BtnTxtSize.large,
                 rightIcon: CupertinoIcons.chevron_forward,
               ),
             ])));

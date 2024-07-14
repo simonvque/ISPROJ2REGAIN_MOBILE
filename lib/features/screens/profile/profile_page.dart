@@ -30,7 +30,7 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(
                 height: ReGainSizes.spaceBtwItems / 4,
               ),
-              Text('@${user.username}', style: Theme.of(context).textTheme.bodyLarge,),
+              Text('@${user.username}', style: Theme.of(context).textTheme.titleLarge,),
               Text(user.contactNum, style: Theme.of(context).textTheme.labelMedium,),
               const SizedBox(
                 height: ReGainSizes.spaceBtwItems,
@@ -54,6 +54,7 @@ class ProfilePage extends StatelessWidget {
                 },
                 type: ButtonType.text,
                 size: ButtonSize.small,
+                txtSize: BtnTxtSize.large,
                 leftIcon: CupertinoIcons.bag,
               ),
               const SizedBox(
