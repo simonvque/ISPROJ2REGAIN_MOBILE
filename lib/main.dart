@@ -5,6 +5,7 @@ import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
+import 'package:regain_mobile/provider/favorites_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 import 'package:regain_mobile/themes/theme.dart';
@@ -31,7 +32,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AddressDataProvider>(
             create: (context) => AddressDataProvider()),
         ChangeNotifierProvider<ProductDataProvider>(
-            create: (context) => ProductDataProvider())
+            create: (context) => ProductDataProvider()),
+        ChangeNotifierProvider<FavoritesDataProvider>(
+            create: (context) => FavoritesDataProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

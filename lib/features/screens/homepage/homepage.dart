@@ -50,7 +50,17 @@ class _HomeScreenState extends State<HomepageScreen> {
     //       weight: '5 kg',
     //       category: 'Metal',
     //       canDeliver: true,
-    //       isFavorite: false)
+    //       isFavorite: false),
+    //   ViewProduct(
+    //     productID: 2,
+    //     productName: 'Tin cans',
+    //     location: 'Quezon City',
+    //     price: '300.00',
+    //     sellerUsername: 'secondUser',
+    //     weight: '200.00',
+    //     category: 'Metals',
+    //     canDeliver: false,
+    //     isFavorite: true),
     // ];
   }
 
