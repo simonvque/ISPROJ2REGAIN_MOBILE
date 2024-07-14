@@ -5,11 +5,14 @@ enum ButtonType { outlined, filled, transparentOutlined, text }
 
 enum ButtonSize { small, medium, large }
 
+enum BtnTxtSize { small, medium, large }
+
 class RegainButtons extends StatelessWidget {
   final String text;
   final void Function() onPressed;
   final ButtonType type;
   final ButtonSize size;
+  final BtnTxtSize txtSize;
   final IconData? leftIcon;
   final IconData? rightIcon;
 
@@ -19,6 +22,7 @@ class RegainButtons extends StatelessWidget {
     required this.onPressed,
     this.type = ButtonType.outlined,
     this.size = ButtonSize.medium,
+    this.txtSize = BtnTxtSize.small,
     this.leftIcon,
     this.rightIcon,
   });
@@ -35,41 +39,45 @@ class RegainButtons extends StatelessWidget {
   }
 
   Widget buildButtonWidget(BuildContext context, ButtonStyle? style) {
+    return Builder(
+      builder: (BuildContext innerContext){
     switch (type) {
       case ButtonType.outlined:
         return OutlinedButton(
           onPressed: onPressed,
           style: style,
-          child: buildButtonContent(),
+          child: buildButtonContent(innerContext),
         );
       case ButtonType.filled:
         return ElevatedButton(
           onPressed: onPressed,
           style: style,
-          child: buildButtonContent(),
+          child: buildButtonContent(innerContext),
         );
       case ButtonType.transparentOutlined:
         return OutlinedButton(
           onPressed: onPressed,
           style: style,
-          child: buildButtonContent(),
+          child: buildButtonContent(innerContext),
         );
       case ButtonType.text:
         return TextButton(
           onPressed: onPressed,
           style: style,
-          child: buildButtonContent(),
+          child: buildButtonContent(innerContext),
         );
       default:
         return OutlinedButton(
           onPressed: onPressed,
           style: style,
-          child: buildButtonContent(),
+          child: buildButtonContent(innerContext),
         );
-    }
+      }
+      }
+    );
   }
 
-  Widget buildButtonContent() {
+  Widget buildButtonContent(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -77,12 +85,35 @@ class RegainButtons extends StatelessWidget {
         if (leftIcon != null) const SizedBox(width: 8),
         Text(
           text,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          style: getTextStyle(context),
         ),
         if (rightIcon != null) const Spacer(),
         if (rightIcon != null) Icon(rightIcon),
       ],
     );
+  }
+
+  // Set button txtsize
+ TextStyle getTextStyle(BuildContext context) {
+  Color textColor;
+    switch (type) {
+      case ButtonType.filled:
+        textColor = white; 
+        break;
+      default:
+        textColor = black; 
+        break;
+    }
+    switch (txtSize) {
+      case BtnTxtSize.small:
+        return Theme.of(context).textTheme.bodySmall!.copyWith(color: textColor);
+      case BtnTxtSize.medium:
+        return Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);
+      case BtnTxtSize.large:
+        return Theme.of(context).textTheme.bodyLarge!.copyWith(color: textColor);
+      default:
+        return Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);
+    }
   }
 
   Map<String, dynamic> getButtonStyles(BuildContext context) {

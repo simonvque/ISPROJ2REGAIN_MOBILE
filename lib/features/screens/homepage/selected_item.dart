@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
-import '../../../themes/elements/button_styles.dart';
 import '../offer/offerpopup.dart';
 
 class SelectedItemScreen extends StatefulWidget {
+  const SelectedItemScreen({super.key});
+
   @override
   _SelectedItemScreenState createState() => _SelectedItemScreenState();
 }
@@ -92,7 +93,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                             child: Row(
                               children: [
                                 const SizedBox(width: 8),
-                                Text('Type: '),
+                                const Text('Type: '),
                                 Text(category),
                               ],
                             ),
@@ -102,7 +103,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                             child: Row(
                               children: [
                                 const SizedBox(width: 8),
-                                Text('Net Weight: '),
+                                const Text('Net Weight: '),
                                 Text(weight),
                               ],
                             ),
@@ -111,7 +112,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                             padding: const EdgeInsets.only(top: 4.0),
                             child: Row(
                               children: [
-                                Icon(Icons.location_pin),
+                                const Icon(Icons.location_pin),
                                 const SizedBox(width: 8),
                                 Text(location),
                               ],
@@ -127,7 +128,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                                   size: 20,
                                 ),
                                 const SizedBox(width: 8),
-                                Text('Seller drop-off'),
+                                const Text('Seller drop-off'),
                               ],
                             ),
                           ),
@@ -141,7 +142,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                       const SizedBox(height: 8),
                       Row(
                         children: [
-                          CircleAvatar(
+                          const CircleAvatar(
                             backgroundImage: AssetImage('assets/profile.png'), // Replace with actual profile image
                             radius: 24,
                           ),
@@ -153,10 +154,10 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                                 '@isaejen_',
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
-                              Row(
+                              const Row(
                                 children: [
                                   Icon(Icons.star, color: Colors.yellow),
-                                  const SizedBox(width: 4),
+                                  SizedBox(width: 4),
                                   Text('4.2 (6 Reviews)'),
                                 ],
                               ),
@@ -176,7 +177,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                           return Chip(
                             label: Text(tag),
                             backgroundColor: green,
-                            labelStyle: TextStyle(color: white),
+                            labelStyle: const TextStyle(color: white),
                             side: BorderSide.none,
                           );
                         }).toList(),
@@ -192,7 +193,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
             top: 16,
             left: 16,
             child: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -202,7 +203,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
             top: 16,
             right: 16,
             child: IconButton(
-              icon: Icon(Icons.flag, color: Colors.white),
+              icon: const Icon(Icons.flag, color: Colors.white),
               onPressed: () {
                 // Navigate to report page or perform action
               },
@@ -227,7 +228,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return OfferPricePopup(); // Display OfferPricePopup as a dialog
+                      return const OfferPricePopup(); // Display OfferPricePopup as a dialog
                     },
                   );
 

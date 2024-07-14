@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/features/screens/awareness/awareness.dart';
 import 'package:regain_mobile/features/screens/filter.dart';
-import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
-import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
-import '../../../constants/text_strings.dart';
 import '../../../themes/elements/input fields/regain_textbox.dart';
 import '../homepage/widgets/homepage_cards.dart';
 import '../homepage/widgets/homepage_carousel.dart';
@@ -64,7 +59,7 @@ class _HomeScreenState extends State<HomepageScreen> {
                 // Search bar
                 RegainTextbox(
                     hintText: 'Search',
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search),
                     fillColor: white,
                     focusedBorderColor: white),
 
@@ -124,7 +119,7 @@ class _HomeScreenState extends State<HomepageScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => FilterScreen()),
+                                builder: (context) => const FilterScreen()),
                           );
                         },
                       ),
@@ -137,7 +132,7 @@ class _HomeScreenState extends State<HomepageScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfilePage()),
+                              builder: (context) => const ProfilePage()),
                         );
                       },
                       child: Column(
@@ -169,15 +164,15 @@ class _HomeScreenState extends State<HomepageScreen> {
                 children: [
                   // carousel
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: ReGainSizes.sm),
+                    padding: const EdgeInsets.symmetric(horizontal: ReGainSizes.sm),
                     child: GestureDetector(
                       onDoubleTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AwarenessFeature()));
+                                builder: (context) => const AwarenessFeature()));
                       },
-                      child: ReGainCarousel(
+                      child: const ReGainCarousel(
                         banners: [
                           ReGainImages.carousel1,
                           ReGainImages.carousel1,

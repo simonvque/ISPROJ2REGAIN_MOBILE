@@ -1,16 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/inbox.dart';
-import 'package:regain_mobile/features/screens/listings/add.dart';
-import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/favorites.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 
 class NavigationMenu extends StatefulWidget {
-  const NavigationMenu({Key? key}) : super(key: key);
+  const NavigationMenu({super.key});
 
   @override
   State<NavigationMenu> createState() => _NavigationMenuState();

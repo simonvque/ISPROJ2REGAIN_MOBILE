@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:regain_mobile/features/screens/registration/registration_verified.dart';
 
 import '../../../constants/colors.dart';

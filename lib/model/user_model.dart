@@ -1,7 +1,5 @@
-import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:regain_mobile/datasource/Uint8ListConverter.dart';
 
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';

@@ -10,6 +10,6 @@ class AwarenessFeature extends StatefulWidget {
 class _AwarenessFeatureState extends State<AwarenessFeature> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

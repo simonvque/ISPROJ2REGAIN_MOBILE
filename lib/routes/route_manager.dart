@@ -30,29 +30,29 @@ class RouteManager {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case routeLogin:
-        return MaterialPageRoute(builder: (context) => LoginScreen());
+        return MaterialPageRoute(builder: (context) => const LoginScreen());
       case routeRegistration:
-        return MaterialPageRoute(builder: (context) => RegistrationScreen());
+        return MaterialPageRoute(builder: (context) => const RegistrationScreen());
       case routeHomepage:
-        return MaterialPageRoute(builder: (context) => HomepageScreen());
+        return MaterialPageRoute(builder: (context) => const HomepageScreen());
       case routeNavMenu:
-        return MaterialPageRoute(builder: (context) => NavigationMenu());
+        return MaterialPageRoute(builder: (context) => const NavigationMenu());
       case routeProfilePage:
-        return MaterialPageRoute(builder: (context) => ProfilePage());
+        return MaterialPageRoute(builder: (context) => const ProfilePage());
       case routeEditProfile:
-        return MaterialPageRoute(builder: (context) => EditProfilePage());
+        return MaterialPageRoute(builder: (context) => const EditProfilePage());
       case routeAdd:
-        return MaterialPageRoute(builder: (context) => Add());
+        return MaterialPageRoute(builder: (context) => const Add());
       case routeAddProduct:
-        return MaterialPageRoute(builder: (context) => AddProduct());
+        return MaterialPageRoute(builder: (context) => const AddProduct());
       case routeUserProducts:
-        return MaterialPageRoute(builder: (context) => UserProductsScreen());
+        return MaterialPageRoute(builder: (context) => const UserProductsScreen());
       case routeAddEquipment:
-        return MaterialPageRoute(builder: (context) => AddEquipment());
+        return MaterialPageRoute(builder: (context) => const AddEquipment());
       case routeOrderTracking:
-        return MaterialPageRoute(builder: (context) => OrderTrackingPage());
+        return MaterialPageRoute(builder: (context) => const OrderTrackingPage());
       default:
-        throw FormatException(routeNotFound);
+        throw const FormatException(routeNotFound);
     }
   }
 }

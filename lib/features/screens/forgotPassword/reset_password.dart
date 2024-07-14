@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
@@ -23,7 +22,7 @@ class ResetPasswordScreen extends StatelessWidget{
         padding: const EdgeInsets.all(ReGainSizes.defaultSpace),
         child: Column(
           children: [
-            Image(image: AssetImage(ReGainImages.shield), width: ReGainHelperFunctions.screenWidth() * 0.6),
+            Image(image: const AssetImage(ReGainImages.shield), width: ReGainHelperFunctions.screenWidth() * 0.6),
             const SizedBox(height: ReGainSizes.spaceBtwSections),
 
             Text("Password Reset Link Sent", style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
@@ -32,14 +31,14 @@ class ResetPasswordScreen extends StatelessWidget{
             const SizedBox(height: ReGainSizes.spaceBtwSections),
 
             Padding(
-              padding: EdgeInsets.only(top: 32.0),
+              padding: const EdgeInsets.only(top: 32.0),
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      MaterialPageRoute(builder: (context) => const LoginScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

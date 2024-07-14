@@ -148,10 +148,12 @@ import '../../themes/elements/button_styles.dart';
 import '../../themes/elements/input fields/regain_textbox.dart';
 
 void main() {
-  runApp(FilterScreen());
+  runApp(const FilterScreen());
 }
 
 class FilterScreen extends StatefulWidget {
+  const FilterScreen({super.key});
+
   @override
   State<FilterScreen> createState() => _FilterScreen();
 }
@@ -200,7 +202,7 @@ class _FilterScreen extends State<FilterScreen> {
                   runSpacing: 8.0,
                   children: [
                     FilterChip(
-                      label: Text('Plastic'),
+                      label: const Text('Plastic'),
                       selected: plasticSelected,
                       selectedColor: green,
                       onSelected: (bool value) {
@@ -210,7 +212,7 @@ class _FilterScreen extends State<FilterScreen> {
                       },
                     ),
                     FilterChip(
-                      label: Text('Metal'),
+                      label: const Text('Metal'),
                       selected: metalSelected,
                       selectedColor: green,
                       onSelected: (bool value) {
@@ -220,7 +222,7 @@ class _FilterScreen extends State<FilterScreen> {
                       },
                     ),
                     FilterChip(
-                      label: Text('Paper'),
+                      label: const Text('Paper'),
                       selected: paperSelected,
                       selectedColor: green,
                       onSelected: (bool value) {
@@ -230,7 +232,7 @@ class _FilterScreen extends State<FilterScreen> {
                       },
                     ),
                     FilterChip(
-                      label: Text('Electronics'),
+                      label: const Text('Electronics'),
                       selected: electronicsSelected,
                       selectedColor: green,
                       onSelected: (bool value) {
@@ -248,7 +250,7 @@ class _FilterScreen extends State<FilterScreen> {
                   hintText: 'Minimum Price',
                   keyboardType: TextInputType.phone,
                 ),
-                SizedBox(height: ReGainSizes.spaceBtwInputFields),
+                const SizedBox(height: ReGainSizes.spaceBtwInputFields),
                 RegainTextbox(
                   hintText: 'Maximum Price',
                   keyboardType: TextInputType.phone,

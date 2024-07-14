@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
-import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
-import 'package:regain_mobile/provider/product_data_provider.dart';
 
 import '../selected_item.dart';
 
@@ -15,8 +12,8 @@ class CardItems extends StatelessWidget {
     required this.items,
     // this.imagePath,
 
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +55,7 @@ class CardItem extends StatefulWidget {
   // final isSellerDropOff;
   // final isFavorite;
 
-  CardItem({
+  const CardItem({
     required this.item,
     this.sellerImage,
     //required this.imagePath,
@@ -71,8 +68,8 @@ class CardItem extends StatefulWidget {
     // required this.category,
     // required this.isSellerDropOff,
     // required this.isFavorite,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _CardItemState createState() => _CardItemState();
@@ -108,7 +105,7 @@ class _CardItemState extends State<CardItem> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SelectedItemScreen()),
+            MaterialPageRoute(builder: (context) => const SelectedItemScreen()),
           );
         },
         child: Column(
@@ -116,7 +113,7 @@ class _CardItemState extends State<CardItem> {
           children: <Widget>[
             Stack(
               children: [
-                Container(
+                SizedBox(
                   width: double.infinity,
                   height: 100,
                   child: Image.asset(
@@ -134,7 +131,7 @@ class _CardItemState extends State<CardItem> {
                   Expanded(
                     child: Text(
                       widget.item.productName,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -158,15 +155,15 @@ class _CardItemState extends State<CardItem> {
               padding: const EdgeInsets.only(left: 8.0),
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.location_on,
                     color: Colors.grey,
                     size: 16,
                   ),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   Text(
                     widget.item.location,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12.0,
                       color: Colors.grey,
                     ),
@@ -178,7 +175,7 @@ class _CardItemState extends State<CardItem> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 widget.item.price.toString(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.green,
@@ -196,7 +193,7 @@ class _CardItemState extends State<CardItem> {
                       Container(
                         width: 24,
                         height: 24,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.black,
                         ),
@@ -209,16 +206,16 @@ class _CardItemState extends State<CardItem> {
                                   fit: BoxFit.cover,
                                 ),
                               )
-                            : Icon(
+                            : const Icon(
                                 Icons.person,
                                 color: Colors.white,
                                 size: 16,
                               ),
                       ),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text(
                         widget.item.sellerUsername,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12.0,
                           color: Colors.black,
                         ),
@@ -227,7 +224,7 @@ class _CardItemState extends State<CardItem> {
                   ),
                   Text(
                     widget.item.weight.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12.0,
                       color: Colors.black,
                     ),
@@ -247,8 +244,8 @@ class _CardItemState extends State<CardItem> {
                         color: isSellerDropOff ? Colors.green : Colors.red,
                         size: 24,
                       ),
-                      SizedBox(width: 6),
-                      Text(
+                      const SizedBox(width: 6),
+                      const Text(
                         'Seller drop-off',
                         style: TextStyle(
                           fontSize: 12.0,
@@ -259,7 +256,7 @@ class _CardItemState extends State<CardItem> {
                   ),
                   Text(
                     widget.item.category,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12.0,
                       color: Colors.black,
                     ),

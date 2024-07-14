@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/product_listing.dart';
-import 'package:regain_mobile/provider/app_data_provider.dart';
-import 'package:decimal/decimal.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
@@ -61,7 +57,7 @@ class _AddProductState extends State<AddProduct> {
         backgroundColor: green,
         foregroundColor: white,
         title: const Text('Add Product Listing'),
-        iconTheme: IconThemeData(color: white),
+        iconTheme: const IconThemeData(color: white),
       ),
       body: SingleChildScrollView(
           child: Form(
@@ -71,7 +67,7 @@ class _AddProductState extends State<AddProduct> {
             const Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(10.0),
                 child: Text(
                   'Choose Image',
                   style: TextStyle(

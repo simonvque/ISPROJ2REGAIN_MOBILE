@@ -2,14 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 
-import '../../../constants/text_strings.dart';
 import '../../../themes/elements/button_styles.dart';
 
 void main() {
-  runApp(ReviewsPage());
+  runApp(const ReviewsPage());
 }
 
 class ReviewsPage extends StatefulWidget {
+  const ReviewsPage({super.key});
+
   @override
   State<ReviewsPage> createState() => _ReviewPageState();
 }
@@ -46,7 +47,7 @@ class _ReviewPageState extends State<ReviewsPage> {
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
                  Row(
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 30,
                       backgroundImage:
                           NetworkImage('https://via.placeholder.com/150'),
@@ -74,7 +75,7 @@ class _ReviewPageState extends State<ReviewsPage> {
                   'Write Feedback',
                   style: Theme.of(context).textTheme.titleLarge
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 const TextField(
                   maxLines: 5,
                   maxLength: 1000,
@@ -107,7 +108,7 @@ class _ReviewPageState extends State<ReviewsPage> {
       ),
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
+        appBarTheme: const AppBarTheme(color: Color(0xFF12CF8A)),
       ),
     );
   }
@@ -116,7 +117,7 @@ class _ReviewPageState extends State<ReviewsPage> {
 class StarRating extends StatefulWidget {
   final Function(int) onRatingChanged;
 
-  StarRating({required this.onRatingChanged});
+  const StarRating({super.key, required this.onRatingChanged});
 
   @override
   _StarRatingState createState() => _StarRatingState();
