@@ -64,8 +64,8 @@ class UserReportPageState extends State<UserReportPage> {
                 height: 8,
               ),
               RegainButtons(
-                  onPressed: () => selectIssue('Fake Location'),
-                  text: 'Fake Location',
+                  onPressed: () => selectIssue('Phishing Scammer'),
+                  text: 'Phishing Scammer',
                   type: ButtonType.outlined,
                   size: ButtonSize.large,
                   txtSize: BtnTxtSize.large,
@@ -74,8 +74,8 @@ class UserReportPageState extends State<UserReportPage> {
                 height: 8,
               ),
               RegainButtons(
-                  onPressed: () => selectIssue('Items wrongly categorized'),
-                  text: 'Items wrongly categorized',
+                  onPressed: () => selectIssue('Cancelling on deal'),
+                  text: 'Cancelling on deal',
                   type: ButtonType.outlined,
                   size: ButtonSize.large,
                   txtSize: BtnTxtSize.large,
