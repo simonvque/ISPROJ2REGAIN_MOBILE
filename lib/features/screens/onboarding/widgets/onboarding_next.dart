@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/device_utility.dart';
 import '../../../../helper_functions.dart';

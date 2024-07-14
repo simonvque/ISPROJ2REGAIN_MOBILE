@@ -173,10 +173,10 @@ class _AwarenessFeatureState extends State<AwarenessFeature> {
 
   List<Widget> _buildPages() {
     return [
-      AwarenessStatusPage(title: 'Tips & Guides'),
-      AwarenessStatusPage(title: 'News'),
-      AwarenessStatusPage(title: 'Website Locator'),
-      AwarenessStatusPage(title: 'Events'),
+      const AwarenessStatusPage(title: 'Tips & Guides'),
+      const AwarenessStatusPage(title: 'News'),
+      const AwarenessStatusPage(title: 'Website Locator'),
+      const AwarenessStatusPage(title: 'Events'),
     ];
   }
 

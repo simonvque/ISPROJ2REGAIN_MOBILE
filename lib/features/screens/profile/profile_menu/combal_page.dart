@@ -1,121 +1,97 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/sizes.dart';
+import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
-class CommissionPage extends StatelessWidget {
+class CommissionPage extends StatefulWidget {
   const CommissionPage({super.key});
+
+ @override
+  CommissionPageState createState() => CommissionPageState();
+}
+
+class CommissionPageState extends State<CommissionPage> {
+ 
+  // insert dynamic data
+  double commissionAmount = 25;
+
+  // to change conditions
+  Map<String, dynamic> getStatus(double amount) {
+    if (amount > 50.00) {
+      return {
+        'message': 'Almost limit',
+        'color': Colors.red,
+      };
+    } else {
+      return {
+        'message': 'Under limit',
+        'color': Colors.green,
+      };
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final status = getStatus(commissionAmount);
+
     return Scaffold(
       appBar: buildAppBar(context, 'Commission balance'),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+        padding: const EdgeInsets.all(22),
         child: Column(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: Container(
+        Container(
                 width: MediaQuery.of(context).size.width * 0.90,
-                height: MediaQuery.of(context).size.height * 0.25,
+                height: MediaQuery.of(context).size.height * 0.20,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.grey,
-                    width: 2,
-                  ),
+                    width: 2,),
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    StyleTxt('Your total balance:'), // to constant text
-                    SizedBox(height: ReGainSizes.spaceBtwItems / 4),
+
+                    Text(ReGainTexts.comBalHeading, style: Theme.of(context).textTheme.titleSmall),
+                    const SizedBox(height: ReGainSizes.spaceBtwItems / 4),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        StyleBalTxt('PHP 14.00'),
-                        SizedBox(width: ReGainSizes.spaceBtwItems / 4),
+                        Text('PHP $commissionAmount', style: Theme.of(context).textTheme.headlineLarge),
+                        const SizedBox(width: ReGainSizes.spaceBtwItems / 4),
                         Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: StyleTxt('/50.00',
-                              color: Colors.grey), // to constant
+                          padding: const EdgeInsets.only(bottom: 6),
+                          child: Text(ReGainTexts.comBalMax, style: Theme.of(context).textTheme.labelMedium),
                         ),
                       ],
                     ),
+                    const SizedBox(height: ReGainSizes.spaceBtwItems),
+
+                       Text(
+                        status['message'],
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(color:status['color'] )
+                      ),
+
                   ],
                 ),
               ),
-            ),
 
-            //button
+            // Button
             const SizedBox(height: ReGainSizes.largeSpace),
             RegainButtons(
               text: 'Pay my balance',
               onPressed: () {},
               type: ButtonType.filled,
               size: ButtonSize.large,
-            )
+              txtSize: BtnTxtSize.large,
+            ),
           ],
+    ),
         ),
-      ),
-    );
-  }
-}
-
-class StyleTxt extends StatelessWidget {
-  const StyleTxt(this.text, {this.color = Colors.black87, super.key});
-
-  final String text;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: color,
-        fontWeight: FontWeight.w500,
-        fontSize: 14,
-      ),
-    );
-  }
-}
-
-class StyleBalTxt extends StatelessWidget {
-  const StyleBalTxt(this.text, {super.key});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        color: Colors.black87,
-        fontWeight: FontWeight.bold,
-        fontSize: 40,
-      ),
-    );
-  }
-}
-
-class StyleStatTxt extends StatelessWidget {
-  const StyleStatTxt(this.text, {super.key});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        color: Colors.green,
-        fontWeight: FontWeight.w500,
-        fontSize: 14,
-      ),
-    );
+      );
   }
 }

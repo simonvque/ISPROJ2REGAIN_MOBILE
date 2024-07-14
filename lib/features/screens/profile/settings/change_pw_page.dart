@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/constants/sizes.dart';
+import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/profile/app_bar.dart';
-import 'package:regain_mobile/features/screens/profile/profile_menu.dart';
+import 'package:regain_mobile/themes/elements/button_styles.dart';
+
+import '../../../../themes/elements/input fields/password_textbox.dart';
 
 class ChangePWPage extends StatelessWidget {
   const ChangePWPage({super.key});
@@ -9,55 +13,57 @@ class ChangePWPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context, 'Change password'),
-      body: const Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //  StyleLabelTxt('Current password'),
-            SizedBox(
-              width: 350,
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "Enter current password",
-                  hintStyle: TextStyle(fontSize: 12),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green)),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(22),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Verify your current password:',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    PasswordTextFormField(
+                      labelText: ReGainTexts.currentPW,
+                      isUnderlineBorder: true,
+                    ),
+                    const SizedBox(height: ReGainSizes.largeSpace),
+                    Text(
+                      'Update your new password:',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    PasswordTextFormField(
+                      labelText: ReGainTexts.newPW,
+                      isUnderlineBorder: true,
+                    ),
+                    const SizedBox(height: ReGainSizes.spaceBtwInputFields),
+                    PasswordTextFormField(
+                      labelText: ReGainTexts.confirmPassword,
+                      isUnderlineBorder: true,
+                    ),
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 50),
+                      child: RegainButtons(
+                        text: 'Save',
+                        onPressed: () {},
+                        type: ButtonType.filled,
+                        size: ButtonSize.large,
+                        txtSize: BtnTxtSize.large,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            SizedBox(height: 50),
-            //  StyleLabelTxt('New password'),
-            SizedBox(
-              height: 50,
-              width: 350,
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "Enter new password",
-                  hintStyle: TextStyle(fontSize: 12),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green)),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            // StyleLabelTxt('Confirm new password'),
-            SizedBox(
-              width: 350,
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "Reenter new password",
-                  hintStyle: TextStyle(fontSize: 12),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green)),
-                ),
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

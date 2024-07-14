@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/datasource/app_data_source.dart';
-import 'package:regain_mobile/datasource/data_service.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
-import 'package:regain_mobile/features/screens/listings/add_product.dart';
-import 'package:regain_mobile/model/category.dart';
-import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
 

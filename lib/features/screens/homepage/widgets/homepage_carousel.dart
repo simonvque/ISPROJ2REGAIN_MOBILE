@@ -41,7 +41,7 @@ class ReGainCarousel extends StatelessWidget {
                       ReGainCircularContainer(
                         width: 8,
                         height: 8,
-                        margin: EdgeInsets.only(right: 4),
+                        margin: const EdgeInsets.only(right: 4),
                         backgroundColor: controller.carouselCurrentIndex.value == i ? Colors.black : Colors.grey,
                       ),
                   ],

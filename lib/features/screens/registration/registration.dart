@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
-import 'package:regain_mobile/features/screens/registration/registration_otp.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 
 import '../../../common/styles/spacing_styles.dart';
-import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
 import '../../../constants/text_strings.dart';
@@ -15,7 +13,6 @@ import '../../../model/user_model.dart';
 import '../../../themes/elements/button_styles.dart';
 import '../../../themes/elements/input fields/password_textbox.dart';
 import '../../../themes/elements/input fields/regain_textbox.dart';
-import '../login/login.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -50,7 +47,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image(
+                    const Image(
                       image: AssetImage(ReGainImages.appLogo),
                     ),
                     Padding(
@@ -85,6 +82,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter a username';
                               }
+                              return null;
                             },
                             labelText: ReGainTexts.username,
                             isUnderlineBorder: true),
@@ -99,6 +97,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter a password';
                               }
+                              return null;
                             },
                             labelText: ReGainTexts.password),
                         const SizedBox(
@@ -112,6 +111,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   value != passwordController.text) {
                                 return 'Please confirm your password';
                               }
+                              return null;
                             },
                             labelText: ReGainTexts.confirmPassword),
                         const SizedBox(
@@ -149,18 +149,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                             ),
                             IconButton(
-                              icon: Icon(Icons.info_outline),
+                              icon: const Icon(Icons.info_outline),
                               onPressed: () {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: Text('Info'),
-                                      content: Text(
+                                      title: const Text('Info'),
+                                      content: const Text(
                                           'Information about being part of the waste sector.'),
                                       actions: [
                                         TextButton(
-                                          child: Text('OK'),
+                                          child: const Text('OK'),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },

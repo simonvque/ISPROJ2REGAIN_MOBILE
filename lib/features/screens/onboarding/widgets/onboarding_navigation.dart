@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../constants/colors.dart';
@@ -25,7 +23,7 @@ class OnboardingNavigation extends StatelessWidget {
           controller: controller.pageController,
           onDotClicked: controller.dotNavigationClick,
           count: 4,
-          effect: ExpandingDotsEffect(activeDotColor: green, dotHeight: 6, dotWidth: 6,
+          effect: const ExpandingDotsEffect(activeDotColor: green, dotHeight: 6, dotWidth: 6,
           ),
         ),
       ),

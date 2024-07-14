@@ -6,13 +6,13 @@ import 'ChatModel.dart';
 import 'InboxCard.dart';
 
 void main() {
-  runApp(InboxScreen());
+  runApp(const InboxScreen());
 }
 
 class InboxScreen extends StatefulWidget{
   const InboxScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _InboxScreensState createState() => _InboxScreensState();
@@ -54,7 +54,7 @@ class _InboxScreensState extends State<InboxScreen> {
             ),
           ),
           actions: [
-            IconButton(icon: Icon(CupertinoIcons.square_pencil, color: white,),onPressed: () {},)
+            IconButton(icon: const Icon(CupertinoIcons.square_pencil, color: white,),onPressed: () {},)
           ],
         ),
         body: ListView.builder(

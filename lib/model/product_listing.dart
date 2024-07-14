@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:decimal/decimal.dart';
 
 part 'product_listing.freezed.dart';
 part 'product_listing.g.dart';

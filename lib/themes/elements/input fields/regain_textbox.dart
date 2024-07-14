@@ -19,7 +19,7 @@ class RegainTextbox extends StatelessWidget {
   final bool obscureText;
 
   RegainTextbox({
-    Key? key,
+    super.key,
     this.controller,
     this.validator,
     this.labelText,
@@ -34,7 +34,7 @@ class RegainTextbox extends StatelessWidget {
     this.suffixIcon,
     this.isUnderlineBorder = false,
     this.obscureText = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

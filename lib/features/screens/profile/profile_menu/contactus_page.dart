@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/constants/sizes.dart';
+import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/profile/app_bar.dart';
-import 'package:regain_mobile/features/screens/profile/edit_profile_page.dart';
+import 'package:regain_mobile/themes/elements/button_styles.dart';
+import '../../../../themes/elements/input fields/regain_textbox.dart';
 
 class ContactUsPage extends StatelessWidget {
   const ContactUsPage({super.key});
@@ -9,68 +13,68 @@ class ContactUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context, 'Contact us'),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              width: 350,
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "Email",
-                  hintStyle: TextStyle(fontSize: 12),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green)),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(22),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      ReGainTexts.cuHeading,
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    const SizedBox(height: ReGainSizes.spaceBtwItems),
+
+                    RegainTextbox(
+                      labelText: ReGainTexts.cuEmail,
+                      isUnderlineBorder: true,
+                    ),
+                    const SizedBox(height: ReGainSizes.spaceBtwInputFields),
+                    RegainTextbox(
+                      labelText: ReGainTexts.cuSubject,
+                      isUnderlineBorder: true,
+                    ),
+
+                    const SizedBox(height: ReGainSizes.spaceBtwInputFields),
+                    const SizedBox(height: ReGainSizes.spaceBtwInputFields),
+
+                    TextField(
+                    maxLines: 6,
+                    textInputAction: TextInputAction.done, 
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: green),
+                              ),
+                      hintText: 'Please elaborate your concern here.',
+                      hintStyle: Theme.of(context).textTheme.labelMedium
+                    ),
+                  ),
+                    const SizedBox(height: ReGainSizes.spaceBtwInputFields),
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 50),
+                      child: RegainButtons(
+                        text: 'Submit',
+                        onPressed: () {},
+                        type: ButtonType.filled,
+                        size: ButtonSize.large,
+                        txtSize: BtnTxtSize.large,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            const SizedBox(
-              height: 50,
-              width: 350,
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "Subject",
-                  hintStyle: TextStyle(fontSize: 12),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green)),
-                ),
-              ),
-            ),
-            const SizedBox(height: 50),
-            const SizedBox(
-              width: 350,
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "Please elaborate your concern here",
-                  hintStyle: TextStyle(fontSize: 12),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green)),
-                ),
-              ),
-            ),
-            const SizedBox(height: 100),
-            SizedBox(
-                width: 350,
-                child: FilledButton(
-                    style: FilledButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8))),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const EditProfilePage()));
-                    },
-                    child: const Text('Submit'))),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

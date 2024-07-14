@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 import 'package:regain_mobile/features/screens/profile/util/user_data.dart';
 import 'app_bar.dart';
 
@@ -43,7 +42,7 @@ class SellerProfilePage extends StatelessWidget {
                     backgroundImage: AssetImage(user.imagePath),
                   ),
                 ),
-                Row(
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Column(
@@ -53,10 +52,10 @@ class SellerProfilePage extends StatelessWidget {
                         //        StyleBodyTxt('@${user.username}'),
                       ],
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 100,
                     ),
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //         StyleBodyTxt('Joined June 2024'),

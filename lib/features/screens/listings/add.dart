@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/features/screens/listings/add_equipment.dart';
-import 'package:regain_mobile/features/screens/listings/add_product.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 
 class Add extends StatefulWidget {
@@ -42,7 +40,7 @@ class _AddState extends State<Add> {
             const Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+                padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
                 child: Text(
                   'Product',
                   style: TextStyle(
@@ -65,7 +63,6 @@ class _AddState extends State<Add> {
                     color: Colors.green.shade100,
                   ),
                   child: TextButton(
-                    child: Text('PRODUCT'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green.shade100,
                     ),
@@ -73,6 +70,7 @@ class _AddState extends State<Add> {
                       Navigator.pushNamed(
                           context, RouteManager.routeAddProduct);
                     },
+                    child: const Text('PRODUCT'),
                   ),
                 ),
               ),
@@ -80,7 +78,7 @@ class _AddState extends State<Add> {
             const Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+                padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
                 child: Text(
                   'Equipment',
                   style: TextStyle(
@@ -103,7 +101,6 @@ class _AddState extends State<Add> {
                     color: Colors.green.shade100,
                   ),
                   child: TextButton(
-                    child: Text('EQUIPMENT'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green.shade100,
                     ),
@@ -111,6 +108,7 @@ class _AddState extends State<Add> {
                       Navigator.pushNamed(
                           context, RouteManager.routeAddEquipment);
                     },
+                    child: const Text('EQUIPMENT'),
                   ),
                 ),
               ),

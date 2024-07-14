@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
 
 void main() {
-  runApp(OrderTrackingPage());
+  runApp(const OrderTrackingPage());
 }
 
 class OrderTrackingPage extends StatefulWidget {
+  const OrderTrackingPage({super.key});
+
   @override
   _OrderTrackingPageState createState() => _OrderTrackingPageState();
 }
@@ -70,7 +72,7 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
       ),
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
+        appBarTheme: const AppBarTheme(color: Color(0xFF12CF8A)),
       ),
     );
   }
@@ -97,7 +99,7 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
           border: Border(
             bottom: BorderSide(
               color:
-                  _isSelected[index] ? Color(0xFF12CF8A) : Colors.transparent,
+                  _isSelected[index] ? const Color(0xFF12CF8A) : Colors.transparent,
               width: 2.0,
             ),
           ),
@@ -108,7 +110,7 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: _isSelected[index] ? Color(0xFF12CF8A) : Colors.black,
+            color: _isSelected[index] ? const Color(0xFF12CF8A) : Colors.black,
           ),
         ),
       ),
@@ -117,9 +119,9 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
 
   List<Widget> _buildPages() {
     return [
-      OrderStatusPage(title: 'To Ship'),
-      OrderStatusPage(title: 'To Receive'),
-      OrderStatusPage(title: 'Received'),
+      const OrderStatusPage(title: 'To Ship'),
+      const OrderStatusPage(title: 'To Receive'),
+      const OrderStatusPage(title: 'Received'),
     ];
   }
 

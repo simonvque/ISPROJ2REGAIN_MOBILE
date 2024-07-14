@@ -3,24 +3,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:regain_mobile/features/screens/profile/report_page.dart';
 
 void main() {
-  runApp(ChatApp());
+  runApp(const ChatApp());
 }
 
 class ChatApp extends StatelessWidget {
+  const ChatApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
+        appBarTheme: const AppBarTheme(color: Color(0xFF12CF8A)),
       ),
       debugShowCheckedModeBanner: false,
-      home: ChatPage(),
+      home: const ChatPage(),
     );
   }
 }
 
 class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
+
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -36,7 +40,7 @@ class _ChatPageState extends State<ChatPage> {
             // Add your onPressed code here!
           },
         ),
-        title: Row(
+        title: const Row(
           children: [
             CircleAvatar(
               backgroundImage:
@@ -56,11 +60,11 @@ class _ChatPageState extends State<ChatPage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.flag_outlined, color: Colors.white),
+            icon: const Icon(Icons.flag_outlined, color: Colors.white),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ReportPage()),
+                MaterialPageRoute(builder: (context) => const ReportPage()),
               );
             },
           ),
@@ -70,18 +74,18 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Expanded(
             child: ListView(
-              children: [
+              children: const [
                 // Add your chat messages here
               ],
             ),
           ),
-          Divider(height: 1, color: Colors.grey), // Line above the input field
+          const Divider(height: 1, color: Colors.grey), // Line above the input field
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
                 IconButton(
-                  icon: Icon(CupertinoIcons.add_circled_solid,
+                  icon: const Icon(CupertinoIcons.add_circled_solid,
                       color: Colors.black87, size: 40),
                   onPressed: () {
                     // Add your onPressed code here!
@@ -94,7 +98,7 @@ class _ChatPageState extends State<ChatPage> {
                       color: Colors.grey[200], // Grey background
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: TextField(
+                    child: const TextField(
                       decoration: InputDecoration(
                         hintText: 'Message',
                         hintStyle: TextStyle(
@@ -110,7 +114,7 @@ class _ChatPageState extends State<ChatPage> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(CupertinoIcons.arrow_right_circle_fill,
+                  icon: const Icon(CupertinoIcons.arrow_right_circle_fill,
                       color: Color(0xFF12CF8A), size: 40),
                   onPressed: () {
                     // Add your onPressed code here!

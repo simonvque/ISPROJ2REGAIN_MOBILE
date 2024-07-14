@@ -36,7 +36,7 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
             ),
           ),
         ),
-        body: SingleChildScrollView(
+        body: const SingleChildScrollView(
             child: Column(
           children: [
             UserProducts(

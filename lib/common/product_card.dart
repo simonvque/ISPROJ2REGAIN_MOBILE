@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/common/rounded_container.dart';
-import 'package:regain_mobile/common/rounded_image.dart';
 import 'package:regain_mobile/common/styles/shadows.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 
-import 'circle_container.dart';
 
 class ReGainProductCard extends StatelessWidget{
   const ReGainProductCard({super.key});
@@ -21,12 +19,12 @@ class ReGainProductCard extends StatelessWidget{
         color: white
       ),
 
-      child: Column(
+      child: const Column(
         children: [
           //Thumbnail
           ReGainRoundedContainer(
             height: 180,
-            padding: const EdgeInsets.all(ReGainSizes.sm),
+            padding: EdgeInsets.all(ReGainSizes.sm),
             backgroundColor: white,
           ),
           //Details

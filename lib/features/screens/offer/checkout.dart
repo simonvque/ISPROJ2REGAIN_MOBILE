@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../themes/elements/button_styles.dart';
 
@@ -16,6 +15,7 @@ class _CheckoutState extends State<Checkout> {
   String? _deliveryMethod = 'buyer_pick_up';
   DateTime _selectedDateTime = DateTime.now();
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -71,17 +71,17 @@ class _CheckoutState extends State<Checkout> {
                                   'Item Name: Example Item',
                                     style: Theme.of(context).textTheme.bodyLarge,
                                 ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Text(
                                   'Location: Example Location',
                                     style: Theme.of(context).textTheme.bodyMedium,
                                 ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Text(
                                   'Weight: 2kg',
                                     style: Theme.of(context).textTheme.bodyMedium,
                                 ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Text(
                                   'Total Price: \$50.00',
                                     style: Theme.of(context).textTheme.bodyLarge
@@ -112,7 +112,7 @@ class _CheckoutState extends State<Checkout> {
                           Radio(
                             value: 'cash_on_delivery',
                             groupValue: _paymentMethod,
-                            activeColor: Color(0xFF12CF8A),
+                            activeColor: const Color(0xFF12CF8A),
                             onChanged: (value) {
                               setState(() {
                                 _paymentMethod = value.toString();
@@ -126,7 +126,7 @@ class _CheckoutState extends State<Checkout> {
                           Radio(
                             value: 'gcash',
                             groupValue: _paymentMethod,
-                            activeColor: Color(0xFF12CF8A),
+                            activeColor: const Color(0xFF12CF8A),
                             onChanged: (value) {
                               setState(() {
                                 _paymentMethod = value.toString();
@@ -156,7 +156,7 @@ class _CheckoutState extends State<Checkout> {
                         textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.headlineSmall
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         ' Delivery method',
                         textAlign: TextAlign.left,
@@ -167,7 +167,7 @@ class _CheckoutState extends State<Checkout> {
                           Radio(
                             value: 'buyer_pick_up',
                             groupValue: _deliveryMethod,
-                            activeColor: Color(0xFF12CF8A),
+                            activeColor: const Color(0xFF12CF8A),
                             onChanged: (value) {
                               setState(() {
                                 _deliveryMethod = value.toString();
@@ -180,7 +180,7 @@ class _CheckoutState extends State<Checkout> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         ' Preferred Delivery Date',
                         textAlign: TextAlign.left,
@@ -212,7 +212,7 @@ class _CheckoutState extends State<Checkout> {
                   ),
                 ),
               ),
-              SizedBox(height: 120),
+              const SizedBox(height: 120),
               //CONFIRM BUTTON
               RegainButtons(
                 text: 'Confirm Order',
@@ -228,7 +228,7 @@ class _CheckoutState extends State<Checkout> {
       ),
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
+        appBarTheme: const AppBarTheme(color: Color(0xFF12CF8A)),
       ),
       debugShowCheckedModeBanner: false,
     );

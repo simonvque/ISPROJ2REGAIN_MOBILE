@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
-import '../../../../constants/colors.dart';
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
-import '../../profile/seller_profile_page.dart';
 import '../../../../themes/elements/input fields/password_textbox.dart';
 import '../../../../themes/elements/input fields/regain_textbox.dart';
 import '../../forgotPassword/forgot_password.dart';
-import '../../homepage/homepage.dart';
-import '../../registration/registration.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -53,13 +48,13 @@ class _LoginFormState extends State<LoginForm> {
           // Forgot Password
           Row(
             children: [
-              Spacer(), // Pushes the "Forgot Password" text to the right
+              const Spacer(), // Pushes the "Forgot Password" text to the right
               TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ForgetPasswordScreen()),
+                        builder: (context) => const ForgetPasswordScreen()),
                   );
                 },
                 child: Text(
@@ -84,6 +79,7 @@ class _LoginFormState extends State<LoginForm> {
             },
             type: ButtonType.filled,
             size: ButtonSize.large,
+            txtSize: BtnTxtSize.large,
           ),
 
           // Sign up

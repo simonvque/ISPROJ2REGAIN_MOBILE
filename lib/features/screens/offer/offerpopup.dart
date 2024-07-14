@@ -5,6 +5,8 @@ import 'package:regain_mobile/themes/elements/input%20fields/regain_textbox.dart
 import '../../../constants/sizes.dart';
 
 class OfferPricePopup extends StatelessWidget {
+  const OfferPricePopup({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -21,8 +23,8 @@ class OfferPricePopup extends StatelessWidget {
 
   contentBox(context) {
     return Container(
-      padding: EdgeInsets.all(20),
-      constraints: BoxConstraints(maxWidth: 400), // Adjust maxWidth as needed
+      padding: const EdgeInsets.all(20),
+      constraints: const BoxConstraints(maxWidth: 400), // Adjust maxWidth as needed
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -45,7 +47,7 @@ class OfferPricePopup extends StatelessWidget {
               ),
             ],
           ),
-          Divider(height: 20, color: Colors.grey),
+          const Divider(height: 20, color: Colors.grey),
           const SizedBox(width: ReGainSizes.spaceBtwItems),
           Text('Enter offer value:',
               textAlign: TextAlign.center,

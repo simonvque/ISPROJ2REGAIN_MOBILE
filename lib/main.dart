@@ -1,26 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:regain_mobile/constants/ENUMS.dart';
-import 'package:regain_mobile/constants/text_strings.dart';
-import 'package:regain_mobile/features/screens/listings/add.dart';
-import 'package:regain_mobile/provider/app_data_provider.dart';
-import 'package:regain_mobile/features/screens/listings/add_product.dart';
-import 'package:regain_mobile/features/screens/awareness/awareness.dart';
-import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
-import 'package:regain_mobile/features/screens/homepage/homepage.dart';
-import 'package:regain_mobile/features/screens/login/login.dart';
-import 'package:regain_mobile/features/screens/orders/myorders.dart';
-import 'package:regain_mobile/features/screens/offer/checkout.dart';
-import 'package:regain_mobile/features/screens/orders/review.dart';
-import 'package:regain_mobile/features/screens/registration/registration.dart';
-import 'package:regain_mobile/features/screens/registration/registration_otp.dart';
-import 'package:regain_mobile/features/screens/registration/registration_verified.dart';
-import 'package:regain_mobile/features/screens/homepage/selected_item.dart';
-import 'package:regain_mobile/nav.dart';
-import 'package:regain_mobile/features/screens/profile/profile_menu.dart';
 import 'package:regain_mobile/features/screens/profile/profile_page.dart';
-import 'package:regain_mobile/features/screens/profile/report_page.dart';
-import 'package:regain_mobile/features/screens/profile/seller_profile_page.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
@@ -30,7 +11,7 @@ void main() {
   runApp(
       // ChangeNotifierProvider(
       //   create: (context) => AppDataProvider(), child: MyApp())
-      MyApp());
+      const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -57,9 +38,10 @@ class MyApp extends StatelessWidget {
         //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
         // ),
 
+        home: ProfilePage(),
         // home: NavigationMenu(),
-        initialRoute: RouteManager.routeNavMenu,
-        onGenerateRoute: RouteManager.generateRoute,
+        // initialRoute: RouteManager.routeNavMenu,
+        // onGenerateRoute: RouteManager.generateRoute,
         // routes: {
         //   RouteManager.routeLogin: (context) => LoginScreen(),
         //   routeHomepage: (context) => HomepageScreen(),

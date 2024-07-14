@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/constants/image_strings.dart';
-import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
-class ReportPage extends StatefulWidget {
-  const ReportPage({super.key});
+class UserReportPage extends StatefulWidget {
+  const UserReportPage({super.key});
 
   @override
-  ReportPageState createState() => ReportPageState();
+  UserReportPageState createState() => UserReportPageState();
 }
 
-class ReportPageState extends State<ReportPage> {
+class UserReportPageState extends State<UserReportPage> {
   String? selectedIssue;
 
   void selectIssue(String issue) {
@@ -24,7 +22,9 @@ class ReportPageState extends State<ReportPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+    child: Scaffold(
       appBar: buildAppBar(context, 'Report',
       onBackPressed: (){if (selectedIssue != null) {
             setState(() {
@@ -35,81 +35,14 @@ class ReportPageState extends State<ReportPage> {
           }
       }
           ),
+      resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Why are you reporting this product?', style: Theme.of(context).textTheme.headlineSmall,),
-            const SizedBox(
-              height: 12,
-            ),
-
-            //Container of the selected product to report
-            Container(
-              padding: const EdgeInsets.all(10),
-              width: MediaQuery.of(context).size.width * 0.90,
-              height: MediaQuery.of(context).size.height * 0.15,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(2),
-                border: Border.all(color: Colors.grey, width: 1),
-              ),
-              child: Row(
-                children: [
-                  //Product Image
-                  ClipRRect(
-                    child: Image.asset(
-                      ReGainImages.exProductPic,
-                      width: MediaQuery.of(context).size.width * 0.15,
-                      height: MediaQuery.of(context).size.height * 0.20,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  //Product Info
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Plastic Straw', style: Theme.of(context).textTheme.headlineSmall),
-                        const SizedBox(
-                        height: ReGainSizes.spaceBtwItems /4),
-
-                      Row(
-                        children: [
-                         const CircleAvatar(
-                            radius: 10,
-                            backgroundImage:
-                                AssetImage('assets/images/profile/profileSam.jpg'),
-                          ),
-                          const SizedBox(
-                            width: 6,
-                          ),
-                          Text('@samjones', style: Theme.of(context).textTheme.bodySmall)
-                        ],
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.035,
-                      ),
-                      Row(
-                        children: [
-                          Text('Plastic', style: Theme.of(context).textTheme.bodySmall),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.30,
-                          ),
-                          Text('PHP150.00', style: Theme.of(context).textTheme.bodyLarge) //temporary size
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-
+            Text('Why are you reporting this user?', style: Theme.of(context).textTheme.headlineSmall,),
             //Issues buttons
             const SizedBox(
               height: 20,
@@ -188,6 +121,7 @@ class ReportPageState extends State<ReportPage> {
         ),
       ),
       ),
+    ),
     );
   }
 }
@@ -199,8 +133,8 @@ class AddDetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return Column(
-
+   return SingleChildScrollView(
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Selected issue:', style: Theme.of(context).textTheme.bodySmall),
@@ -225,7 +159,7 @@ class AddDetailsSection extends StatelessWidget {
 
         const SizedBox(height: 8),
 
-          TextField(
+         TextField(
           maxLines: 6,
           textInputAction: TextInputAction.done,
           decoration: InputDecoration(
@@ -238,6 +172,7 @@ class AddDetailsSection extends StatelessWidget {
             hintStyle: Theme.of(context).textTheme.titleMedium
           ),
         ),
+
         const SizedBox(height: 20),
 
         RegainButtons(
@@ -247,6 +182,7 @@ class AddDetailsSection extends StatelessWidget {
           size: ButtonSize.large,
           txtSize: BtnTxtSize.large,)
       ],
+   ),
    );
   }
 }

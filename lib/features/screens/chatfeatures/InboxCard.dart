@@ -6,8 +6,8 @@ import 'chat.dart';
 
 class InboxCard extends StatelessWidget {
   const InboxCard({
-    Key? key, required this.chatModel
-  }) : super(key: key);
+    super.key, required this.chatModel
+  });
 
   final ChatModel chatModel;
 
@@ -17,7 +17,7 @@ class InboxCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ChatApp()),
+              MaterialPageRoute(builder: (context) => const ChatApp()),
             );
 
       },
@@ -38,7 +38,7 @@ class InboxCard extends StatelessWidget {
             ),
             trailing: Text(chatModel.time, style: Theme.of(context).textTheme.labelLarge),
           ),
-          Divider(thickness: 1),
+          const Divider(thickness: 1),
         ],
       ),
     );

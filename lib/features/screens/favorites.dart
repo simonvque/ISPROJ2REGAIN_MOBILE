@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants/image_strings.dart';
-import 'homepage/widgets/homepage_cards.dart';
 
 void main() {
-  runApp(FavoritesScreen());
+  runApp(const FavoritesScreen());
 }
 
 class FavoritesScreen extends StatefulWidget {
@@ -123,7 +120,7 @@ class _FavoritesScreen extends State<FavoritesScreen> {
       ),
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
+        appBarTheme: const AppBarTheme(color: Color(0xFF12CF8A)),
       ),
     );
   }

@@ -11,13 +11,13 @@ class PasswordTextFormField extends StatefulWidget {
   FormFieldValidator<String>? validator;
 
   PasswordTextFormField({
-    Key? key,
+    super.key,
     this.controller,
     this.validator,
     required this.labelText,
     this.focusedBorderColor = green,
     this.isUnderlineBorder = false,
-  }) : super(key: key);
+  });
 
   @override
   PasswordTextFormFieldState createState() => PasswordTextFormFieldState();
@@ -37,8 +37,8 @@ class PasswordTextFormFieldState extends State<PasswordTextFormField> {
       isUnderlineBorder: widget.isUnderlineBorder,
       suffixIcon: IconButton(
         icon: _isPasswordVisible
-            ? Icon(Icons.visibility_off)
-            : Icon(Icons.visibility),
+            ? const Icon(Icons.visibility_off)
+            : const Icon(Icons.visibility),
         onPressed: () {
           setState(() {
             _isPasswordVisible = !_isPasswordVisible;

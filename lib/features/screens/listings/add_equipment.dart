@@ -21,10 +21,10 @@ class _AddEquipmentState extends State<AddEquipment> {
       body: SingleChildScrollView(
           child: Column(
         children: [
-          Align(
+          const Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0),
               child: Text(
                 'Choose Image',
                 style: TextStyle(
@@ -43,16 +43,16 @@ class _AddEquipmentState extends State<AddEquipment> {
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.15,
                 width: MediaQuery.of(context).size.width * 0.30,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.grey,
                 ),
               ),
             ),
           ),
-          Align(
+          const Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0),
               child: Text(
                 'Add Details',
                 style: TextStyle(
@@ -65,10 +65,10 @@ class _AddEquipmentState extends State<AddEquipment> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             height: MediaQuery.of(context).size.height * 0.09,
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Name of the Equipment',
                 hintStyle: TextStyle(fontSize: 15.0),
                 border: OutlineInputBorder(),
@@ -76,10 +76,10 @@ class _AddEquipmentState extends State<AddEquipment> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             height: MediaQuery.of(context).size.height * 0.09,
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Price',
                 hintStyle: TextStyle(fontSize: 15.0),
                 border: OutlineInputBorder(),
@@ -112,11 +112,11 @@ class _AddEquipmentState extends State<AddEquipment> {
           //   ],
           // ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             height: MediaQuery.of(context).size.height * 0.18,
             child: TextFormField(
               maxLines: 5,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Please provide a brief description of the equipment',
                 hintStyle: TextStyle(fontSize: 15.0),
                 border: OutlineInputBorder(),
@@ -124,10 +124,10 @@ class _AddEquipmentState extends State<AddEquipment> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             height: MediaQuery.of(context).size.height * 0.09,
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Location',
                 hintStyle: TextStyle(fontSize: 15.0),
                 border: OutlineInputBorder(),
@@ -135,7 +135,7 @@ class _AddEquipmentState extends State<AddEquipment> {
             ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(5, 10, 5, 20),
+            padding: const EdgeInsets.fromLTRB(5, 10, 5, 20),
             height: MediaQuery.of(context).size.height * 0.10,
             width: MediaQuery.of(context).size.width * 0.9,
             child: ElevatedButton(
@@ -145,7 +145,7 @@ class _AddEquipmentState extends State<AddEquipment> {
                 backgroundColor: green,
                 foregroundColor: white,
               ),
-              child: Text('Add Equipment',
+              child: const Text('Add Equipment',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     //fontFamily: 'Montserrat',

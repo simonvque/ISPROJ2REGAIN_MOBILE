@@ -27,10 +27,10 @@ class ForgetPasswordScreen extends StatelessWidget {
             const SizedBox(height: ReGainSizes.spaceBtwItems),
             RegainTextbox(
                 labelText: ReGainTexts.contactNumber,
-                prefixIcon: Icon(Iconsax.call),
+                prefixIcon: const Icon(Iconsax.call),
                 keyboardType: TextInputType.phone),
             Padding(
-              padding: EdgeInsets.only(top: 32.0),
+              padding: const EdgeInsets.only(top: 32.0),
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
