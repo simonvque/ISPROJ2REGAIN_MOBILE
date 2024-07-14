@@ -7,6 +7,7 @@ import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/combal_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/contactus_page.dart';
+import 'package:regain_mobile/features/screens/profile/profile_menu/listing_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/penalty_page.dart';
 import 'package:regain_mobile/features/screens/profile/seller_profile_page.dart';
 import 'package:regain_mobile/features/screens/profile/settings/settings_page.dart';
@@ -32,6 +33,13 @@ class ProfileMenu extends StatelessWidget {
         RegainButtons(
           text: 'Manage listings',
           onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ListingPage(),
+              ),
+            );
+          // () {
             //add code
             // List<Map<String, dynamic>> products = [
             //   {
@@ -73,6 +81,7 @@ class ProfileMenu extends StatelessWidget {
             // ];
             // Navigator.pushNamed(context, RouteManager.routeUserProducts,
             //     arguments: products);
+          // },
           },
           type: ButtonType.transparentOutlined,
           size: ButtonSize.large,

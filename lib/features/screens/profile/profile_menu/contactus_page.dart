@@ -30,7 +30,11 @@ class ContactUsPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(height: ReGainSizes.spaceBtwItems),
-
+                    Text(
+                      ReGainTexts.cuMessage,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: ReGainSizes.spaceBtwItems),
                     RegainTextbox(
                       labelText: ReGainTexts.cuEmail,
                       isUnderlineBorder: true,
