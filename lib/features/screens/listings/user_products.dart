@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class UserProducts extends StatelessWidget {
   final List<Map<String, dynamic>> products;
 
-  const UserProducts({required this.products, super.key});
+  const UserProducts({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
