@@ -7,7 +7,7 @@ part 'address_model.g.dart';
 class AddressModel with _$AddressModel {
   factory AddressModel(
       {int? addressID,
-      String? unitNumber,
+      @Default('') String? unitNumber,
       required String street,
       required String barangay,
       required String city,

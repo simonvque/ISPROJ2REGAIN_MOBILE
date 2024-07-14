@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
+import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/address_model.dart';
+import 'package:regain_mobile/provider/address_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 
 class EditAddress extends StatefulWidget {
@@ -28,8 +33,9 @@ class _EditAddressState extends State<EditAddress> {
 
   void _getData() {
     // unitNumberController.text;
-
-    widget.address.unitNumber != null ? '' : widget.address.unitNumber;
+    addressID = widget.address.addressID;
+    unitNumberController.text = widget.address.unitNumber!;
+    // widget.address.unitNumber != null ? '' : widget.address.unitNumber;
     streetController.text = widget.address.street;
     barangayController.text = widget.address.barangay;
     cityController.text = widget.address.city;
@@ -43,7 +49,7 @@ class _EditAddressState extends State<EditAddress> {
       appBar: AppBar(
         backgroundColor: green,
         foregroundColor: white,
-        title: const Text('Edit Address'),
+        title: const Text('Details'),
         iconTheme: const IconThemeData(color: white),
         actions: [
           // IconButton(
@@ -70,7 +76,7 @@ class _EditAddressState extends State<EditAddress> {
               child: Padding(
                 padding: EdgeInsets.all(14.0),
                 child: Text(
-                  'Add Address Details',
+                  'Address Details',
                   style: TextStyle(
                     color: black,
                     fontSize: 16.0,
@@ -86,6 +92,7 @@ class _EditAddressState extends State<EditAddress> {
                   height: MediaQuery.of(context).size.height * 0.09,
                   width: MediaQuery.of(context).size.width * 0.65,
                   child: TextFormField(
+                    readOnly: true,
                     controller: unitNumberController,
                     decoration: InputDecoration(
                       labelText: 'Unit number, apartment, etc.',
@@ -102,6 +109,7 @@ class _EditAddressState extends State<EditAddress> {
                   height: MediaQuery.of(context).size.height * 0.09,
                   width: MediaQuery.of(context).size.width * 0.35,
                   child: TextFormField(
+                    readOnly: true,
                     controller: zipCodeController,
                     decoration: InputDecoration(
                       labelText: 'Zip Code',
@@ -119,6 +127,7 @@ class _EditAddressState extends State<EditAddress> {
               padding: const EdgeInsets.all(10.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
+                readOnly: true,
                 controller: streetController,
                 decoration: InputDecoration(
                   labelText: 'Street address, house number',
@@ -134,6 +143,7 @@ class _EditAddressState extends State<EditAddress> {
               padding: const EdgeInsets.all(10.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
+                readOnly: true,
                 controller: barangayController,
                 decoration: InputDecoration(
                   labelText: 'Barangay, subdivision, etc',
@@ -149,6 +159,7 @@ class _EditAddressState extends State<EditAddress> {
               padding: const EdgeInsets.all(10.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
+                readOnly: true,
                 controller: cityController,
                 decoration: InputDecoration(
                   labelText: 'City',
@@ -164,6 +175,7 @@ class _EditAddressState extends State<EditAddress> {
               padding: const EdgeInsets.all(10.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
+                readOnly: true,
                 controller: stateController,
                 decoration: InputDecoration(
                   labelText: 'State or region',
@@ -194,33 +206,47 @@ class _EditAddressState extends State<EditAddress> {
                           fontWeight: FontWeight.w800,
                           //fontFamily: 'Montserrat',
                         )),
-                    onPressed: () {},
+                    onPressed: () {
+                      deleteAddress();
+                    },
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(5, 10, 5, 20),
-                  height: MediaQuery.of(context).size.height * 0.10,
-                  // width: MediaQuery.of(context).size.width * 0.9,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0)),
-                      backgroundColor: green,
-                      foregroundColor: white,
-                    ),
-                    child: const Text('Submit',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          //fontFamily: 'Montserrat',
-                        )),
-                    onPressed: () {},
-                  ),
-                ),
+                // Container(
+                //   padding: const EdgeInsets.fromLTRB(5, 10, 5, 20),
+                //   height: MediaQuery.of(context).size.height * 0.10,
+                //   // width: MediaQuery.of(context).size.width * 0.9,
+                //   child: ElevatedButton(
+                //     style: ElevatedButton.styleFrom(
+                //       shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(5.0)),
+                //       backgroundColor: green,
+                //       foregroundColor: white,
+                //     ),
+                //     child: const Text('Submit',
+                //         style: TextStyle(
+                //           fontWeight: FontWeight.w800,
+                //           //fontFamily: 'Montserrat',
+                //         )),
+                //     onPressed: () {},
+                //   ),
+                // ),
               ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  void deleteAddress() {
+    Provider.of<AddressDataProvider>(context, listen: false)
+        .deleteAddress(addressID!)
+        .then((response) {
+      if (response.responseStatus == ResponseStatus.SAVED) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ManageAddresses()));
+        ReGainHelperFunctions.showSnackBar(context, response.message);
+      }
+    });
   }
 }
