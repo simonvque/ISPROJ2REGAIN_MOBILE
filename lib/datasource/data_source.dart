@@ -27,6 +27,8 @@ abstract class DataSource {
 
   Future<List<ViewProduct>> getAllProductsByUserFave(int id);
 
+  Future<List<ViewProduct>> getUserFavorites(int id);
+
   Future<List<Category>> getCategories();
 
   Future<List<ViewOffersModel>> getOffersByBuyerID(int id);
