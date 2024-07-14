@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
+import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/error_details_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
@@ -65,8 +66,49 @@ class AppDataSource extends DataSource {
     return responseModel;
   }
 
-  // PRODUCTS
+  // ADDRESS
+  @override
+  Future<ResponseModel> addAddress(AddressModel address) async {
+    final url = '$baseUrl${'addresses/add'}';
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: header, body: jsonEncode(address));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
 
+  @override
+  Future<List<AddressModel>> getAddressesByUser(int id) async {
+    final url = '$baseUrl${'addresses/user/$id'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => AddressModel.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ResponseModel> deleteAddress(int id) async {
+    final url = '$baseUrl${'addresses/$id'}';
+    try {
+      final response = await http.delete(Uri.parse(url));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+
+  // PRODUCTS
   @override
   Future<ResponseModel> addProduct(Product product) async {
     final url = '$baseUrl${'products/add'}';
@@ -145,7 +187,6 @@ class AppDataSource extends DataSource {
   }
 
   // CATEGORIES
-
   @override
   Future<List<Category>> getCategories() async {
     final url = '$baseUrl${'category/list'}';

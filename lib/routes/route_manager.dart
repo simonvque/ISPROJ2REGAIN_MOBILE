@@ -32,7 +32,8 @@ class RouteManager {
       case routeLogin:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
       case routeRegistration:
-        return MaterialPageRoute(builder: (context) => const RegistrationScreen());
+        return MaterialPageRoute(
+            builder: (context) => const RegistrationScreen());
       case routeHomepage:
         return MaterialPageRoute(builder: (context) => const HomepageScreen());
       case routeNavMenu:
@@ -46,11 +47,13 @@ class RouteManager {
       case routeAddProduct:
         return MaterialPageRoute(builder: (context) => const AddProduct());
       case routeUserProducts:
-        return MaterialPageRoute(builder: (context) => const UserProductsScreen());
+        return MaterialPageRoute(
+            builder: (context) => const UserProductsScreen());
       case routeAddEquipment:
         return MaterialPageRoute(builder: (context) => const AddEquipment());
       case routeOrderTracking:
-        return MaterialPageRoute(builder: (context) => const OrderTrackingPage());
+        return MaterialPageRoute(
+            builder: (context) => const OrderTrackingPage());
       default:
         throw const FormatException(routeNotFound);
     }

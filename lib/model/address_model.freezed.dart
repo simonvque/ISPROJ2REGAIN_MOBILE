@@ -200,7 +200,7 @@ class __$$AddressModelImplCopyWithImpl<$Res>
 class _$AddressModelImpl implements _AddressModel {
   _$AddressModelImpl(
       {this.addressID,
-      this.unitNumber,
+      this.unitNumber = '',
       required this.street,
       required this.barangay,
       required this.city,
@@ -214,6 +214,7 @@ class _$AddressModelImpl implements _AddressModel {
   @override
   int? addressID;
   @override
+  @JsonKey()
   String? unitNumber;
   @override
   String street;
