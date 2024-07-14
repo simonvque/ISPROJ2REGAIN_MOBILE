@@ -32,13 +32,26 @@ class _HomeScreenState extends State<HomepageScreen> {
   }
 
   _getData() async {
-    //Provider.of<AppDataProvider>(context, listen: false).setUser(1);
-    //final userId = Provider.of<AppDataProvider>(context, listen: false).userId;
-    final allProducts =
-        await Provider.of<ProductDataProvider>(context, listen: false)
-            .getAllProductsByUserFave(1);
+    // *UNCOMMENT* WHEN CONNECTING TO DB
+    // final allProducts =
+    //     await Provider.of<ProductDataProvider>(context, listen: false)
+    //         .getAllProductsByUserFave(1);
 
-    listAllProducts = allProducts;
+    // listAllProducts = allProducts;
+
+    // *COMMENT OUT* WHEN CONNECTING TO DB
+    listAllProducts = [
+      ViewProduct(
+          productID: 1,
+          productName: 'Copper nail',
+          location: 'Manila',
+          price: 'PHP 450',
+          sellerUsername: '@heyitscee',
+          weight: '5 kg',
+          category: 'Metal',
+          canDeliver: true,
+          isFavorite: false)
+    ];
   }
 
   @override
@@ -164,13 +177,15 @@ class _HomeScreenState extends State<HomepageScreen> {
                 children: [
                   // carousel
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: ReGainSizes.sm),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: ReGainSizes.sm),
                     child: GestureDetector(
                       onDoubleTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const AwarenessFeature()));
+                                builder: (context) =>
+                                    const AwarenessFeature()));
                       },
                       child: const ReGainCarousel(
                         banners: [
@@ -187,15 +202,12 @@ class _HomeScreenState extends State<HomepageScreen> {
                   Consumer<ProductDataProvider>(
                     builder: (context, provider, child) {
                       return CardItems(
-                          //items: listAllProducts,
-                          // productName: ,
-                          // location: ,
-                          // price: ,
-                          // sellerUsername: ,
-                          // weight: ,
-                          // category: ,
-                          // isSellerDropOff: canDeliver[index],
-                          items: provider.allProducts
+
+                          // *UNCOMMENT* WHEN CONNECTING TO DB
+                          // items: provider.allProducts
+
+                          // *COMMENT OUT* WHEN CONNECTING TO DB
+                          items: listAllProducts
 
                           // items: [
                           //   {

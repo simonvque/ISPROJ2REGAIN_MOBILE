@@ -38,10 +38,10 @@ class MyApp extends StatelessWidget {
         //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
         // ),
 
-        home: ProfilePage(),
+        // home: ProfilePage(),
         // home: NavigationMenu(),
-        // initialRoute: RouteManager.routeNavMenu,
-        // onGenerateRoute: RouteManager.generateRoute,
+        initialRoute: RouteManager.routeNavMenu,
+        onGenerateRoute: RouteManager.generateRoute,
         // routes: {
         //   RouteManager.routeLogin: (context) => LoginScreen(),
         //   routeHomepage: (context) => HomepageScreen(),
