@@ -45,7 +45,6 @@ class _LoginFormState extends State<LoginForm> {
             errorText: _errorMsg,
             labelText: ReGainTexts.username,
             isUnderlineBorder: true,
-            validator: (String? value) {},
           ),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.logIn),
@@ -58,7 +57,6 @@ class _LoginFormState extends State<LoginForm> {
             errorText: _errorMsg,
             labelText: ReGainTexts.password,
             isUnderlineBorder: true,
-            validator: (String? value) {},
           ),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.password, suffixIcon: Icon(Iconsax.eye_slash)),
