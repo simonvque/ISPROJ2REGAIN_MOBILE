@@ -9,17 +9,16 @@ part of 'user_model.dart';
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
     _$UserModelImpl(
       id: (json['id'] as num?)?.toInt(),
-      role: json['role'] as String,
+      role: json['role'] as String? ?? '',
       firstName: json['firstName'] as String? ?? '',
       lastName: json['lastName'] as String? ?? '',
       username: json['username'] as String,
-      contactNumber: json['contactNumber'] as String,
+      contactNumber: json['contactNumber'] as String? ?? '',
       password: json['password'] as String,
       email: json['email'] as String? ?? '',
-      accountStatus: json['accountStatus'] as String? ?? 'Active',
+      accountStatus: json['accountStatus'] as String? ?? '',
       penaltyPoints: (json['penaltyPoints'] as num?)?.toInt() ?? 0,
-      commissionBalance:
-          (json['commissionBalance'] as num?)?.toDouble() ?? 0.00,
+      commissionBalance: json['commissionBalance'] as String? ?? '0.00',
       junkshopName: json['junkshopName'] as String? ?? '',
     );
 

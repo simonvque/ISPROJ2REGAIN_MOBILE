@@ -30,14 +30,41 @@ class AppDataSource extends DataSource {
 
   @override
   Future<ResponseModel> addUser(UserModel user) async {
-    // TODO: implement addUser
-    final url = '$baseUrl${'user/register'}';
+    final url = '$baseUrl${'register'}';
     try {
       final response = await http.post(Uri.parse(url),
           headers: header, body: jsonEncode(user));
       return await _getResponseModel(response);
     } catch (error) {
       print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ResponseModel> login(UserModel user) async {
+    final url = '$baseUrl${'login'}';
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: header, body: jsonEncode(user));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<UserModel?> getUserById(int id) async {
+    final url = '$baseUrl${'products/$id'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final map = json.decode(response.body);
+        return UserModel.fromJson(map);
+      }
+      return null;
+    } catch (error) {
       rethrow;
     }
   }
@@ -149,7 +176,6 @@ class AppDataSource extends DataSource {
 
   @override
   Future<List<ViewProduct>> getAllProductsByUserFave(int id) async {
-    // TODO: implement getAllProductsByUserFave
     final url = '$baseUrl${'products/viewlist/$id'}';
     try {
       final response = await http.get(Uri.parse(url));
@@ -190,6 +216,23 @@ class AppDataSource extends DataSource {
         return Product.fromJson(map);
       }
       return null;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  // FAVORITES
+  @override
+  Future<List<ViewProduct>> getUserFavorites(int id) async {
+    final url = '$baseUrl${'favorites/list/$id'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => ViewProduct.fromJson(mapList[index]));
+      }
+      return [];
     } catch (error) {
       rethrow;
     }

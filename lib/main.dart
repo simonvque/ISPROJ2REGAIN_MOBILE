@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:regain_mobile/features/screens/profile/profile_page.dart';
+// import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 import 'package:regain_mobile/provider/address_data_provider.dart';
 
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
+import 'package:regain_mobile/provider/favorites_data_provider.dart';
 import 'package:regain_mobile/provider/offers_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
@@ -34,6 +35,8 @@ class MyApp extends StatelessWidget {
             create: (context) => AddressDataProvider()),
         ChangeNotifierProvider<ProductDataProvider>(
             create: (context) => ProductDataProvider()),
+        ChangeNotifierProvider<FavoritesDataProvider>(
+            create: (context) => FavoritesDataProvider()),
         ChangeNotifierProvider<OffersDataProvider>(
             create: (context) => OffersDataProvider())
       ],
@@ -46,7 +49,7 @@ class MyApp extends StatelessWidget {
         //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
         // ),
 
-        initialRoute: RouteManager.routeNavMenu,
+        initialRoute: RouteManager.routeLogin,
         onGenerateRoute: RouteManager.generateRoute,
         // routes: {
         //   RouteManager.routeLogin: (context) => LoginScreen(),

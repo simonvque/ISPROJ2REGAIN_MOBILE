@@ -16,12 +16,14 @@ class RegainTextbox extends StatelessWidget {
   final bool isUnderlineBorder;
   TextEditingController? controller;
   FormFieldValidator<String>? validator;
+  String? errorText;
   final bool obscureText;
 
   RegainTextbox({
     super.key,
     this.controller,
     this.validator,
+    this.errorText,
     this.labelText,
     this.hintText,
     this.focusedBorderColor = green,
@@ -45,6 +47,7 @@ class RegainTextbox extends StatelessWidget {
       obscureText: obscureText,
       style: TextStyle(color: fontColor),
       decoration: InputDecoration(
+        errorText: errorText,
         labelText: labelText,
         labelStyle: TextStyle(color: hintAndLabelTextColor),
         hintText: hintText,

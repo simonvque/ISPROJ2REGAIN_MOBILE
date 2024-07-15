@@ -9,11 +9,13 @@ class PasswordTextFormField extends StatefulWidget {
   TextEditingController? controller;
   final bool isUnderlineBorder;
   FormFieldValidator<String>? validator;
+  String? errorText;
 
   PasswordTextFormField({
     super.key,
     this.controller,
     this.validator,
+    this.errorText,
     required this.labelText,
     this.focusedBorderColor = green,
     this.isUnderlineBorder = false,
@@ -33,6 +35,7 @@ class PasswordTextFormFieldState extends State<PasswordTextFormField> {
       labelText: widget.labelText,
       focusedBorderColor: widget.focusedBorderColor,
       validator: widget.validator,
+      errorText: widget.errorText,
       obscureText: !_isPasswordVisible,
       isUnderlineBorder: widget.isUnderlineBorder,
       suffixIcon: IconButton(

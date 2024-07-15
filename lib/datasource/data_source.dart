@@ -11,6 +11,10 @@ import 'package:regain_mobile/model/viewoffers_model.dart';
 abstract class DataSource {
   Future<ResponseModel> addUser(UserModel user);
 
+  Future<UserModel?> getUserById(int id);
+
+  Future<ResponseModel> login(UserModel user);
+
   Future<ResponseModel> addAddress(AddressModel address);
 
   Future<List<AddressModel>> getAddressesByUser(int id);
@@ -26,6 +30,8 @@ abstract class DataSource {
   Future<List<Product>> getProductsByUser(int id);
 
   Future<List<ViewProduct>> getAllProductsByUserFave(int id);
+
+  Future<List<ViewProduct>> getUserFavorites(int id);
 
   Future<List<Category>> getCategories();
 

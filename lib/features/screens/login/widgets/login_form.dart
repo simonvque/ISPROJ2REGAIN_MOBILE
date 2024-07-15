@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:regain_mobile/helper_functions.dart';
+import 'package:regain_mobile/model/user_model.dart';
 import 'package:regain_mobile/nav.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 
 import 'package:regain_mobile/themes/elements/button_styles.dart';
@@ -21,17 +25,26 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   bool isPasswordVisible = false;
+  String? _errorMsg;
+
+  final _loginKey = GlobalKey<FormState>();
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _loginKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Username
 
           RegainTextbox(
-              labelText: ReGainTexts.username, isUnderlineBorder: true),
+              controller: usernameController,
+              errorText: _errorMsg,
+              labelText: ReGainTexts.username,
+              isUnderlineBorder: true),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.logIn),
           // ),
@@ -39,7 +52,10 @@ class _LoginFormState extends State<LoginForm> {
 
           // Password
           PasswordTextFormField(
-              labelText: ReGainTexts.password, isUnderlineBorder: true),
+              controller: passwordController,
+              errorText: _errorMsg,
+              labelText: ReGainTexts.password,
+              isUnderlineBorder: true),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.password, suffixIcon: Icon(Iconsax.eye_slash)),
           // ),
@@ -71,11 +87,12 @@ class _LoginFormState extends State<LoginForm> {
             text: ReGainTexts.logIn,
             onPressed: () {
               // --- Add validation ---
+              _login();
 
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const NavigationMenu()));
+              // Navigator.pushReplacement(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => const NavigationMenu()));
             },
             type: ButtonType.filled,
             size: ButtonSize.large,
@@ -110,5 +127,39 @@ class _LoginFormState extends State<LoginForm> {
         ],
       ),
     );
+  }
+
+  void _login() {
+    // Provider.of<AppDataProvider>(context, listen: false).login(user);
+    if (_loginKey.currentState!.validate()) {
+      final loginUser = UserModel(
+          username: usernameController.text, password: passwordController.text);
+      Provider.of<AppDataProvider>(context, listen: false)
+          .login(loginUser)
+          .then((response) {
+        if (response.statusCode == 200) {
+          resetFields();
+          Navigator.pushNamed(context, RouteManager.routeNavMenu);
+          ReGainHelperFunctions.showSnackBar(context, response.message);
+        } else if (response.statusCode == 400) {
+          setState(() {
+            _errorMsg = response.message;
+          });
+        }
+      });
+    }
+  }
+
+  void resetFields() {
+    _errorMsg = "";
+    usernameController.clear();
+    passwordController.clear();
+  }
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }

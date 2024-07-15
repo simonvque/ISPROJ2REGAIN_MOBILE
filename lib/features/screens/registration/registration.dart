@@ -28,6 +28,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool isWasteSector = false;
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
+  String? errorText;
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -84,6 +85,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               }
                               return null;
                             },
+                            errorText: errorText,
                             labelText: ReGainTexts.username,
                             isUnderlineBorder: true),
                         const SizedBox(
@@ -99,6 +101,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               }
                               return null;
                             },
+                            errorText: errorText,
                             labelText: ReGainTexts.password),
                         const SizedBox(
                             height: ReGainSizes.spaceBtwInputFields / 2),
@@ -246,16 +249,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       Provider.of<AppDataProvider>(context, listen: false)
           .addUser(user)
           .then((response) {
-        if (response.responseStatus == ResponseStatus.SAVED) {
+        if (response.statusCode == 200) {
           resetFields();
-          Navigator.pushNamed(context, RouteManager.routeAdd);
+          Navigator.pushNamed(context, RouteManager.routeLogin);
           ReGainHelperFunctions.showSnackBar(context, response.message);
+        } else if (response.statusCode == 400) {
+          setState(() {
+            errorText = response.message;
+          });
         }
       });
     }
   }
 
   void resetFields() {
+    errorText = "";
     usernameController.clear();
     passwordController.clear();
     matchingPasswordController.clear();
