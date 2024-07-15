@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
+import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
@@ -11,7 +12,9 @@ import 'package:regain_mobile/model/viewoffers_model.dart';
 abstract class DataSource {
   Future<ResponseModel> addUser(UserModel user);
 
-  Future<UserModel?> getUserById(int id);
+  Future<ResponseModel> updateUser(UserModel user);
+
+  // Future<UserModel?> getUserById(int id);
 
   Future<ResponseModel> login(UserModel user);
 
@@ -32,6 +35,8 @@ abstract class DataSource {
   Future<List<ViewProduct>> getAllProductsByUserFave(int id);
 
   Future<List<ViewProduct>> getUserFavorites(int id);
+
+  Future<ResponseModel> addFavorite(FavoriteModel fave);
 
   Future<List<Category>> getCategories();
 

@@ -34,37 +34,36 @@ class _HomeScreenState extends State<HomepageScreen> {
 
   _getData() async {
     // *UNCOMMENT* WHEN CONNECTING TO DB
-    // final tempUser =
-    //     await Provider.of<AppDataProvider>(context, listen: false).userId;
-    // final allProducts =
-    //     await Provider.of<ProductDataProvider>(context, listen: false)
-    //         .getAllProductsByUserFave(tempUser);
+    final user = Provider.of<AppDataProvider>(context, listen: false).userId;
+    final allProducts =
+        await Provider.of<ProductDataProvider>(context, listen: false)
+            .getAllProductsByUserFave(user);
 
-    // listAllProducts = allProducts;
+    listAllProducts = allProducts;
 
     // *COMMENT OUT* WHEN CONNECTING TO DB
-    listAllProducts = [
-      ViewProduct(
-          productID: 1,
-          productName: 'Copper nail',
-          location: 'Manila',
-          price: 'PHP 450',
-          sellerUsername: '@heyitscee',
-          weight: '5 kg',
-          category: 'Metal',
-          canDeliver: true,
-          isFavorite: false),
-      ViewProduct(
-          productID: 2,
-          productName: 'Tin cans',
-          location: 'Quezon City',
-          price: '300.00',
-          sellerUsername: 'secondUser',
-          weight: '200.00',
-          category: 'Metals',
-          canDeliver: false,
-          isFavorite: true),
-    ];
+    // listAllProducts = [
+    //   ViewProduct(
+    //       productID: 1,
+    //       productName: 'Copper nail',
+    //       location: 'Manila',
+    //       price: 'PHP 450',
+    //       sellerUsername: '@heyitscee',
+    //       weight: '5 kg',
+    //       category: 'Metal',
+    //       canDeliver: true,
+    //       isFavorite: false),
+    //   ViewProduct(
+    //       productID: 2,
+    //       productName: 'Tin cans',
+    //       location: 'Quezon City',
+    //       price: '300.00',
+    //       sellerUsername: 'secondUser',
+    //       weight: '200.00',
+    //       category: 'Metals',
+    //       canDeliver: false,
+    //       isFavorite: true),
+    // ];
   }
 
   @override

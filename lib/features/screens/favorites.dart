@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/features/screens/homepage/widgets/homepage_cards.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/favorites_data_provider.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreen extends State<FavoritesScreen> {
-  int tempUser = 1;
+  //int tempUser = 1;
   List<ViewProduct> favesList = [];
 
   void initState() {
@@ -26,25 +27,26 @@ class _FavoritesScreen extends State<FavoritesScreen> {
   }
 
   void _getData() async {
-    // final userFaves =
-    //     await Provider.of<FavoritesDataProvider>(context, listen: false)
-    //         .getFavoritesByUser(tempUser);
+    final user = Provider.of<AppDataProvider>(context, listen: false).userId;
+    final userFaves =
+        await Provider.of<FavoritesDataProvider>(context, listen: false)
+            .getFavoritesByUser(user);
 
-    // favesList = userFaves;
+    favesList = userFaves;
 
     // *COMMENT OUT* WHEN CONNECTING TO DB
-    favesList = [
-      ViewProduct(
-          productID: 2,
-          productName: 'Tin cans',
-          location: 'Quezon City',
-          price: '300.00',
-          sellerUsername: 'secondUser',
-          weight: '200.00',
-          category: 'Metals',
-          canDeliver: false,
-          isFavorite: true),
-    ];
+    // favesList = [
+    //   ViewProduct(
+    //       productID: 2,
+    //       productName: 'Tin cans',
+    //       location: 'Quezon City',
+    //       price: '300.00',
+    //       sellerUsername: 'secondUser',
+    //       weight: '200.00',
+    //       category: 'Metals',
+    //       canDeliver: false,
+    //       isFavorite: true),
+    // ];
   }
 
   @override

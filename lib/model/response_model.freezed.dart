@@ -27,8 +27,9 @@ mixin _$ResponseModel {
   set statusCode(int value) => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   set message(String value) => throw _privateConstructorUsedError;
-  Map<String, dynamic> get object => throw _privateConstructorUsedError;
-  set object(Map<String, dynamic> value) => throw _privateConstructorUsedError;
+  Map<String, dynamic> get response => throw _privateConstructorUsedError;
+  set response(Map<String, dynamic> value) =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +47,7 @@ abstract class $ResponseModelCopyWith<$Res> {
       {ResponseStatus responseStatus,
       int statusCode,
       String message,
-      Map<String, dynamic> object});
+      Map<String, dynamic> response});
 }
 
 /// @nodoc
@@ -65,7 +66,7 @@ class _$ResponseModelCopyWithImpl<$Res, $Val extends ResponseModel>
     Object? responseStatus = null,
     Object? statusCode = null,
     Object? message = null,
-    Object? object = null,
+    Object? response = null,
   }) {
     return _then(_value.copyWith(
       responseStatus: null == responseStatus
@@ -80,9 +81,9 @@ class _$ResponseModelCopyWithImpl<$Res, $Val extends ResponseModel>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      object: null == object
-          ? _value.object
-          : object // ignore: cast_nullable_to_non_nullable
+      response: null == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ) as $Val);
   }
@@ -100,7 +101,7 @@ abstract class _$$ResponseModelImplCopyWith<$Res>
       {ResponseStatus responseStatus,
       int statusCode,
       String message,
-      Map<String, dynamic> object});
+      Map<String, dynamic> response});
 }
 
 /// @nodoc
@@ -117,7 +118,7 @@ class __$$ResponseModelImplCopyWithImpl<$Res>
     Object? responseStatus = null,
     Object? statusCode = null,
     Object? message = null,
-    Object? object = null,
+    Object? response = null,
   }) {
     return _then(_$ResponseModelImpl(
       responseStatus: null == responseStatus
@@ -132,9 +133,9 @@ class __$$ResponseModelImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      object: null == object
-          ? _value.object
-          : object // ignore: cast_nullable_to_non_nullable
+      response: null == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ));
   }
@@ -147,7 +148,7 @@ class _$ResponseModelImpl implements _ResponseModel {
       {this.responseStatus = ResponseStatus.SAVED,
       this.statusCode = 200,
       this.message = 'Saved',
-      this.object = const {}});
+      this.response = const {}});
 
   factory _$ResponseModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ResponseModelImplFromJson(json);
@@ -163,11 +164,11 @@ class _$ResponseModelImpl implements _ResponseModel {
   String message;
   @override
   @JsonKey()
-  Map<String, dynamic> object;
+  Map<String, dynamic> response;
 
   @override
   String toString() {
-    return 'ResponseModel(responseStatus: $responseStatus, statusCode: $statusCode, message: $message, object: $object)';
+    return 'ResponseModel(responseStatus: $responseStatus, statusCode: $statusCode, message: $message, response: $response)';
   }
 
   @JsonKey(ignore: true)
@@ -189,7 +190,7 @@ abstract class _ResponseModel implements ResponseModel {
       {ResponseStatus responseStatus,
       int statusCode,
       String message,
-      Map<String, dynamic> object}) = _$ResponseModelImpl;
+      Map<String, dynamic> response}) = _$ResponseModelImpl;
 
   factory _ResponseModel.fromJson(Map<String, dynamic> json) =
       _$ResponseModelImpl.fromJson;
@@ -204,8 +205,8 @@ abstract class _ResponseModel implements ResponseModel {
   String get message;
   set message(String value);
   @override
-  Map<String, dynamic> get object;
-  set object(Map<String, dynamic> value);
+  Map<String, dynamic> get response;
+  set response(Map<String, dynamic> value);
   @override
   @JsonKey(ignore: true)
   _$$ResponseModelImplCopyWith<_$ResponseModelImpl> get copyWith =>
