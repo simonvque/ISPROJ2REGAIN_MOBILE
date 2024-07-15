@@ -3,7 +3,7 @@ import 'package:regain_mobile/constants/colors.dart';
 
 enum ButtonType { outlined, filled, transparentOutlined, text }
 
-enum ButtonSize { small, medium, large }
+enum ButtonSize { xs, small, medium, large }
 
 enum BtnTxtSize { small, medium, large }
 
@@ -15,6 +15,7 @@ class RegainButtons extends StatelessWidget {
   final BtnTxtSize txtSize;
   final IconData? leftIcon;
   final IconData? rightIcon;
+  final Color? customColor;
 
   const RegainButtons({
     super.key,
@@ -25,6 +26,7 @@ class RegainButtons extends StatelessWidget {
     this.txtSize = BtnTxtSize.small,
     this.leftIcon,
     this.rightIcon,
+    this.customColor,
   });
 
   @override
@@ -123,17 +125,21 @@ class RegainButtons extends StatelessWidget {
 
     // Set button size
     switch (size) {
+      case ButtonSize.xs:
+        width = MediaQuery.of(context).size.width * 0.365;
+        height = MediaQuery.of(context).size.height * 0.040;
+        break;
       case ButtonSize.small:
         width = MediaQuery.of(context).size.width * 0.45;
         height = MediaQuery.of(context).size.height * 0.055;
         break;
       case ButtonSize.medium:
         width = MediaQuery.of(context).size.width * 0.75;
-        height = MediaQuery.of(context).size.height * 0.065;
+        height = MediaQuery.of(context).size.height * 0.0625;
         break;
       case ButtonSize.large:
         width = MediaQuery.of(context).size.width * 0.90;
-        height = MediaQuery.of(context).size.height * 0.065;
+        height = MediaQuery.of(context).size.height * 0.0625;
         break;
     }
 
@@ -153,8 +159,7 @@ class RegainButtons extends StatelessWidget {
         break;
       case ButtonType.filled:
         style = FilledButton.styleFrom(
-            backgroundColor: green,
-            foregroundColor: white,
+            backgroundColor: customColor ?? green,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
         break;
