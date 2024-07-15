@@ -13,7 +13,7 @@ _$ResponseModelImpl _$$ResponseModelImplFromJson(Map<String, dynamic> json) =>
           ResponseStatus.SAVED,
       statusCode: (json['statusCode'] as num?)?.toInt() ?? 200,
       message: json['message'] as String? ?? 'Saved',
-      object: json['object'] as Map<String, dynamic>? ?? const {},
+      response: json['response'] as Map<String, dynamic>? ?? const {},
     );
 
 Map<String, dynamic> _$$ResponseModelImplToJson(_$ResponseModelImpl instance) =>
@@ -21,7 +21,7 @@ Map<String, dynamic> _$$ResponseModelImplToJson(_$ResponseModelImpl instance) =>
       'responseStatus': _$ResponseStatusEnumMap[instance.responseStatus]!,
       'statusCode': instance.statusCode,
       'message': instance.message,
-      'object': instance.object,
+      'response': instance.response,
     };
 
 const _$ResponseStatusEnumMap = {

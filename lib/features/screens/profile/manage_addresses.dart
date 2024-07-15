@@ -29,8 +29,9 @@ class _ManageAddressesState extends State<ManageAddresses> {
 
   void _getData() {
     // *UNCOMMENT* WHEN CONNECTING TO DB
+    final user = Provider.of<AppDataProvider>(context, listen: false).userId;
     Provider.of<AddressDataProvider>(context, listen: false)
-        .getUserAddresses(1);
+        .getUserAddresses(user!);
 
     // *COMMENT OUT* WHEN CONNNECTING TO DB
     // addresses = [

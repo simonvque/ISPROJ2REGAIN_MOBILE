@@ -8,6 +8,7 @@ import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/provider/address_data_provider.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
@@ -346,8 +347,9 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void _getData() {
+    final user = Provider.of<AppDataProvider>(context, listen: false).userId;
     Provider.of<CategoryDataProvider>(context, listen: false).getCategories();
     Provider.of<AddressDataProvider>(context, listen: false)
-        .getUserAddresses(tempUser);
+        .getUserAddresses(user);
   }
 }
