@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:regain_mobile/features/screens/profile/profile_page.dart';
+import 'package:regain_mobile/provider/address_data_provider.dart';
 
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
