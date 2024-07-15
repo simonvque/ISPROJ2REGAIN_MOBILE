@@ -11,6 +11,7 @@ import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:regain_mobile/model/view_product_model.dart';
+import 'package:regain_mobile/model/viewoffers_model.dart';
 
 class AppDataSource extends DataSource {
   static final AppDataSource _instance = AppDataSource._privateConstructor();
@@ -204,6 +205,38 @@ class AppDataSource extends DataSource {
         final mapList = json.decode(response.body) as List;
         return List.generate(
             mapList.length, (index) => Category.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<ViewOffersModel>> getOffersByBuyerID(int id) async {
+    final url = '$baseUrl${'offers/buyer/$id/viewoffers'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(mapList.length,
+            (index) => ViewOffersModel.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<ViewOffersModel>> getOffersByProductID(int id) async {
+    final url = '$baseUrl${'offers/product/$id/viewoffers'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(mapList.length,
+            (index) => ViewOffersModel.fromJson(mapList[index]));
       }
       return [];
     } catch (error) {
