@@ -129,6 +129,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               value.length != 11) {
                             return "Please enter a valid contact number";
                           }
+                          return null;
                         },
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
@@ -243,15 +244,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   void addUser() {
-    String role;
+    String userRole;
     if (isWasteSector) {
-      role = Roles.uJS;
+      userRole = Roles.uJS;
     } else {
-      role = Roles.uHH;
+      userRole = Roles.uHH;
     }
     if (_formKey.currentState!.validate()) {
       final user = UserModel(
-        role: role,
+        role: userRole,
         username: usernameController.text,
         contactNumber: contactNumberController.text,
         password: passwordController.text,

@@ -270,7 +270,5 @@ class _CardItemState extends State<CardItem> {
     );
   }
 
-  // void _getData() {
-
-  // }
+  void _getData() {}
 }
