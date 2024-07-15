@@ -4,6 +4,7 @@ import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/features/screens/login/login.dart';
 import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/combal_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/contactus_page.dart';
@@ -39,7 +40,7 @@ class ProfileMenu extends StatelessWidget {
                 builder: (context) => ListingPage(),
               ),
             );
-          // () {
+            // () {
             //add code
             // List<Map<String, dynamic>> products = [
             //   {
@@ -81,7 +82,7 @@ class ProfileMenu extends StatelessWidget {
             // ];
             // Navigator.pushNamed(context, RouteManager.routeUserProducts,
             //     arguments: products);
-          // },
+            // },
           },
           type: ButtonType.transparentOutlined,
           size: ButtonSize.large,
@@ -183,10 +184,8 @@ class ProfileMenu extends StatelessWidget {
         RegainButtons(
           text: 'Logout',
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const SellerProfilePage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()));
           },
           type: ButtonType.filled,
           txtSize: BtnTxtSize.large,

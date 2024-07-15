@@ -11,6 +11,8 @@ import 'package:regain_mobile/model/viewoffers_model.dart';
 abstract class DataSource {
   Future<ResponseModel> addUser(UserModel user);
 
+  Future<ResponseModel> login(UserModel user);
+
   Future<ResponseModel> addAddress(AddressModel address);
 
   Future<List<AddressModel>> getAddressesByUser(int id);

@@ -26,25 +26,25 @@ class _FavoritesScreen extends State<FavoritesScreen> {
   }
 
   void _getData() async {
-    final userFaves =
-        await Provider.of<FavoritesDataProvider>(context, listen: false)
-            .getFavoritesByUser(tempUser);
+    // final userFaves =
+    //     await Provider.of<FavoritesDataProvider>(context, listen: false)
+    //         .getFavoritesByUser(tempUser);
 
-    favesList = userFaves;
+    // favesList = userFaves;
 
     // *COMMENT OUT* WHEN CONNECTING TO DB
-    // favesList = [
-    //   ViewProduct(
-    //       productID: 2,
-    //       productName: 'Tin cans',
-    //       location: 'Quezon City',
-    //       price: '300.00',
-    //       sellerUsername: 'secondUser',
-    //       weight: '200.00',
-    //       category: 'Metals',
-    //       canDeliver: false,
-    //       isFavorite: true),
-    // ];
+    favesList = [
+      ViewProduct(
+          productID: 2,
+          productName: 'Tin cans',
+          location: 'Quezon City',
+          price: '300.00',
+          sellerUsername: 'secondUser',
+          weight: '200.00',
+          category: 'Metals',
+          canDeliver: false,
+          isFavorite: true),
+    ];
   }
 
   @override
@@ -80,7 +80,8 @@ class _FavoritesScreen extends State<FavoritesScreen> {
                       return CardItems(
 
                           // *UNCOMMENT* WHEN CONNECTING TO DB
-                          items: value.userFavorites
+                          // items: value.userFavorites
+                          items: favesList
 
                           // items: [
                           //   {

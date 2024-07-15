@@ -74,6 +74,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 import 'package:regain_mobile/themes/elements/input%20fields/regain_textbox.dart';
 
@@ -149,6 +150,8 @@ class OfferPricePopup extends StatelessWidget {
             text: 'Place Offer',
             onPressed: () {
               // Add your confirmation logic here
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Checkout()));
             },
             type: ButtonType.filled,
             size: ButtonSize.large,

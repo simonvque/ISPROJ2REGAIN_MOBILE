@@ -27,6 +27,7 @@ Map<String, dynamic> _$$ResponseModelImplToJson(_$ResponseModelImpl instance) =>
 const _$ResponseStatusEnumMap = {
   ResponseStatus.SAVED: 'SAVED',
   ResponseStatus.FAILED: 'FAILED',
+  ResponseStatus.BAD_REQUEST: 'BAD_REQUEST',
   ResponseStatus.UNAUTHORIZED: 'UNAUTHORIZED',
   ResponseStatus.AUTHORIZED: 'AUTHORIZED',
   ResponseStatus.EXPIRED: 'EXPIRED',

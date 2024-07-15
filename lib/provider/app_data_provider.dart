@@ -7,7 +7,7 @@ import 'package:regain_mobile/model/user_model.dart';
 class AppDataProvider extends ChangeNotifier {
   final DataSource _dataSource = AppDataSource();
 
-  int _userId = 1;
+  late Object? _userId;
 
   get userId => _userId;
 
@@ -26,6 +26,14 @@ class AppDataProvider extends ChangeNotifier {
     // insert some logic?
 
     return _dataSource.addUser(user);
+  }
+
+  Future<ResponseModel> login(UserModel user) async {
+    ResponseModel response = await _dataSource.login(user);
+    _userId = response.object;
+    notifyListeners();
+    return response;
+    // _userId = response.object.
   }
 
   // Future<void> getCategories() async {
