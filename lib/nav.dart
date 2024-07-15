@@ -4,6 +4,7 @@ import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/inbox.dart';
 import 'package:regain_mobile/features/screens/favorites.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
+import 'package:regain_mobile/features/screens/offer/offer_list_page.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 
 class NavigationMenu extends StatefulWidget {
@@ -15,12 +16,12 @@ class NavigationMenu extends StatefulWidget {
 
 class _NavigationMenuState extends State<NavigationMenu> {
   int _currentIndex = 0;
-  List<Widget> body = const [
-    HomepageScreen(),
-    FavoritesScreen(),
-    Placeholder(color: Colors.transparent),
-    InboxScreen(),
-    Placeholder(color: Colors.transparent),
+  List<Widget> body = [
+    const HomepageScreen(),
+    const FavoritesScreen(),
+    const Placeholder(color: Colors.transparent),
+    OfferListPage(),
+    const Placeholder(color: Colors.transparent),
   ];
 
   void _onItemTapped(int newIndex) {
@@ -63,21 +64,21 @@ class _NavigationMenuState extends State<NavigationMenu> {
         onTap: (int newIndex) => _onItemTapped(newIndex),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(CupertinoIcons.search),
             label: 'Browse',
           ),
           BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.heart), label: 'Favorites'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add, color: Colors.transparent),
+            icon: Icon(CupertinoIcons.add, color: Colors.transparent),
             label: 'Sell',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.mail_outline_rounded),
-            label: 'Chat',
+            icon: Icon(CupertinoIcons.square_list),
+            label: 'Offers',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
+            icon: Icon(CupertinoIcons.profile_circled),
             label: 'Profile',
           ),
         ],

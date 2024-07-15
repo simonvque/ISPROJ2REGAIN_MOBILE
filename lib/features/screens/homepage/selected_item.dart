@@ -65,7 +65,10 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                       ),
                       Text(
                         price,
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: green),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(color: green),
                       ),
                       const SizedBox(height: 16),
                       GestureDetector(
@@ -74,8 +77,8 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                           isDescriptionExpanded
                               ? description
                               : (description.length > 100
-                              ? '${description.substring(0, 100)} Show More'
-                              : description),
+                                  ? '${description.substring(0, 100)} Show More'
+                                  : description),
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
@@ -123,8 +126,12 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                             child: Row(
                               children: [
                                 Icon(
-                                  isSellerDropOff ? Icons.check_circle : Icons.cancel,
-                                  color: isSellerDropOff ? Colors.green : Colors.red,
+                                  isSellerDropOff
+                                      ? Icons.check_circle
+                                      : Icons.cancel,
+                                  color: isSellerDropOff
+                                      ? Colors.green
+                                      : Colors.red,
                                   size: 20,
                                 ),
                                 const SizedBox(width: 8),
@@ -143,7 +150,8 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                       Row(
                         children: [
                           const CircleAvatar(
-                            backgroundImage: AssetImage('assets/profile.png'), // Replace with actual profile image
+                            backgroundImage: AssetImage(
+                                'assets/profile.png'), // Replace with actual profile image
                             radius: 24,
                           ),
                           const SizedBox(width: 16),
@@ -225,13 +233,15 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   // -------------------- PLACE OFFER --------------------
-                  showDialog(
+                  showModalBottomSheet(
                     context: context,
                     builder: (BuildContext context) {
-                      return const OfferPricePopup(); // Display OfferPricePopup as a dialog
+                      return const OfferPricePopup(
+                        sellerUsername: "sammysalami",
+                        defaultOfferPrice: 100.00,
+                      ); // Display OfferPricePopup as a dialog
                     },
                   );
-
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
