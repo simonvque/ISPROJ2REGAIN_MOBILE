@@ -6,7 +6,7 @@ import 'package:regain_mobile/features/screens/listings/add_equipment.dart';
 import 'package:regain_mobile/features/screens/listings/add_product.dart';
 import 'package:regain_mobile/features/screens/listings/user_products_screen.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
-import 'package:regain_mobile/features/screens/orders/myorders.dart';
+import 'package:regain_mobile/features/screens/orders/my_orders_page.dart';
 import 'package:regain_mobile/features/screens/profile/edit_profile_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 import 'package:regain_mobile/features/screens/registration/registration.dart';

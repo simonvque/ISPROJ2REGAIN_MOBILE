@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
         // ),
 
-        initialRoute: RouteManager.routeLogin,
+        initialRoute: RouteManager.routeNavMenu,
         onGenerateRoute: RouteManager.generateRoute,
         // routes: {
         //   RouteManager.routeLogin: (context) => LoginScreen(),

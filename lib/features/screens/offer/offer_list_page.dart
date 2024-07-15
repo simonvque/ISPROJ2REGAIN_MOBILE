@@ -15,7 +15,7 @@ class OfferListPage extends StatelessWidget {
       productID: 1,
       productName: 'Product 1',
       location: 'Location 1',
-      price: '100.0', //OFFER DEFAULT VALUE
+      price: '100.0', //OFFER DEFAULT VALUE FROM BUYER
       sellerUsername: 'Seller1',
       weight: '1kg',
       category: 'Category1',
@@ -63,7 +63,7 @@ class OfferListPage extends StatelessWidget {
               itemCount: sampleProducts.length,
               itemBuilder: (context, index) {
                 final product = sampleProducts[index];
-                return BuyerOfferTile(product: product);
+                return BuyerOfferTile(product: product); //a separated widget; tile for the list
               },
             ),
            

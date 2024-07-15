@@ -9,9 +9,9 @@ class SellerOfferList extends StatelessWidget {
   final List<ViewProduct> sellerProducts = [
     ViewProduct(
       productID: 1,
-      productName: 'My Product 1',
+      productName: 'My Product 1', //seller's product name
       location: 'Location 1',
-      price: '150.0',
+      price: '150.0', //seller's initial price 
       sellerUsername: 'Seller1',
       weight: '1.5kg',
       category: 'Category1',
@@ -21,9 +21,9 @@ class SellerOfferList extends StatelessWidget {
     ),
     ViewProduct(
       productID: 2,
-      productName: 'My Product 2',
+      productName: 'My Product 2', //seller's product name
       location: 'Location 2',
-      price: '250.0',
+      price: '250.0', //seller's initial price 
       sellerUsername: 'Seller2',
       weight: '2.5kg',
       category: 'Category2',

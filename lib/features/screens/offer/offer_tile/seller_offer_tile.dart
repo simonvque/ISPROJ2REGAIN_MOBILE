@@ -63,7 +63,7 @@ class SellerOfferTileState extends State<SellerOfferTile> {
                       RegainButtons(
                         text: 'Decline',
                         onPressed: () {
-                          // Add logic to decline the buyer offer
+                          // Add logic to decline the buyer offer and pass in the buyer side
                         },
                         type: ButtonType.filled,
                         size: ButtonSize.xs,
@@ -74,7 +74,7 @@ class SellerOfferTileState extends State<SellerOfferTile> {
                       RegainButtons(
                         text: 'Accept',
                         onPressed: () {
-                          // Add logic to accept the buyer offer
+                          // Add logic to accept the buyer offer and pass in the buyer side
                         },
                         type: ButtonType.filled,
                         size: ButtonSize.xs,
