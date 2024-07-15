@@ -153,8 +153,8 @@ class OfferPricePopup extends StatelessWidget {
               // Add your confirmation logic here
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Checkout()));
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Checkout()));
+              // Navigator.push(
+              //     context, MaterialPageRoute(builder: (context) => Checkout()));
             },
             type: ButtonType.filled,
             size: ButtonSize.large,
