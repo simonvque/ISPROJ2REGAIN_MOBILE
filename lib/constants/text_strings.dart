@@ -1,4 +1,3 @@
-
 class ReGainTexts {
   // GLOBAL texts
 
@@ -20,7 +19,7 @@ class ReGainTexts {
   //Authentication Texts
   static const String username = "Username";
   static const String password = "Password";
-  static const String currentPW= "Current password";
+  static const String currentPW = "Current password";
   static const String newPW = "New password";
   static const String confirmPassword = "Confirm password";
   static const String contactNumber = "Contact number";
@@ -49,18 +48,19 @@ class ReGainTexts {
   static const String btnCancel = "Cancel";
   static const String btnYes = "Yes, I'm sure";
   static const String btnNo = "No";
-  static const String alertDelete= "Delete product";
-  static const String alertCancel= "Cancel update?";
-  static const String alertDelMsg = "Are you sure you want to delete this product?";
-  static const String alertEdtMsg = 
-                  'Are you sure you want to cancel your changes?'
-                  ' Any unsaved modifications will be lost.';
+  static const String alertDelete = "Delete product";
+  static const String alertCancel = "Cancel update?";
+  static const String alertDelMsg =
+      "Are you sure you want to delete this product?";
+  static const String alertEdtMsg =
+      'Are you sure you want to cancel your changes?'
+      ' Any unsaved modifications will be lost.';
 
   //Contact Us Text
   static const String cuHeading = "Having trouble?";
-  static const String cuMessage = 
-                  "If you're experiencing issues or have questions, we're here to help! "
-                  "Please reach out to us by filling out the form below: ";
+  static const String cuMessage =
+      "If you're experiencing issues or have questions, we're here to help! "
+      "Please reach out to us by filling out the form below: ";
   static const String cuEmail = "Email";
   static const String cuSubject = "Subject";
 
@@ -69,7 +69,7 @@ class ReGainTexts {
   static const String comBalMax = "/50.00";
 
   //Penalty points text
-  static const String penaltyTitle = "My Score Credit";
+  static const String penaltyTitle = "My Penalty Points";
   static const String aboutPenPal =
       '''Welcome to Penalty Points where  you can keep track of your report activity on Regain. 
       
@@ -77,7 +77,6 @@ class ReGainTexts {
       
       Explore your credit score, view reports you've submitted, and stay updated on any potential violations. Together, we can make Regain a better place for buying and selling recyclables! ''';
 }
-
 
 //to be transferred
 class Roles {
