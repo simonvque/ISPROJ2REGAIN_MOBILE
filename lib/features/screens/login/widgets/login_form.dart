@@ -41,10 +41,12 @@ class _LoginFormState extends State<LoginForm> {
           // Username
 
           RegainTextbox(
-              controller: usernameController,
-              errorText: _errorMsg,
-              labelText: ReGainTexts.username,
-              isUnderlineBorder: true),
+            controller: usernameController,
+            errorText: _errorMsg,
+            labelText: ReGainTexts.username,
+            isUnderlineBorder: true,
+            validator: (String? value) {},
+          ),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.logIn),
           // ),
@@ -52,10 +54,12 @@ class _LoginFormState extends State<LoginForm> {
 
           // Password
           PasswordTextFormField(
-              controller: passwordController,
-              errorText: _errorMsg,
-              labelText: ReGainTexts.password,
-              isUnderlineBorder: true),
+            controller: passwordController,
+            errorText: _errorMsg,
+            labelText: ReGainTexts.password,
+            isUnderlineBorder: true,
+            validator: (String? value) {},
+          ),
           // TextFormField(
           //   decoration: const InputDecoration(labelText: ReGainTexts.password, suffixIcon: Icon(Iconsax.eye_slash)),
           // ),

@@ -8,7 +8,7 @@ class PasswordTextFormField extends StatefulWidget {
   final Color focusedBorderColor;
   TextEditingController? controller;
   final bool isUnderlineBorder;
-  FormFieldValidator<String>? validator;
+  String? Function(String?)? validator;
   String? errorText;
 
   PasswordTextFormField({
