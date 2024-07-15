@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:regain_mobile/features/screens/profile/profile_page.dart';
-import 'package:regain_mobile/provider/address_data_provider.dart';
+
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
@@ -41,8 +42,6 @@ class MyApp extends StatelessWidget {
         //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
         // ),
 
-        // home: ProfilePage(),
-        // home: NavigationMenu(),
         initialRoute: RouteManager.routeNavMenu,
         onGenerateRoute: RouteManager.generateRoute,
         // routes: {

@@ -71,9 +71,11 @@ class ReGainTexts {
   //Penalty points text
   static const String penaltyTitle = "My Score Credit";
   static const String aboutPenPal =
-      r'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
-      'In hac habitasse platea dictumst. Nunc sed blandit libero volutpat sed cras ornare arcu dui. '
-      'Rhoncus dolor purus non enim praesent elementum. Justo eget magna fermentum iaculis eu non diam phasellus.';
+      '''Welcome to Penalty Points where  you can keep track of your report activity on Regain. 
+      
+      Penalty points are based on your interactions within the app, such as reporting issues or violations. Your credit score reflects how well you maintain a positive presence in our community. It's our way of ensuring a fair and respectful environment for all users.
+      
+      Explore your credit score, view reports you've submitted, and stay updated on any potential violations. Together, we can make Regain a better place for buying and selling recyclables! ''';
 }
 
 

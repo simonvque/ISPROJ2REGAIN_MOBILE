@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/features/screens/profile/report_page.dart';
-import 'package:regain_mobile/features/screens/profile/user_report_page.dart';
+import 'package:regain_mobile/features/screens/report_features/user_report_page.dart';
 
-AppBar buildAppBar(BuildContext context, String title, {
-        VoidCallback? onBackPressed, bool showReportButton = false})
+AppBar buildAppBar(
+        BuildContext context, 
+        String title, 
+          { VoidCallback? onBackPressed, 
+            bool showReportButton = false,
+            TabBar? tabBar,})
      {
   return AppBar(
     backgroundColor: green,
@@ -51,5 +54,6 @@ AppBar buildAppBar(BuildContext context, String title, {
       ),
     ]
   : null,
+  bottom: tabBar ?? null,
   );
 }

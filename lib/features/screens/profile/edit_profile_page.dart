@@ -23,28 +23,25 @@ class EditProfilePage extends StatelessWidget {
                   const CircleAvatar(
                     radius: 50,
                     backgroundImage: NetworkImage(
-                        'https://example.com/profile_image.jpg'), // Replace with user's profile image
-                    // Implement onTap to change profile picture
+                        'https://example.com/profile_image.jpg'), 
                   ),
                   const SizedBox(height: 2),
                   TextButton(
-                    onPressed: () {
-                      // Implement logic to change profile picture
-                    },
-                    child: const Text(
+                    onPressed: () {},
+                    child: Text(
                       'Change Profile Picture',
-                      style: TextStyle(color: green),
+                      style:Theme.of(context).textTheme.bodyLarge?.copyWith(color: green),
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
 
             // Personal Information Section
-            const Text(
+            Text(
               'Personal Information',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style:Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 4),
             TextFormField(
@@ -55,7 +52,6 @@ class EditProfilePage extends StatelessWidget {
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: green)),
                   floatingLabelStyle: TextStyle(color: green)),
-              // Implement logic to update name
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -66,15 +62,13 @@ class EditProfilePage extends StatelessWidget {
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: green)),
                   floatingLabelStyle: TextStyle(color: green)),
-              // Implement logic to update email
             ),
             const SizedBox(height: 20),
 
             // Junk Shop Information Section
-            const Text(
+            Text(
               'Junk Shop Information',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+              style:Theme.of(context).textTheme.titleLarge,),
             const SizedBox(height: 10),
             TextFormField(
               decoration: const InputDecoration(
@@ -84,17 +78,18 @@ class EditProfilePage extends StatelessWidget {
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: green)),
                   floatingLabelStyle: TextStyle(color: green)),
-              // Implement logic to update junk shop name
             ),
+        
             const SizedBox(
                 height: ReGainSizes
-                    .largeSpace), // TO FIX: put button at the bottom w/o using sizedbox?
+                    .largeSpace),
 
             RegainButtons(
               text: 'Save',
               onPressed: () {},
               type: ButtonType.filled,
               size: ButtonSize.large,
+              txtSize: BtnTxtSize.large,
             )
           ],
         ),
