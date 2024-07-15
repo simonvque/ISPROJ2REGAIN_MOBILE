@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../constants/colors.dart';
 
-class RegainTextbox extends StatelessWidget {
+class RegainTextbox extends StatefulWidget {
   final String? labelText;
   final String? hintText;
   final Color focusedBorderColor;
@@ -15,7 +16,9 @@ class RegainTextbox extends StatelessWidget {
   final Widget? suffixIcon;
   final bool isUnderlineBorder;
   TextEditingController? controller;
-  FormFieldValidator<String>? validator;
+  String? Function(String?)? validator;
+  List<TextInputFormatter>? inputFormatters;
+
   String? errorText;
   final bool obscureText;
 
@@ -23,6 +26,7 @@ class RegainTextbox extends StatelessWidget {
     super.key,
     this.controller,
     this.validator,
+    this.inputFormatters,
     this.errorText,
     this.labelText,
     this.hintText,
@@ -39,46 +43,52 @@ class RegainTextbox extends StatelessWidget {
   });
 
   @override
+  State<RegainTextbox> createState() => _RegainTextboxState();
+}
+
+class _RegainTextboxState extends State<RegainTextbox> {
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      validator: validator,
-      keyboardType: keyboardType,
-      obscureText: obscureText,
-      style: TextStyle(color: fontColor),
+      controller: widget.controller,
+      validator: widget.validator,
+      keyboardType: widget.keyboardType,
+      inputFormatters: widget.inputFormatters,
+      obscureText: widget.obscureText,
+      style: TextStyle(color: widget.fontColor),
       decoration: InputDecoration(
-        errorText: errorText,
-        labelText: labelText,
-        labelStyle: TextStyle(color: hintAndLabelTextColor),
-        hintText: hintText,
-        hintStyle: TextStyle(color: hintAndLabelTextColor),
-        prefixIcon: prefixIcon != null
+        errorText: widget.errorText,
+        labelText: widget.labelText,
+        labelStyle: TextStyle(color: widget.hintAndLabelTextColor),
+        hintText: widget.hintText,
+        hintStyle: TextStyle(color: widget.hintAndLabelTextColor),
+        prefixIcon: widget.prefixIcon != null
             ? IconTheme(
-                data: IconThemeData(color: iconColor),
-                child: prefixIcon!,
+                data: IconThemeData(color: widget.iconColor),
+                child: widget.prefixIcon!,
               )
             : null,
-        suffixIcon: suffixIcon != null
+        suffixIcon: widget.suffixIcon != null
             ? IconTheme(
-                data: IconThemeData(color: iconColor),
-                child: suffixIcon!,
+                data: IconThemeData(color: widget.iconColor),
+                child: widget.suffixIcon!,
               )
             : null,
         filled: true,
-        fillColor: fillColor,
-        border: isUnderlineBorder
+        fillColor: widget.fillColor,
+        border: widget.isUnderlineBorder
             ? UnderlineInputBorder(
-                borderSide: BorderSide(color: focusedBorderColor),
+                borderSide: BorderSide(color: widget.focusedBorderColor),
               )
             : OutlineInputBorder(
-                borderSide: BorderSide(color: focusedBorderColor),
+                borderSide: BorderSide(color: widget.focusedBorderColor),
               ),
-        focusedBorder: isUnderlineBorder
+        focusedBorder: widget.isUnderlineBorder
             ? UnderlineInputBorder(
-                borderSide: BorderSide(color: focusedBorderColor),
+                borderSide: BorderSide(color: widget.focusedBorderColor),
               )
             : OutlineInputBorder(
-                borderSide: BorderSide(color: focusedBorderColor),
+                borderSide: BorderSide(color: widget.focusedBorderColor),
               ),
       ),
     );
