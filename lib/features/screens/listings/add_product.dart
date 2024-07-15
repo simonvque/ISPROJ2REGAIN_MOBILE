@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
 import 'package:regain_mobile/helper_functions.dart';
+import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/product_listing.dart';
+import 'package:regain_mobile/provider/address_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
@@ -21,7 +24,9 @@ class _AddProductState extends State<AddProduct> {
 
   bool isSellerDelivering = false;
   Category? _selectedCategory;
-  String? _selectedLocation;
+  // AddressModel? _selectedLocation;
+  // String? _selectedLocation;
+  int? _selectedLocation;
 
   final _addProductKey = GlobalKey<FormState>();
 
@@ -47,8 +52,8 @@ class _AddProductState extends State<AddProduct> {
   }
 
   // temporary addresses list
-  final List<String> addresses =
-      TestAddresses.values.map((e) => e.name).toList();
+  // final List<String> addresses =
+  //     TestAddresses.values.map((e) => e.name).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -209,32 +214,35 @@ class _AddProductState extends State<AddProduct> {
             //     ),
             //   ),
             // ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-              height: MediaQuery.of(context).size.height * 0.09,
-              child: DropdownButtonFormField(
-                hint: const Text('Location', style: TextStyle(fontSize: 15.0)),
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+            Consumer<AddressDataProvider>(
+              builder: (context, value, child) => Container(
+                padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
+                height: MediaQuery.of(context).size.height * 0.09,
+                child: DropdownButtonFormField(
+                  hint:
+                      const Text('Location', style: TextStyle(fontSize: 15.0)),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  items: value.userAddress.map((e) {
+                    return DropdownMenuItem<int>(
+                      value: e.addressID,
+                      child: Text(
+                        '${e.city}-${e.street}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(backgroundColor: white),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedLocation = value;
+                    });
+                  },
+                  value: _selectedLocation,
                 ),
-                items: addresses.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(backgroundColor: white),
-                    ),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedLocation = value;
-                  });
-                },
-                value: _selectedLocation,
               ),
             ),
             Row(
@@ -300,7 +308,8 @@ class _AddProductState extends State<AddProduct> {
           categoryID: _selectedCategory?.categoryID,
           weight: weightController.text,
           description: descController.text,
-          location: addresses.indexOf(locationController.text),
+          // location: addresses.indexOf(locationController.text),
+          location: _selectedLocation,
           canDeliver: isSellerDelivering);
       Provider.of<ProductDataProvider>(context, listen: false)
           .addProduct(prod)
@@ -338,5 +347,7 @@ class _AddProductState extends State<AddProduct> {
 
   void _getData() {
     Provider.of<CategoryDataProvider>(context, listen: false).getCategories();
+    Provider.of<AddressDataProvider>(context, listen: false)
+        .getUserAddresses(tempUser);
   }
 }
