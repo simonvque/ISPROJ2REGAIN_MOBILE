@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:regain_mobile/features/screens/awareness/awareness.dart';
 import 'package:regain_mobile/features/screens/filter.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 
 import '../../../constants/colors.dart';
@@ -33,9 +34,11 @@ class _HomeScreenState extends State<HomepageScreen> {
 
   _getData() async {
     // *UNCOMMENT* WHEN CONNECTING TO DB
+    final tempUser =
+        await Provider.of<AppDataProvider>(context, listen: false).userId;
     final allProducts =
         await Provider.of<ProductDataProvider>(context, listen: false)
-            .getAllProductsByUserFave(1);
+            .getAllProductsByUserFave(tempUser);
 
     listAllProducts = allProducts;
 

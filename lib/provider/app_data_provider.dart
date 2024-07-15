@@ -7,7 +7,7 @@ import 'package:regain_mobile/model/user_model.dart';
 class AppDataProvider extends ChangeNotifier {
   final DataSource _dataSource = AppDataSource();
 
-  late int _userId;
+  int _userId = 1;
 
   get userId => _userId;
 
