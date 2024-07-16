@@ -3,7 +3,7 @@ import 'package:regain_mobile/constants/colors.dart';
 
 enum ButtonType { outlined, filled, transparentOutlined, text }
 
-enum ButtonSize { xs, small, medium, large }
+enum ButtonSize { xxs, xs, small, medium, large }
 
 enum BtnTxtSize { small, medium, large }
 
@@ -125,8 +125,12 @@ class RegainButtons extends StatelessWidget {
 
     // Set button size
     switch (size) {
-      case ButtonSize.xs:
+       case ButtonSize.xxs:
         width = MediaQuery.of(context).size.width * 0.365;
+        height = MediaQuery.of(context).size.height * 0.040;
+        break;
+      case ButtonSize.xs:
+        width = MediaQuery.of(context).size.width * 0.45;
         height = MediaQuery.of(context).size.height * 0.040;
         break;
       case ButtonSize.small:
