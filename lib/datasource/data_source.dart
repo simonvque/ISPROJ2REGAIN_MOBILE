@@ -27,11 +27,17 @@ abstract class DataSource {
 
   Future<ResponseModel> addProduct(Product product);
 
+  Future<ResponseModel> updateProduct(int id, Product product);
+
+  Future<ResponseModel> deleteProduct(int id);
+
   Future<Product?> getProductById(int id);
 
   Future<List<Product>> getAllProducts();
 
-  Future<List<ViewProduct>> getProductsByUser(int id);
+  Future<List<Product>> getProductsByUser(int id);
+
+  // Future<List<ViewProduct>> getProductsByUser(int id);
 
   Future<List<ViewProduct>> getAllProductsByUserFave(int id);
 

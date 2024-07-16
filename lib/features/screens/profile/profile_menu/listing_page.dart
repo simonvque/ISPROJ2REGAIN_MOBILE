@@ -2,13 +2,21 @@ import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/features/screens/listings/add_product.dart';
 import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/edit_listing_page.dart';
+import 'package:regain_mobile/model/category.dart';
+import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
+import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
+import 'package:regain_mobile/provider/category_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 
 class ListingPage extends StatefulWidget {
@@ -19,17 +27,22 @@ class ListingPage extends StatefulWidget {
 }
 
 class _ListingPageState extends State<ListingPage> {
-  List<ViewProduct> sampleProducts = [];
+  List<Product> sampleProducts = [];
 
   void initState() {
+    _getData();
     super.initState();
   }
 
-  void _getData() {
+  void _getData() async {
     // *UNCOMMENT* WHEN CONNECTING TO DB
     final userID = Provider.of<AppDataProvider>(context, listen: false).userId;
-    Provider.of<ProductDataProvider>(context, listen: false)
-        .getProductsByUser(userID);
+    final prodList =
+        await Provider.of<ProductDataProvider>(context, listen: false)
+            .getProductsByUser(userID);
+    Provider.of<CategoryDataProvider>(context, listen: false).getCategories();
+
+    sampleProducts = prodList;
 
     // *COMMENT OUT* WHEN CONNECTING TO DB
     // sampleProducts = [
@@ -61,7 +74,26 @@ class _ListingPageState extends State<ListingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, 'My Listings'),
+      appBar: buildAppBar(context, 'My Listings', actions: [
+        IconButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AddProduct()));
+            },
+            icon: const Icon(
+              Icons.add,
+              color: white,
+            )),
+        IconButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NavigationMenu()));
+            },
+            icon: const Icon(
+              Icons.home,
+              color: white,
+            )),
+      ]),
       body: Consumer<ProductDataProvider>(
         builder: (context, value, child) {
           return ListView.builder(
@@ -93,11 +125,17 @@ class _ListingPageState extends State<ListingPage> {
   }
 }
 
-class OptionsBottomSheet extends StatelessWidget {
-  final ViewProduct product;
+class OptionsBottomSheet extends StatefulWidget {
+  // final ViewProduct product;
+  final Product product;
 
   const OptionsBottomSheet({super.key, required this.product});
 
+  @override
+  State<OptionsBottomSheet> createState() => _OptionsBottomSheetState();
+}
+
+class _OptionsBottomSheetState extends State<OptionsBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -116,7 +154,8 @@ class OptionsBottomSheet extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => EditListingPage(product: product),
+                  builder: (context) =>
+                      EditListingPage(product: widget.product),
                 ),
               );
             },
@@ -163,8 +202,10 @@ class OptionsBottomSheet extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        // delete function here
-                        Navigator.pop(context);
+                        // delete function here <<<<<<<<<<<<<
+                        deleteProduct();
+
+                        // Navigator.pop(context);
                       },
                       child: Text(
                         ReGainTexts.btnDelete,
@@ -182,5 +223,16 @@ class OptionsBottomSheet extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void deleteProduct() {
+    Provider.of<ProductDataProvider>(context, listen: false)
+        .deleteProduct(widget.product.productID!)
+        .then((response) {
+      if (response.responseStatus == ResponseStatus.SAVED) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => NavigationMenu()));
+      }
+    });
   }
 }
