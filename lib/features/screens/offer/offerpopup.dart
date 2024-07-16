@@ -88,10 +88,9 @@ import '../../../constants/sizes.dart';
 
 class OfferPricePopup extends StatefulWidget {
   final String sellerUsername;
-  final double defaultOfferPrice;
+  final String defaultOfferPrice;
   final int productID;
   final String buyerName;
-  final String sellerName;
 
   const OfferPricePopup({
     super.key,
@@ -99,7 +98,6 @@ class OfferPricePopup extends StatefulWidget {
     required this.defaultOfferPrice,
     required this.productID,
     required this.buyerName,
-    required this.sellerName,
   });
 
   @override
@@ -122,7 +120,7 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
         buyerName: widget.buyerName,
         offerValue: _offerController.text,
         isAccepted: false,
-        sellerName: widget.sellerName,
+        sellerName: widget.sellerUsername,
       );
 
       await Provider.of<OffersDataProvider>(context, listen: false)
@@ -179,7 +177,7 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
               const SizedBox(width: ReGainSizes.spaceBtwItems / 2),
               Expanded(
                 child: Text(
-                  '@${widget.sellerName} is selling this for PHP ${widget.defaultOfferPrice}',
+                  '@${widget.sellerUsername} is selling this for PHP ${widget.defaultOfferPrice}',
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
@@ -194,6 +192,7 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
           ),
           const SizedBox(height: ReGainSizes.spaceBtwItems / 2),
           RegainTextbox(
+            controller: _offerController,
             hintText: 'PHP ${widget.defaultOfferPrice}',
             isUnderlineBorder: true,
             keyboardType: TextInputType.phone,

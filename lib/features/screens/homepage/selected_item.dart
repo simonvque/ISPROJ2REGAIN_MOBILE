@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../offer/offerpopup.dart';
@@ -106,13 +108,13 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                               ],
                             ),
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.only(top: 4.0),
                             child: Row(
                               children: [
                                 SizedBox(width: 8),
                                 Text('Net Weight: '),
-                                Text('widget.item.weight kg'),
+                                Text('${widget.item.weight} kg'),
                               ],
                             ),
                           ),
@@ -156,7 +158,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                         children: [
                           const CircleAvatar(
                             backgroundImage: AssetImage(
-                                'assets/profile.png'), // Replace with actual profile image
+                                'assets/images/profile/profileSam.jpg'), // Replace with actual profile image
                             radius: 24,
                           ),
                           const SizedBox(width: 16),
@@ -241,9 +243,15 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                   showModalBottomSheet(
                     context: context,
                     builder: (BuildContext context) {
-                      return const OfferPricePopup(
-                        sellerUsername: "sammysalami",
-                        defaultOfferPrice: 100.00,
+                      final username =
+                          Provider.of<AppDataProvider>(context, listen: false)
+                              .user
+                              ?.username;
+                      return OfferPricePopup(
+                        sellerUsername: widget.item.sellerUsername,
+                        defaultOfferPrice: widget.item.price,
+                        productID: widget.item.productID,
+                        buyerName: username!,
                       ); // Display OfferPricePopup as a dialog
                     },
                   );
