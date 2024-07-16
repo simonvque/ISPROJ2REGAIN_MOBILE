@@ -106,13 +106,13 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                               ],
                             ),
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.only(top: 4.0),
                             child: Row(
                               children: [
                                 SizedBox(width: 8),
                                 Text('Net Weight: '),
-                                Text('widget.item.weight kg'),
+                                Text('${widget.item.weight} kg'),
                               ],
                             ),
                           ),
