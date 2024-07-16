@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/features/screens/awareness/awareness.dart';
 import 'package:regain_mobile/features/screens/filter.dart';
+import 'package:regain_mobile/features/screens/homepage/widgets/homepage_cards_twice.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
@@ -216,10 +217,10 @@ class _HomeScreenState extends State<HomepageScreen> {
                       return CardItems(
 
                           // *UNCOMMENT* WHEN CONNECTING TO DB
-                          //items: provider.allProducts
+                          items: provider.allProducts
 
                           // *COMMENT OUT* WHEN CONNECTING TO DB
-                          items: listAllProducts
+                          //items: listAllProducts
 
                           // items: [
                           //   {

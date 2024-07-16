@@ -13,9 +13,19 @@ class FavoritesDataProvider extends ChangeNotifier {
 
   List<ViewProduct> get userFavorites => _userFavorites;
 
-  Future<ResponseModel> addFavorite(FavoriteModel fave) {
+  // bool isExist(FavoriteModel fave) {
+  //   final isExist = _userFavorites.contains(fave);
+  //   return isExist;
+  // }
+
+  Future<ResponseModel> addFavorite(FavoriteModel fave) async {
+    final isExist = _userFavorites.contains(fave.productID);
+    ResponseModel response = ResponseModel();
+    if (!isExist) {
+      response = await _dataSource.addFavorite(fave);
+    }
     notifyListeners();
-    return _dataSource.addFavorite(fave);
+    return response;
   }
 
   Future<List<ViewProduct>> getFavoritesByUser(int userID) async {

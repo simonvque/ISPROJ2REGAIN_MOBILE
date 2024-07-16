@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
@@ -11,10 +13,10 @@ import 'package:regain_mobile/provider/favorites_data_provider.dart';
 import '../selected_item.dart';
 
 class CardItems extends StatelessWidget {
-  final List<ViewProduct> items;
+  List<ViewProduct> items;
   //Product product;
 
-  const CardItems({
+  CardItems({
     required this.items,
     // this.imagePath,
 
@@ -83,6 +85,7 @@ class CardItem extends StatefulWidget {
 
 class _CardItemState extends State<CardItem> {
   late bool isFavorite;
+  bool _isRunning = false;
 
   List<ViewProduct> productItems = [];
   @override
@@ -91,6 +94,18 @@ class _CardItemState extends State<CardItem> {
     super.initState();
     isFavorite = widget.item.isFavorite;
   }
+
+  // void _onPressed() async {
+  //   setState(() {
+  //     _isRunning = true;
+  //   });
+
+  //   await this.OnButtonPressed();
+
+  //   setState(() {
+  //     _isRunning = false;
+  //   });
+  // }
 
   // _getData() async {
   //   //Provider.of<AppDataProvider>(context, listen: false).setUser(1);
@@ -279,12 +294,12 @@ class _CardItemState extends State<CardItem> {
     );
   }
 
-  void addFavorite() {
+  addFavorite() async {
     if (widget.item.isFavorite == false) {
       final fave = FavoriteModel(
           userID: Provider.of<AppDataProvider>(context, listen: false).userId,
           productID: widget.item.productID);
-      Provider.of<FavoritesDataProvider>(context, listen: false)
+      await Provider.of<FavoritesDataProvider>(context, listen: false)
           .addFavorite(fave)
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
@@ -293,11 +308,14 @@ class _CardItemState extends State<CardItem> {
           });
         }
       });
-    } else {
+    } else if (widget.item.isFavorite == true) {
+      setState(() {
+        _isRunning = true;
+      });
       final userDeleting =
           Provider.of<AppDataProvider>(context, listen: false).userId;
       final toDelete = widget.item.productID;
-      Provider.of<FavoritesDataProvider>(context, listen: false)
+      await Provider.of<FavoritesDataProvider>(context, listen: false)
           .deleteFavorite(userDeleting, toDelete)
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {

@@ -149,6 +149,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               const SizedBox(height: 20),
 
               // Junk Shop Information Section
+              // model.role ?= ""
               Text(
                 'Junk Shop Information',
                 style: Theme.of(context).textTheme.titleLarge,
