@@ -77,6 +77,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
+import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
 import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/provider/offers_data_provider.dart';
@@ -91,7 +92,6 @@ class OfferPricePopup extends StatefulWidget {
   final String defaultOfferPrice;
   final int productID;
   final String buyerName;
-
 
   const OfferPricePopup({
     super.key,
@@ -136,9 +136,7 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
       );
 
       Future.delayed(Duration.zero, () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Offer has been placed')),
-        );
+        ReGainHelperFunctions.showSnackBar(context, "Offer has been placed");
       });
     } catch (error) {
       print('Failed to add offer: $error');
