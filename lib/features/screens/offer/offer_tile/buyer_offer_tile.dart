@@ -10,36 +10,76 @@ import '../temp_view_product.dart'; //temporary viewProduct Class
 
 class BuyerOfferTile extends StatefulWidget {
   final ViewOffersModel offer;
-  final Function onDelete;
+  final Function(int) onDelete;
 
   const BuyerOfferTile({
-    super.key,
+    Key? key,
     required this.offer,
     required this.onDelete,
-  });
+  }) : super(key: key);
 
   @override
-  BuyerOfferTileState createState() => BuyerOfferTileState();
+  _BuyerOfferTileState createState() => _BuyerOfferTileState();
 }
 
-class BuyerOfferTileState extends State<BuyerOfferTile> {
-  bool _isExpanded = false;
-  final TextEditingController _offerController = TextEditingController();
+class _BuyerOfferTileState extends State<BuyerOfferTile> {
+  late TextEditingController _offerController;
   late String _currentOffer;
+  bool _isExpanded = false;
 
   @override
   void initState() {
     super.initState();
     _currentOffer = widget.offer.offerValue;
-    _offerController.text = _currentOffer;
+    _offerController = TextEditingController(text: _currentOffer);
+  }
+
+  @override
+  void dispose() {
+    _offerController.dispose();
+    super.dispose();
   }
 
   Future<void> _cancelOffer() async {
     try {
       await AppDataSource().deleteOffers(widget.offer.offerID!);
-      widget.onDelete(widget.offer.offerID);
+      widget.onDelete(widget.offer.offerID!);
     } catch (error) {
       print('Failed to delete offer: $error');
+    }
+  }
+
+  Future<void> _updateOffer() async {
+    try {
+      final updatedOffer = ViewOffersModel(
+        offerID: widget.offer.offerID,
+        productID: widget.offer.productID,
+        buyerName: widget.offer.buyerName,
+        offerValue: _offerController.text,
+        isAccepted: widget.offer.isAccepted,
+        sellerName: widget.offer.sellerName,
+      );
+
+      final response = await AppDataSource()
+          .updateOffers(widget.offer.offerID!, updatedOffer);
+
+      // Handle response as needed
+      print('Update offer response: $response');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Offer updated successfully')),
+      );
+
+      setState(() {
+        _currentOffer = _offerController.text;
+        _isExpanded = false;
+        // Add additional logic when the offer is updated
+      });
+    } catch (error) {
+      print('Failed to update offer: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update offer')),
+      );
     }
   }
 
@@ -140,14 +180,7 @@ class BuyerOfferTileState extends State<BuyerOfferTile> {
                     const SizedBox(width: 2),
                     RegainButtons(
                       text: 'Save offer',
-                      onPressed: () {
-                        //Update Offer Logic
-                        setState(() {
-                          _currentOffer = _offerController.text;
-                          _isExpanded = false;
-                          // Add additional logic when the offer is updated
-                        });
-                      },
+                      onPressed: _updateOffer,
                       type: ButtonType.filled,
                       size: ButtonSize.xs,
                       txtSize: BtnTxtSize.medium,
