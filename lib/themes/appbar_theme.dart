@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 
-class ReGainAppBarTheme{
+class ReGainAppBarTheme {
   ReGainAppBarTheme._();
 
   static const lightAppBarTheme = AppBarTheme(
@@ -13,6 +13,7 @@ class ReGainAppBarTheme{
     surfaceTintColor: Colors.transparent,
     iconTheme: IconThemeData(color: black, size: 24),
     actionsIconTheme: IconThemeData(color: black, size: 24),
-    titleTextStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: black),
+    titleTextStyle:
+        TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: black),
   );
 }

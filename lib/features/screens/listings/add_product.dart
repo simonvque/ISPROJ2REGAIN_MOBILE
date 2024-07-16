@@ -304,7 +304,7 @@ class _AddProductState extends State<AddProduct> {
     if (_addProductKey.currentState!.validate()) {
       final prod = Product(
           productName: productNameController.text,
-          sellerID: tempUser,
+          sellerID: Provider.of<AppDataProvider>(context, listen: false).userId,
           price: priceController.text,
           categoryID: _selectedCategory?.categoryID,
           weight: weightController.text,

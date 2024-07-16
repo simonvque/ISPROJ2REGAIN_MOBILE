@@ -175,6 +175,31 @@ class AppDataSource extends DataSource {
   }
 
   @override
+  Future<ResponseModel> deleteProduct(int id) async {
+    final url = '$baseUrl${'favorites/delete/$id'}';
+    try {
+      final response = await http.delete(Uri.parse(url));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ResponseModel> updateProduct(int id, Product product) async {
+    final url = '$baseUrl${'products/update/$id'}';
+    try {
+      final response = await http.put(Uri.parse(url),
+          headers: header, body: jsonEncode(product));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
   Future<List<Product>> getAllProducts() async {
     final url = '$baseUrl${'products/list'}';
     try {
@@ -207,20 +232,36 @@ class AppDataSource extends DataSource {
   }
 
   @override
-  Future<List<ViewProduct>> getProductsByUser(int id) async {
+  Future<List<Product>> getProductsByUser(int id) async {
     final url = '$baseUrl${'products/list/$id'}';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final mapList = json.decode(response.body) as List;
         return List.generate(
-            mapList.length, (index) => ViewProduct.fromJson(mapList[index]));
+            mapList.length, (index) => Product.fromJson(mapList[index]));
       }
       return [];
     } catch (error) {
       rethrow;
     }
   }
+
+  //   @override
+  // Future<List<ViewProduct>> getProductsByUser(int id) async {
+  //   final url = '$baseUrl${'products/list/$id'}';
+  //   try {
+  //     final response = await http.get(Uri.parse(url));
+  //     if (response.statusCode == 200) {
+  //       final mapList = json.decode(response.body) as List;
+  //       return List.generate(
+  //           mapList.length, (index) => ViewProduct.fromJson(mapList[index]));
+  //     }
+  //     return [];
+  //   } catch (error) {
+  //     rethrow;
+  //   }
+  // }
 
   @override
   Future<Product?> getProductById(int id) async {
