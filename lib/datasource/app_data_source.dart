@@ -8,6 +8,7 @@ import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/error_details_model.dart';
 import 'package:regain_mobile/model/offers_model.dart';
+import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
@@ -57,26 +58,41 @@ class AppDataSource extends DataSource {
   }
 
   @override
-  Future<UserModel?> getUserById(int id) async {
-    final url = '$baseUrl${'products/$id'}';
+  Future<ResponseModel> updateUser(UserModel user) async {
+    final url = '$baseUrl${'user/update'}';
     try {
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        final map = json.decode(response.body);
-        return UserModel.fromJson(map);
-      }
-      return null;
+      final response = await http.put(Uri.parse(url),
+          headers: header, body: jsonEncode(user));
+      return await _getResponseModel(response);
     } catch (error) {
+      print(error.toString());
       rethrow;
     }
   }
+
+  // @override
+  // Future<UserModel?> getUserById(int id) async {
+  //   final url = '$baseUrl${'user/$id'}';
+  //   try {
+  //     final response = await http.get(Uri.parse(url));
+  //     if (response.statusCode == 200) {
+  //       final map = json.decode(response.body);
+  //       return UserModel.fromJson(map);
+  //     }
+  //     return null;
+  //   } catch (error) {
+  //     rethrow;
+  //   }
+  // }
 
   Future<ResponseModel> _getResponseModel(http.Response response) async {
     ResponseStatus status = ResponseStatus.NONE;
     ResponseModel responseModel = ResponseModel();
     if (response.statusCode == 200) {
       status = ResponseStatus.SAVED;
+
       responseModel = ResponseModel.fromJson(jsonDecode(response.body));
+      // UserModel userM = UserModel.fromJson(jsonDecode(response.body["response"]));
       responseModel.responseStatus = status;
     }
     // else if (response.statusCode == 401 || response.statusCode == 403) {
@@ -161,6 +177,31 @@ class AppDataSource extends DataSource {
   }
 
   @override
+  Future<ResponseModel> deleteProduct(int id) async {
+    final url = '$baseUrl${'favorites/delete/$id'}';
+    try {
+      final response = await http.delete(Uri.parse(url));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ResponseModel> updateProduct(int id, Product product) async {
+    final url = '$baseUrl${'products/update/$id'}';
+    try {
+      final response = await http.put(Uri.parse(url),
+          headers: header, body: jsonEncode(product));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
   Future<List<Product>> getAllProducts() async {
     final url = '$baseUrl${'products/list'}';
     try {
@@ -207,6 +248,22 @@ class AppDataSource extends DataSource {
       rethrow;
     }
   }
+
+  //   @override
+  // Future<List<ViewProduct>> getProductsByUser(int id) async {
+  //   final url = '$baseUrl${'products/list/$id'}';
+  //   try {
+  //     final response = await http.get(Uri.parse(url));
+  //     if (response.statusCode == 200) {
+  //       final mapList = json.decode(response.body) as List;
+  //       return List.generate(
+  //           mapList.length, (index) => ViewProduct.fromJson(mapList[index]));
+  //     }
+  //     return [];
+  //   } catch (error) {
+  //     rethrow;
+  //   }
+  // }
 
   @override
   Future<Product?> getProductById(int id) async {
@@ -289,6 +346,33 @@ class AppDataSource extends DataSource {
     }
   }
 
+
+  // FAVORITES
+  @override
+  Future<ResponseModel> addFavorite(FavoriteModel fave) async {
+    final url = '$baseUrl${'favorites/add'}';
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: header, body: jsonEncode(fave));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ResponseModel> deleteFavorite(int userId, int prodId) async {
+    final url = '$baseUrl${'favorites/delete/$userId/$prodId'}';
+    try {
+      final response = await http.delete(Uri.parse(url));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+  
   @override
   Future<ResponseModel> deleteOffers(int id) async {
     final url = '$baseUrl${'offers/$id'}';

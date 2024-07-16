@@ -30,6 +30,8 @@ mixin _$ViewProduct {
   set price(String value) => throw _privateConstructorUsedError;
   String get sellerUsername => throw _privateConstructorUsedError;
   set sellerUsername(String value) => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  set description(String value) => throw _privateConstructorUsedError;
   String get weight => throw _privateConstructorUsedError;
   set weight(String value) => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
@@ -57,6 +59,7 @@ abstract class $ViewProductCopyWith<$Res> {
       String location,
       String price,
       String sellerUsername,
+      String description,
       String weight,
       String category,
       bool canDeliver,
@@ -81,6 +84,7 @@ class _$ViewProductCopyWithImpl<$Res, $Val extends ViewProduct>
     Object? location = null,
     Object? price = null,
     Object? sellerUsername = null,
+    Object? description = null,
     Object? weight = null,
     Object? category = null,
     Object? canDeliver = null,
@@ -106,6 +110,10 @@ class _$ViewProductCopyWithImpl<$Res, $Val extends ViewProduct>
       sellerUsername: null == sellerUsername
           ? _value.sellerUsername
           : sellerUsername // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       weight: null == weight
           ? _value.weight
@@ -141,6 +149,7 @@ abstract class _$$ViewProductImplCopyWith<$Res>
       String location,
       String price,
       String sellerUsername,
+      String description,
       String weight,
       String category,
       bool canDeliver,
@@ -163,6 +172,7 @@ class __$$ViewProductImplCopyWithImpl<$Res>
     Object? location = null,
     Object? price = null,
     Object? sellerUsername = null,
+    Object? description = null,
     Object? weight = null,
     Object? category = null,
     Object? canDeliver = null,
@@ -188,6 +198,10 @@ class __$$ViewProductImplCopyWithImpl<$Res>
       sellerUsername: null == sellerUsername
           ? _value.sellerUsername
           : sellerUsername // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       weight: null == weight
           ? _value.weight
@@ -218,6 +232,7 @@ class _$ViewProductImpl implements _ViewProduct {
       required this.location,
       required this.price,
       required this.sellerUsername,
+      required this.description,
       required this.weight,
       required this.category,
       required this.canDeliver,
@@ -237,6 +252,8 @@ class _$ViewProductImpl implements _ViewProduct {
   @override
   String sellerUsername;
   @override
+  String description;
+  @override
   String weight;
   @override
   String category;
@@ -247,7 +264,7 @@ class _$ViewProductImpl implements _ViewProduct {
 
   @override
   String toString() {
-    return 'ViewProduct(productID: $productID, productName: $productName, location: $location, price: $price, sellerUsername: $sellerUsername, weight: $weight, category: $category, canDeliver: $canDeliver, isFavorite: $isFavorite)';
+    return 'ViewProduct(productID: $productID, productName: $productName, location: $location, price: $price, sellerUsername: $sellerUsername, description: $description, weight: $weight, category: $category, canDeliver: $canDeliver, isFavorite: $isFavorite)';
   }
 
   @JsonKey(ignore: true)
@@ -271,6 +288,7 @@ abstract class _ViewProduct implements ViewProduct {
       required String location,
       required String price,
       required String sellerUsername,
+      required String description,
       required String weight,
       required String category,
       required bool canDeliver,
@@ -294,6 +312,9 @@ abstract class _ViewProduct implements ViewProduct {
   @override
   String get sellerUsername;
   set sellerUsername(String value);
+  @override
+  String get description;
+  set description(String value);
   @override
   String get weight;
   set weight(String value);

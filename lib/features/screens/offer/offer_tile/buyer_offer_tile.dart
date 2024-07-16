@@ -94,11 +94,11 @@ class BuyerOfferTileState extends State<BuyerOfferTile> {
                   text: 'Cancel Offer',
                   onPressed: _cancelOffer, //Cancel Offer Logic
                   type: ButtonType.filled,
-                  size: ButtonSize.xs,
+                  size: ButtonSize.xxs,
                   txtSize: BtnTxtSize.medium,
                   customColor: red,
                 ),
-                const SizedBox(width: 50),
+                const SizedBox(width: 20),
                 RegainButtons(
                   text: 'Update Offer',
                   onPressed: () {
@@ -137,7 +137,7 @@ class BuyerOfferTileState extends State<BuyerOfferTile> {
                       size: ButtonSize.small,
                       txtSize: BtnTxtSize.medium,
                     ),
-                    const SizedBox(width: 6),
+                    const SizedBox(width: 2),
                     RegainButtons(
                       text: 'Save offer',
                       onPressed: () {
@@ -165,7 +165,7 @@ class BuyerOfferTileState extends State<BuyerOfferTile> {
                   // Add logic to proceed to checkout
                 },
                 type: ButtonType.filled,
-                size: ButtonSize.large,
+                size: ButtonSize.medium,
                 txtSize: BtnTxtSize.large,
               ),
             ),

@@ -1,14 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
+import 'package:regain_mobile/model/favorite_model.dart';
+import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
+import 'package:regain_mobile/provider/favorites_data_provider.dart';
+import 'package:regain_mobile/provider/product_data_provider.dart';
 
 import '../selected_item.dart';
 
 class CardItems extends StatelessWidget {
-  final List<ViewProduct> items;
+  List<ViewProduct> items;
   //Product product;
 
-  const CardItems({
+  CardItems({
     required this.items,
     // this.imagePath,
 
@@ -77,6 +86,7 @@ class CardItem extends StatefulWidget {
 
 class _CardItemState extends State<CardItem> {
   late bool isFavorite;
+  // bool _isRunning = false;
 
   List<ViewProduct> productItems = [];
   @override
@@ -85,6 +95,18 @@ class _CardItemState extends State<CardItem> {
     super.initState();
     isFavorite = widget.item.isFavorite;
   }
+
+  // void _onPressed() async {
+  //   setState(() {
+  //     _isRunning = true;
+  //   });
+
+  //   await this.OnButtonPressed();
+
+  //   setState(() {
+  //     _isRunning = false;
+  //   });
+  // }
 
   // _getData() async {
   //   //Provider.of<AppDataProvider>(context, listen: false).setUser(1);
@@ -103,10 +125,11 @@ class _CardItemState extends State<CardItem> {
     return Card(
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SelectedItemScreen()),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //       builder: (context) => SelectedItemScreen(item: widget.item,)),
+          // );
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,9 +166,12 @@ class _CardItemState extends State<CardItem> {
                       color: isFavorite ? Colors.red : Colors.black,
                     ),
                     onPressed: () {
+                      // INSERT ADD FAVORITE HERE <<<<<<<<<<<<<
                       // setState(() {
                       //   isFavorite = !isFavorite;
                       // });
+                      // isFavorite = !isFavorite;
+                      addFavorite();
                     },
                   ),
                 ],
@@ -214,7 +240,7 @@ class _CardItemState extends State<CardItem> {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        widget.item.sellerUsername,
+                        '@${widget.item.sellerUsername}',
                         style: const TextStyle(
                           fontSize: 12.0,
                           color: Colors.black,
@@ -270,7 +296,39 @@ class _CardItemState extends State<CardItem> {
     );
   }
 
-  // void _getData() {
+  addFavorite() async {
+    if (widget.item.isFavorite == false) {
+      final fave = FavoriteModel(
+          userID: Provider.of<AppDataProvider>(context, listen: false).userId,
+          productID: widget.item.productID);
+      await Provider.of<FavoritesDataProvider>(context, listen: false)
+          .addFavorite(fave)
+          .then((response) {
+        if (response.responseStatus == ResponseStatus.SAVED) {
+          setState(() {
+            isFavorite = !isFavorite;
+          });
+        }
+      });
+    } else if (widget.item.isFavorite == true) {
+      final userDeleting =
+          Provider.of<AppDataProvider>(context, listen: false).userId;
+      final toDelete = widget.item.productID;
+      await Provider.of<FavoritesDataProvider>(context, listen: false)
+          .deleteFavorite(userDeleting, toDelete)
+          .then((response) {
+        if (response.responseStatus == ResponseStatus.SAVED) {
+          setState(() {
+            isFavorite = !isFavorite;
+          });
+        }
+      });
+    }
+  }
 
+  // void deleteFavorite() {
+  //   if (widget.item.isFavorite == true) {
+
+  //   }
   // }
 }

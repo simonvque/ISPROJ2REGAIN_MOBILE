@@ -66,7 +66,7 @@ class SellerOfferTileState extends State<SellerOfferTile> {
                           // Add logic to decline the buyer offer and pass in the buyer side
                         },
                         type: ButtonType.filled,
-                        size: ButtonSize.xs,
+                        size: ButtonSize.xxs,
                         txtSize: BtnTxtSize.medium,
                         customColor: red,
                       ),
