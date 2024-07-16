@@ -54,7 +54,7 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const AddEquipment());
       case routeOrderTracking:
         return MaterialPageRoute(
-            builder: (context) => const OrderTrackingPage());
+            builder: (context) => OrderTrackingPage());
       default:
         throw const FormatException(routeNotFound);
     }
