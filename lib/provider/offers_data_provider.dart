@@ -16,14 +16,16 @@ class OffersDataProvider extends ChangeNotifier {
 
   List<ViewOffersModel>? get viewoffers => _allViewOffers;
 
-  Future<void> getOffersByBuyerID(int buyerID) async {
+  Future<List<ViewOffersModel>> getOffersByBuyerID(int buyerID) async {
     _allViewOffers = await _dataSource.getOffersByBuyerID(buyerID);
     notifyListeners();
+    return _allViewOffers;
   }
 
-  Future<void> getOffersByProductID(int prodID) async {
+  Future<List<ViewOffersModel>> getOffersByProductID(int prodID) async {
     _allViewOffers = await _dataSource.getOffersByProductID(prodID);
     notifyListeners();
+    return _allViewOffers;
   }
 
   Future<ResponseModel> deleteOffers(int id) async {

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/datasource/app_data_source.dart';
 import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
@@ -92,7 +94,55 @@ class BuyerOfferTileState extends State<BuyerOfferTile> {
               children: [
                 RegainButtons(
                   text: 'Cancel Offer',
-                  onPressed: _cancelOffer, //Cancel Offer Logic
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Row(
+                          children: [
+                            const Icon(CupertinoIcons.exclamationmark_triangle,
+                                color: red),
+                            const SizedBox(width: 8),
+                            Text(
+                              "Delete Offer",
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ],
+                        ),
+                        content: Text(
+                          "Are you sure you want to cancel this offer?",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context); // Close the dialog
+                            },
+                            child: Text(
+                              ReGainTexts.btnCancel,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              // delete function here <<<<<<<<<<<<<
+                              //deleteProduct();
+                              _cancelOffer();
+
+                              // Navigator.pop(context);
+                            },
+                            child: Text(
+                              ReGainTexts.btnDelete,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(color: red),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }, //Cancel Offer Logic
                   type: ButtonType.filled,
                   size: ButtonSize.xxs,
                   txtSize: BtnTxtSize.medium,
