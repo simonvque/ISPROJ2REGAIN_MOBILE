@@ -12,7 +12,7 @@ _$ViewOffersModelImpl _$$ViewOffersModelImplFromJson(
       offerID: (json['offerID'] as num?)?.toInt(),
       productID: (json['productID'] as num?)?.toInt(),
       buyerName: json['buyerName'] as String,
-      offervalue: json['offervalue'] as String,
+      offerValue: json['offerValue'] as String,
       isAccepted: json['isAccepted'] as bool,
       sellerName: json['sellerName'] as String,
     );
@@ -23,7 +23,7 @@ Map<String, dynamic> _$$ViewOffersModelImplToJson(
       'offerID': instance.offerID,
       'productID': instance.productID,
       'buyerName': instance.buyerName,
-      'offervalue': instance.offervalue,
+      'offerValue': instance.offerValue,
       'isAccepted': instance.isAccepted,
       'sellerName': instance.sellerName,
     };

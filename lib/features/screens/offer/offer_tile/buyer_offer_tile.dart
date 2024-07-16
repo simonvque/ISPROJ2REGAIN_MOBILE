@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/datasource/app_data_source.dart';
+import 'package:regain_mobile/model/offers_model.dart';
+import 'package:regain_mobile/model/viewoffers_model.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 import 'package:regain_mobile/themes/elements/input%20fields/regain_textbox.dart';
 
 import '../temp_view_product.dart'; //temporary viewProduct Class
 
 class BuyerOfferTile extends StatefulWidget {
-  final ViewProduct product;
+  final ViewOffersModel offer;
+  final Function onDelete;
 
-  const BuyerOfferTile({super.key, required this.product});
+  const BuyerOfferTile({
+    super.key,
+    required this.offer,
+    required this.onDelete,
+  });
 
   @override
   BuyerOfferTileState createState() => BuyerOfferTileState();
@@ -22,66 +30,69 @@ class BuyerOfferTileState extends State<BuyerOfferTile> {
   @override
   void initState() {
     super.initState();
-      _currentOffer = widget.product.price; //initial offer
-      _offerController.text = _currentOffer;
+    _currentOffer = widget.offer.offerValue;
+    _offerController.text = _currentOffer;
+  }
+
+  Future<void> _cancelOffer() async {
+    try {
+      await AppDataSource().deleteOffers(widget.offer.offerID!);
+      widget.onDelete(widget.offer.offerID);
+    } catch (error) {
+      print('Failed to delete offer: $error');
     }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: const BoxDecoration(
-          color: Colors.transparent,
-          border: Border(bottom: BorderSide(color: gray, width: 1.0))),
+        color: Colors.transparent,
+        border: Border(bottom: BorderSide(color: gray, width: 1.0)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //Product Name and Offer Status
           Row(
             children: [
-            Text(
-            '@${widget.product.sellerUsername}',
-            style: Theme.of(context).textTheme.labelLarge,
+              Text(
+                '@${widget.offer.sellerName}',
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.55),
+              Text(
+                widget.offer.isAccepted ? 'Accepted' : 'Pending',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ],
           ),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.55,),
-           Text(
-            widget.product.offerStatus,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          ],),
-         
           const SizedBox(height: 12),
           Text(
-            widget.product.productName,
+            widget.offer.buyerName,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 2),
           Text(
-            'PHP ${widget.product.price}',
+            'PHP ${widget.offer.offerValue}',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
-          
           const SizedBox(height: 22),
           Align(
             alignment: Alignment.center,
-          child: Text(
-            'My Offer: PHP $_currentOffer',
-            style: Theme.of(context).textTheme.titleLarge,
+            child: Text(
+              'My Offer: PHP $_currentOffer',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
           ),
-          ),
-
           const SizedBox(height: 22),
-
-          //conditional for offer status
-          if (!_isExpanded && widget.product.offerStatus == 'Pending')
+          if (!_isExpanded && !widget.offer.isAccepted)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 RegainButtons(
                   text: 'Cancel Offer',
-                  onPressed: () {
-                    // Add logic to cancel the offer
-                  },
+                  onPressed: _cancelOffer, //Cancel Offer Logic
                   type: ButtonType.filled,
                   size: ButtonSize.xxs,
                   txtSize: BtnTxtSize.medium,
@@ -130,6 +141,7 @@ class BuyerOfferTileState extends State<BuyerOfferTile> {
                     RegainButtons(
                       text: 'Save offer',
                       onPressed: () {
+                        //Update Offer Logic
                         setState(() {
                           _currentOffer = _offerController.text;
                           _isExpanded = false;
@@ -144,7 +156,7 @@ class BuyerOfferTileState extends State<BuyerOfferTile> {
                 ),
               ],
             ),
-          if (widget.product.offerStatus == 'Accepted')
+          if (widget.offer.isAccepted)
             Align(
               alignment: Alignment.center,
               child: RegainButtons(
@@ -156,7 +168,7 @@ class BuyerOfferTileState extends State<BuyerOfferTile> {
                 size: ButtonSize.medium,
                 txtSize: BtnTxtSize.large,
               ),
-            )
+            ),
         ],
       ),
     );

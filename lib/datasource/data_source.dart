@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
@@ -52,4 +53,10 @@ abstract class DataSource {
   Future<List<ViewOffersModel>> getOffersByBuyerID(int id);
 
   Future<List<ViewOffersModel>> getOffersByProductID(int id);
+
+  Future<ResponseModel> deleteOffers(int id);
+
+  // Future<ResponseModel> updateOffers(int id);
+
+  Future<ResponseModel> addOffers(ViewOffersModel offers);
 }

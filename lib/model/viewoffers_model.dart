@@ -9,7 +9,7 @@ class ViewOffersModel with _$ViewOffersModel {
       {int? offerID,
       int? productID,
       required String buyerName,
-      required String offervalue,
+      required String offerValue,
       required bool isAccepted,
       required String sellerName}) = _ViewOffersModel;
   factory ViewOffersModel.fromJson(Map<String, dynamic> json) =>

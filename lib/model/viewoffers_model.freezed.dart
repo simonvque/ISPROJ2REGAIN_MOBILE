@@ -26,8 +26,8 @@ mixin _$ViewOffersModel {
   set productID(int? value) => throw _privateConstructorUsedError;
   String get buyerName => throw _privateConstructorUsedError;
   set buyerName(String value) => throw _privateConstructorUsedError;
-  String get offervalue => throw _privateConstructorUsedError;
-  set offervalue(String value) => throw _privateConstructorUsedError;
+  String get offerValue => throw _privateConstructorUsedError;
+  set offerValue(String value) => throw _privateConstructorUsedError;
   bool get isAccepted => throw _privateConstructorUsedError;
   set isAccepted(bool value) => throw _privateConstructorUsedError;
   String get sellerName => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ abstract class $ViewOffersModelCopyWith<$Res> {
       {int? offerID,
       int? productID,
       String buyerName,
-      String offervalue,
+      String offerValue,
       bool isAccepted,
       String sellerName});
 }
@@ -70,7 +70,7 @@ class _$ViewOffersModelCopyWithImpl<$Res, $Val extends ViewOffersModel>
     Object? offerID = freezed,
     Object? productID = freezed,
     Object? buyerName = null,
-    Object? offervalue = null,
+    Object? offerValue = null,
     Object? isAccepted = null,
     Object? sellerName = null,
   }) {
@@ -87,9 +87,9 @@ class _$ViewOffersModelCopyWithImpl<$Res, $Val extends ViewOffersModel>
           ? _value.buyerName
           : buyerName // ignore: cast_nullable_to_non_nullable
               as String,
-      offervalue: null == offervalue
-          ? _value.offervalue
-          : offervalue // ignore: cast_nullable_to_non_nullable
+      offerValue: null == offerValue
+          ? _value.offerValue
+          : offerValue // ignore: cast_nullable_to_non_nullable
               as String,
       isAccepted: null == isAccepted
           ? _value.isAccepted
@@ -115,7 +115,7 @@ abstract class _$$ViewOffersModelImplCopyWith<$Res>
       {int? offerID,
       int? productID,
       String buyerName,
-      String offervalue,
+      String offerValue,
       bool isAccepted,
       String sellerName});
 }
@@ -134,7 +134,7 @@ class __$$ViewOffersModelImplCopyWithImpl<$Res>
     Object? offerID = freezed,
     Object? productID = freezed,
     Object? buyerName = null,
-    Object? offervalue = null,
+    Object? offerValue = null,
     Object? isAccepted = null,
     Object? sellerName = null,
   }) {
@@ -151,9 +151,9 @@ class __$$ViewOffersModelImplCopyWithImpl<$Res>
           ? _value.buyerName
           : buyerName // ignore: cast_nullable_to_non_nullable
               as String,
-      offervalue: null == offervalue
-          ? _value.offervalue
-          : offervalue // ignore: cast_nullable_to_non_nullable
+      offerValue: null == offerValue
+          ? _value.offerValue
+          : offerValue // ignore: cast_nullable_to_non_nullable
               as String,
       isAccepted: null == isAccepted
           ? _value.isAccepted
@@ -174,7 +174,7 @@ class _$ViewOffersModelImpl implements _ViewOffersModel {
       {this.offerID,
       this.productID,
       required this.buyerName,
-      required this.offervalue,
+      required this.offerValue,
       required this.isAccepted,
       required this.sellerName});
 
@@ -188,7 +188,7 @@ class _$ViewOffersModelImpl implements _ViewOffersModel {
   @override
   String buyerName;
   @override
-  String offervalue;
+  String offerValue;
   @override
   bool isAccepted;
   @override
@@ -196,7 +196,7 @@ class _$ViewOffersModelImpl implements _ViewOffersModel {
 
   @override
   String toString() {
-    return 'ViewOffersModel(offerID: $offerID, productID: $productID, buyerName: $buyerName, offervalue: $offervalue, isAccepted: $isAccepted, sellerName: $sellerName)';
+    return 'ViewOffersModel(offerID: $offerID, productID: $productID, buyerName: $buyerName, offerValue: $offerValue, isAccepted: $isAccepted, sellerName: $sellerName)';
   }
 
   @JsonKey(ignore: true)
@@ -219,7 +219,7 @@ abstract class _ViewOffersModel implements ViewOffersModel {
       {int? offerID,
       int? productID,
       required String buyerName,
-      required String offervalue,
+      required String offerValue,
       required bool isAccepted,
       required String sellerName}) = _$ViewOffersModelImpl;
 
@@ -236,8 +236,8 @@ abstract class _ViewOffersModel implements ViewOffersModel {
   String get buyerName;
   set buyerName(String value);
   @override
-  String get offervalue;
-  set offervalue(String value);
+  String get offerValue;
+  set offerValue(String value);
   @override
   bool get isAccepted;
   set isAccepted(bool value);

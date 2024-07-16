@@ -1,11 +1,13 @@
 import 'dart:convert';
 //import 'dart:js_interop';
 
+import 'package:get/get.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/error_details_model.dart';
+import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
@@ -344,6 +346,7 @@ class AppDataSource extends DataSource {
     }
   }
 
+
   // FAVORITES
   @override
   Future<ResponseModel> addFavorite(FavoriteModel fave) async {
@@ -363,6 +366,31 @@ class AppDataSource extends DataSource {
     final url = '$baseUrl${'favorites/delete/$userId/$prodId'}';
     try {
       final response = await http.delete(Uri.parse(url));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+  
+  @override
+  Future<ResponseModel> deleteOffers(int id) async {
+    final url = '$baseUrl${'offers/$id'}';
+    try {
+      final response = await http.delete(Uri.parse(url));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ResponseModel> addOffers(ViewOffersModel offers) async {
+    final url = '$baseUrl${'offers/add'}';
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: header, body: jsonEncode(offers));
       return await _getResponseModel(response);
     } catch (error) {
       print(error.toString());
