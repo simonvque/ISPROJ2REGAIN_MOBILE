@@ -9,6 +9,7 @@ import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/favorites_data_provider.dart';
+import 'package:regain_mobile/provider/product_data_provider.dart';
 
 import '../selected_item.dart';
 
@@ -85,7 +86,7 @@ class CardItem extends StatefulWidget {
 
 class _CardItemState extends State<CardItem> {
   late bool isFavorite;
-  bool _isRunning = false;
+  // bool _isRunning = false;
 
   List<ViewProduct> productItems = [];
   @override
@@ -124,10 +125,11 @@ class _CardItemState extends State<CardItem> {
     return Card(
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SelectedItemScreen()),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //       builder: (context) => SelectedItemScreen(item: widget.item,)),
+          // );
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,7 +240,7 @@ class _CardItemState extends State<CardItem> {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        widget.item.sellerUsername,
+                        '@${widget.item.sellerUsername}',
                         style: const TextStyle(
                           fontSize: 12.0,
                           color: Colors.black,
@@ -309,9 +311,6 @@ class _CardItemState extends State<CardItem> {
         }
       });
     } else if (widget.item.isFavorite == true) {
-      setState(() {
-        _isRunning = true;
-      });
       final userDeleting =
           Provider.of<AppDataProvider>(context, listen: false).userId;
       final toDelete = widget.item.productID;

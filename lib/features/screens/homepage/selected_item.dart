@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../offer/offerpopup.dart';
+import '../offer/temp_view_product.dart';
 
 class SelectedItemScreen extends StatefulWidget {
-  const SelectedItemScreen({super.key});
+  final ViewProduct item;
+  SelectedItemScreen({super.key, required this.item});
 
   @override
   _SelectedItemScreenState createState() => _SelectedItemScreenState();
