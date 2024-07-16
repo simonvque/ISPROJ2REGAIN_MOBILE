@@ -84,7 +84,7 @@ import '../../../constants/sizes.dart';
 
 class OfferPricePopup extends StatelessWidget {
   final String sellerUsername;
-  final double defaultOfferPrice;
+  final String defaultOfferPrice;
 
   const OfferPricePopup({
     super.key,
@@ -151,8 +151,8 @@ class OfferPricePopup extends StatelessWidget {
             text: 'Place Offer',
             onPressed: () {
               // Add your confirmation logic here
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Checkout()));
+              // Navigator.push(
+              //     context, MaterialPageRoute(builder: (context) => Checkout()));
               // Navigator.push(
               //     context, MaterialPageRoute(builder: (context) => Checkout()));
             },
