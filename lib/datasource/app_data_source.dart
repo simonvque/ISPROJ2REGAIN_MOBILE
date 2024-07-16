@@ -207,14 +207,14 @@ class AppDataSource extends DataSource {
   }
 
   @override
-  Future<List<Product>> getProductsByUser(int id) async {
+  Future<List<ViewProduct>> getProductsByUser(int id) async {
     final url = '$baseUrl${'products/list/$id'}';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final mapList = json.decode(response.body) as List;
         return List.generate(
-            mapList.length, (index) => Product.fromJson(mapList[index]));
+            mapList.length, (index) => ViewProduct.fromJson(mapList[index]));
       }
       return [];
     } catch (error) {
@@ -305,8 +305,27 @@ class AppDataSource extends DataSource {
 
   // FAVORITES
   @override
-  Future<ResponseModel> addFavorite(FavoriteModel fave) {
-    // TODO: implement addFavorite
-    throw UnimplementedError();
+  Future<ResponseModel> addFavorite(FavoriteModel fave) async {
+    final url = '$baseUrl${'favorites/add'}';
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: header, body: jsonEncode(fave));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ResponseModel> deleteFavorite(int userId, int prodId) async {
+    final url = '$baseUrl${'favorites/delete/$userId/$prodId'}';
+    try {
+      final response = await http.delete(Uri.parse(url));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
   }
 }

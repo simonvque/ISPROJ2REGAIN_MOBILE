@@ -21,18 +21,18 @@ class _FavoritesScreen extends State<FavoritesScreen> {
   //int tempUser = 1;
   List<ViewProduct> favesList = [];
 
-  void initState() {
+  @override
+  void didChangeDependencies() {
     _getData();
-    super.initState();
+    super.didChangeDependencies();
   }
 
-  void _getData() async {
+  void _getData() {
     final user = Provider.of<AppDataProvider>(context, listen: false).userId;
-    final userFaves =
-        await Provider.of<FavoritesDataProvider>(context, listen: false)
-            .getFavoritesByUser(user);
+    final userFaves = Provider.of<FavoritesDataProvider>(context, listen: false)
+        .getFavoritesByUser(user);
 
-    favesList = userFaves;
+    //favesList = userFaves;
 
     // *COMMENT OUT* WHEN CONNECTING TO DB
     // favesList = [
@@ -82,8 +82,8 @@ class _FavoritesScreen extends State<FavoritesScreen> {
                       return CardItems(
 
                           // *UNCOMMENT* WHEN CONNECTING TO DB
-                          // items: value.userFavorites
-                          items: favesList
+                          items: value.userFavorites
+                          //items: favesList
 
                           // items: [
                           //   {

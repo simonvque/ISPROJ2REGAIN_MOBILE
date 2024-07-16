@@ -49,7 +49,8 @@ class MyApp extends StatelessWidget {
         //   appBarTheme: AppBarTheme(color: Color(0xFF12CF8A)),
         // ),
 
-        initialRoute: RouteManager.routeNavMenu,
+        // will have an error if connected to db and goes to navmenu right away
+        initialRoute: RouteManager.routeLogin,
         onGenerateRoute: RouteManager.generateRoute,
         // routes: {
         //   RouteManager.routeLogin: (context) => LoginScreen(),
