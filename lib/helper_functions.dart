@@ -5,7 +5,10 @@ import 'package:intl/intl.dart';
 class ReGainHelperFunctions {
   static void showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(message),
+      ),
     );
   }
 

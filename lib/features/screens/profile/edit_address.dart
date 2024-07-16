@@ -219,13 +219,13 @@ class _EditAddressState extends State<EditAddress> {
                                     color: red),
                                 const SizedBox(width: 8),
                                 Text(
-                                  ReGainTexts.alertDelete,
+                                  "Delete Address",
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                               ],
                             ),
                             content: Text(
-                              ReGainTexts.alertDelMsg,
+                              "Are you sure you want to delete this address?",
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             actions: [
@@ -242,6 +242,8 @@ class _EditAddressState extends State<EditAddress> {
                                 child: const Text('Delete'),
                                 onPressed: () {
                                   // delete function here <<<<<<<<<<<<<
+                                  Navigator.pop(context);
+                                  deleteAddress();
                                 },
                               ),
                             ]),
@@ -285,8 +287,8 @@ class _EditAddressState extends State<EditAddress> {
             MaterialPageRoute(builder: (context) => ManageAddresses()));
         ReGainHelperFunctions.showSnackBar(context, response.message);
       } else if (response.statusCode == 400) {
-        ReGainHelperFunctions.showAlert('${response.statusCode} error',
-            'You cannot delete this address, as you have pending transactions with this address in use.');
+        ReGainHelperFunctions.showSnackBar(context,
+            '${response.message}: You cannot delete this address, as you have pending transactions with this address in use.');
       }
     });
   }

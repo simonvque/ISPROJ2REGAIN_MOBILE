@@ -14,7 +14,7 @@ class UserModel with _$UserModel {
     @Default('') String? contactNumber,
     required String password,
     @Default('') String? email,
-    @Default('') String accountStatus,
+    @Default('Active') String accountStatus,
     @Default(0) int? penaltyPoints,
     @Default('0.00') String? commissionBalance,
     @Default('') String? junkshopName,

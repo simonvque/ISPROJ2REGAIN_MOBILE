@@ -178,7 +178,7 @@ class AppDataSource extends DataSource {
 
   @override
   Future<ResponseModel> deleteProduct(int id) async {
-    final url = '$baseUrl${'favorites/delete/$id'}';
+    final url = '$baseUrl${'products/delete/$id'}';
     try {
       final response = await http.delete(Uri.parse(url));
       return await _getResponseModel(response);
@@ -346,7 +346,6 @@ class AppDataSource extends DataSource {
     }
   }
 
-
   // FAVORITES
   @override
   Future<ResponseModel> addFavorite(FavoriteModel fave) async {
@@ -372,7 +371,7 @@ class AppDataSource extends DataSource {
       rethrow;
     }
   }
-  
+
   @override
   Future<ResponseModel> deleteOffers(int id) async {
     final url = '$baseUrl${'offers/$id'}';
