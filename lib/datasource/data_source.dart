@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
@@ -30,13 +31,15 @@ abstract class DataSource {
 
   Future<List<Product>> getAllProducts();
 
-  Future<List<Product>> getProductsByUser(int id);
+  Future<List<ViewProduct>> getProductsByUser(int id);
 
   Future<List<ViewProduct>> getAllProductsByUserFave(int id);
 
   Future<List<ViewProduct>> getUserFavorites(int id);
 
   Future<ResponseModel> addFavorite(FavoriteModel fave);
+
+  Future<ResponseModel> deleteFavorite(int userId, int prodId);
 
   Future<List<Category>> getCategories();
 
