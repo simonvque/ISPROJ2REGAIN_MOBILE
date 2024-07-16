@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/datasource/app_data_source.dart';
+import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
+import 'package:regain_mobile/provider/offers_data_provider.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 import 'package:regain_mobile/themes/elements/input%20fields/regain_textbox.dart';
 
@@ -25,7 +28,7 @@ class BuyerOfferTile extends StatefulWidget {
 }
 
 class _BuyerOfferTileState extends State<BuyerOfferTile> {
-  late TextEditingController _offerController;
+  final _offerController = TextEditingController();
   late String _currentOffer;
   bool _isExpanded = false;
 
@@ -33,7 +36,7 @@ class _BuyerOfferTileState extends State<BuyerOfferTile> {
   void initState() {
     super.initState();
     _currentOffer = widget.offer.offerValue;
-    _offerController = TextEditingController(text: _currentOffer);
+    // _offerController = TextEditingController(text: _currentOffer);
   }
 
   @override
@@ -61,16 +64,19 @@ class _BuyerOfferTileState extends State<BuyerOfferTile> {
         isAccepted: widget.offer.isAccepted,
         sellerName: widget.offer.sellerName,
       );
+      // Provider.of<OffersDataProvider>(context, listen: false)
+      //     .updateOffers(widget.offer.offerID!, updatedOffer);
+      //     .then((response){
 
-      final response = await AppDataSource()
-          .updateOffers(widget.offer.offerID!, updatedOffer);
+      //     });
+
+      // final response = await AppDataSource()
+      //     .updateOffers(widget.offer.offerID!, updatedOffer);
 
       // Handle response as needed
-      print('Update offer response: $response');
+      // print('Update offer response: $response');
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Offer updated successfully')),
-      );
+      ReGainHelperFunctions.showSnackBar(context, 'Offer updated successfully');
 
       setState(() {
         _currentOffer = _offerController.text;
