@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/features/screens/report_features/user_report_page.dart';
 
-AppBar buildAppBar(
-        BuildContext context, 
-        String title, 
-          { VoidCallback? onBackPressed, 
-            bool showReportButton = false,
-            TabBar? tabBar,})
-     {
+AppBar buildAppBar(BuildContext context, String title,
+    {VoidCallback? onBackPressed,
+    bool showReportButton = false,
+    TabBar? tabBar,
+    List<Widget>? actions}) {
   return AppBar(
     backgroundColor: green,
     iconTheme: const IconThemeData(color: Colors.white),
@@ -33,27 +31,27 @@ AppBar buildAppBar(
           )
         : null,
     actions: showReportButton
-  ? [
-      IconButton(
-        icon:const Icon(CupertinoIcons.flag, color: Colors.white),
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            builder: (BuildContext context) {
-              return SizedBox(
-                height: MediaQuery.of(context).size.height * 0.90,
-                // padding: EdgeInsets.only(
-                //   bottom: MediaQuery.of(context).viewInsets.bottom,
-                // ),
-                child: const UserReportPage(), 
-              );
-            },
-          );
-        },
-      ),
-    ]
-  : null,
-  bottom: tabBar ?? null,
+        ? [
+            IconButton(
+              icon: const Icon(CupertinoIcons.flag, color: Colors.white),
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.90,
+                      // padding: EdgeInsets.only(
+                      //   bottom: MediaQuery.of(context).viewInsets.bottom,
+                      // ),
+                      child: const UserReportPage(),
+                    );
+                  },
+                );
+              },
+            ),
+          ]
+        : actions,
+    bottom: tabBar ?? null,
   );
 }

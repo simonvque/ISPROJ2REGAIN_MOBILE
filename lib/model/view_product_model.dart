@@ -11,6 +11,7 @@ class ViewProduct with _$ViewProduct {
       required String location,
       required String price,
       required String sellerUsername,
+      required String description,
       required String weight,
       required String category,
       required bool canDeliver,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
@@ -7,6 +8,7 @@ import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/provider/address_data_provider.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 
 class AddAddress extends StatefulWidget {
@@ -72,47 +74,83 @@ class _AddAddressState extends State<AddAddress> {
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(10.0),
-                    height: MediaQuery.of(context).size.height * 0.09,
-                    width: MediaQuery.of(context).size.width * 0.65,
-                    child: TextFormField(
-                      controller: unitNumberController,
-                      decoration: InputDecoration(
-                        labelText: 'Unit number, apartment, etc.',
-                        labelStyle: TextStyle(
-                            fontSize: 15.0, color: Colors.grey.shade700),
-                        hintText: '(optional) ex: Unit 22B',
-                        hintStyle: const TextStyle(fontSize: 15.0),
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(0, 10.0, 10.0, 10.0),
-                    height: MediaQuery.of(context).size.height * 0.09,
-                    width: MediaQuery.of(context).size.width * 0.35,
-                    child: TextFormField(
-                      controller: zipCodeController,
-                      decoration: InputDecoration(
-                        labelText: 'Zip Code',
-                        labelStyle: TextStyle(
-                            fontSize: 15.0, color: Colors.grey.shade700),
-                        hintText: 'ex: 1651',
-                        hintStyle: const TextStyle(fontSize: 15.0),
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               Container(
                 padding: const EdgeInsets.all(10.0),
-                height: MediaQuery.of(context).size.height * 0.09,
+                // height: MediaQuery.of(context).size.height * 0.09,
+                // width: MediaQuery.of(context).size.width * 0.65,
+                child: TextFormField(
+                  controller: unitNumberController,
+                  decoration: InputDecoration(
+                    labelText: 'Unit number, apartment, etc.',
+                    labelStyle:
+                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
+                    hintText: '(optional) ex: Unit 22B',
+                    hintStyle: const TextStyle(fontSize: 15.0),
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       flex: 3,
+              //       child: Container(
+              //         padding: const EdgeInsets.all(10.0),
+              //         height: MediaQuery.of(context).size.height * 0.09,
+              //         // width: MediaQuery.of(context).size.width * 0.65,
+              //         child: TextFormField(
+              //           controller: unitNumberController,
+              //           decoration: InputDecoration(
+              //             labelText: 'Unit number, apartment, etc.',
+              //             labelStyle: TextStyle(
+              //                 fontSize: 15.0, color: Colors.grey.shade700),
+              //             hintText: '(optional) ex: Unit 22B',
+              //             hintStyle: const TextStyle(fontSize: 15.0),
+              //             border: const OutlineInputBorder(),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     Expanded(
+              //       flex: 2,
+              //       child: Container(
+              //         padding: const EdgeInsets.fromLTRB(0, 10.0, 10.0, 10.0),
+              //         height: MediaQuery.of(context).size.height * 0.09,
+              //         // width: MediaQuery.of(context).size.width * 0.30,
+              //         child: TextFormField(
+              //           keyboardType: TextInputType.number,
+              //           inputFormatters: [
+              //             FilteringTextInputFormatter.digitsOnly
+              //           ],
+              //           validator: (value) {
+              //             if (value?.length != 4) {
+              //               return "Please enter a valid zip code";
+              //             }
+              //           },
+              //           controller: zipCodeController,
+              //           decoration: InputDecoration(
+              //             labelText: 'Zip Code',
+              //             labelStyle: TextStyle(
+              //                 fontSize: 15.0, color: Colors.grey.shade700),
+              //             hintText: 'ex: 1651',
+              //             hintStyle: const TextStyle(fontSize: 15.0),
+              //             border: const OutlineInputBorder(),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                // height: MediaQuery.of(context).size.height * 0.09,
                 child: TextFormField(
                   controller: streetController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter a street address";
+                    }
+                  },
                   decoration: InputDecoration(
                     labelText: 'Street address, house number',
                     labelStyle:
@@ -125,8 +163,13 @@ class _AddAddressState extends State<AddAddress> {
               ),
               Container(
                 padding: const EdgeInsets.all(10.0),
-                height: MediaQuery.of(context).size.height * 0.09,
+                // height: MediaQuery.of(context).size.height * 0.09,
                 child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter a barangay";
+                    }
+                  },
                   controller: barangayController,
                   decoration: InputDecoration(
                     labelText: 'Barangay, subdivision, etc',
@@ -140,9 +183,14 @@ class _AddAddressState extends State<AddAddress> {
               ),
               Container(
                 padding: const EdgeInsets.all(10.0),
-                height: MediaQuery.of(context).size.height * 0.09,
+                // height: MediaQuery.of(context).size.height * 0.09,
                 child: TextFormField(
                   controller: cityController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter a city";
+                    }
+                  },
                   decoration: InputDecoration(
                     labelText: 'City',
                     labelStyle:
@@ -155,9 +203,14 @@ class _AddAddressState extends State<AddAddress> {
               ),
               Container(
                 padding: const EdgeInsets.all(10.0),
-                height: MediaQuery.of(context).size.height * 0.09,
+                // height: MediaQuery.of(context).size.height * 0.09,
                 child: TextFormField(
                   controller: stateController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter a state or region";
+                    }
+                  },
                   decoration: InputDecoration(
                     labelText: 'State or region',
                     labelStyle:
@@ -169,7 +222,30 @@ class _AddAddressState extends State<AddAddress> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.fromLTRB(5, 10, 5, 20),
+                padding: const EdgeInsets.all(10.0),
+                // height: MediaQuery.of(context).size.height * 0.20,
+                // width: MediaQuery.of(context).size.width * 0.30,
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  validator: (value) {
+                    if (value?.length != 4) {
+                      return "Please enter a valid zip code";
+                    }
+                  },
+                  controller: zipCodeController,
+                  decoration: InputDecoration(
+                    labelText: 'Zip Code',
+                    labelStyle:
+                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
+                    hintText: 'ex: 1651',
+                    hintStyle: const TextStyle(fontSize: 15.0),
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(5, 15, 5, 20),
                 height: MediaQuery.of(context).size.height * 0.10,
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
@@ -199,13 +275,14 @@ class _AddAddressState extends State<AddAddress> {
   void addAddress() {
     if (_addAddressKey.currentState!.validate()) {
       final address = AddressModel(
-          unitNumber: unitNumberController.text,
-          street: streetController.text,
-          barangay: barangayController.text,
-          city: cityController.text,
-          province: stateController.text,
-          zipCode: zipCodeController.text,
-          userID: userID);
+        unitNumber: unitNumberController.text,
+        street: streetController.text,
+        barangay: barangayController.text,
+        city: cityController.text,
+        province: stateController.text,
+        zipCode: zipCodeController.text,
+        userID: Provider.of<AppDataProvider>(context, listen: false).userId,
+      );
       Provider.of<AddressDataProvider>(context, listen: false)
           .addAddress(address)
           .then((response) {

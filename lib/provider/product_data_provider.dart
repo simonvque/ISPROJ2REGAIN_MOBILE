@@ -14,7 +14,13 @@ class ProductDataProvider extends ChangeNotifier {
 
   Product? get product => _product;
 
-  // final List<Product> _userProducts = [];
+  // List<ViewProduct> _userProducts = [];
+
+  // List<ViewProduct> get userProducts => _userProducts;
+
+  List<Product> _userProducts = [];
+
+  List<Product> get userProducts => _userProducts;
 
   List<ViewProduct> get allProducts => _allProducts;
 
@@ -25,6 +31,14 @@ class ProductDataProvider extends ChangeNotifier {
 
   Future<ResponseModel> addProduct(Product product) {
     return _dataSource.addProduct(product);
+  }
+
+  Future<ResponseModel> updateProduct(int id, Product product) {
+    return _dataSource.updateProduct(id, product);
+  }
+
+  Future<ResponseModel> deleteProduct(int id) {
+    return _dataSource.deleteProduct(id);
   }
 
   // Future<List<Product>> getAllProducts() async {
@@ -39,7 +53,17 @@ class ProductDataProvider extends ChangeNotifier {
     return _allProducts;
   }
 
-  Future<List<Product>> getProductsByUser(int userID) {
-    return _dataSource.getProductsByUser(userID);
+  Future<List<Product>> getProductsByUser(int userID) async {
+    _userProducts = await _dataSource.getProductsByUser(userID);
+    notifyListeners();
+    return _userProducts;
   }
+
+  // Future<ResponseModel>
+
+  // Future<List<ViewProduct>> getProductsByUser(int userID) async {
+  //   _userProducts = await _dataSource.getProductsByUser(userID);
+  //   notifyListeners();
+  //   return _userProducts;
+  // }
 }

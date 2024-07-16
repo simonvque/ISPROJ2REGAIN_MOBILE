@@ -7,20 +7,19 @@ import 'package:regain_mobile/model/user_model.dart';
 class AppDataProvider extends ChangeNotifier {
   final DataSource _dataSource = AppDataSource();
 
+  late int? _userId;
+
+  get userId => _userId;
+
   late UserModel? _user;
 
   UserModel? get user => _user;
 
-  // void setUser(int id) {
-  //   _userId = id;
-  //   notifyListeners();
-  // }
-
-  // //private list
-  // List<Category> _categoryList = [];
-
-  // //getter to private list
-  // List<Category> get categoryList => _categoryList;
+  void resetUser() {
+    _user = null;
+    _userId = null;
+    notifyListeners();
+  }
 
   Future<ResponseModel> addUser(UserModel user) {
     // insert some logic?
@@ -28,20 +27,26 @@ class AppDataProvider extends ChangeNotifier {
     return _dataSource.addUser(user);
   }
 
-  Future<ResponseModel> login(UserModel user) async {
-    ResponseModel response = await _dataSource.login(user);
-    //_user = response.object;
+  Future<ResponseModel> login(UserModel userDTO) async {
+    ResponseModel response = await _dataSource.login(userDTO);
+    if (response.statusCode == 200) {
+      _user = UserModel.fromJson(response.response);
+      _userId = user!.id;
+    }
+
     notifyListeners();
     return response;
     // _userId = response.object.
   }
 
-  // Future<void> getCategories() async {
-  //   _categoryList = await _dataSource.getCategories();
-  //   notifyListeners();
-  // }
+  Future<ResponseModel> updateUser(UserModel userDTO) async {
+    ResponseModel response = await _dataSource.updateUser(userDTO);
+    if (response.statusCode == 200) {
+      _user = UserModel.fromJson(response.response);
+      _userId = user!.id;
+    }
 
-  // Future<ResponseModel> addProduct(Product product) {
-  //   return _dataSource.addProduct(product);
-  // }
+    notifyListeners();
+    return response;
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/constants/sizes.dart';
@@ -15,6 +16,7 @@ import 'package:regain_mobile/features/screens/profile/settings/settings_page.da
 import 'package:regain_mobile/features/screens/profile/profile_menu/transactions_page.dart';
 import 'package:regain_mobile/features/screens/profile/util/transactions_data.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 
 import '../../../themes/elements/button_styles.dart';
@@ -184,6 +186,7 @@ class ProfileMenu extends StatelessWidget {
         RegainButtons(
           text: 'Logout',
           onPressed: () {
+            Provider.of<AppDataProvider>(context, listen: false).resetUser();
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const LoginScreen()));
           },
