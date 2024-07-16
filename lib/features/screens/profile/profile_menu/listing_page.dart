@@ -11,6 +11,7 @@ import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/listings/add_product.dart';
 import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/edit_listing_page.dart';
+import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
@@ -232,6 +233,8 @@ class _OptionsBottomSheetState extends State<OptionsBottomSheet> {
       if (response.responseStatus == ResponseStatus.SAVED) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => NavigationMenu()));
+        ReGainHelperFunctions.showSnackBar(
+            context, "Product deleted successfully");
       }
     });
   }
