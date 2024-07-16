@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -8,11 +10,14 @@ import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 import 'package:regain_mobile/features/screens/report_features/report_details_modal.dart';
 
 class PenaltyPage extends StatelessWidget {
-  const PenaltyPage({super.key});
+  final int? penaltyPoints;
+  const PenaltyPage({super.key, required this.penaltyPoints});
 
   @override
   Widget build(BuildContext context) {
-    const double score = 1.0; // verify data type in database schema
+    //double score = 1.0; // verify data type in database schema
+
+    double score = penaltyPoints!.toDouble();
 
     // Check specific penalty points criteria
     Color getProgressColor(double score) {
@@ -64,11 +69,14 @@ class PenaltyPage extends StatelessWidget {
                         lineWidth: 25.0,
                         percent: score,
                         animation: true,
-                        center: const Icon(
-                          CupertinoIcons.gauge,
-                          size: 50.0,
-                          color: black,
-                        ),
+                        // center: const Icon(
+                        //   CupertinoIcons.gauge,
+                        //   size: 50.0,
+                        //   color: black,
+                        // ),
+                        center: Text('$score',
+                            style: Theme.of(context).textTheme.headlineLarge),
+
                         backgroundColor: gray,
                         progressColor: getProgressColor(score),
                         circularStrokeCap: CircularStrokeCap.round,

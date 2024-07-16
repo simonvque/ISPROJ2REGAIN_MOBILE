@@ -92,6 +92,7 @@ class OfferPricePopup extends StatefulWidget {
   final int productID;
   final String buyerName;
 
+
   const OfferPricePopup({
     super.key,
     required this.sellerUsername,

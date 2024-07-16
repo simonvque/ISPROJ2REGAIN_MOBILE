@@ -166,7 +166,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '@isaejen_',
+                                '@${widget.item.sellerUsername}',
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                               const Row(
