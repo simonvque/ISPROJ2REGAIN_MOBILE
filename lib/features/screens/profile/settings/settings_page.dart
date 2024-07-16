@@ -58,10 +58,10 @@ class SettingsPage extends StatelessWidget {
           RegainButtons(
             text: 'Legal & policies',
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LegalPolPage()));
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => const LegalPolPage()));
             },
             type: ButtonType.transparentOutlined,
             size: ButtonSize.large,
