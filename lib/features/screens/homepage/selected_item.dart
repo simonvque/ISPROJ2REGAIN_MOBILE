@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/model/view_product_model.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../offer/offerpopup.dart';
-import '../offer/temp_view_product.dart';
+// import '../offer/temp_view_product.dart';
 
 class SelectedItemScreen extends StatefulWidget {
   final ViewProduct item;
@@ -14,15 +15,15 @@ class SelectedItemScreen extends StatefulWidget {
 
 class _SelectedItemScreenState extends State<SelectedItemScreen> {
   // Declare variables for item details
-  final String item = 'Plastic Straw';
-  final String price = 'PHP 100';
-  final String description =
-      'Hello! I have 2 bags of plastic straws available at my home. They are mostly made of polypropylene. Is anyone interested? Already 2 years long now. It is essential to understand that these straws are durable and can be used for various purposes. They are eco-friendly and can be recycled. Please let me know if you are interested.';
+  // final String item = 'Plastic Straw';
+  // final String price = 'PHP 100';
+  // final String description =
+  //     'Hello! I have 2 bags of plastic straws available at my home. They are mostly made of polypropylene. Is anyone interested? Already 2 years long now. It is essential to understand that these straws are durable and can be used for various purposes. They are eco-friendly and can be recycled. Please let me know if you are interested.';
 
-  final String category = 'Plastic';
-  final String weight = '1 kg';
-  final String location = 'Pasig City';
-  final bool isSellerDropOff = false;
+  // final String category = 'Plastic';
+  // final String weight = '1 kg';
+  // final String location = 'Pasig City';
+  // final bool isSellerDropOff = false;
   bool isFavorite = false;
   bool isDescriptionExpanded = false;
 
@@ -62,11 +63,13 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        item,
+                        // item,
+                        '${widget.item.productName}',
                         style: Theme.of(context).textTheme.headlineLarge,
                       ),
                       Text(
-                        price,
+                        // price,
+                        'PHP ${widget.item.price}',
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall
@@ -77,10 +80,10 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                         onTap: toggleDescription,
                         child: Text(
                           isDescriptionExpanded
-                              ? description
-                              : (description.length > 100
-                                  ? '${description.substring(0, 100)} Show More'
-                                  : description),
+                              ? widget.item.description
+                              : (widget.item.description.length > 100
+                                  ? '${widget.item.description.substring(0, 100)} Show More'
+                                  : widget.item.description),
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
@@ -99,17 +102,17 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                               children: [
                                 const SizedBox(width: 8),
                                 const Text('Type: '),
-                                Text(category),
+                                Text(widget.item.category),
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4.0),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 4.0),
                             child: Row(
                               children: [
-                                const SizedBox(width: 8),
-                                const Text('Net Weight: '),
-                                Text(weight),
+                                SizedBox(width: 8),
+                                Text('Net Weight: '),
+                                Text('widget.item.weight kg'),
                               ],
                             ),
                           ),
@@ -119,7 +122,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                               children: [
                                 const Icon(Icons.location_pin),
                                 const SizedBox(width: 8),
-                                Text(location),
+                                Text(widget.item.location),
                               ],
                             ),
                           ),
@@ -128,10 +131,10 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                             child: Row(
                               children: [
                                 Icon(
-                                  isSellerDropOff
+                                  widget.item.canDeliver
                                       ? Icons.check_circle
                                       : Icons.cancel,
-                                  color: isSellerDropOff
+                                  color: widget.item.canDeliver
                                       ? Colors.green
                                       : Colors.red,
                                   size: 20,
