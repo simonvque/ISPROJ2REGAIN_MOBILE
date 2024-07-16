@@ -106,13 +106,13 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                               ],
                             ),
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.only(top: 4.0),
                             child: Row(
                               children: [
                                 SizedBox(width: 8),
                                 Text('Net Weight: '),
-                                Text('widget.item.weight kg'),
+                                Text('${widget.item.weight} kg'),
                               ],
                             ),
                           ),
@@ -164,7 +164,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '@isaejen_',
+                                '@${widget.item.sellerUsername}',
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                               const Row(
@@ -241,10 +241,10 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                   showModalBottomSheet(
                     context: context,
                     builder: (BuildContext context) {
-                      return const OfferPricePopup(
-                        sellerUsername: "sammysalami",
-                        defaultOfferPrice: 100.00,
-                      ); // Display OfferPricePopup as a dialog
+                      return OfferPricePopup(
+                          sellerUsername: widget.item.sellerUsername,
+                          defaultOfferPrice: widget.item
+                              .price); // Display OfferPricePopup as a dialog
                     },
                   );
                 },

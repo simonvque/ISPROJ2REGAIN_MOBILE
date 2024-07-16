@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 import 'package:regain_mobile/features/screens/profile/util/user_data.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
@@ -13,7 +15,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = UserData().myUser;
+    final user = Provider.of<AppDataProvider>(context, listen: false).user;
 
     return Scaffold(
       appBar: buildAppBar(context, 'My profile'),
@@ -30,8 +32,14 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(
                 height: ReGainSizes.spaceBtwItems / 4,
               ),
-              Text('@${user.username}', style: Theme.of(context).textTheme.titleLarge,),
-              Text(user.contactNum, style: Theme.of(context).textTheme.labelMedium,),
+              Text(
+                '@${user!.username}',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Text(
+                user.contactNumber!,
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
               const SizedBox(
                 height: ReGainSizes.spaceBtwItems,
               ),

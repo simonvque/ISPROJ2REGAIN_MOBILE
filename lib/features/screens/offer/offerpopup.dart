@@ -88,10 +88,13 @@ import '../../../constants/sizes.dart';
 
 class OfferPricePopup extends StatefulWidget {
   final String sellerUsername;
-  final double defaultOfferPrice;
+
+  final String defaultOfferPrice;
+
   final int productID;
   final String buyerName;
   final String sellerName;
+
 
   const OfferPricePopup({
     super.key,
@@ -203,6 +206,7 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
           const SizedBox(height: ReGainSizes.defaultSpace),
           RegainButtons(
             text: 'Place Offer',
+
             onPressed: _addOffer,
             type: ButtonType.filled,
             size: ButtonSize.large,

@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/address_model.dart';
@@ -207,7 +209,43 @@ class _EditAddressState extends State<EditAddress> {
                           //fontFamily: 'Montserrat',
                         )),
                     onPressed: () {
-                      deleteAddress();
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                            title: Row(
+                              children: [
+                                const Icon(
+                                    CupertinoIcons.exclamationmark_triangle,
+                                    color: red),
+                                const SizedBox(width: 8),
+                                Text(
+                                  ReGainTexts.alertDelete,
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ],
+                            ),
+                            content: Text(
+                              ReGainTexts.alertDelMsg,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context); // Close the dialog
+                                },
+                                child: Text(
+                                  ReGainTexts.btnCancel,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ),
+                              TextButton(
+                                child: const Text('Delete'),
+                                onPressed: () {
+                                  // delete function here <<<<<<<<<<<<<
+                                },
+                              ),
+                            ]),
+                      );
                     },
                   ),
                 ),
@@ -242,10 +280,13 @@ class _EditAddressState extends State<EditAddress> {
     Provider.of<AddressDataProvider>(context, listen: false)
         .deleteAddress(addressID!)
         .then((response) {
-      if (response.responseStatus == ResponseStatus.SAVED) {
+      if (response.statusCode == 200) {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => ManageAddresses()));
         ReGainHelperFunctions.showSnackBar(context, response.message);
+      } else if (response.statusCode == 400) {
+        ReGainHelperFunctions.showAlert('${response.statusCode} error',
+            'You cannot delete this address, as you have pending transactions with this address in use.');
       }
     });
   }

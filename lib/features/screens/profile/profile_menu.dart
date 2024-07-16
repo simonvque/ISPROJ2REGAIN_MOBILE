@@ -143,10 +143,14 @@ class ProfileMenu extends StatelessWidget {
         RegainButtons(
           text: 'Penalty points',
           onPressed: () {
+            int? points = Provider.of<AppDataProvider>(context, listen: false)
+                .user!
+                .penaltyPoints;
+            points ??= 1;
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const PenaltyPage(),
+                builder: (context) => PenaltyPage(penaltyPoints: points),
               ),
             );
           },
