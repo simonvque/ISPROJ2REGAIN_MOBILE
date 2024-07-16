@@ -396,4 +396,18 @@ class AppDataSource extends DataSource {
       rethrow;
     }
   }
+
+  @override
+  Future<ResponseModel> updateOffers(
+      int id, ViewOffersModel updatedOffer) async {
+    final url = '$baseUrl${'offers/$id'}';
+    try {
+      final response = await http.put(Uri.parse(url),
+          headers: header, body: jsonEncode(updatedOffer));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
 }

@@ -30,9 +30,10 @@ class OffersDataProvider extends ChangeNotifier {
     return _dataSource.deleteOffers(id);
   }
 
-  // Future<ResponseModel> updateOffers(int id, OffersModel updatedOffer) async {
-  //   return _dataSource.updateOffers(id);
-  // }
+  Future<ResponseModel> updateOffers(
+      int id, ViewOffersModel updatedOffer) async {
+    return _dataSource.updateOffers(id, updatedOffer);
+  }
 
   Future<ResponseModel> addOffers(ViewOffersModel viewOffersModel) async {
     return _dataSource.addOffers(viewOffersModel);

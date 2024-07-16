@@ -56,7 +56,7 @@ abstract class DataSource {
 
   Future<ResponseModel> deleteOffers(int id);
 
-  // Future<ResponseModel> updateOffers(int id);
+  Future<ResponseModel> updateOffers(int id, ViewOffersModel updatedOffer);
 
   Future<ResponseModel> addOffers(ViewOffersModel offers);
 }
