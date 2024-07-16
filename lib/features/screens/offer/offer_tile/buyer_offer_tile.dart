@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/datasource/app_data_source.dart';
+import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
@@ -49,8 +50,10 @@ class _BuyerOfferTileState extends State<BuyerOfferTile> {
     try {
       await AppDataSource().deleteOffers(widget.offer.offerID!);
       widget.onDelete(widget.offer.offerID!);
+      ReGainHelperFunctions.showSnackBar(context, 'Offer has been revoked');
     } catch (error) {
       print('Failed to delete offer: $error');
+      ReGainHelperFunctions.showSnackBar(context, 'Failed to revoke offer');
     }
   }
 
@@ -85,9 +88,7 @@ class _BuyerOfferTileState extends State<BuyerOfferTile> {
       });
     } catch (error) {
       print('Failed to update offer: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to update offer')),
-      );
+      ReGainHelperFunctions.showSnackBar(context, 'Failed to update offer');
     }
   }
 
@@ -171,11 +172,8 @@ class _BuyerOfferTileState extends State<BuyerOfferTile> {
                           ),
                           TextButton(
                             onPressed: () {
-                              // delete function here <<<<<<<<<<<<<
-                              //deleteProduct();
+                              Navigator.pop(context);
                               _cancelOffer();
-
-                              // Navigator.pop(context);
                             },
                             child: Text(
                               ReGainTexts.btnDelete,
@@ -251,7 +249,10 @@ class _BuyerOfferTileState extends State<BuyerOfferTile> {
               child: RegainButtons(
                 text: 'Proceed to Checkout',
                 onPressed: () {
-                  // Add logic to proceed to checkout
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Checkout()),
+                  );
                 },
                 type: ButtonType.filled,
                 size: ButtonSize.medium,

@@ -137,6 +137,7 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
 
       Future.delayed(Duration.zero, () {
         ReGainHelperFunctions.showSnackBar(context, "Offer has been placed");
+
       });
     } catch (error) {
       print('Failed to add offer: $error');
