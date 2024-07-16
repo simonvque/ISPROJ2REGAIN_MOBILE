@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:regain_mobile/datasource/app_data_source.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
 import 'package:regain_mobile/model/offers_model.dart';
+import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
 
 class OffersDataProvider extends ChangeNotifier {
@@ -23,5 +24,17 @@ class OffersDataProvider extends ChangeNotifier {
   Future<void> getOffersByProductID(int prodID) async {
     _allViewOffers = await _dataSource.getOffersByProductID(prodID);
     notifyListeners();
+  }
+
+  Future<ResponseModel> deleteOffers(int id) async {
+    return _dataSource.deleteOffers(id);
+  }
+
+  // Future<ResponseModel> updateOffers(int id, OffersModel updatedOffer) async {
+  //   return _dataSource.updateOffers(id);
+  // }
+
+  Future<ResponseModel> addOffers(ViewOffersModel viewOffersModel) async {
+    return _dataSource.addOffers(viewOffersModel);
   }
 }
