@@ -74,23 +74,80 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
+import 'package:regain_mobile/model/viewoffers_model.dart';
+import 'package:regain_mobile/nav.dart';
+import 'package:regain_mobile/provider/offers_data_provider.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 import 'package:regain_mobile/themes/elements/input%20fields/regain_textbox.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/sizes.dart';
 
-class OfferPricePopup extends StatelessWidget {
+class OfferPricePopup extends StatefulWidget {
   final String sellerUsername;
+
   final String defaultOfferPrice;
+
+  final int productID;
+  final String buyerName;
+  final String sellerName;
+
 
   const OfferPricePopup({
     super.key,
     required this.sellerUsername,
     required this.defaultOfferPrice,
+    required this.productID,
+    required this.buyerName,
+    required this.sellerName,
   });
+
+  @override
+  State<OfferPricePopup> createState() => _OfferPricePopupState();
+}
+
+class _OfferPricePopupState extends State<OfferPricePopup> {
+  final TextEditingController _offerController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _offerController.text = widget.defaultOfferPrice.toString();
+  }
+
+  Future<void> _addOffer() async {
+    try {
+      final newOffer = ViewOffersModel(
+        productID: widget.productID,
+        buyerName: widget.buyerName,
+        offerValue: _offerController.text,
+        isAccepted: false,
+        sellerName: widget.sellerName,
+      );
+
+      await Provider.of<OffersDataProvider>(context, listen: false)
+          .addOffers(newOffer);
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                NavigationMenu()), // Replace with your home page
+        (route) => false,
+      );
+
+      Future.delayed(Duration.zero, () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Offer has been placed')),
+        );
+      });
+    } catch (error) {
+      print('Failed to add offer: $error');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +182,7 @@ class OfferPricePopup extends StatelessWidget {
               const SizedBox(width: ReGainSizes.spaceBtwItems / 2),
               Expanded(
                 child: Text(
-                  '@$sellerUsername is selling this for PHP $defaultOfferPrice',
+                  '@${widget.sellerName} is selling this for PHP ${widget.defaultOfferPrice}',
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
@@ -140,7 +197,7 @@ class OfferPricePopup extends StatelessWidget {
           ),
           const SizedBox(height: ReGainSizes.spaceBtwItems / 2),
           RegainTextbox(
-            hintText: 'PHP $defaultOfferPrice',
+            hintText: 'PHP ${widget.defaultOfferPrice}',
             isUnderlineBorder: true,
             keyboardType: TextInputType.phone,
             fillColor: Colors.transparent,
@@ -149,13 +206,8 @@ class OfferPricePopup extends StatelessWidget {
           const SizedBox(height: ReGainSizes.defaultSpace),
           RegainButtons(
             text: 'Place Offer',
-            onPressed: () {
-              // Add your confirmation logic here
-              // Navigator.push(
-              //     context, MaterialPageRoute(builder: (context) => Checkout()));
-              // Navigator.push(
-              //     context, MaterialPageRoute(builder: (context) => Checkout()));
-            },
+
+            onPressed: _addOffer,
             type: ButtonType.filled,
             size: ButtonSize.large,
             txtSize: BtnTxtSize.large,
