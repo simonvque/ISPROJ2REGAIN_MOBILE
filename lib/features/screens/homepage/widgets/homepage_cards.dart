@@ -125,11 +125,13 @@ class _CardItemState extends State<CardItem> {
     return Card(
       child: InkWell(
         onTap: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //       builder: (context) => SelectedItemScreen(item: widget.item,)),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => SelectedItemScreen(
+                      item: widget.item,
+                    )),
+          );
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,7 +202,7 @@ class _CardItemState extends State<CardItem> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                widget.item.price.toString(),
+                'PHP ${widget.item.price}',
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -249,7 +251,7 @@ class _CardItemState extends State<CardItem> {
                     ],
                   ),
                   Text(
-                    widget.item.weight.toString(),
+                    '${widget.item.weight} kg',
                     style: const TextStyle(
                       fontSize: 12.0,
                       color: Colors.black,
@@ -310,7 +312,7 @@ class _CardItemState extends State<CardItem> {
           });
         }
       });
-    } else if (widget.item.isFavorite == true) {
+    } else {
       final userDeleting =
           Provider.of<AppDataProvider>(context, listen: false).userId;
       final toDelete = widget.item.productID;

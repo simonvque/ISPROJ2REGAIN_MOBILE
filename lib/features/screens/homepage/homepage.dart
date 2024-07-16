@@ -217,10 +217,10 @@ class _HomeScreenState extends State<HomepageScreen> {
                       return CardItems(
 
                           // *UNCOMMENT* WHEN CONNECTING TO DB
-                          items: provider.allProducts
+                          // items: provider.allProducts
 
                           // *COMMENT OUT* WHEN CONNECTING TO DB
-                          //items: listAllProducts
+                          items: listAllProducts
 
                           // items: [
                           //   {
