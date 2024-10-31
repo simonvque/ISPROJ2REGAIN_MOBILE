@@ -157,7 +157,7 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
             alignment: Alignment.center,
             child: Container(
               margin: const EdgeInsets.only(top: 6.0, bottom: 8.0),
-              width: 30.0,
+              width: 40.0,
               height: 6.5,
               decoration: BoxDecoration(
                 color: gray,
