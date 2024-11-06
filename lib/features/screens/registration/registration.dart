@@ -34,7 +34,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final matchingPasswordController = TextEditingController();
-  final contactNumberController = TextEditingController();
+  final emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -122,12 +122,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                       // Contact Number
                       RegainTextbox(
-                        controller: contactNumberController,
+                        controller: emailController,
                         validator: (value) {
                           if (value == null ||
                               value.isEmpty ||
                               value.length != 11) {
-                            return "Please enter a valid contact number";
+                            return "Please enter a valid email";
                           }
                           return null;
                         },
@@ -254,7 +254,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       final user = UserModel(
         role: userRole,
         username: usernameController.text,
-        contactNumber: contactNumberController.text,
+        email: emailController.text,
         password: passwordController.text,
       );
       Provider.of<AppDataProvider>(context, listen: false)
@@ -278,7 +278,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     usernameController.clear();
     passwordController.clear();
     matchingPasswordController.clear();
-    contactNumberController.clear();
+    emailController.clear();
   }
 
   @override
@@ -286,7 +286,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     usernameController.dispose();
     passwordController.dispose();
     matchingPasswordController.dispose();
-    contactNumberController.dispose();
+    emailController.dispose();
     super.dispose();
   }
 }

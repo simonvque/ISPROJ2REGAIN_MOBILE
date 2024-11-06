@@ -35,11 +35,12 @@ class CommissionPageState extends State<CommissionPage> {
   @override
   Widget build(BuildContext context) {
     final status = getStatus(commissionAmount);
-    String? commissionBalance =
-        Provider.of<AppDataProvider>(context, listen: false)
-            .user
-            ?.commissionBalance;
-    commissionBalance ??= commissionAmount.toString();
+    // String? commissionBalance =
+    //     Provider.of<AppDataProvider>(context, listen: false)
+    //         .user
+    //         ?.commissionBalance;
+    // commissionBalance ??= commissionAmount.toString();
+    String commissionBalance = "0.00";
 
     return Scaffold(
       appBar: buildAppBar(context, 'Commission balance'),

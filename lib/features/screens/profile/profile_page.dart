@@ -36,10 +36,10 @@ class ProfilePage extends StatelessWidget {
                 '@${user!.username}',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              Text(
-                user.contactNumber!,
-                style: Theme.of(context).textTheme.labelMedium,
-              ),
+              // Text(
+              //   user.contactNumber!,
+              //   style: Theme.of(context).textTheme.labelMedium,
+              // ),
               const SizedBox(
                 height: ReGainSizes.spaceBtwItems,
               ),

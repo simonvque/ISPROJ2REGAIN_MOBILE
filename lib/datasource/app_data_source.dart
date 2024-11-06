@@ -26,7 +26,10 @@ class AppDataSource extends DataSource {
   AppDataSource._privateConstructor();
 
   // baseUrl = emulator IP + Spring Boot backend port + route
-  final String baseUrl = 'http://10.0.2.2:9191/api/';
+  // final String baseUrl = 'http://10.0.2.2:9191/api/';
+
+  // if using physical device: baseURL = IP + Spring Boot backend port + route
+  final String baseUrl = 'http://localhost:9191/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};

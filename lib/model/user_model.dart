@@ -11,12 +11,10 @@ class UserModel with _$UserModel {
     @Default('') String? firstName,
     @Default('') String? lastName,
     required String username,
-    @Default('') String? contactNumber,
     required String password,
     @Default('') String? email,
-    @Default('Active') String accountStatus,
+    @Default('Pending') String accountStatus,
     @Default(0) int? penaltyPoints,
-    @Default('0.00') String? commissionBalance,
     @Default('') String? junkshopName,
 
     //@Uint8ListConverter() Uint8List? image, ---> causes dart build_runner to error due to null check. May be due to the type coverter

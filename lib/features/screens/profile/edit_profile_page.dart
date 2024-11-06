@@ -21,7 +21,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late UserModel model;
 
   final usernameController = TextEditingController();
-  final contactNoController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
@@ -42,7 +41,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void _getData() {
     model = Provider.of<AppDataProvider>(context, listen: false).user!;
     usernameController.text = model.username;
-    contactNoController.text = model.contactNumber ?? "";
     firstNameController.text = model.firstName ?? "";
     lastNameController.text = model.lastName ?? "";
     emailController.text = model.email ?? "";
@@ -103,18 +101,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         borderSide: BorderSide(color: green)),
                     floatingLabelStyle: const TextStyle(color: green)),
               ),
-              TextFormField(
-                controller: contactNoController,
-                readOnly: true,
-                decoration: InputDecoration(
-                    errorText: _errorMessage,
-                    labelText: "Contact Number",
-                    hintText: "Your unique contact number",
-                    hintStyle: const TextStyle(fontSize: 12),
-                    focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: green)),
-                    floatingLabelStyle: const TextStyle(color: green)),
-              ),
+              // TextFormField(
+              //   controller: contactNoController,
+              //   readOnly: true,
+              //   decoration: InputDecoration(
+              //       errorText: _errorMessage,
+              //       labelText: "Contact Number",
+              //       hintText: "Your unique contact number",
+              //       hintStyle: const TextStyle(fontSize: 12),
+              //       focusedBorder: const UnderlineInputBorder(
+              //           borderSide: BorderSide(color: green)),
+              //       floatingLabelStyle: const TextStyle(color: green)),
+              // ),
               TextFormField(
                 controller: firstNameController,
                 decoration: const InputDecoration(
@@ -227,7 +225,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       final user = UserModel(
           id: model.id,
           username: model.username,
-          contactNumber: model.contactNumber,
           firstName: firstNameController.text,
           lastName: lastNameController.text,
           email: emailController.text,
@@ -251,7 +248,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   void dispose() {
     usernameController.dispose();
-    contactNoController.dispose();
     firstNameController.dispose();
     lastNameController.dispose();
     emailController.dispose();
