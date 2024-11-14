@@ -26,11 +26,15 @@ class ReGainTexts {
   static const String forgotPassword = "Forgot Password?";
   static const String logIn = "Log in";
   static const String signUp = "Sign Up";
+  static const String next = "Next";
 
   //Registration Texts
   static const String signUpTitle = "Welcome to ReGain";
   static const String signUpSubtitle =
       "Your first step towards a more sustainable future together.";
+  static const String completeRegSub =
+    "Please wait while we review your information. You will receive a notification via email once your account is approved.";
+
 
   //Forgot Password
   static const String forgotPasswordTitle = "Forgot Password";

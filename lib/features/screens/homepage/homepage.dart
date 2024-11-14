@@ -35,12 +35,12 @@ class _HomeScreenState extends State<HomepageScreen> {
 
   _getData() async {
     // *UNCOMMENT* WHEN CONNECTING TO DB
-    final user = Provider.of<AppDataProvider>(context, listen: false).userId;
-    final allProducts =
-        await Provider.of<ProductDataProvider>(context, listen: false)
-            .getAllProductsByUserFave(user);
+    // final user = Provider.of<AppDataProvider>(context, listen: false).userId;
+    // final allProducts =
+    //     await Provider.of<ProductDataProvider>(context, listen: false)
+    //         .getAllProductsByUserFave(user);
 
-    listAllProducts = allProducts;
+    // listAllProducts = allProducts;
 
     // *COMMENT OUT* WHEN CONNECTING TO DB
     // listAllProducts = [

@@ -16,7 +16,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       contactNumber: json['contactNumber'] as String? ?? '',
       password: json['password'] as String,
       email: json['email'] as String? ?? '',
-      accountStatus: json['accountStatus'] as String? ?? '',
+      accountStatus: json['accountStatus'] as String? ?? 'Active',
       penaltyPoints: (json['penaltyPoints'] as num?)?.toInt() ?? 0,
       commissionBalance: json['commissionBalance'] as String? ?? '0.00',
       junkshopName: json['junkshopName'] as String? ?? '',
