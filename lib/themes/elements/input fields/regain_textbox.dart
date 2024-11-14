@@ -58,6 +58,7 @@ class _RegainTextboxState extends State<RegainTextbox> {
       style: TextStyle(color: widget.fontColor),
       decoration: InputDecoration(
         errorText: widget.errorText,
+        errorMaxLines: 2,
         labelText: widget.labelText,
         labelStyle: TextStyle(color: widget.hintAndLabelTextColor),
         hintText: widget.hintText,

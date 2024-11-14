@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/datasource/app_data_source.dart';
 import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/address_model.dart';
@@ -30,6 +32,8 @@ class _AddProductState extends State<AddProduct> {
   int? _selectedLocation;
 
   final _addProductKey = GlobalKey<FormState>();
+  String? errorTxt;
+  // final currencyFormat = NumberFormat("###,##0.00", "en_PH");
 
   final productNameController = TextEditingController();
   final priceController = TextEditingController();
@@ -73,7 +77,7 @@ class _AddProductState extends State<AddProduct> {
             const Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(5.0),
                 child: Text(
                   'Choose Image',
                   style: TextStyle(
@@ -86,7 +90,7 @@ class _AddProductState extends State<AddProduct> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(5.0),
               child: Align(
                 alignment: Alignment.center,
                 child: Container(
@@ -113,43 +117,83 @@ class _AddProductState extends State<AddProduct> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(5.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
                 controller: productNameController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
+                  errorText: errorTxt,
+                  errorMaxLines: 1,
+                  errorStyle: const TextStyle(
+                    fontSize: 10.00,
+                  ),
                   hintText: 'Name of the Product',
-                  hintStyle: TextStyle(fontSize: 15.0),
-                  border: OutlineInputBorder(),
+                  hintStyle: const TextStyle(fontSize: 15.0),
+                  border: const OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter a valid product name";
+                  }
+                  return null;
+                },
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(5.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
                 controller: priceController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
+                  prefixText: "₱",
+                  errorText: errorTxt,
+                  errorMaxLines: 1,
+                  errorStyle: const TextStyle(
+                    fontSize: 10.00,
+                  ),
                   hintText: 'Price',
-                  hintStyle: TextStyle(fontSize: 15.0),
-                  border: OutlineInputBorder(),
+                  hintStyle: const TextStyle(fontSize: 15.0),
+                  border: const OutlineInputBorder(),
                 ),
+                keyboardType: TextInputType.number,
+                inputFormatters: [],
+                validator: (value) {
+                  if (value == null ||
+                      value.isEmpty ||
+                      validateDecimalInput(value) == false) {
+                    return "Please enter a valid price";
+                  } else if (double.parse(value) > 100000.00) {
+                    return "Please list a smaller price";
+                  }
+                  return null;
+                },
               ),
             ),
             Row(
               children: <Widget>[
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Container(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                    height: MediaQuery.of(context).size.height * 0.09,
+                    padding: const EdgeInsets.all(5.0),
+                    height: MediaQuery.of(context).size.height * 0.12,
                     child: Consumer<CategoryDataProvider>(
                       builder: (context, provider, child) =>
                           DropdownButtonFormField<Category>(
-                        hint: const Text('Category',
-                            style: TextStyle(fontSize: 15.0)),
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
+                        hint: (errorTxt == null || errorTxt!.isEmpty)
+                            ? const Text('Category',
+                                style: TextStyle(fontSize: 15.0))
+                            : null,
+                        decoration: InputDecoration(
+                          // hintText:
+                          //     (_selectedCategory == null || errorTxt != null)
+                          //         ? "Category"
+                          //         : null,
+                          errorText: errorTxt,
+                          errorStyle: const TextStyle(
+                            fontSize: 8.0,
+                          ),
+                          errorMaxLines: 2,
+                          border: const OutlineInputBorder(),
                         ),
                         onChanged: (value) {
                           setState(() {
@@ -169,22 +213,42 @@ class _AddProductState extends State<AddProduct> {
                                   ),
                                 ))
                             .toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return "Please select a valid location";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                   ),
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Container(
-                    padding: const EdgeInsets.all(10.0),
-                    height: MediaQuery.of(context).size.height * 0.09,
+                    padding: const EdgeInsets.all(5.0),
+                    height: MediaQuery.of(context).size.height * 0.12,
                     child: TextFormField(
                       controller: weightController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
+                        suffixText: "kg",
+                        errorText: errorTxt,
+                        errorStyle: const TextStyle(fontSize: 8.0),
                         hintText: 'Weight',
-                        hintStyle: TextStyle(fontSize: 15.0),
-                        border: OutlineInputBorder(),
+                        hintStyle: const TextStyle(fontSize: 15.0),
+                        border: const OutlineInputBorder(),
                       ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            validateDecimalInput(value) == false) {
+                          return "Please enter a valid weight";
+                        } else if (double.parse(value) > 25.00) {
+                          return "Please list a smaller weight";
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ),
@@ -218,11 +282,14 @@ class _AddProductState extends State<AddProduct> {
             Consumer<AddressDataProvider>(
               builder: (context, value, child) => Container(
                 padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                height: MediaQuery.of(context).size.height * 0.09,
+                height: MediaQuery.of(context).size.height * 0.12,
                 child: DropdownButtonFormField(
                   hint:
                       const Text('Location', style: TextStyle(fontSize: 15.0)),
                   decoration: const InputDecoration(
+                    errorStyle: TextStyle(
+                      fontSize: 8.0,
+                    ),
                     border: OutlineInputBorder(),
                   ),
                   items: value.userAddress.map((e) {
@@ -243,6 +310,12 @@ class _AddProductState extends State<AddProduct> {
                     });
                   },
                   value: _selectedLocation,
+                  validator: (value) {
+                    if (value == null || value <= 0) {
+                      return "Please select a valid location";
+                    }
+                    return null;
+                  },
                 ),
               ),
             ),
@@ -322,6 +395,12 @@ class _AddProductState extends State<AddProduct> {
         }
       });
     }
+  }
+
+  bool validateDecimalInput(String input) {
+    String pattern = r'^(?=\D*(?:\d\D*){1,12}$)\d+(?:\.\d{1,2})?$';
+    RegExp regex = RegExp(pattern);
+    return regex.hasMatch(input);
   }
 
   void resetFields() {

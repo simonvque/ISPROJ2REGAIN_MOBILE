@@ -48,7 +48,8 @@ class _NavigationMenuState extends State<NavigationMenu> {
         backgroundColor: green,
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, RouteManager.routeAdd);
+          // changed to pushreplacementnamed so user can't press "back" button with nav bar
+          Navigator.pushReplacementNamed(context, RouteManager.routeAdd);
         },
       ),
       resizeToAvoidBottomInset:

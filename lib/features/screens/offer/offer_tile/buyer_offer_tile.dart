@@ -118,6 +118,7 @@ class _BuyerOfferTileState extends State<BuyerOfferTile> {
           ),
           const SizedBox(height: 12),
           Text(
+            // change to listing name
             widget.offer.buyerName,
             style: Theme.of(context).textTheme.titleLarge,
           ),

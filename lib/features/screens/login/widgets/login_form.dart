@@ -141,9 +141,10 @@ class _LoginFormState extends State<LoginForm> {
           .then((response) {
         if (response.statusCode == 200) {
           resetFields();
-          Navigator.pushNamed(context, RouteManager.routeNavMenu);
+          // changed to pushreplacementnamed so user can't tap back button to login screen
+          Navigator.pushReplacementNamed(context, RouteManager.routeNavMenu);
           ReGainHelperFunctions.showSnackBar(context, response.message);
-        } else if (response.statusCode == 400) {
+        } else if (response.statusCode != 200) {
           setState(() {
             _errorMsg = response.message;
           });

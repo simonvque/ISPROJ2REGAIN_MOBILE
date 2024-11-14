@@ -53,6 +53,7 @@ class _FavoritesScreen extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: null,
         backgroundColor: green,
         iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: false,

@@ -41,8 +41,9 @@ class _ListingPageState extends State<ListingPage> {
     final prodList =
         await Provider.of<ProductDataProvider>(context, listen: false)
             .getProductsByUser(userID);
-    Provider.of<CategoryDataProvider>(context, listen: false).getCategories();
-
+    if (mounted) {
+      Provider.of<CategoryDataProvider>(context, listen: false).getCategories();
+    }
     sampleProducts = prodList;
 
     // *COMMENT OUT* WHEN CONNECTING TO DB

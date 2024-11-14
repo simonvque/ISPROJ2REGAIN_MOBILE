@@ -26,7 +26,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.labelMedium),
             const SizedBox(height: ReGainSizes.spaceBtwItems),
             RegainTextbox(
-                labelText: ReGainTexts.contactNumber,
+                labelText: ReGainTexts.email,
                 prefixIcon: const Icon(Iconsax.call),
                 keyboardType: TextInputType.phone),
             Padding(

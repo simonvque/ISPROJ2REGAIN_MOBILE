@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
+import 'package:regain_mobile/constants/device_utility.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
@@ -126,17 +127,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         validator: (value) {
                           if (value == null ||
                               value.isEmpty ||
-                              value.length != 11) {
+                              validateEmail(value) == false) {
                             return "Please enter a valid email";
                           }
                           return null;
                         },
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
                         errorText: errorText,
-                        labelText: ReGainTexts.contactNumber,
-                        keyboardType: TextInputType.phone,
+                        labelText: ReGainTexts.email,
+                        keyboardType: TextInputType.text,
                         isUnderlineBorder: true,
                       ),
                       const SizedBox(height: ReGainSizes.spaceBtwInputFields),
@@ -271,6 +269,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         }
       });
     }
+  }
+
+  bool validateEmail(String email) {
+    String pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
+    RegExp regex = RegExp(pattern);
+    return regex.hasMatch(email);
   }
 
   void resetFields() {

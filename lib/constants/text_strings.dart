@@ -22,7 +22,7 @@ class ReGainTexts {
   static const String currentPW = "Current password";
   static const String newPW = "New password";
   static const String confirmPassword = "Confirm password";
-  static const String contactNumber = "Contact number";
+  static const String email = "Email";
   static const String forgotPassword = "Forgot Password?";
   static const String logIn = "Log in";
   static const String signUp = "Sign Up";

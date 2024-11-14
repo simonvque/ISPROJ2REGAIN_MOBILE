@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:regain_mobile/constants/ENUMS.dart';
+import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
+import 'package:regain_mobile/provider/favorites_data_provider.dart';
+import 'package:regain_mobile/routes/route_manager.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../offer/offerpopup.dart';
@@ -26,20 +30,44 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
   // final String weight = '1 kg';
   // final String location = 'Pasig City';
   // final bool isSellerDropOff = false;
-  bool isFavorite = false;
+  bool? isFavorite;
   bool isDescriptionExpanded = false;
 
-  void toggleFavorite() {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
+  @override
+  void initState() {
+    // TODO: implement initState
+    isFavorite = widget.item.isFavorite;
+    super.initState();
   }
+
+  // updates selected item if user favorites card from homepage
+  @override
+  void didUpdateWidget(oldwidget) {
+    super.didUpdateWidget(oldwidget);
+    // TODO: implement initState
+    if (widget.item.isFavorite != oldwidget.item.isFavorite) {
+      isFavorite = widget.item.isFavorite;
+    }
+  }
+
+  // void toggleFavorite() {
+  //   setState(() {
+  //     isFavorite = !isFavorite!;
+  //   });
+  // }
 
   void toggleDescription() {
     setState(() {
       isDescriptionExpanded = !isDescriptionExpanded;
     });
   }
+
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   Navigator.pushReplacementNamed(context, RouteManager.routeHomepage);
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -231,10 +259,10 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
           children: [
             IconButton(
               icon: Icon(
-                isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: isFavorite ? Colors.red : null,
+                isFavorite! ? Icons.favorite : Icons.favorite_border,
+                color: isFavorite! ? Colors.red : null,
               ),
-              onPressed: toggleFavorite,
+              onPressed: addFavorite,
             ),
             Expanded(
               child: ElevatedButton(
@@ -273,5 +301,37 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
         ),
       ),
     );
+  }
+
+  addFavorite() async {
+    if (widget.item.isFavorite == false) {
+      final fave = FavoriteModel(
+          userID: Provider.of<AppDataProvider>(context, listen: false).userId,
+          productID: widget.item.productID);
+      await Provider.of<FavoritesDataProvider>(context, listen: false)
+          .addFavorite(fave)
+          .then((response) {
+        if (response.responseStatus == ResponseStatus.SAVED) {
+          setState(() {
+            widget.item.isFavorite = true;
+            isFavorite = widget.item.isFavorite;
+          });
+        }
+      });
+    } else {
+      final userDeleting =
+          Provider.of<AppDataProvider>(context, listen: false).userId;
+      final toDelete = widget.item.productID;
+      await Provider.of<FavoritesDataProvider>(context, listen: false)
+          .deleteFavorite(userDeleting, toDelete)
+          .then((response) {
+        if (response.responseStatus == ResponseStatus.SAVED) {
+          setState(() {
+            widget.item.isFavorite = false;
+            isFavorite = widget.item.isFavorite;
+          });
+        }
+      });
+    }
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/features/screens/homepage/selected_item.dart';
 import 'package:regain_mobile/features/screens/listings/add.dart';
-import 'package:regain_mobile/features/screens/listings/add_equipment.dart';
 import 'package:regain_mobile/features/screens/listings/add_product.dart';
 import 'package:regain_mobile/features/screens/listings/user_products_screen.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
@@ -56,8 +55,6 @@ class RouteManager {
       case routeUserProducts:
         return MaterialPageRoute(
             builder: (context) => const UserProductsScreen());
-      case routeAddEquipment:
-        return MaterialPageRoute(builder: (context) => const AddEquipment());
       case routeOrderTracking:
         return MaterialPageRoute(builder: (context) => OrderTrackingPage());
       default:

@@ -89,10 +89,26 @@ class _CardItemState extends State<CardItem> {
   // bool _isRunning = false;
 
   List<ViewProduct> productItems = [];
+
   @override
   void initState() {
-    // _getData();
+    // TODO: implement initState
+    isFavorite = widget.item.isFavorite;
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.item.isFavorite != oldWidget.item.isFavorite) {
+      isFavorite = widget.item.isFavorite;
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
     isFavorite = widget.item.isFavorite;
   }
 
@@ -179,6 +195,16 @@ class _CardItemState extends State<CardItem> {
                 ],
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text(
+            //     widget.item.category,
+            //     style: const TextStyle(
+            //       fontSize: 8.0,
+            //       color: Colors.black,
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Row(
@@ -282,13 +308,6 @@ class _CardItemState extends State<CardItem> {
                       ),
                     ],
                   ),
-                  Text(
-                    widget.item.category,
-                    style: const TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.black,
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -308,6 +327,7 @@ class _CardItemState extends State<CardItem> {
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
           setState(() {
+            widget.item.isFavorite = true;
             isFavorite = !isFavorite;
           });
         }
@@ -321,6 +341,7 @@ class _CardItemState extends State<CardItem> {
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
           setState(() {
+            widget.item.isFavorite = false;
             isFavorite = !isFavorite;
           });
         }
