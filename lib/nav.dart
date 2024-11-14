@@ -49,7 +49,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
         child: const Icon(Icons.add),
         onPressed: () {
           // changed to pushreplacementnamed so user can't press "back" button with nav bar
-          Navigator.pushReplacementNamed(context, RouteManager.routeAdd);
+          Navigator.pushReplacementNamed(context, RouteManager.routeAddProduct);
         },
       ),
       resizeToAvoidBottomInset:

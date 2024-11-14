@@ -273,12 +273,12 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                     builder: (BuildContext context) {
                       final username =
                           Provider.of<AppDataProvider>(context, listen: false)
-                              .user
-                              ?.username;
+                              .user!
+                              .username;
                       return OfferPricePopup(
                         sellerUsername: widget.item.sellerUsername,
                         defaultOfferPrice: widget.item.price,
-                        productID: widget.item.productID,
+                        prod: widget.item,
                         buyerName: username!,
                       ); // Display OfferPricePopup as a dialog
                     },
@@ -314,7 +314,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
         if (response.responseStatus == ResponseStatus.SAVED) {
           setState(() {
             widget.item.isFavorite = true;
-            isFavorite = widget.item.isFavorite;
+            isFavorite = !isFavorite!;
           });
         }
       });
@@ -328,7 +328,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
         if (response.responseStatus == ResponseStatus.SAVED) {
           setState(() {
             widget.item.isFavorite = false;
-            isFavorite = widget.item.isFavorite;
+            isFavorite = !isFavorite!;
           });
         }
       });

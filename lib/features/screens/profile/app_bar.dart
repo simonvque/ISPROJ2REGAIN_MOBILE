@@ -5,10 +5,12 @@ import 'package:regain_mobile/features/screens/report_features/user_report_page.
 
 AppBar buildAppBar(BuildContext context, String title,
     {VoidCallback? onBackPressed,
+    bool automaticallyImplyLeading = true,
     bool showReportButton = false,
     TabBar? tabBar,
     List<Widget>? actions}) {
   return AppBar(
+    automaticallyImplyLeading: automaticallyImplyLeading,
     backgroundColor: green,
     iconTheme: const IconThemeData(color: Colors.white),
     centerTitle: false,

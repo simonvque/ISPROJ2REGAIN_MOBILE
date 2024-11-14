@@ -22,7 +22,9 @@ class _CheckoutState extends State<Checkout> {
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(CupertinoIcons.arrow_left, color: Colors.white),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           title: const Text(
             'Checkout',
@@ -42,10 +44,8 @@ class _CheckoutState extends State<Checkout> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
-                      'Order Details',
-                      style: Theme.of(context).textTheme.headlineMedium
-                    ),
+                    Text('Order Details',
+                        style: Theme.of(context).textTheme.headlineMedium),
                     const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.all(16.0),
@@ -63,29 +63,28 @@ class _CheckoutState extends State<Checkout> {
                             height: 100,
                           ),
                           const SizedBox(width: 10),
-                           Expanded(
+                          Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Item Name: Example Item',
-                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                                 const SizedBox(height: 5),
                                 Text(
                                   'Location: Example Location',
-                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 const SizedBox(height: 5),
                                 Text(
                                   'Weight: 2kg',
-                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 const SizedBox(height: 5),
-                                Text(
-                                  'Total Price: \$50.00',
-                                    style: Theme.of(context).textTheme.bodyLarge
-                                ),
+                                Text('Total Price: \$50.00',
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge),
                               ],
                             ),
                           ),
@@ -102,11 +101,9 @@ class _CheckoutState extends State<Checkout> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Payment Details',
-                        textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.headlineSmall
-                      ),
+                      Text('Payment Details',
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context).textTheme.headlineSmall),
                       Row(
                         children: [
                           Radio(
@@ -119,10 +116,8 @@ class _CheckoutState extends State<Checkout> {
                               });
                             },
                           ),
-                           Text(
-                            'Cash on Delivery',
-                              style: Theme.of(context).textTheme.bodyMedium
-                          ),
+                          Text('Cash on Delivery',
+                              style: Theme.of(context).textTheme.bodyMedium),
                           Radio(
                             value: 'gcash',
                             groupValue: _paymentMethod,
@@ -133,10 +128,8 @@ class _CheckoutState extends State<Checkout> {
                               });
                             },
                           ),
-                           Text(
-                            'GCash',
-                              style: Theme.of(context).textTheme.bodyMedium
-                          ),
+                          Text('GCash',
+                              style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       ),
                     ],
@@ -151,17 +144,13 @@ class _CheckoutState extends State<Checkout> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Shipping Details',
-                        textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.headlineSmall
-                      ),
+                      Text('Shipping Details',
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context).textTheme.headlineSmall),
                       const SizedBox(height: 10),
-                      Text(
-                        ' Delivery method',
-                        textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.titleMedium
-                      ),
+                      Text(' Delivery method',
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context).textTheme.titleMedium),
                       Row(
                         children: [
                           Radio(
@@ -174,18 +163,14 @@ class _CheckoutState extends State<Checkout> {
                               });
                             },
                           ),
-                           Text(
-                            'Buyer Pick-Up',
-                            style: Theme.of(context).textTheme.bodyMedium
-                          ),
+                          Text('Buyer Pick-Up',
+                              style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Text(
-                        ' Preferred Delivery Date',
-                        textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.titleMedium
-                      ),
+                      Text(' Preferred Delivery Date',
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context).textTheme.titleMedium),
                       GestureDetector(
                         onTap: _showDatePicker,
                         child: Container(

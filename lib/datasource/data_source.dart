@@ -38,7 +38,7 @@ abstract class DataSource {
 
   Future<List<Product>> getProductsByUser(int id);
 
-  // Future<List<ViewProduct>> getProductsByUser(int id);
+  Future<List<ViewProduct>> getViewProductsByUser(int id);
 
   Future<List<ViewProduct>> getAllProductsByUserFave(int id);
 

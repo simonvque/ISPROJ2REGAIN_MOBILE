@@ -22,14 +22,14 @@ ViewOffersModel _$ViewOffersModelFromJson(Map<String, dynamic> json) {
 mixin _$ViewOffersModel {
   int? get offerID => throw _privateConstructorUsedError;
   set offerID(int? value) => throw _privateConstructorUsedError;
-  int? get productID => throw _privateConstructorUsedError;
-  set productID(int? value) => throw _privateConstructorUsedError;
   String get buyerName => throw _privateConstructorUsedError;
   set buyerName(String value) => throw _privateConstructorUsedError;
+  ViewProduct get product => throw _privateConstructorUsedError;
+  set product(ViewProduct value) => throw _privateConstructorUsedError;
   String get offerValue => throw _privateConstructorUsedError;
   set offerValue(String value) => throw _privateConstructorUsedError;
-  bool get isAccepted => throw _privateConstructorUsedError;
-  set isAccepted(bool value) => throw _privateConstructorUsedError;
+  bool? get isAccepted => throw _privateConstructorUsedError;
+  set isAccepted(bool? value) => throw _privateConstructorUsedError;
   String get sellerName => throw _privateConstructorUsedError;
   set sellerName(String value) => throw _privateConstructorUsedError;
 
@@ -47,11 +47,13 @@ abstract class $ViewOffersModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int? offerID,
-      int? productID,
       String buyerName,
+      ViewProduct product,
       String offerValue,
-      bool isAccepted,
+      bool? isAccepted,
       String sellerName});
+
+  $ViewProductCopyWith<$Res> get product;
 }
 
 /// @nodoc
@@ -68,10 +70,10 @@ class _$ViewOffersModelCopyWithImpl<$Res, $Val extends ViewOffersModel>
   @override
   $Res call({
     Object? offerID = freezed,
-    Object? productID = freezed,
     Object? buyerName = null,
+    Object? product = null,
     Object? offerValue = null,
-    Object? isAccepted = null,
+    Object? isAccepted = freezed,
     Object? sellerName = null,
   }) {
     return _then(_value.copyWith(
@@ -79,27 +81,35 @@ class _$ViewOffersModelCopyWithImpl<$Res, $Val extends ViewOffersModel>
           ? _value.offerID
           : offerID // ignore: cast_nullable_to_non_nullable
               as int?,
-      productID: freezed == productID
-          ? _value.productID
-          : productID // ignore: cast_nullable_to_non_nullable
-              as int?,
       buyerName: null == buyerName
           ? _value.buyerName
           : buyerName // ignore: cast_nullable_to_non_nullable
               as String,
+      product: null == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ViewProduct,
       offerValue: null == offerValue
           ? _value.offerValue
           : offerValue // ignore: cast_nullable_to_non_nullable
               as String,
-      isAccepted: null == isAccepted
+      isAccepted: freezed == isAccepted
           ? _value.isAccepted
           : isAccepted // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       sellerName: null == sellerName
           ? _value.sellerName
           : sellerName // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ViewProductCopyWith<$Res> get product {
+    return $ViewProductCopyWith<$Res>(_value.product, (value) {
+      return _then(_value.copyWith(product: value) as $Val);
+    });
   }
 }
 
@@ -113,11 +123,14 @@ abstract class _$$ViewOffersModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? offerID,
-      int? productID,
       String buyerName,
+      ViewProduct product,
       String offerValue,
-      bool isAccepted,
+      bool? isAccepted,
       String sellerName});
+
+  @override
+  $ViewProductCopyWith<$Res> get product;
 }
 
 /// @nodoc
@@ -132,10 +145,10 @@ class __$$ViewOffersModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? offerID = freezed,
-    Object? productID = freezed,
     Object? buyerName = null,
+    Object? product = null,
     Object? offerValue = null,
-    Object? isAccepted = null,
+    Object? isAccepted = freezed,
     Object? sellerName = null,
   }) {
     return _then(_$ViewOffersModelImpl(
@@ -143,22 +156,22 @@ class __$$ViewOffersModelImplCopyWithImpl<$Res>
           ? _value.offerID
           : offerID // ignore: cast_nullable_to_non_nullable
               as int?,
-      productID: freezed == productID
-          ? _value.productID
-          : productID // ignore: cast_nullable_to_non_nullable
-              as int?,
       buyerName: null == buyerName
           ? _value.buyerName
           : buyerName // ignore: cast_nullable_to_non_nullable
               as String,
+      product: null == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ViewProduct,
       offerValue: null == offerValue
           ? _value.offerValue
           : offerValue // ignore: cast_nullable_to_non_nullable
               as String,
-      isAccepted: null == isAccepted
+      isAccepted: freezed == isAccepted
           ? _value.isAccepted
           : isAccepted // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       sellerName: null == sellerName
           ? _value.sellerName
           : sellerName // ignore: cast_nullable_to_non_nullable
@@ -172,10 +185,10 @@ class __$$ViewOffersModelImplCopyWithImpl<$Res>
 class _$ViewOffersModelImpl implements _ViewOffersModel {
   _$ViewOffersModelImpl(
       {this.offerID,
-      this.productID,
       required this.buyerName,
+      required this.product,
       required this.offerValue,
-      required this.isAccepted,
+      this.isAccepted,
       required this.sellerName});
 
   factory _$ViewOffersModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -184,19 +197,19 @@ class _$ViewOffersModelImpl implements _ViewOffersModel {
   @override
   int? offerID;
   @override
-  int? productID;
-  @override
   String buyerName;
+  @override
+  ViewProduct product;
   @override
   String offerValue;
   @override
-  bool isAccepted;
+  bool? isAccepted;
   @override
   String sellerName;
 
   @override
   String toString() {
-    return 'ViewOffersModel(offerID: $offerID, productID: $productID, buyerName: $buyerName, offerValue: $offerValue, isAccepted: $isAccepted, sellerName: $sellerName)';
+    return 'ViewOffersModel(offerID: $offerID, buyerName: $buyerName, product: $product, offerValue: $offerValue, isAccepted: $isAccepted, sellerName: $sellerName)';
   }
 
   @JsonKey(ignore: true)
@@ -217,10 +230,10 @@ class _$ViewOffersModelImpl implements _ViewOffersModel {
 abstract class _ViewOffersModel implements ViewOffersModel {
   factory _ViewOffersModel(
       {int? offerID,
-      int? productID,
       required String buyerName,
+      required ViewProduct product,
       required String offerValue,
-      required bool isAccepted,
+      bool? isAccepted,
       required String sellerName}) = _$ViewOffersModelImpl;
 
   factory _ViewOffersModel.fromJson(Map<String, dynamic> json) =
@@ -230,17 +243,17 @@ abstract class _ViewOffersModel implements ViewOffersModel {
   int? get offerID;
   set offerID(int? value);
   @override
-  int? get productID;
-  set productID(int? value);
-  @override
   String get buyerName;
   set buyerName(String value);
+  @override
+  ViewProduct get product;
+  set product(ViewProduct value);
   @override
   String get offerValue;
   set offerValue(String value);
   @override
-  bool get isAccepted;
-  set isAccepted(bool value);
+  bool? get isAccepted;
+  set isAccepted(bool? value);
   @override
   String get sellerName;
   set sellerName(String value);

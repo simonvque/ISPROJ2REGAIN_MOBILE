@@ -27,21 +27,28 @@ class _OfferListPageState extends State<OfferListPage> {
   List<ViewProduct> sellerOffers = [];
   bool isLoading = true;
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchOffers();
+  // }
+
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
     fetchOffers();
+    super.didChangeDependencies();
   }
 
   void fetchOffers() async {
-    final buyerID = Provider.of<AppDataProvider>(context, listen: false).userId;
+    final userId = Provider.of<AppDataProvider>(context, listen: false).userId;
     try {
       buyerOffers =
           await Provider.of<OffersDataProvider>(context, listen: false)
-              .getOffersByBuyerID(buyerID);
+              .getOffersByBuyerID(userId);
       sellerOffers =
           await Provider.of<ProductDataProvider>(context, listen: false)
-              .getAllProductsByUserFave(buyerID);
+              .getViewProductsByUser(userId);
       setState(() {
         isLoading = false;
       });
@@ -70,6 +77,7 @@ class _OfferListPageState extends State<OfferListPage> {
       length: 2,
       child: Scaffold(
         appBar: buildAppBar(
+          automaticallyImplyLeading: false,
           context,
           'My Offers',
           tabBar: TabBar(
@@ -96,7 +104,9 @@ class _OfferListPageState extends State<OfferListPage> {
                       );
                     },
                   ),
-                  SellerOfferList(),
+                  SellerOfferList(
+                    sellerProds: sellerOffers,
+                  ),
                 ],
               ),
       ),

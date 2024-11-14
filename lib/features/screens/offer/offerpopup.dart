@@ -79,6 +79,8 @@ import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/helper_functions.dart';
+import 'package:regain_mobile/model/offers_model.dart';
+import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
 import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/provider/offers_data_provider.dart';
@@ -91,14 +93,14 @@ import '../../../constants/sizes.dart';
 class OfferPricePopup extends StatefulWidget {
   final String sellerUsername;
   final String defaultOfferPrice;
-  final int productID;
+  final ViewProduct prod;
   final String buyerName;
 
   const OfferPricePopup({
     super.key,
     required this.sellerUsername,
     required this.defaultOfferPrice,
-    required this.productID,
+    required this.prod,
     required this.buyerName,
   });
 
@@ -149,10 +151,9 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
   void _addOffer() {
     if (_placeOfferKey.currentState!.validate()) {
       final newOffer = ViewOffersModel(
-        productID: widget.productID,
+        product: widget.prod,
         buyerName: widget.buyerName,
         offerValue: _offerController.text,
-        isAccepted: false,
         sellerName: widget.sellerUsername,
       );
       Provider.of<OffersDataProvider>(context, listen: false)

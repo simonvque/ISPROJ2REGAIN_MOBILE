@@ -22,6 +22,10 @@ class ProductDataProvider extends ChangeNotifier {
 
   List<Product> get userProducts => _userProducts;
 
+  List<ViewProduct> _userViewProducts = [];
+
+  List<ViewProduct> get userViewProducts => _userViewProducts;
+
   List<ViewProduct> get allProducts => _allProducts;
 
   Future<void> getProductById(int prodID) async {
@@ -51,6 +55,12 @@ class ProductDataProvider extends ChangeNotifier {
     _allProducts = await _dataSource.getAllProductsByUserFave(userId);
     notifyListeners();
     return _allProducts;
+  }
+
+  Future<List<ViewProduct>> getViewProductsByUser(int userId) async {
+    _userViewProducts = await _dataSource.getViewProductsByUser(userId);
+    notifyListeners();
+    return _userViewProducts;
   }
 
   Future<List<Product>> getProductsByUser(int userID) async {

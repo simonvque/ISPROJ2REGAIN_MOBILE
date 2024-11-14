@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/features/screens/homepage/selected_item.dart';
-import 'package:regain_mobile/features/screens/listings/add.dart';
 import 'package:regain_mobile/features/screens/listings/add_product.dart';
 import 'package:regain_mobile/features/screens/listings/user_products_screen.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
@@ -48,8 +47,6 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const ProfilePage());
       case routeEditProfile:
         return MaterialPageRoute(builder: (context) => const EditProfilePage());
-      case routeAdd:
-        return MaterialPageRoute(builder: (context) => const Add());
       case routeAddProduct:
         return MaterialPageRoute(builder: (context) => const AddProduct());
       case routeUserProducts:

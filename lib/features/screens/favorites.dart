@@ -53,7 +53,9 @@ class _FavoritesScreen extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // remove go back icon
         leading: null,
+        automaticallyImplyLeading: false,
         backgroundColor: green,
         iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: false,
