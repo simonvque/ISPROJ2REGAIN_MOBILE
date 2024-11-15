@@ -55,3 +55,4 @@ AppBar buildAppBar(BuildContext context, String title,
     bottom: tabBar ?? null,
   );
 }
+

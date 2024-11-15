@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/features/screens/profile/app_bar.dart';
+import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/features/screens/profile/model/transactions.dart';
 
 class TransactionsPage extends StatelessWidget {

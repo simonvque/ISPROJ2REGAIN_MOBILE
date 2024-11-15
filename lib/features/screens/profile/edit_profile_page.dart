@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/sizes.dart';
-import 'package:regain_mobile/features/screens/profile/app_bar.dart';
+import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/user_model.dart';

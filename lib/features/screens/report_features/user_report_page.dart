@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/features/screens/profile/app_bar.dart';
+import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 class UserReportPage extends StatefulWidget {

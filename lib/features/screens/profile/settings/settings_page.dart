@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
-import 'package:regain_mobile/features/screens/profile/app_bar.dart';
+import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/features/screens/profile/settings/about/privacypol_page.dart';
 import 'package:regain_mobile/features/screens/profile/settings/about/refundpol_page.dart';

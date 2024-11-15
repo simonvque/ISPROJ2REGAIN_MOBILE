@@ -9,7 +9,7 @@ import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/listings/add_product.dart';
-import 'package:regain_mobile/features/screens/profile/app_bar.dart';
+import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/edit_listing_page.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/category.dart';

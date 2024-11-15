@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:regain_mobile/features/screens/profile/app_bar.dart';
+import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 class TermOfUsePage extends StatelessWidget {

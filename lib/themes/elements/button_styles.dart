@@ -16,6 +16,7 @@ class RegainButtons extends StatelessWidget {
   final IconData? leftIcon;
   final IconData? rightIcon;
   final Color? customColor;
+  final bool isUnderlined;
 
   const RegainButtons({
     super.key,
@@ -27,6 +28,7 @@ class RegainButtons extends StatelessWidget {
     this.leftIcon,
     this.rightIcon,
     this.customColor,
+    this.isUnderlined = false,
   });
 
   @override
@@ -40,6 +42,7 @@ class RegainButtons extends StatelessWidget {
     );
   }
 
+// Set button type
   Widget buildButtonWidget(BuildContext context, ButtonStyle? style) {
     return Builder(
       builder: (BuildContext innerContext){
@@ -98,25 +101,39 @@ class RegainButtons extends StatelessWidget {
   // Set button txtsize
  TextStyle getTextStyle(BuildContext context) {
   Color textColor;
-    switch (type) {
-      case ButtonType.filled:
-        textColor = white; 
-        break;
-      default:
-        textColor = black; 
-        break;
-    }
-    switch (txtSize) {
-      case BtnTxtSize.small:
-        return Theme.of(context).textTheme.bodySmall!.copyWith(color: textColor);
-      case BtnTxtSize.medium:
-        return Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);
-      case BtnTxtSize.large:
-        return Theme.of(context).textTheme.bodyLarge!.copyWith(color: textColor);
-      default:
-        return Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);
-    }
+  TextStyle textStyle;
+
+  switch (type) {
+    case ButtonType.filled:
+      textColor = white;
+      break;
+    default:
+      textColor = black;
+      break;
   }
+
+  switch (txtSize) {
+    case BtnTxtSize.small:
+      textStyle = Theme.of(context).textTheme.bodySmall!.copyWith(color: textColor);
+      break;
+    case BtnTxtSize.medium:
+      textStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);
+      break;
+    case BtnTxtSize.large:
+      textStyle = Theme.of(context).textTheme.bodyLarge!.copyWith(color: textColor);
+      break;
+    default:
+      textStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);
+  }
+
+  // Apply underline decoration if needed
+  if (isUnderlined) {
+    textStyle = textStyle.copyWith(decoration: TextDecoration.underline);
+  }
+
+  return textStyle;
+}
+  
 
   Map<String, dynamic> getButtonStyles(BuildContext context) {
     double width;
