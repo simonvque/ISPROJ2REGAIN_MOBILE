@@ -7,7 +7,7 @@ import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
 import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
-import 'package:regain_mobile/features/screens/profile/profile_menu/combal_page.dart';
+import 'package:regain_mobile/features/screens/profile/profile_menu/commissionBalance/combal_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/contactus_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/listing_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/penalty_page.dart';

@@ -16,6 +16,7 @@ class RegainButtons extends StatelessWidget {
   final IconData? leftIcon;
   final IconData? rightIcon;
   final Color? customColor;
+  final bool isUnderlined;
 
   const RegainButtons({
     super.key,
@@ -27,6 +28,7 @@ class RegainButtons extends StatelessWidget {
     this.leftIcon,
     this.rightIcon,
     this.customColor,
+    this.isUnderlined = false,
   });
 
   @override
@@ -41,42 +43,40 @@ class RegainButtons extends StatelessWidget {
   }
 
   Widget buildButtonWidget(BuildContext context, ButtonStyle? style) {
-    return Builder(
-      builder: (BuildContext innerContext){
-    switch (type) {
-      case ButtonType.outlined:
-        return OutlinedButton(
-          onPressed: onPressed,
-          style: style,
-          child: buildButtonContent(innerContext),
-        );
-      case ButtonType.filled:
-        return ElevatedButton(
-          onPressed: onPressed,
-          style: style,
-          child: buildButtonContent(innerContext),
-        );
-      case ButtonType.transparentOutlined:
-        return OutlinedButton(
-          onPressed: onPressed,
-          style: style,
-          child: buildButtonContent(innerContext),
-        );
-      case ButtonType.text:
-        return TextButton(
-          onPressed: onPressed,
-          style: style,
-          child: buildButtonContent(innerContext),
-        );
-      default:
-        return OutlinedButton(
-          onPressed: onPressed,
-          style: style,
-          child: buildButtonContent(innerContext),
-        );
+    return Builder(builder: (BuildContext innerContext) {
+      switch (type) {
+        case ButtonType.outlined:
+          return OutlinedButton(
+            onPressed: onPressed,
+            style: style,
+            child: buildButtonContent(innerContext),
+          );
+        case ButtonType.filled:
+          return ElevatedButton(
+            onPressed: onPressed,
+            style: style,
+            child: buildButtonContent(innerContext),
+          );
+        case ButtonType.transparentOutlined:
+          return OutlinedButton(
+            onPressed: onPressed,
+            style: style,
+            child: buildButtonContent(innerContext),
+          );
+        case ButtonType.text:
+          return TextButton(
+            onPressed: onPressed,
+            style: style,
+            child: buildButtonContent(innerContext),
+          );
+        default:
+          return OutlinedButton(
+            onPressed: onPressed,
+            style: style,
+            child: buildButtonContent(innerContext),
+          );
       }
-      }
-    );
+    });
   }
 
   Widget buildButtonContent(BuildContext context) {
@@ -96,26 +96,39 @@ class RegainButtons extends StatelessWidget {
   }
 
   // Set button txtsize
- TextStyle getTextStyle(BuildContext context) {
-  Color textColor;
+  TextStyle getTextStyle(BuildContext context) {
+    Color textColor;
+    TextStyle textStyle;
+
     switch (type) {
       case ButtonType.filled:
-        textColor = white; 
+        textColor = white;
         break;
       default:
-        textColor = black; 
+        textColor = black;
         break;
     }
     switch (txtSize) {
       case BtnTxtSize.small:
-        return Theme.of(context).textTheme.bodySmall!.copyWith(color: textColor);
+        textStyle =
+            Theme.of(context).textTheme.bodySmall!.copyWith(color: textColor);
       case BtnTxtSize.medium:
-        return Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);
+        textStyle =
+            Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);
       case BtnTxtSize.large:
-        return Theme.of(context).textTheme.bodyLarge!.copyWith(color: textColor);
+        textStyle =
+            Theme.of(context).textTheme.bodyLarge!.copyWith(color: textColor);
       default:
-        return Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);
+        textStyle =
+            Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);
     }
+
+    // Apply underline decoration if needed
+    if (isUnderlined) {
+      textStyle = textStyle.copyWith(decoration: TextDecoration.underline);
+    }
+
+    return textStyle;
   }
 
   Map<String, dynamic> getButtonStyles(BuildContext context) {
@@ -125,7 +138,7 @@ class RegainButtons extends StatelessWidget {
 
     // Set button size
     switch (size) {
-       case ButtonSize.xxs:
+      case ButtonSize.xxs:
         width = MediaQuery.of(context).size.width * 0.365;
         height = MediaQuery.of(context).size.height * 0.040;
         break;

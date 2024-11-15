@@ -26,6 +26,7 @@ class ReGainTexts {
   static const String forgotPassword = "Forgot Password?";
   static const String logIn = "Log in";
   static const String signUp = "Sign Up";
+  static const String next = "Next";
 
   //Registration Texts
   static const String signUpTitle = "Welcome to ReGain";
