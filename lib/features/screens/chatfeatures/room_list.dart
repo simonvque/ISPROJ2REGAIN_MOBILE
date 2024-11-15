@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'chat_service.dart';
 
@@ -12,7 +13,7 @@ class RoomListScreen extends StatelessWidget {
 
   Future<List<Room>> fetchUserRooms() async {
     final response = await http
-        .get(Uri.parse('http://10.18.12.239:9191/api/chat/user/$userId/rooms'));
+        .get(Uri.parse('http://192.168.1.10:9191/api/chat/user/$userId/rooms'));
 
     print('Response Code: ${response.statusCode}');
     print('Response Body: ${response.body}');
@@ -50,6 +51,8 @@ class RoomListScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Chat Rooms'),
         automaticallyImplyLeading: false,
+        foregroundColor: white,
+        backgroundColor: green,
       ),
       body: FutureBuilder<List<Room>>(
         future: fetchUserRooms(),
@@ -63,30 +66,57 @@ class RoomListScreen extends StatelessWidget {
           } else {
             final rooms = snapshot.data!;
             return ListView.builder(
-              itemCount: rooms.length,
-              itemBuilder: (context, index) {
-                final room = rooms[index];
-                return ListTile(
-                  title: Text(room.roomName), // Display receiver's name
-                  subtitle: Text(room.lastMessage), // Display the last message
-                  trailing: Text(room.timestampFormatted),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                          create: (_) => ChatService(),
-                          child: ChatScreen(
-                            roomId: room.roomId,
-                            userId: userId,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            );
+  itemCount: rooms.length,
+  itemBuilder: (context, index) {
+    final room = rooms[index];
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0), 
+      decoration: BoxDecoration(
+        color: Colors.white, 
+        borderRadius: BorderRadius.circular(8.0), 
+       boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 4,
+          ),
+        ],
+      ),
+      child: ListTile(
+        leading: const CircleAvatar(
+          backgroundColor: green, 
+          child: Icon(
+            Icons.person, 
+            color: white, 
+          ),
+        ),
+        title: Text(
+          room.roomName,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
+        ), 
+        subtitle: Text(room.lastMessage), 
+        trailing: Text(room.timestampFormatted),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                create: (_) => ChatService(),
+                child: ChatScreen(
+                  roomId: room.roomId,
+                  userId: userId,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  },
+);
           }
         },
       ),
