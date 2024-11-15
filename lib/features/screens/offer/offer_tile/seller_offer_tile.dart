@@ -30,25 +30,25 @@ class SellerOfferTile extends StatefulWidget {
 
 class SellerOfferTileState extends State<SellerOfferTile> {
   // final _sellerUpdateOfferKey = GlobalKey<FormState>();
-  bool _listChanged = false;
   bool? _toAccept;
-
-  @override
-  void didUpdateWidget(covariant SellerOfferTile oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-
-    if (widget.sellerOffers != oldWidget.sellerOffers) {
-      setState(() {});
-    }
-  }
+  bool _disableButtons = false;
 
   // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   sellerOffers = Provider
-  //   super.didChangeDependencies();
+  // void didUpdateWidget(covariant SellerOfferTile oldWidget) {
+  //   // TODO: implement didUpdateWidget
+  //   super.didUpdateWidget(oldWidget);
+
+  //   if (widget.sellerOffers != oldWidget.sellerOffers) {
+  //     setState(() {widget.sellerOffers = });
+  //   }
   // }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    setState(() {});
+    super.didChangeDependencies();
+  }
 
   void _updateOffer(ViewOffersModel buyerOffer, bool sellerAccept) {
     final updatedOffer = ViewOffersModel(
@@ -66,6 +66,7 @@ class SellerOfferTileState extends State<SellerOfferTile> {
         setState(() {
           _toAccept = sellerAccept;
         });
+
         ReGainHelperFunctions.showSnackBar(context, response.message);
       }
     });
@@ -99,7 +100,11 @@ class SellerOfferTileState extends State<SellerOfferTile> {
                 itemCount: widget.sellerOffers.length,
                 itemBuilder: (context, index) {
                   final buyerOffer = widget.sellerOffers[index];
+
                   _toAccept = buyerOffer.isAccepted;
+                  if (_toAccept != null && _toAccept == true) {
+                    _disableButtons == true;
+                  }
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,9 +147,9 @@ class SellerOfferTileState extends State<SellerOfferTile> {
                             ),
                           ],
                         )
-                      else if (_toAccept!)
+                      else if (_toAccept != null && _toAccept == true)
                         const Text('ACCEPTED')
-                      else if (!_toAccept!)
+                      else if (_toAccept != null && _toAccept == false)
                         const Text('DECLINED'),
 
                       //for divider spacing

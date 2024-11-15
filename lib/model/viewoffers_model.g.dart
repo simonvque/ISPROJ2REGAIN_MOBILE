@@ -14,6 +14,7 @@ _$ViewOffersModelImpl _$$ViewOffersModelImplFromJson(
       product: ViewProduct.fromJson(json['product'] as Map<String, dynamic>),
       offerValue: json['offerValue'] as String,
       isAccepted: json['isAccepted'] as bool?,
+      isOrdered: json['isOrdered'] as bool?,
       sellerName: json['sellerName'] as String,
     );
 
@@ -25,5 +26,6 @@ Map<String, dynamic> _$$ViewOffersModelImplToJson(
       'product': instance.product,
       'offerValue': instance.offerValue,
       'isAccepted': instance.isAccepted,
+      'isOrdered': instance.isOrdered,
       'sellerName': instance.sellerName,
     };

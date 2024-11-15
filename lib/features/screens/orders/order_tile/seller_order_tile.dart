@@ -2,26 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/features/screens/orders/order_log_page.dart';
 import 'package:regain_mobile/features/screens/orders/temp_orderprod.dart';
+import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 //tile widget for seller order
 class SellerOrderTile extends StatelessWidget {
-  final OrderProduct product;
+  final OrderModel order;
   final bool isForDelivery;
 
-  const SellerOrderTile({Key? key, required this.product, required this.isForDelivery}) : super(key: key);
+  const SellerOrderTile(
+      {Key? key, required this.order, required this.isForDelivery})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         // Navigate to order details page
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OrderLogPage(order: product,),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => OrderLogPage(
+        //       order: product,
+        //     ),
+        //   ),
+        // );
       },
       child: Container(
         padding: const EdgeInsets.all(22),
@@ -33,24 +38,24 @@ class SellerOrderTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '@${product.buyerUsername}',
+              '@${order.buyerUsername}',
               style: Theme.of(context).textTheme.labelLarge,
             ),
             const SizedBox(height: 8),
             Text(
-              product.productName,
+              order.product.productName,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 4),
             Text(
-              product.location,
+              order.product.location,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 10),
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'PHP ${product.price}',
+                'PHP ${order.totalAmount}',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
@@ -68,7 +73,8 @@ class SellerOrderTile extends StatelessWidget {
                   txtSize: BtnTxtSize.large,
                 ),
               ),
-            ] else ...[ ],
+            ] else
+              ...[],
           ],
         ),
       ),

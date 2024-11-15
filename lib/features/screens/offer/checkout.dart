@@ -6,6 +6,7 @@ import 'package:regain_mobile/features/screens/qr_payment/payment_details_page.d
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/payment_model.dart';
+import 'package:regain_mobile/model/user_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
 import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
@@ -31,6 +32,7 @@ class _CheckoutState extends State<Checkout> {
   late bool _enableSellerDropOff;
 
   String? _paymentMethod = 'Cash on Delivery';
+
   String? _deliveryMethod = 'Buyer Pick-up';
   DateTime _dateTimeNow = DateTime.now();
   late DateTime _selectedDateTime;
@@ -38,6 +40,7 @@ class _CheckoutState extends State<Checkout> {
   late DateTime maxTime;
 
   late int userId;
+  late UserModel? user;
 
   @override
   void initState() {
@@ -47,24 +50,21 @@ class _CheckoutState extends State<Checkout> {
     _selectedDateTime = _dateTimeNow.add(const Duration(milliseconds: 30));
     maxTime = _dateTimeNow.add(const Duration(days: 1095));
 
-    userId = Provider.of<AppDataProvider>(context, listen: false).userId;
+    user = Provider.of<AppDataProvider>(context, listen: false).user!;
   }
 
   void _submitOrderCheckout() {
     String _status = "To Ship";
-    // if (_deliveryMethod == "Cash on Delivery") {
-    //   _status = "To Ship";
-    // } else if (_deliveryMethod) {
 
-    // }
     final payment = PaymentModel(
-      paymentType: _deliveryMethod!,
+      paymentType: _paymentMethod!,
       amountPaid: widget.offer.offerValue,
+      status: "Pending",
     );
 
     final orderModel = OrderModel(
-        productID: widget.offer.product.productID,
-        buyerID: userId,
+        product: widget.offer.product,
+        buyerUsername: user!.username,
         deliveryMethod: _deliveryMethod!,
         deliveryDate: _selectedDateTime,
         paymentMethod: payment,
@@ -184,14 +184,15 @@ class _CheckoutState extends State<Checkout> {
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.headlineSmall),
                       Row(
+                        key: GlobalKey(),
                         children: [
                           Radio(
                             value: 'Cash on Delivery',
                             groupValue: _paymentMethod,
                             activeColor: const Color(0xFF12CF8A),
-                            onChanged: (value) {
+                            onChanged: (valuePayment) {
                               setState(() {
-                                _paymentMethod = value.toString();
+                                _paymentMethod = valuePayment;
                               });
                             },
                           ),
@@ -201,9 +202,9 @@ class _CheckoutState extends State<Checkout> {
                             value: 'GCash',
                             groupValue: _paymentMethod,
                             activeColor: const Color(0xFF12CF8A),
-                            onChanged: (value) {
+                            onChanged: (valuePayment) {
                               setState(() {
-                                _paymentMethod = value.toString();
+                                _paymentMethod = valuePayment;
                               });
                             },
                           ),
@@ -231,14 +232,15 @@ class _CheckoutState extends State<Checkout> {
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.titleMedium),
                       Row(
+                        key: GlobalKey(),
                         children: [
                           Radio(
                             value: 'Buyer Pick-up',
                             groupValue: _deliveryMethod,
                             activeColor: const Color(0xFF12CF8A),
-                            onChanged: (value) {
+                            onChanged: (valueDel) {
                               setState(() {
-                                _deliveryMethod = value.toString();
+                                _deliveryMethod = valueDel;
                               });
                             },
                           ),
@@ -249,9 +251,9 @@ class _CheckoutState extends State<Checkout> {
                               value: 'Seller Drop-off',
                               groupValue: _deliveryMethod,
                               activeColor: const Color(0xFF12CF8A),
-                              onChanged: (value) {
+                              onChanged: (valueDel) {
                                 setState(() {
-                                  _deliveryMethod = value.toString();
+                                  _deliveryMethod = valueDel;
                                 });
                               },
                             ),

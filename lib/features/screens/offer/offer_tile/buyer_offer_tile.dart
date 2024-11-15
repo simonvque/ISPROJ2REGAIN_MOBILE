@@ -318,7 +318,9 @@ class _BuyerOfferTileState extends State<BuyerOfferTile> {
                   ),
                 ],
               ),
-            if (widget.offer.isAccepted != null && widget.offer.isAccepted!)
+            if (widget.offer.isAccepted != null &&
+                widget.offer.isAccepted! &&
+                widget.offer.isOrdered! == false)
               Align(
                 alignment: Alignment.center,
                 child: RegainButtons(

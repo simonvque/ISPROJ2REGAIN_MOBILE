@@ -62,4 +62,8 @@ abstract class DataSource {
   Future<ResponseModel> addOffers(ViewOffersModel offers);
 
   Future<ResponseModel> addOrder(OrderModel order);
+
+  Future<List<OrderModel>> getOrdersByDeliveryBuyer(String method, int id);
+
+  Future<List<OrderModel>> getOrdersByDeliverySeller(String method, int id);
 }

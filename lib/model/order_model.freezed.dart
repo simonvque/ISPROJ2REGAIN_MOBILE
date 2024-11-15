@@ -22,10 +22,10 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) {
 mixin _$OrderModel {
   int? get orderID => throw _privateConstructorUsedError;
   set orderID(int? value) => throw _privateConstructorUsedError;
-  int get productID => throw _privateConstructorUsedError;
-  set productID(int value) => throw _privateConstructorUsedError;
-  int get buyerID => throw _privateConstructorUsedError;
-  set buyerID(int value) => throw _privateConstructorUsedError;
+  ViewProduct get product => throw _privateConstructorUsedError;
+  set product(ViewProduct value) => throw _privateConstructorUsedError;
+  String get buyerUsername => throw _privateConstructorUsedError;
+  set buyerUsername(String value) => throw _privateConstructorUsedError;
   DateTime? get orderDate => throw _privateConstructorUsedError;
   set orderDate(DateTime? value) => throw _privateConstructorUsedError;
   String get deliveryMethod => throw _privateConstructorUsedError;
@@ -38,8 +38,8 @@ mixin _$OrderModel {
   set totalAmount(String value) => throw _privateConstructorUsedError;
   String get currentStatus => throw _privateConstructorUsedError;
   set currentStatus(String value) => throw _privateConstructorUsedError;
-  int? get addressID => throw _privateConstructorUsedError;
-  set addressID(int? value) => throw _privateConstructorUsedError;
+  AddressModel? get address => throw _privateConstructorUsedError;
+  set address(AddressModel? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,17 +55,19 @@ abstract class $OrderModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int? orderID,
-      int productID,
-      int buyerID,
+      ViewProduct product,
+      String buyerUsername,
       DateTime? orderDate,
       String deliveryMethod,
       DateTime deliveryDate,
       PaymentModel? paymentMethod,
       String totalAmount,
       String currentStatus,
-      int? addressID});
+      AddressModel? address});
 
+  $ViewProductCopyWith<$Res> get product;
   $PaymentModelCopyWith<$Res>? get paymentMethod;
+  $AddressModelCopyWith<$Res>? get address;
 }
 
 /// @nodoc
@@ -82,29 +84,29 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
   @override
   $Res call({
     Object? orderID = freezed,
-    Object? productID = null,
-    Object? buyerID = null,
+    Object? product = null,
+    Object? buyerUsername = null,
     Object? orderDate = freezed,
     Object? deliveryMethod = null,
     Object? deliveryDate = null,
     Object? paymentMethod = freezed,
     Object? totalAmount = null,
     Object? currentStatus = null,
-    Object? addressID = freezed,
+    Object? address = freezed,
   }) {
     return _then(_value.copyWith(
       orderID: freezed == orderID
           ? _value.orderID
           : orderID // ignore: cast_nullable_to_non_nullable
               as int?,
-      productID: null == productID
-          ? _value.productID
-          : productID // ignore: cast_nullable_to_non_nullable
-              as int,
-      buyerID: null == buyerID
-          ? _value.buyerID
-          : buyerID // ignore: cast_nullable_to_non_nullable
-              as int,
+      product: null == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ViewProduct,
+      buyerUsername: null == buyerUsername
+          ? _value.buyerUsername
+          : buyerUsername // ignore: cast_nullable_to_non_nullable
+              as String,
       orderDate: freezed == orderDate
           ? _value.orderDate
           : orderDate // ignore: cast_nullable_to_non_nullable
@@ -129,11 +131,19 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.currentStatus
           : currentStatus // ignore: cast_nullable_to_non_nullable
               as String,
-      addressID: freezed == addressID
-          ? _value.addressID
-          : addressID // ignore: cast_nullable_to_non_nullable
-              as int?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as AddressModel?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ViewProductCopyWith<$Res> get product {
+    return $ViewProductCopyWith<$Res>(_value.product, (value) {
+      return _then(_value.copyWith(product: value) as $Val);
+    });
   }
 
   @override
@@ -145,6 +155,18 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
 
     return $PaymentModelCopyWith<$Res>(_value.paymentMethod!, (value) {
       return _then(_value.copyWith(paymentMethod: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressModelCopyWith<$Res>? get address {
+    if (_value.address == null) {
+      return null;
+    }
+
+    return $AddressModelCopyWith<$Res>(_value.address!, (value) {
+      return _then(_value.copyWith(address: value) as $Val);
     });
   }
 }
@@ -159,18 +181,22 @@ abstract class _$$OrderModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? orderID,
-      int productID,
-      int buyerID,
+      ViewProduct product,
+      String buyerUsername,
       DateTime? orderDate,
       String deliveryMethod,
       DateTime deliveryDate,
       PaymentModel? paymentMethod,
       String totalAmount,
       String currentStatus,
-      int? addressID});
+      AddressModel? address});
 
   @override
+  $ViewProductCopyWith<$Res> get product;
+  @override
   $PaymentModelCopyWith<$Res>? get paymentMethod;
+  @override
+  $AddressModelCopyWith<$Res>? get address;
 }
 
 /// @nodoc
@@ -185,29 +211,29 @@ class __$$OrderModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? orderID = freezed,
-    Object? productID = null,
-    Object? buyerID = null,
+    Object? product = null,
+    Object? buyerUsername = null,
     Object? orderDate = freezed,
     Object? deliveryMethod = null,
     Object? deliveryDate = null,
     Object? paymentMethod = freezed,
     Object? totalAmount = null,
     Object? currentStatus = null,
-    Object? addressID = freezed,
+    Object? address = freezed,
   }) {
     return _then(_$OrderModelImpl(
       orderID: freezed == orderID
           ? _value.orderID
           : orderID // ignore: cast_nullable_to_non_nullable
               as int?,
-      productID: null == productID
-          ? _value.productID
-          : productID // ignore: cast_nullable_to_non_nullable
-              as int,
-      buyerID: null == buyerID
-          ? _value.buyerID
-          : buyerID // ignore: cast_nullable_to_non_nullable
-              as int,
+      product: null == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ViewProduct,
+      buyerUsername: null == buyerUsername
+          ? _value.buyerUsername
+          : buyerUsername // ignore: cast_nullable_to_non_nullable
+              as String,
       orderDate: freezed == orderDate
           ? _value.orderDate
           : orderDate // ignore: cast_nullable_to_non_nullable
@@ -232,10 +258,10 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.currentStatus
           : currentStatus // ignore: cast_nullable_to_non_nullable
               as String,
-      addressID: freezed == addressID
-          ? _value.addressID
-          : addressID // ignore: cast_nullable_to_non_nullable
-              as int?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as AddressModel?,
     ));
   }
 }
@@ -245,15 +271,15 @@ class __$$OrderModelImplCopyWithImpl<$Res>
 class _$OrderModelImpl implements _OrderModel {
   _$OrderModelImpl(
       {this.orderID,
-      required this.productID,
-      required this.buyerID,
+      required this.product,
+      required this.buyerUsername,
       this.orderDate,
       required this.deliveryMethod,
       required this.deliveryDate,
       this.paymentMethod,
       required this.totalAmount,
       required this.currentStatus,
-      this.addressID});
+      this.address});
 
   factory _$OrderModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderModelImplFromJson(json);
@@ -261,9 +287,9 @@ class _$OrderModelImpl implements _OrderModel {
   @override
   int? orderID;
   @override
-  int productID;
+  ViewProduct product;
   @override
-  int buyerID;
+  String buyerUsername;
   @override
   DateTime? orderDate;
   @override
@@ -277,11 +303,11 @@ class _$OrderModelImpl implements _OrderModel {
   @override
   String currentStatus;
   @override
-  int? addressID;
+  AddressModel? address;
 
   @override
   String toString() {
-    return 'OrderModel(orderID: $orderID, productID: $productID, buyerID: $buyerID, orderDate: $orderDate, deliveryMethod: $deliveryMethod, deliveryDate: $deliveryDate, paymentMethod: $paymentMethod, totalAmount: $totalAmount, currentStatus: $currentStatus, addressID: $addressID)';
+    return 'OrderModel(orderID: $orderID, product: $product, buyerUsername: $buyerUsername, orderDate: $orderDate, deliveryMethod: $deliveryMethod, deliveryDate: $deliveryDate, paymentMethod: $paymentMethod, totalAmount: $totalAmount, currentStatus: $currentStatus, address: $address)';
   }
 
   @JsonKey(ignore: true)
@@ -301,15 +327,15 @@ class _$OrderModelImpl implements _OrderModel {
 abstract class _OrderModel implements OrderModel {
   factory _OrderModel(
       {int? orderID,
-      required int productID,
-      required int buyerID,
+      required ViewProduct product,
+      required String buyerUsername,
       DateTime? orderDate,
       required String deliveryMethod,
       required DateTime deliveryDate,
       PaymentModel? paymentMethod,
       required String totalAmount,
       required String currentStatus,
-      int? addressID}) = _$OrderModelImpl;
+      AddressModel? address}) = _$OrderModelImpl;
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
       _$OrderModelImpl.fromJson;
@@ -318,11 +344,11 @@ abstract class _OrderModel implements OrderModel {
   int? get orderID;
   set orderID(int? value);
   @override
-  int get productID;
-  set productID(int value);
+  ViewProduct get product;
+  set product(ViewProduct value);
   @override
-  int get buyerID;
-  set buyerID(int value);
+  String get buyerUsername;
+  set buyerUsername(String value);
   @override
   DateTime? get orderDate;
   set orderDate(DateTime? value);
@@ -342,8 +368,8 @@ abstract class _OrderModel implements OrderModel {
   String get currentStatus;
   set currentStatus(String value);
   @override
-  int? get addressID;
-  set addressID(int? value);
+  AddressModel? get address;
+  set address(AddressModel? value);
   @override
   @JsonKey(ignore: true)
   _$$OrderModelImplCopyWith<_$OrderModelImpl> get copyWith =>

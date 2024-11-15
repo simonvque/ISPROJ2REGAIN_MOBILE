@@ -17,7 +17,8 @@ class StatusTimeline extends StatelessWidget {
         final statusItem = entry.value;
         return StatusItem(
           status: statusItem.toString().split('.').last,
-          timestamp: DateTime.now(), // Replace with actual timestamp from statusItem
+          timestamp:
+              DateTime.now(), // Replace with actual timestamp from statusItem
           isCurrent: index == 0, // Determine if it's the current status
         );
       }).toList(),

@@ -9,8 +9,8 @@ part of 'order_model.dart';
 _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
     _$OrderModelImpl(
       orderID: (json['orderID'] as num?)?.toInt(),
-      productID: (json['productID'] as num).toInt(),
-      buyerID: (json['buyerID'] as num).toInt(),
+      product: ViewProduct.fromJson(json['product'] as Map<String, dynamic>),
+      buyerUsername: json['buyerUsername'] as String,
       orderDate: json['orderDate'] == null
           ? null
           : DateTime.parse(json['orderDate'] as String),
@@ -22,19 +22,21 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
               json['paymentMethod'] as Map<String, dynamic>),
       totalAmount: json['totalAmount'] as String,
       currentStatus: json['currentStatus'] as String,
-      addressID: (json['addressID'] as num?)?.toInt(),
+      address: json['address'] == null
+          ? null
+          : AddressModel.fromJson(json['address'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
     <String, dynamic>{
       'orderID': instance.orderID,
-      'productID': instance.productID,
-      'buyerID': instance.buyerID,
+      'product': instance.product,
+      'buyerUsername': instance.buyerUsername,
       'orderDate': instance.orderDate?.toIso8601String(),
       'deliveryMethod': instance.deliveryMethod,
       'deliveryDate': instance.deliveryDate.toIso8601String(),
       'paymentMethod': instance.paymentMethod,
       'totalAmount': instance.totalAmount,
       'currentStatus': instance.currentStatus,
-      'addressID': instance.addressID,
+      'address': instance.address,
     };

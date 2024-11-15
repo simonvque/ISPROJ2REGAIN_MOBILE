@@ -6,6 +6,7 @@ import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
+import 'package:regain_mobile/features/screens/orders/my_orders_page.dart';
 import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/commissionBalance/combal_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/contactus_page.dart';
@@ -99,9 +100,9 @@ class ProfileMenu extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => TransactionsPage(
-                  transactions: transactions,
-                ),
+                builder: (context) => OrderTrackingPage(
+                    // transactions: transactions,
+                    ),
               ),
             );
           },

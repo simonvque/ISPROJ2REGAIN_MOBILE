@@ -30,7 +30,11 @@ mixin _$ViewOffersModel {
   set offerValue(String value) => throw _privateConstructorUsedError;
   bool? get isAccepted => throw _privateConstructorUsedError;
   set isAccepted(bool? value) => throw _privateConstructorUsedError;
-  String get sellerName => throw _privateConstructorUsedError;
+  bool? get isOrdered => throw _privateConstructorUsedError;
+  set isOrdered(bool? value) =>
+      throw _privateConstructorUsedError; // add bool isOrdered if there is an existing order with the ViewProduct
+  String get sellerName =>
+      throw _privateConstructorUsedError; // add bool isOrdered if there is an existing order with the ViewProduct
   set sellerName(String value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,6 +55,7 @@ abstract class $ViewOffersModelCopyWith<$Res> {
       ViewProduct product,
       String offerValue,
       bool? isAccepted,
+      bool? isOrdered,
       String sellerName});
 
   $ViewProductCopyWith<$Res> get product;
@@ -74,6 +79,7 @@ class _$ViewOffersModelCopyWithImpl<$Res, $Val extends ViewOffersModel>
     Object? product = null,
     Object? offerValue = null,
     Object? isAccepted = freezed,
+    Object? isOrdered = freezed,
     Object? sellerName = null,
   }) {
     return _then(_value.copyWith(
@@ -96,6 +102,10 @@ class _$ViewOffersModelCopyWithImpl<$Res, $Val extends ViewOffersModel>
       isAccepted: freezed == isAccepted
           ? _value.isAccepted
           : isAccepted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isOrdered: freezed == isOrdered
+          ? _value.isOrdered
+          : isOrdered // ignore: cast_nullable_to_non_nullable
               as bool?,
       sellerName: null == sellerName
           ? _value.sellerName
@@ -127,6 +137,7 @@ abstract class _$$ViewOffersModelImplCopyWith<$Res>
       ViewProduct product,
       String offerValue,
       bool? isAccepted,
+      bool? isOrdered,
       String sellerName});
 
   @override
@@ -149,6 +160,7 @@ class __$$ViewOffersModelImplCopyWithImpl<$Res>
     Object? product = null,
     Object? offerValue = null,
     Object? isAccepted = freezed,
+    Object? isOrdered = freezed,
     Object? sellerName = null,
   }) {
     return _then(_$ViewOffersModelImpl(
@@ -172,6 +184,10 @@ class __$$ViewOffersModelImplCopyWithImpl<$Res>
           ? _value.isAccepted
           : isAccepted // ignore: cast_nullable_to_non_nullable
               as bool?,
+      isOrdered: freezed == isOrdered
+          ? _value.isOrdered
+          : isOrdered // ignore: cast_nullable_to_non_nullable
+              as bool?,
       sellerName: null == sellerName
           ? _value.sellerName
           : sellerName // ignore: cast_nullable_to_non_nullable
@@ -189,6 +205,7 @@ class _$ViewOffersModelImpl implements _ViewOffersModel {
       required this.product,
       required this.offerValue,
       this.isAccepted,
+      this.isOrdered,
       required this.sellerName});
 
   factory _$ViewOffersModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -205,11 +222,14 @@ class _$ViewOffersModelImpl implements _ViewOffersModel {
   @override
   bool? isAccepted;
   @override
+  bool? isOrdered;
+// add bool isOrdered if there is an existing order with the ViewProduct
+  @override
   String sellerName;
 
   @override
   String toString() {
-    return 'ViewOffersModel(offerID: $offerID, buyerName: $buyerName, product: $product, offerValue: $offerValue, isAccepted: $isAccepted, sellerName: $sellerName)';
+    return 'ViewOffersModel(offerID: $offerID, buyerName: $buyerName, product: $product, offerValue: $offerValue, isAccepted: $isAccepted, isOrdered: $isOrdered, sellerName: $sellerName)';
   }
 
   @JsonKey(ignore: true)
@@ -234,6 +254,7 @@ abstract class _ViewOffersModel implements ViewOffersModel {
       required ViewProduct product,
       required String offerValue,
       bool? isAccepted,
+      bool? isOrdered,
       required String sellerName}) = _$ViewOffersModelImpl;
 
   factory _ViewOffersModel.fromJson(Map<String, dynamic> json) =
@@ -255,7 +276,11 @@ abstract class _ViewOffersModel implements ViewOffersModel {
   bool? get isAccepted;
   set isAccepted(bool? value);
   @override
-  String get sellerName;
+  bool? get isOrdered;
+  set isOrdered(bool? value);
+  @override // add bool isOrdered if there is an existing order with the ViewProduct
+  String
+      get sellerName; // add bool isOrdered if there is an existing order with the ViewProduct
   set sellerName(String value);
   @override
   @JsonKey(ignore: true)

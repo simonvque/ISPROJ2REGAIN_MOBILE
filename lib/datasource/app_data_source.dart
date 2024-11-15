@@ -30,7 +30,7 @@ class AppDataSource extends DataSource {
   // final String baseUrl = 'http://10.0.2.2:9191/api/';
 
   // if using physical device: baseURL = IP + Spring Boot backend port + route
-  final String baseUrl = 'http://192.168.1.15:9191/api/';
+  final String baseUrl = 'http://10.18.13.41:9191/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -440,6 +440,40 @@ class AppDataSource extends DataSource {
       return await _getResponseModel(response);
     } catch (error) {
       print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<OrderModel>> getOrdersByDeliveryBuyer(
+      String method, int id) async {
+    final url = '$baseUrl${'orders/buyer/$id/$method'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => OrderModel.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<OrderModel>> getOrdersByDeliverySeller(
+      String method, int id) async {
+    final url = '$baseUrl${'orders/seller/$id/$method'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => OrderModel.fromJson(mapList[index]));
+      }
+      return [];
+    } catch (error) {
       rethrow;
     }
   }
