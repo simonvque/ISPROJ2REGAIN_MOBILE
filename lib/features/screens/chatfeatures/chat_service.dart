@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class ChatService with ChangeNotifier {
   late StompClient stompClient;
   late String roomId;
-  final String serverUrl = 'http://10.18.12.239:9191/api/chat'; // REST API URL
+  final String serverUrl = 'http://192.168.1.10:9191/api/chat'; // REST API URL
 
   // Store messages
   List<ChatMessage> messages = [];
@@ -20,7 +20,7 @@ class ChatService with ChangeNotifier {
     // 2. Now, connect to WebSocket
     stompClient = StompClient(
       config: StompConfig(
-        url: 'ws://10.18.12.239:9191/ws-chat', // WebSocket URL
+        url: 'ws://192.168.1.10:9191/ws-chat', // WebSocket URL
         onConnect: (frame) {
           print('Connected to WebSocket');
           subscribeToRoom();

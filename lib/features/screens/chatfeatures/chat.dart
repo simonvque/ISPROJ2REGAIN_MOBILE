@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:regain_mobile/constants/colors.dart';
 import 'chat_service.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -30,7 +31,9 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Chat')),
+      appBar: AppBar(title: const Text('Chat'),
+      backgroundColor: green,
+      foregroundColor: white,),
       body: Consumer<ChatService>(
         builder: (context, chatService, child) {
           return Column(
@@ -58,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 ),
                                 decoration: BoxDecoration(
                                   color: isSentByUser
-                                      ? Colors.blue[100]
+                                      ? green100
                                       : Colors.grey[300],
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -68,30 +71,32 @@ class _ChatScreenState extends State<ChatScreen> {
                                     Text(
                                       message.senderUsername,
                                       style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                         color: isSentByUser
-                                            ? Colors.black
-                                            : Colors.black,
+                                            ? black
+                                            : black,
                                       ),
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 16),
                                     Text(
                                       message.content,
                                       style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         color: isSentByUser
-                                            ? Colors.black
-                                            : Colors.black,
+                                            ? black
+                                            : black,
+                                        letterSpacing: 0.25,
+                                        height: 1.5,
                                       ),
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 16),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Text(
                                           message.timestampFormatted,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 10,
                                             color: Colors.grey,
                                           ),
@@ -106,6 +111,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                       ),
               ),
+
               // Text input and Send button
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -117,10 +123,17 @@ class _ChatScreenState extends State<ChatScreen> {
                         decoration: const InputDecoration(
                           hintText: 'Type a message...',
                           border: OutlineInputBorder(),
-                        ),
-                      ),
+                          focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: green, 
+                                  width: 2.0, 
+                                ),
+                              ),
+                            ),
+                          ),
                     ),
                     IconButton(
+                      color: green600,
                       icon: const Icon(Icons.send),
                       onPressed: () {
                         if (messageController.text.isNotEmpty && mounted) {
