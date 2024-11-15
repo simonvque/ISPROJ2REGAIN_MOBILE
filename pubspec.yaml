@@ -45,7 +45,8 @@ dependencies:
   json_annotation: ^4.9.0
   shared_preferences:
   logger: ^2.0.1
-  url_launcher: ^6.1.12
+  url_launcher: ^6.3.1
+  url_launcher_android: ^6.3.1
 
   get: ^4.6.5
   get_storage: ^2.1.1

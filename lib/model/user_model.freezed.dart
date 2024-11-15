@@ -262,7 +262,7 @@ class _$UserModelImpl implements _UserModel {
       this.contactNumber = '',
       required this.password,
       this.email = '',
-      this.accountStatus = '',
+      this.accountStatus = 'Active',
       this.penaltyPoints = 0,
       this.commissionBalance = '0.00',
       this.junkshopName = ''});

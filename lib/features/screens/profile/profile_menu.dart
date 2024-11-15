@@ -5,6 +5,7 @@ import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/features/screens/green_zone/green_zone_page.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
 import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/combal_page.dart';
@@ -139,6 +140,22 @@ class ProfileMenu extends StatelessWidget {
           txtSize: BtnTxtSize.large,
           size: ButtonSize.large,
           leftIcon: CupertinoIcons.creditcard,
+          rightIcon: CupertinoIcons.chevron_forward,
+        ),
+        RegainButtons(
+          text: 'The Green Zone',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const GreenZonePage(),
+              ),
+            );
+          },
+          type: ButtonType.transparentOutlined,
+          txtSize: BtnTxtSize.large,
+          size: ButtonSize.large,
+          leftIcon: CupertinoIcons.tree,
           rightIcon: CupertinoIcons.chevron_forward,
         ),
         RegainButtons(

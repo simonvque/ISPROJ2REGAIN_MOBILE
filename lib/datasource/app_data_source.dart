@@ -7,6 +7,7 @@ import 'package:regain_mobile/datasource/data_source.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/error_details_model.dart';
+import 'package:regain_mobile/model/green_zone_model.dart';
 import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
@@ -410,4 +411,32 @@ class AppDataSource extends DataSource {
       rethrow;
     }
   }
+
+  //GreenZone
+ @override
+Future<List<GreenZoneModel>> getAllArticles() async {
+  final url = '$baseUrl${'green_zone/articles'}';
+  try {
+    final response = await http.get(Uri.parse(url));
+    print('Attempting to fetch articles from: $url');
+    
+    if (response.statusCode == 200) {
+      final mapList = json.decode(response.body) as List;
+      print('Articles fetched successfully: ${mapList.length} articles found.');
+      
+      return List.generate(
+          mapList.length, (index) => GreenZoneModel.fromJson(mapList[index]));
+    } else {
+      // Log error if the status code is not 200
+      print('Failed to fetch articles. Status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      return [];
+    }
+  } catch (error) {
+    // Log the exact error and rethrow to handle it at the call site
+    print('Error occurred while fetching articles: $error');
+    rethrow;
+  }
+}
+
 }

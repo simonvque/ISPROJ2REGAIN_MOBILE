@@ -15,7 +15,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AppDataProvider>(context, listen: false).user;
+    // final user = Provider.of<AppDataProvider>(context, listen: false).user;
 
     return Scaffold(
       appBar: buildAppBar(context, 'My profile'),
@@ -33,11 +33,13 @@ class ProfilePage extends StatelessWidget {
                 height: ReGainSizes.spaceBtwItems / 4,
               ),
               Text(
-                '@${user!.username}',
+                // '@${user!.username}',
+                'remove later',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Text(
-                user.contactNumber!,
+                // user.contactNumber!
+                'remove later',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               const SizedBox(

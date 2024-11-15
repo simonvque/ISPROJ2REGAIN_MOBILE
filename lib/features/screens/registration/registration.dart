@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
+import 'package:regain_mobile/features/screens/registration/registration_id.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
@@ -47,10 +48,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Image(
-                    image: AssetImage(ReGainImages.appLogo),
-                  ),
-                  Padding(
+                  SizedBox(
+                      width: 148, 
+                      height: 148, 
+                      child: Image.asset(
+                        ReGainImages.appLogo,
+                        fit: BoxFit.contain,
+                      ),
+                    ), 
+                    Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Text(
                       ReGainTexts.signUpTitle,
@@ -193,8 +199,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       const SizedBox(height: ReGainSizes.spaceBtwSections),
 
                       RegainButtons(
-                        text: ReGainTexts.signUp,
-                        onPressed: addUser,
+                        text: ReGainTexts.next,
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegistrationIDPage(),
+                            ),
+                          );
+                        },
+                        // addUser,
                         // onPressed: () {
                         //   // --- Add validation ---
 
@@ -243,50 +257,50 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  void addUser() {
-    String userRole;
-    if (isWasteSector) {
-      userRole = Roles.uJS;
-    } else {
-      userRole = Roles.uHH;
-    }
-    if (_formKey.currentState!.validate()) {
-      final user = UserModel(
-        role: userRole,
-        username: usernameController.text,
-        contactNumber: contactNumberController.text,
-        password: passwordController.text,
-      );
-      Provider.of<AppDataProvider>(context, listen: false)
-          .addUser(user)
-          .then((response) {
-        if (response.statusCode == 200) {
-          resetFields();
-          Navigator.pushNamed(context, RouteManager.routeLogin);
-          ReGainHelperFunctions.showSnackBar(context, response.message);
-        } else if (response.statusCode == 400) {
-          setState(() {
-            errorText = response.message;
-          });
-        }
-      });
-    }
-  }
+  // void addUser() {
+  //   String userRole;
+  //   if (isWasteSector) {
+  //     userRole = Roles.uJS;
+  //   } else {
+  //     userRole = Roles.uHH;
+  //   }
+  //   if (_formKey.currentState!.validate()) {
+  //     final user = UserModel(
+  //       role: userRole,
+  //       username: usernameController.text,
+  //       contactNumber: contactNumberController.text,
+  //       password: passwordController.text,
+  //     );
+  //     Provider.of<AppDataProvider>(context, listen: false)
+  //         .addUser(user)
+  //         .then((response) {
+  //       if (response.statusCode == 200) {
+  //         resetFields();
+  //         Navigator.pushNamed(context, RouteManager.routeLogin);
+  //         ReGainHelperFunctions.showSnackBar(context, response.message);
+  //       } else if (response.statusCode == 400) {
+  //         setState(() {
+  //           errorText = response.message;
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
-  void resetFields() {
-    errorText = "";
-    usernameController.clear();
-    passwordController.clear();
-    matchingPasswordController.clear();
-    contactNumberController.clear();
-  }
+  // void resetFields() {
+  //   errorText = "";
+  //   usernameController.clear();
+  //   passwordController.clear();
+  //   matchingPasswordController.clear();
+  //   contactNumberController.clear();
+  // }
 
-  @override
-  void dispose() {
-    usernameController.dispose();
-    passwordController.dispose();
-    matchingPasswordController.dispose();
-    contactNumberController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   usernameController.dispose();
+  //   passwordController.dispose();
+  //   matchingPasswordController.dispose();
+  //   contactNumberController.dispose();
+  //   super.dispose();
+  // }
 }

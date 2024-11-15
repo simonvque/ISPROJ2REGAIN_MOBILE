@@ -7,6 +7,7 @@ import 'package:regain_mobile/provider/address_data_provider.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
 import 'package:regain_mobile/provider/favorites_data_provider.dart';
+import 'package:regain_mobile/provider/green_zone_provider.dart';
 import 'package:regain_mobile/provider/offers_data_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
@@ -42,7 +43,10 @@ class MyApp extends StatelessWidget {
             create: (context) => FavoritesDataProvider()),
         ChangeNotifierProvider<OffersDataProvider>(
             create: (context) => OffersDataProvider()),
+        ChangeNotifierProvider<GreenZoneProvider>(
+            create: (context) => GreenZoneProvider()),
         ChangeNotifierProvider(create: (_) => ChatService()),
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -54,7 +58,7 @@ class MyApp extends StatelessWidget {
         // ),
 
         // will have an error if connected to db and goes to navmenu right away
-        initialRoute: RouteManager.routeLogin,
+        initialRoute: RouteManager.routeRegistration,
         onGenerateRoute: RouteManager.generateRoute,
         // routes: {
         //   RouteManager.routeLogin: (context) => LoginScreen(),
