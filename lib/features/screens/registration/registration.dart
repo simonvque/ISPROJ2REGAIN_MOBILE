@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
+import 'package:regain_mobile/features/screens/registration/registration_id.dart';
 import 'package:regain_mobile/constants/device_utility.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
@@ -48,8 +49,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Image(
-                    image: AssetImage(ReGainImages.appLogo),
+                  SizedBox(
+                    width: 148,
+                    height: 148,
+                    child: Image.asset(
+                      ReGainImages.appLogo,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
@@ -191,8 +197,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       const SizedBox(height: ReGainSizes.spaceBtwSections),
 
                       RegainButtons(
-                        text: ReGainTexts.signUp,
-                        onPressed: addUser,
+                        text: ReGainTexts.next,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegistrationIDPage(),
+                            ),
+                          );
+                        },
+                        // addUser,
                         // onPressed: () {
                         //   // --- Add validation ---
 

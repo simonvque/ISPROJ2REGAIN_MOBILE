@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
-import 'package:regain_mobile/features/screens/profile/app_bar.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/commissionBalance/breakdown_page.dart';
 import 'package:regain_mobile/features/screens/qr_payment/scan_qr_page.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
+import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 class CommissionPage extends StatefulWidget {

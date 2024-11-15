@@ -97,20 +97,20 @@ class _CardItemState extends State<CardItem> {
     super.initState();
   }
 
-  @override
-  void didUpdateWidget(oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.item.isFavorite != oldWidget.item.isFavorite) {
-      isFavorite = widget.item.isFavorite;
-    }
-  }
+  // @override
+  // void didUpdateWidget(oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   if (widget.item.isFavorite != oldWidget.item.isFavorite) {
+  //     isFavorite = widget.item.isFavorite;
+  //   }
+  // }
 
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    isFavorite = widget.item.isFavorite;
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  //   isFavorite = widget.item.isFavorite;
+  // }
 
   // void _onPressed() async {
   //   setState(() {

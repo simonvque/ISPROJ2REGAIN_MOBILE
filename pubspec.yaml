@@ -42,10 +42,11 @@ dependencies:
   intl: ^0.19.0
   provider:
   freezed_annotation:
-  json_annotation:
+  json_annotation: ^4.9.0
   shared_preferences:
   logger: ^2.0.1
-  url_launcher: ^6.1.12
+  url_launcher: ^6.3.1
+  url_launcher_android: ^6.3.1
 
   get: ^4.6.5
   get_storage: ^2.1.1
@@ -55,6 +56,8 @@ dependencies:
   carousel_slider: ^5.0.0
   flutter_secure_storage: ^9.2.2
   percent_indicator: ^4.2.3
+  stomp_dart_client: ^2.1.0
+  web_socket_channel: ^3.0.1
 
 dev_dependencies:
   flutter_test:

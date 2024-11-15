@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/features/screens/profile/app_bar.dart';
+import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';

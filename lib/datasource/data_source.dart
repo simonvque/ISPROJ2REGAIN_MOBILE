@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
+import 'package:regain_mobile/model/green_zone_model.dart';
 import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
@@ -66,4 +67,6 @@ abstract class DataSource {
   Future<List<OrderModel>> getOrdersByDeliveryBuyer(String method, int id);
 
   Future<List<OrderModel>> getOrdersByDeliverySeller(String method, int id);
+  //Green Zone
+  Future<List<GreenZoneModel>> getAllArticles();
 }

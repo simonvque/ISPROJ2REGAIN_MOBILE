@@ -7,11 +7,14 @@ import 'package:regain_mobile/provider/address_data_provider.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
 import 'package:regain_mobile/provider/favorites_data_provider.dart';
+import 'package:regain_mobile/provider/green_zone_provider.dart';
 import 'package:regain_mobile/provider/offers_data_provider.dart';
 import 'package:regain_mobile/provider/order_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 import 'package:regain_mobile/themes/theme.dart';
+
+import 'features/screens/chatfeatures/chat_service.dart';
 
 void main() {
   runApp(
@@ -20,6 +23,7 @@ void main() {
       const MyApp());
 }
 
+// Hello World
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -40,8 +44,11 @@ class MyApp extends StatelessWidget {
             create: (context) => FavoritesDataProvider()),
         ChangeNotifierProvider<OffersDataProvider>(
             create: (context) => OffersDataProvider()),
+        ChangeNotifierProvider<GreenZoneProvider>(
+            create: (context) => GreenZoneProvider()),
+        ChangeNotifierProvider(create: (_) => ChatService()),
         ChangeNotifierProvider<OrderProvider>(
-            create: (context) => OrderProvider())
+            create: (context) => OrderProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

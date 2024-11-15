@@ -42,6 +42,7 @@ class RegainButtons extends StatelessWidget {
     );
   }
 
+// Set button type
   Widget buildButtonWidget(BuildContext context, ButtonStyle? style) {
     return Builder(builder: (BuildContext innerContext) {
       switch (type) {
@@ -108,16 +109,20 @@ class RegainButtons extends StatelessWidget {
         textColor = black;
         break;
     }
+
     switch (txtSize) {
       case BtnTxtSize.small:
         textStyle =
             Theme.of(context).textTheme.bodySmall!.copyWith(color: textColor);
+        break;
       case BtnTxtSize.medium:
         textStyle =
             Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);
+        break;
       case BtnTxtSize.large:
         textStyle =
             Theme.of(context).textTheme.bodyLarge!.copyWith(color: textColor);
+        break;
       default:
         textStyle =
             Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/features/screens/green_zone/green_zone_page.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/features/screens/homepage/selected_item.dart';
 import 'package:regain_mobile/features/screens/listings/add_product.dart';
@@ -28,6 +29,7 @@ class RouteManager {
   static const String routeUserProducts = "UserProducts";
   static const String routeAddEquipment = "AddEquipment";
   static const String routeOrderTracking = "OrderTracking";
+  static const String routeGreenZone = "GreenZonePage";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -54,6 +56,8 @@ class RouteManager {
             builder: (context) => const UserProductsScreen());
       case routeOrderTracking:
         return MaterialPageRoute(builder: (context) => OrderTrackingPage());
+      case routeGreenZone: 
+        return MaterialPageRoute(builder: (context) => GreenZonePage());
       default:
         throw const FormatException(routeNotFound);
     }
