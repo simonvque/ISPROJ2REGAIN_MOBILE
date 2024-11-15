@@ -31,7 +31,7 @@ class AppDataProvider extends ChangeNotifier {
     ResponseModel response = await _dataSource.login(userDTO);
     if (response.statusCode == 200) {
       _user = UserModel.fromJson(response.response);
-      _userId = user!.id;
+      _userId = user?.id;
     }
 
     notifyListeners();

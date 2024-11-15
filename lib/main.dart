@@ -13,6 +13,8 @@ import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 import 'package:regain_mobile/themes/theme.dart';
 
+import 'features/screens/chatfeatures/chat_service.dart';
+
 void main() {
   runApp(
       // ChangeNotifierProvider(
@@ -43,6 +45,8 @@ class MyApp extends StatelessWidget {
             create: (context) => OffersDataProvider()),
         ChangeNotifierProvider<GreenZoneProvider>(
             create: (context) => GreenZoneProvider()),
+        ChangeNotifierProvider(create: (_) => ChatService()),
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
