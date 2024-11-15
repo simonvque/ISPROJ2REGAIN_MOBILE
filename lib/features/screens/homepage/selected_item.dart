@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
+import 'package:http/http.dart' as http;
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
+import '../chatfeatures/chat.dart';
 import '../offer/offerpopup.dart';
 // import '../offer/temp_view_product.dart';
 
@@ -236,6 +240,50 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
               ),
               onPressed: toggleFavorite,
             ),
+            IconButton(
+                icon: Icon(
+                  Icons.message,
+                  color: black,
+                ),
+                onPressed: () async {
+                  final appDataProvider =
+                      Provider.of<AppDataProvider>(context, listen: false);
+                  final currentUserId =
+                      appDataProvider.userId; // Get the current user ID
+                  final sellerUsername =
+                      widget.item.sellerUsername; // Get the seller's username
+
+                  if (currentUserId == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text(
+                              "You must be logged in to message a seller.")),
+                    );
+                    return;
+                  }
+
+                  try {
+                    // Fetch seller ID dynamically
+                    final sellerId =
+                        await _fetchSellerIdByUsername(sellerUsername);
+
+                    // Check if chat room exists between the current user and the seller
+                    final chatRoomId =
+                        await _fetchOrCreateChatRoom(currentUserId, sellerId);
+
+                    // Navigate to the ChatScreen
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ChatScreen(
+                        roomId: chatRoomId,
+                        userId: currentUserId.toString(),
+                      ),
+                    ));
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Failed to initiate chat: $e")),
+                    );
+                  }
+                }),
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
@@ -273,5 +321,83 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
         ),
       ),
     );
+  }
+}
+
+Future<String> _fetchOrCreateChatRoom(int userId1, int userId2) async {
+  // Try to get existing chat room
+  final chatRoomId = await _getExistingChatRoom(userId1, userId2);
+
+  if (chatRoomId != null) {
+    return chatRoomId;
+  }
+
+  // If no existing room, create a new one
+  final newChatRoomId = await _createNewChatRoom(userId1, userId2);
+  return newChatRoomId;
+}
+
+Future<String?> _getExistingChatRoom(int userId1, int userId2) async {
+  final url = Uri.parse(
+      'http://10.18.12.239:9191/api/chat/room/$userId1-$userId2'); // Adjust API URL accordingly
+
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    final roomData = jsonDecode(response.body);
+    return roomData['roomId']; // Return roomId if room exists
+  } else {
+    return null; // No room exists
+  }
+}
+
+Future<String> _createNewChatRoom(int userId1, int userId2) async {
+  final url = Uri.parse(
+      'http://10.18.12.239:9191/api/chat/createRoom?userId1=$userId1&userId2=$userId2');
+
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({
+      'userId1': userId1,
+      'userId2': userId2,
+    }),
+  );
+  print('Request Body: ${jsonEncode({
+        'userId1': userId1,
+        'userId2': userId2,
+      })}');
+
+  print('Response status: ${response.statusCode}');
+  print('Response body: ${response.body}');
+
+  if (response.statusCode == 200) {
+    final roomData = jsonDecode(response.body);
+    return roomData['roomId']; // Return the new room ID
+  } else {
+    throw Exception('Failed to create chat room');
+  }
+}
+
+Future<int> _fetchSellerIdByUsername(String username) async {
+  final url = Uri.parse(
+      'http://10.18.12.239:9191/api/user/seller/by-username/$username'); // Adjusted URL
+
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    final sellerData = jsonDecode(response.body);
+    print(sellerData); // Log the entire response body
+
+    if (sellerData != null && sellerData.containsKey('response')) {
+      return sellerData[
+          'response']; // Ensure 'response' key exists and is not null
+    } else {
+      throw Exception('Seller ID not found in response');
+    }
+  } else {
+    print('Error: ${response.statusCode}');
+    print('Response Body: ${response.body}');
+    throw Exception('Failed to fetch seller ID');
   }
 }

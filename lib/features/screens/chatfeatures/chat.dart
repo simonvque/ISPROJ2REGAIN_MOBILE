@@ -1,130 +1,153 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:regain_mobile/features/screens/report_features/report_page.dart';
+import 'package:provider/provider.dart';
+import 'chat_service.dart';
 
-void main() {
-  runApp(const ChatApp());
-}
+class ChatScreen extends StatefulWidget {
+  final String roomId;
+  final String userId;
 
-class ChatApp extends StatelessWidget {
-  const ChatApp({super.key});
+  const ChatScreen({Key? key, required this.roomId, required this.userId})
+      : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: const AppBarTheme(color: Color(0xFF12CF8A)),
-      ),
-      debugShowCheckedModeBanner: false,
-      home: const ChatPage(),
-    );
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  late ChatService chatService;
+  final TextEditingController messageController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Ensure the provider is available
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      chatService = Provider.of<ChatService>(context, listen: false);
+      chatService.connect(widget.roomId); // Connect only once here
+    });
   }
-}
 
-class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
-
-  @override
-  _ChatPageState createState() => _ChatPageState();
-}
-
-class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(CupertinoIcons.arrow_left, color: Colors.white),
-          onPressed: () {
-            // Add your onPressed code here!
-          },
-        ),
-        title: const Row(
-          children: [
-            CircleAvatar(
-              backgroundImage:
-                  AssetImage('assets/images/profile/profileSam.jpg'),
-              radius: 20,
-            ),
-            SizedBox(width: 10),
-            Text(
-              '@sammysalami',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontFamily: 'Montserrat-Bold',
+      appBar: AppBar(title: const Text('Chat')),
+      body: Consumer<ChatService>(
+        builder: (context, chatService, child) {
+          return Column(
+            children: [
+              // Display messages using Consumer
+              Expanded(
+                child: chatService.messages.isEmpty
+                    ? const Center(child: Text('No messages yet.'))
+                    : ListView.builder(
+                        itemCount: chatService.messages.length,
+                        itemBuilder: (context, index) {
+                          final message = chatService.messages[index];
+                          final isSentByUser =
+                              message.senderId == widget.userId;
+                          return ListTile(
+                            title: Align(
+                              alignment: isSentByUser
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: Container(
+                                padding: const EdgeInsets.all(10.0),
+                                constraints: BoxConstraints(
+                                  maxWidth: MediaQuery.of(context).size.width *
+                                      0.60, // Limit the bubble width
+                                ),
+                                decoration: BoxDecoration(
+                                  color: isSentByUser
+                                      ? Colors.blue[100]
+                                      : Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      message.senderUsername,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: isSentByUser
+                                            ? Colors.black
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      message.content,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: isSentByUser
+                                            ? Colors.black
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          message.timestampFormatted,
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
               ),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.flag_outlined, color: Colors.white),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ReportPage()),
-              );
-            },
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              children: const [
-                // Add your chat messages here
-              ],
-            ),
-          ),
-          const Divider(height: 1, color: Colors.grey), // Line above the input field
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(CupertinoIcons.add_circled_solid,
-                      color: Colors.black87, size: 40),
-                  onPressed: () {
-                    // Add your onPressed code here!
-                  },
-                ),
-                Expanded(
-                  child: Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200], // Grey background
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Message',
-                        hintStyle: TextStyle(
-                            fontFamily:
-                                'Montserrat-Regular', // Change the font family here
-                            fontSize: 16,
-                            color: Colors.black),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                        border: InputBorder.none,
+              // Text input and Send button
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: messageController,
+                        decoration: const InputDecoration(
+                          hintText: 'Type a message...',
+                          border: OutlineInputBorder(),
+                        ),
                       ),
                     ),
-                  ),
+                    IconButton(
+                      icon: const Icon(Icons.send),
+                      onPressed: () {
+                        if (messageController.text.isNotEmpty && mounted) {
+                          chatService.sendMessage(
+                            widget.userId,
+                            messageController.text,
+                            widget
+                                .userId, // Assuming `receiverId` is optional here
+                          );
+                          messageController.clear();
+                        }
+                      },
+                    ),
+                  ],
                 ),
-                IconButton(
-                  icon: const Icon(CupertinoIcons.arrow_right_circle_fill,
-                      color: Color(0xFF12CF8A), size: 40),
-                  onPressed: () {
-                    // Add your onPressed code here!
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    chatService.stompClient.deactivate();
+    messageController.dispose();
+    super.dispose();
   }
 }
