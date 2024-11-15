@@ -326,7 +326,10 @@ class _BuyerOfferTileState extends State<BuyerOfferTile> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Checkout()),
+                      MaterialPageRoute(
+                          builder: (context) => Checkout(
+                                offer: widget.offer,
+                              )),
                     );
                   },
                   type: ButtonType.filled,

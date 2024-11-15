@@ -8,6 +8,7 @@ import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
 import 'package:regain_mobile/provider/favorites_data_provider.dart';
 import 'package:regain_mobile/provider/offers_data_provider.dart';
+import 'package:regain_mobile/provider/order_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 import 'package:regain_mobile/themes/theme.dart';
@@ -38,7 +39,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<FavoritesDataProvider>(
             create: (context) => FavoritesDataProvider()),
         ChangeNotifierProvider<OffersDataProvider>(
-            create: (context) => OffersDataProvider())
+            create: (context) => OffersDataProvider()),
+        ChangeNotifierProvider<OrderProvider>(
+            create: (context) => OrderProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -5,6 +5,7 @@ import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/offers_model.dart';
+import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
@@ -59,4 +60,6 @@ abstract class DataSource {
   Future<ResponseModel> updateOffers(int id, ViewOffersModel updatedOffer);
 
   Future<ResponseModel> addOffers(ViewOffersModel offers);
+
+  Future<ResponseModel> addOrder(OrderModel order);
 }

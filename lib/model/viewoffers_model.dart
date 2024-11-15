@@ -12,6 +12,7 @@ class ViewOffersModel with _$ViewOffersModel {
       required ViewProduct product,
       required String offerValue,
       bool? isAccepted,
+      // add bool isOrdered if there is an existing order with the ViewProduct
       required String sellerName}) = _ViewOffersModel;
   factory ViewOffersModel.fromJson(Map<String, dynamic> json) =>
       _$ViewOffersModelFromJson(json);

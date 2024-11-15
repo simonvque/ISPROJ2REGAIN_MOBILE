@@ -9,6 +9,7 @@ import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/error_details_model.dart';
 import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
+import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
@@ -423,6 +424,19 @@ class AppDataSource extends DataSource {
     try {
       final response = await http.put(Uri.parse(url),
           headers: header, body: jsonEncode(updatedOffer));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ResponseModel> addOrder(OrderModel order) async {
+    final url = '$baseUrl${'orders/add'}';
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: header, body: jsonEncode(order));
       return await _getResponseModel(response);
     } catch (error) {
       print(error.toString());
