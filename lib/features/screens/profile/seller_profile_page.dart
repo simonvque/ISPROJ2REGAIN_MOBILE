@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/features/screens/profile/util/user_data.dart';
-import 'app_bar.dart';
+import '../../../themes/app_bar.dart';
 
 /* TO FIX:
 

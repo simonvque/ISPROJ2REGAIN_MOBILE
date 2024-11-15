@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
-import 'package:regain_mobile/features/screens/profile/app_bar.dart';
+import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/features/screens/registration/registration_complete_page.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 

@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         // ),
 
         // will have an error if connected to db and goes to navmenu right away
-        initialRoute: RouteManager.routeRegistration,
+        initialRoute: RouteManager.routeProfilePage,
         onGenerateRoute: RouteManager.generateRoute,
         // routes: {
         //   RouteManager.routeLogin: (context) => LoginScreen(),
