@@ -20,4 +20,7 @@ class ReGainImages {
   //profile
   static const String exProfilePic = "assets/images/profile/profileSam.jpg";
   static const String exProductPic = "assets/images/profile/plastic_straw.png";
+
+  //QR Payment
+  static const String regainQR = "assets/images/qr/regain_qr.jpg";
 }

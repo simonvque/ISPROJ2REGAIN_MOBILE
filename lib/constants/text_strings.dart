@@ -68,6 +68,13 @@ class ReGainTexts {
   static const String comBalHeading = "Your total balance:";
   static const String comBalMax = "/50.00";
 
+  //QR Payment
+  static const String qrTitle1 = "Scan to Pay";
+  static const String qrTitle2 = "Confirm Payment Details";
+  static const String qrMsg1 = "Scan the QR code to complete your payment";
+  static const String qrMsg2 =
+      "Please enter the payment amount and reference number to confirm your transaction.";
+
   //Penalty points text
   static const String penaltyTitle = "My Penalty Points";
   static const String aboutPenPal =
