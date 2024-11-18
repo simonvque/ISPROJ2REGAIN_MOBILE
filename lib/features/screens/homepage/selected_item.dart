@@ -399,7 +399,7 @@ Future<String> _fetchOrCreateChatRoom(int userId1, int userId2) async {
 
 Future<String?> _getExistingChatRoom(int userId1, int userId2) async {
   final url = Uri.parse(
-      'http://192.168.1.24:9191/api/chat/room/$userId1-$userId2'); // Adjust API URL accordingly
+      'https://regain-api.isproj.org/api/chat/room/$userId1-$userId2'); // Adjust API URL accordingly
 
   final response = await http.get(url);
 
@@ -413,7 +413,7 @@ Future<String?> _getExistingChatRoom(int userId1, int userId2) async {
 
 Future<String> _createNewChatRoom(int userId1, int userId2) async {
   final url = Uri.parse(
-      'http://192.168.1.24:9191/api/chat/createRoom?userId1=$userId1&userId2=$userId2');
+      'https://regain-api.isproj.org/api/chat/createRoom?userId1=$userId1&userId2=$userId2');
 
   final response = await http.post(
     url,
@@ -441,7 +441,7 @@ Future<String> _createNewChatRoom(int userId1, int userId2) async {
 
 Future<int> _fetchSellerIdByUsername(String username) async {
   final url = Uri.parse(
-      'http://192.168.1.24:9191/api/user/seller/by-username/$username'); // Adjusted URL
+      'https://regain-api.isproj.org/api/user/seller/by-username/$username'); // Adjusted URL
 
   final response = await http.get(url);
 

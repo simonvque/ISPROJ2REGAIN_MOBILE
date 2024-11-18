@@ -12,8 +12,8 @@ class RoomListScreen extends StatelessWidget {
   const RoomListScreen({Key? key, required this.userId}) : super(key: key);
 
   Future<List<Room>> fetchUserRooms() async {
-    final response = await http
-        .get(Uri.parse('http://192.168.1.24:9191/api/chat/user/$userId/rooms'));
+    final response = await http.get(
+        Uri.parse('https://regain-api.isproj.org/api/chat/user/$userId/rooms'));
 
     print('Response Code: ${response.statusCode}');
     print('Response Body: ${response.body}');
