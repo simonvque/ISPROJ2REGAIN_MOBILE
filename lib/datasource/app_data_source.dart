@@ -27,8 +27,13 @@ class AppDataSource extends DataSource {
 
   AppDataSource._privateConstructor();
 
+  final _ipAddPort = 'regain-api.isproj.org';
+
+  get ipAddPort => _ipAddPort;
+
   // baseUrl = emulator IP + Spring Boot backend port + route
   final String baseUrl = 'https://regain-api.isproj.org/api/';
+  final String url2 = 'https://regain.isproj.org/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -479,7 +484,7 @@ class AppDataSource extends DataSource {
   //GreenZone
   @override
   Future<List<GreenZoneModel>> getAllArticles() async {
-    final url = '$baseUrl${'green_zone/articles'}';
+    final url = '$url2${'green_zone/articles'}';
     try {
       final response = await http.get(Uri.parse(url));
       print('Attempting to fetch articles from: $url');

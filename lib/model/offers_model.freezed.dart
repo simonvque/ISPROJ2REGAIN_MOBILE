@@ -28,8 +28,8 @@ mixin _$OffersModel {
   set buyerID(int? value) => throw _privateConstructorUsedError;
   String get offerValue => throw _privateConstructorUsedError;
   set offerValue(String value) => throw _privateConstructorUsedError;
-  bool get isAccepted => throw _privateConstructorUsedError;
-  set isAccepted(bool value) => throw _privateConstructorUsedError;
+  bool? get isAccepted => throw _privateConstructorUsedError;
+  set isAccepted(bool? value) => throw _privateConstructorUsedError;
   int? get sellerID => throw _privateConstructorUsedError;
   set sellerID(int? value) => throw _privateConstructorUsedError;
 
@@ -50,7 +50,7 @@ abstract class $OffersModelCopyWith<$Res> {
       int? productID,
       int? buyerID,
       String offerValue,
-      bool isAccepted,
+      bool? isAccepted,
       int? sellerID});
 }
 
@@ -71,7 +71,7 @@ class _$OffersModelCopyWithImpl<$Res, $Val extends OffersModel>
     Object? productID = freezed,
     Object? buyerID = freezed,
     Object? offerValue = null,
-    Object? isAccepted = null,
+    Object? isAccepted = freezed,
     Object? sellerID = freezed,
   }) {
     return _then(_value.copyWith(
@@ -91,10 +91,10 @@ class _$OffersModelCopyWithImpl<$Res, $Val extends OffersModel>
           ? _value.offerValue
           : offerValue // ignore: cast_nullable_to_non_nullable
               as String,
-      isAccepted: null == isAccepted
+      isAccepted: freezed == isAccepted
           ? _value.isAccepted
           : isAccepted // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       sellerID: freezed == sellerID
           ? _value.sellerID
           : sellerID // ignore: cast_nullable_to_non_nullable
@@ -116,7 +116,7 @@ abstract class _$$OffersModelImplCopyWith<$Res>
       int? productID,
       int? buyerID,
       String offerValue,
-      bool isAccepted,
+      bool? isAccepted,
       int? sellerID});
 }
 
@@ -135,7 +135,7 @@ class __$$OffersModelImplCopyWithImpl<$Res>
     Object? productID = freezed,
     Object? buyerID = freezed,
     Object? offerValue = null,
-    Object? isAccepted = null,
+    Object? isAccepted = freezed,
     Object? sellerID = freezed,
   }) {
     return _then(_$OffersModelImpl(
@@ -155,10 +155,10 @@ class __$$OffersModelImplCopyWithImpl<$Res>
           ? _value.offerValue
           : offerValue // ignore: cast_nullable_to_non_nullable
               as String,
-      isAccepted: null == isAccepted
+      isAccepted: freezed == isAccepted
           ? _value.isAccepted
           : isAccepted // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       sellerID: freezed == sellerID
           ? _value.sellerID
           : sellerID // ignore: cast_nullable_to_non_nullable
@@ -175,7 +175,7 @@ class _$OffersModelImpl implements _OffersModel {
       this.productID,
       this.buyerID,
       required this.offerValue,
-      required this.isAccepted,
+      this.isAccepted,
       this.sellerID});
 
   factory _$OffersModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -190,7 +190,7 @@ class _$OffersModelImpl implements _OffersModel {
   @override
   String offerValue;
   @override
-  bool isAccepted;
+  bool? isAccepted;
   @override
   int? sellerID;
 
@@ -219,7 +219,7 @@ abstract class _OffersModel implements OffersModel {
       int? productID,
       int? buyerID,
       required String offerValue,
-      required bool isAccepted,
+      bool? isAccepted,
       int? sellerID}) = _$OffersModelImpl;
 
   factory _OffersModel.fromJson(Map<String, dynamic> json) =
@@ -238,8 +238,8 @@ abstract class _OffersModel implements OffersModel {
   String get offerValue;
   set offerValue(String value);
   @override
-  bool get isAccepted;
-  set isAccepted(bool value);
+  bool? get isAccepted;
+  set isAccepted(bool? value);
   @override
   int? get sellerID;
   set sellerID(int? value);

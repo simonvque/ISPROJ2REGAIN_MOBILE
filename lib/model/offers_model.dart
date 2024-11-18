@@ -10,7 +10,7 @@ class OffersModel with _$OffersModel {
       int? productID,
       int? buyerID,
       required String offerValue,
-      required bool isAccepted,
+      bool? isAccepted,
       int? sellerID}) = _OffersModel;
   factory OffersModel.fromJson(Map<String, dynamic> json) =>
       _$OffersModelFromJson(json);

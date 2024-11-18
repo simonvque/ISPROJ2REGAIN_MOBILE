@@ -415,7 +415,7 @@ class _EditListingPageState extends State<EditListingPage> {
                       onPressed: () {
                         updateProduct();
                       },
-                      text: "Update product",
+                      text: "Update",
                       type: ButtonType.filled,
                       size: ButtonSize.small,
                       txtSize: BtnTxtSize.large,
