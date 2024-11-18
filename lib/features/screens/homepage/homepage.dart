@@ -4,6 +4,7 @@ import 'package:regain_mobile/features/screens/awareness/awareness.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/room_list.dart';
 import 'package:regain_mobile/features/screens/filter.dart';
+import 'package:regain_mobile/features/screens/green_zone/green_zone_page.dart';
 import 'package:regain_mobile/features/screens/homepage/widgets/homepage_cards_twice.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
@@ -200,8 +201,7 @@ class _HomeScreenState extends State<HomepageScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const AwarenessFeature()));
+                                builder: (context) => GreenZonePage()));
                       },
                       child: const ReGainCarousel(
                         banners: [

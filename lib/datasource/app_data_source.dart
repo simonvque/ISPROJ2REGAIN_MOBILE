@@ -27,12 +27,13 @@ class AppDataSource extends DataSource {
 
   AppDataSource._privateConstructor();
 
-  final _ipAddPort = 'regain-api.isproj.org';
+  final _ipAddPort = '192.168.1.15:9191';
 
   get ipAddPort => _ipAddPort;
 
   // baseUrl = emulator IP + Spring Boot backend port + route
-  final String baseUrl = 'https://regain-api.isproj.org/api/';
+  final String baseUrl = 'http://192.168.1.15:9191/api/';
+  final String url2 = 'http://192.168.1.15:8080/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};

@@ -16,7 +16,7 @@ class ChatService with ChangeNotifier {
 
   ChatService() {
     ipAddress = dataSource.ipAddPort;
-    serverUrl = 'https://$ipAddress/api/chat';
+    serverUrl = 'http://$ipAddress/api/chat';
   }
 
   // Store messages
@@ -31,7 +31,7 @@ class ChatService with ChangeNotifier {
     // 2. Now, connect to WebSocket
     stompClient = StompClient(
       config: StompConfig(
-        url: 'ws://$ipAddress:443/ws-chat', // WebSocket URL
+        url: 'ws://$ipAddress/ws-chat', // WebSocket URL
         onConnect: (frame) {
           print('Connected to WebSocket');
           subscribeToRoom();
