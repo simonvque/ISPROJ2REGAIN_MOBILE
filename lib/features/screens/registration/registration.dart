@@ -127,7 +127,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       const SizedBox(
                           height: ReGainSizes.spaceBtwInputFields / 2),
 
-                      // Contact Number
+                      // Email
                       RegainTextbox(
                         controller: emailController,
                         validator: (value) {
@@ -198,16 +198,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                       RegainButtons(
                         text: ReGainTexts.next,
-                        onPressed:
-                            //() {
-                            //   Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => const RegistrationIDPage(),
-                            //     ),
-                            //   );
-                            // },
-                            addUser,
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegistrationIDPage(),
+                            ),
+                          );
+                        },
+                        //addUser,
                         // onPressed: () {
                         //   // --- Add validation ---
 
@@ -275,7 +274,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           .then((response) {
         if (response.statusCode == 200) {
           resetFields();
-          Navigator.pushNamed(context, RouteManager.routeLogin);
+          //Navigator.pushNamed(context, RouteManager.routeLogin);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const RegistrationIDPage(),
+            ),
+          );
           ReGainHelperFunctions.showSnackBar(context, response.message);
         } else if (response.statusCode == 400) {
           setState(() {
