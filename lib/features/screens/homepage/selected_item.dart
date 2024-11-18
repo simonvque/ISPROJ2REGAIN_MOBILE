@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
+import 'package:regain_mobile/datasource/app_data_source.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
@@ -36,6 +37,9 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
   // final bool isSellerDropOff = false;
   bool? isFavorite;
   bool isDescriptionExpanded = false;
+
+  final dataSource = AppDataSource();
+  late String ipAddress = dataSource.ipAddPort;
 
   @override
   void initState() {
@@ -292,12 +296,12 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
 
                   try {
                     // Fetch seller ID dynamically
-                    final sellerId =
-                        await _fetchSellerIdByUsername(sellerUsername);
+                    final sellerId = await _fetchSellerIdByUsername(
+                        sellerUsername, ipAddress);
 
                     // Check if chat room exists between the current user and the seller
-                    final chatRoomId =
-                        await _fetchOrCreateChatRoom(currentUserId, sellerId);
+                    final chatRoomId = await _fetchOrCreateChatRoom(
+                        currentUserId, sellerId, ipAddress);
 
                     // Navigate to the ChatScreen
                     Navigator.of(context).push(MaterialPageRoute(
@@ -384,22 +388,24 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
   }
 }
 
-Future<String> _fetchOrCreateChatRoom(int userId1, int userId2) async {
+Future<String> _fetchOrCreateChatRoom(
+    int userId1, int userId2, String ipAdd) async {
   // Try to get existing chat room
-  final chatRoomId = await _getExistingChatRoom(userId1, userId2);
+  final chatRoomId = await _getExistingChatRoom(userId1, userId2, ipAdd);
 
   if (chatRoomId != null) {
     return chatRoomId;
   }
 
   // If no existing room, create a new one
-  final newChatRoomId = await _createNewChatRoom(userId1, userId2);
+  final newChatRoomId = await _createNewChatRoom(userId1, userId2, ipAdd);
   return newChatRoomId;
 }
 
-Future<String?> _getExistingChatRoom(int userId1, int userId2) async {
+Future<String?> _getExistingChatRoom(
+    int userId1, int userId2, String ipAdd) async {
   final url = Uri.parse(
-      'http://192.168.1.24:9191/api/chat/room/$userId1-$userId2'); // Adjust API URL accordingly
+      'https://$ipAdd/api/chat/room/$userId1-$userId2'); // Adjust API URL accordingly
 
   final response = await http.get(url);
 
@@ -411,9 +417,10 @@ Future<String?> _getExistingChatRoom(int userId1, int userId2) async {
   }
 }
 
-Future<String> _createNewChatRoom(int userId1, int userId2) async {
+Future<String> _createNewChatRoom(
+    int userId1, int userId2, String ipAdd) async {
   final url = Uri.parse(
-      'http://192.168.1.24:9191/api/chat/createRoom?userId1=$userId1&userId2=$userId2');
+      'https://$ipAdd/api/chat/createRoom?userId1=$userId1&userId2=$userId2');
 
   final response = await http.post(
     url,
@@ -439,9 +446,9 @@ Future<String> _createNewChatRoom(int userId1, int userId2) async {
   }
 }
 
-Future<int> _fetchSellerIdByUsername(String username) async {
+Future<int> _fetchSellerIdByUsername(String username, String ipAdd) async {
   final url = Uri.parse(
-      'http://192.168.1.24:9191/api/user/seller/by-username/$username'); // Adjusted URL
+      'https://$ipAdd/api/user/seller/by-username/$username'); // Adjusted URL
 
   final response = await http.get(url);
 

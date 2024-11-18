@@ -3,17 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/datasource/app_data_source.dart';
 import 'package:regain_mobile/features/screens/chatfeatures/chat.dart';
 import 'chat_service.dart';
 
 class RoomListScreen extends StatelessWidget {
   final String userId;
+  final dataSource = AppDataSource();
+  late String ipAddress;
 
-  const RoomListScreen({Key? key, required this.userId}) : super(key: key);
+  RoomListScreen({Key? key, required this.userId}) : super(key: key);
 
   Future<List<Room>> fetchUserRooms() async {
+    ipAddress = dataSource.ipAddPort;
+
     final response = await http
-        .get(Uri.parse('http://192.168.1.24:9191/api/chat/user/$userId/rooms'));
+        .get(Uri.parse('https://$ipAddress/api/chat/user/$userId/rooms'));
 
     print('Response Code: ${response.statusCode}');
     print('Response Body: ${response.body}');

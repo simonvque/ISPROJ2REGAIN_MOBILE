@@ -147,7 +147,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                       // Are you part of the waste sector?
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Expanded(
                             child: Row(
@@ -162,7 +162,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                                 Text(
                                   'Are you part of the waste sector?',
-                                  style: Theme.of(context).textTheme.bodyMedium,
+                                  style: Theme.of(context).textTheme.labelSmall,
                                 ),
                               ],
                             ),
@@ -198,15 +198,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                       RegainButtons(
                         text: ReGainTexts.next,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RegistrationIDPage(),
-                            ),
-                          );
-                        },
-                        // addUser,
+                        onPressed:
+                            //() {
+                            //   Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => const RegistrationIDPage(),
+                            //     ),
+                            //   );
+                            // },
+                            addUser,
                         // onPressed: () {
                         //   // --- Add validation ---
 

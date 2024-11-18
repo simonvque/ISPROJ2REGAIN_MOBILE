@@ -12,7 +12,7 @@ _$OffersModelImpl _$$OffersModelImplFromJson(Map<String, dynamic> json) =>
       productID: (json['productID'] as num?)?.toInt(),
       buyerID: (json['buyerID'] as num?)?.toInt(),
       offerValue: json['offerValue'] as String,
-      isAccepted: json['isAccepted'] as bool,
+      isAccepted: json['isAccepted'] as bool?,
       sellerID: (json['sellerID'] as num?)?.toInt(),
     );
 

@@ -134,17 +134,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     floatingLabelStyle: TextStyle(color: green)),
               ),
               const SizedBox(height: 10),
-              TextFormField(
-                controller: emailController,
-                decoration: const InputDecoration(
-                    labelText: "Email",
-                    hintText: "Enter email",
-                    hintStyle: TextStyle(fontSize: 12),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: green)),
-                    floatingLabelStyle: TextStyle(color: green)),
-              ),
-              const SizedBox(height: 20),
+              // TextFormField(
+              //   controller: emailController,
+              //   decoration: const InputDecoration(
+              //       labelText: "Email",
+              //       hintText: "Enter email",
+              //       hintStyle: TextStyle(fontSize: 12),
+              //       focusedBorder: UnderlineInputBorder(
+              //           borderSide: BorderSide(color: green)),
+              //       floatingLabelStyle: TextStyle(color: green)),
+              // ),
+              // const SizedBox(height: 20),
 
               // Junk Shop Information Section
               // model.role ?= ""

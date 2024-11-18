@@ -1,12 +1,23 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:regain_mobile/datasource/app_data_source.dart';
+import 'package:regain_mobile/datasource/data_source.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 import 'package:flutter/material.dart';
 
 class ChatService with ChangeNotifier {
+  final dataSource = AppDataSource();
+  late String? ipAddress;
   late StompClient stompClient;
   late String roomId;
-  final String serverUrl = 'http://192.168.1.24:9191/api/chat'; // REST API URL
+  // final String serverUrl = 'http://192.168.1.24:9191/api/chat'; // REST API URL
+  late String serverUrl;
+
+  ChatService() {
+    ipAddress = dataSource.ipAddPort;
+    serverUrl = 'https://$ipAddress/api/chat';
+  }
 
   // Store messages
   List<ChatMessage> messages = [];
@@ -20,7 +31,7 @@ class ChatService with ChangeNotifier {
     // 2. Now, connect to WebSocket
     stompClient = StompClient(
       config: StompConfig(
-        url: 'ws://192.168.1.24:9191/ws-chat', // WebSocket URL
+        url: 'ws://$ipAddress:443/ws-chat', // WebSocket URL
         onConnect: (frame) {
           print('Connected to WebSocket');
           subscribeToRoom();
