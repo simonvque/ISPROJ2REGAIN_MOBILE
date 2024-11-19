@@ -198,15 +198,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                       RegainButtons(
                         text: ReGainTexts.next,
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RegistrationIDPage(),
-                            ),
-                          );
-                        },
-                        //addUser,
+                        onPressed:
+                            // () {
+                            //   Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => const RegistrationIDPage(),
+                            //     ),
+                            //   );
+                            // },
+                            addUser,
                         // onPressed: () {
                         //   // --- Add validation ---
 
@@ -265,9 +266,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     if (_formKey.currentState!.validate()) {
       final user = UserModel(
         role: userRole,
-        username: usernameController.text,
-        email: emailController.text,
-        password: passwordController.text,
+        username: usernameController.text.trim(),
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
       Provider.of<AppDataProvider>(context, listen: false)
           .addUser(user)
@@ -278,7 +279,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const RegistrationIDPage(),
+              builder: (context) => RegistrationIDPage(
+                user: user,
+              ),
             ),
           );
           ReGainHelperFunctions.showSnackBar(context, response.message);

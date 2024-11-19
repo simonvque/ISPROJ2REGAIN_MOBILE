@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/helper_functions.dart';
+import 'package:regain_mobile/model/user_id_model.dart';
+import 'package:regain_mobile/model/user_model.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/features/screens/registration/registration_complete_page.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 class RegistrationIDPage extends StatefulWidget {
-  const RegistrationIDPage({super.key});
+  final UserModel user;
+
+  const RegistrationIDPage({
+    super.key,
+    required this.user,
+  });
 
   @override
   State<RegistrationIDPage> createState() => _RegistrationIDPageState();
@@ -16,6 +26,8 @@ class RegistrationIDPage extends StatefulWidget {
 
 class _RegistrationIDPageState extends State<RegistrationIDPage> {
   final _regIDKey = GlobalKey<FormState>();
+
+  String? errorTxt;
 
   //final idTypeController = TextEditingController();
   String? idType;
@@ -27,13 +39,56 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
 
   void _addUserID() {
     if (_regIDKey.currentState!.validate()) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const RegistrationCompletePage(),
-        ),
+      final submittedUser = UserModel(
+        lastName: lastNameController.text.trim(),
+        firstName: firstNameController.text.trim(),
+        username: widget.user.username,
+        email: widget.user.email,
+        password: widget.user.password,
+        birthday: _selectedDateTime,
       );
+      final userIDDetails = UserIDModel(
+        user: submittedUser,
+        idType: idType,
+        idNumber: idNumController.text.trim(),
+      );
+      Provider.of<AppDataProvider>(context, listen: false)
+          .addUserID(userIDDetails)
+          .then((response) {
+        if (response.statusCode == 200) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const RegistrationCompletePage(),
+            ),
+          );
+          ReGainHelperFunctions.showSnackBar(context, response.message);
+        } else if (response.statusCode != 200) {
+          setState(() {
+            errorTxt = response.message;
+          });
+        }
+      });
     }
+  }
+
+  void resetFields() {
+    errorTxt = "";
+    idType = null;
+    idNumController.clear();
+    firstNameController.clear();
+    lastNameController.clear();
+    bdayController.clear();
+    _selectedDateTime = null;
+  }
+
+  @override
+  void dispose() {
+    idNumController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    bdayController.dispose();
+    super.dispose();
   }
 
   @override
@@ -44,7 +99,7 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
     double fontSize = screenWidth > 600 ? 24 : 20;
 
     return Scaffold(
-      appBar: buildAppBar(context, '', automaticallyImplyLeading: true),
+      appBar: buildAppBar(context, '', automaticallyImplyLeading: false),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(padding),
         child: Form(
@@ -156,9 +211,11 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
               ),
               TextFormField(
                 controller: idNumController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
+                  errorText: errorTxt,
+                  errorMaxLines: 2,
                   hintText: 'Enter your ID Number',
-                  border: UnderlineInputBorder(
+                  border: const UnderlineInputBorder(
                     borderSide: BorderSide(color: green),
                   ),
                 ),

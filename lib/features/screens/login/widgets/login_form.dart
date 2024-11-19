@@ -135,7 +135,9 @@ class _LoginFormState extends State<LoginForm> {
     // Provider.of<AppDataProvider>(context, listen: false).login(user);
     if (_loginKey.currentState!.validate()) {
       final loginUser = UserModel(
-          username: usernameController.text, password: passwordController.text);
+        username: usernameController.text.trim(),
+        password: passwordController.text.trim(),
+      );
       Provider.of<AppDataProvider>(context, listen: false)
           .login(loginUser)
           .then((response) {

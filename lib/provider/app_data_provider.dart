@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:regain_mobile/datasource/app_data_source.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
 import 'package:regain_mobile/model/response_model.dart';
+import 'package:regain_mobile/model/user_id_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
 
 class AppDataProvider extends ChangeNotifier {
@@ -25,6 +26,10 @@ class AppDataProvider extends ChangeNotifier {
     // insert some logic?
 
     return _dataSource.addUser(user);
+  }
+
+  Future<ResponseModel> addUserID(UserIDModel userID) {
+    return _dataSource.addUserID(userID);
   }
 
   Future<ResponseModel> login(UserModel userDTO) async {

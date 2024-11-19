@@ -38,6 +38,14 @@ mixin _$UserModel {
   set accountStatus(String value) => throw _privateConstructorUsedError;
   int? get penaltyPoints => throw _privateConstructorUsedError;
   set penaltyPoints(int? value) => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
+  set phone(String? value) => throw _privateConstructorUsedError;
+  String? get profileImagePath => throw _privateConstructorUsedError;
+  set profileImagePath(String? value) => throw _privateConstructorUsedError;
+  String? get gcashQR => throw _privateConstructorUsedError;
+  set gcashQR(String? value) => throw _privateConstructorUsedError;
+  DateTime? get birthday => throw _privateConstructorUsedError;
+  set birthday(DateTime? value) => throw _privateConstructorUsedError;
   String? get junkshopName => throw _privateConstructorUsedError;
   set junkshopName(String? value) => throw _privateConstructorUsedError;
 
@@ -62,6 +70,10 @@ abstract class $UserModelCopyWith<$Res> {
       String? email,
       String accountStatus,
       int? penaltyPoints,
+      String? phone,
+      String? profileImagePath,
+      String? gcashQR,
+      DateTime? birthday,
       String? junkshopName});
 }
 
@@ -87,6 +99,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? email = freezed,
     Object? accountStatus = null,
     Object? penaltyPoints = freezed,
+    Object? phone = freezed,
+    Object? profileImagePath = freezed,
+    Object? gcashQR = freezed,
+    Object? birthday = freezed,
     Object? junkshopName = freezed,
   }) {
     return _then(_value.copyWith(
@@ -126,6 +142,22 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.penaltyPoints
           : penaltyPoints // ignore: cast_nullable_to_non_nullable
               as int?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      profileImagePath: freezed == profileImagePath
+          ? _value.profileImagePath
+          : profileImagePath // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gcashQR: freezed == gcashQR
+          ? _value.gcashQR
+          : gcashQR // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthday: freezed == birthday
+          ? _value.birthday
+          : birthday // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       junkshopName: freezed == junkshopName
           ? _value.junkshopName
           : junkshopName // ignore: cast_nullable_to_non_nullable
@@ -152,6 +184,10 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String? email,
       String accountStatus,
       int? penaltyPoints,
+      String? phone,
+      String? profileImagePath,
+      String? gcashQR,
+      DateTime? birthday,
       String? junkshopName});
 }
 
@@ -175,6 +211,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? email = freezed,
     Object? accountStatus = null,
     Object? penaltyPoints = freezed,
+    Object? phone = freezed,
+    Object? profileImagePath = freezed,
+    Object? gcashQR = freezed,
+    Object? birthday = freezed,
     Object? junkshopName = freezed,
   }) {
     return _then(_$UserModelImpl(
@@ -214,6 +254,22 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.penaltyPoints
           : penaltyPoints // ignore: cast_nullable_to_non_nullable
               as int?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      profileImagePath: freezed == profileImagePath
+          ? _value.profileImagePath
+          : profileImagePath // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gcashQR: freezed == gcashQR
+          ? _value.gcashQR
+          : gcashQR // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthday: freezed == birthday
+          ? _value.birthday
+          : birthday // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       junkshopName: freezed == junkshopName
           ? _value.junkshopName
           : junkshopName // ignore: cast_nullable_to_non_nullable
@@ -235,6 +291,10 @@ class _$UserModelImpl implements _UserModel {
       this.email = '',
       this.accountStatus = 'Pending',
       this.penaltyPoints = 0,
+      this.phone,
+      this.profileImagePath = '',
+      this.gcashQR = '',
+      this.birthday,
       this.junkshopName = ''});
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -265,12 +325,22 @@ class _$UserModelImpl implements _UserModel {
   @JsonKey()
   int? penaltyPoints;
   @override
+  String? phone;
+  @override
+  @JsonKey()
+  String? profileImagePath;
+  @override
+  @JsonKey()
+  String? gcashQR;
+  @override
+  DateTime? birthday;
+  @override
   @JsonKey()
   String? junkshopName;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, role: $role, firstName: $firstName, lastName: $lastName, username: $username, password: $password, email: $email, accountStatus: $accountStatus, penaltyPoints: $penaltyPoints, junkshopName: $junkshopName)';
+    return 'UserModel(id: $id, role: $role, firstName: $firstName, lastName: $lastName, username: $username, password: $password, email: $email, accountStatus: $accountStatus, penaltyPoints: $penaltyPoints, phone: $phone, profileImagePath: $profileImagePath, gcashQR: $gcashQR, birthday: $birthday, junkshopName: $junkshopName)';
   }
 
   @JsonKey(ignore: true)
@@ -298,6 +368,10 @@ abstract class _UserModel implements UserModel {
       String? email,
       String accountStatus,
       int? penaltyPoints,
+      String? phone,
+      String? profileImagePath,
+      String? gcashQR,
+      DateTime? birthday,
       String? junkshopName}) = _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -330,6 +404,18 @@ abstract class _UserModel implements UserModel {
   @override
   int? get penaltyPoints;
   set penaltyPoints(int? value);
+  @override
+  String? get phone;
+  set phone(String? value);
+  @override
+  String? get profileImagePath;
+  set profileImagePath(String? value);
+  @override
+  String? get gcashQR;
+  set gcashQR(String? value);
+  @override
+  DateTime? get birthday;
+  set birthday(DateTime? value);
   @override
   String? get junkshopName;
   set junkshopName(String? value);
