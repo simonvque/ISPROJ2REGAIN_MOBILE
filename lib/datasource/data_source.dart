@@ -9,12 +9,15 @@ import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
+import 'package:regain_mobile/model/user_id_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
 
 abstract class DataSource {
   Future<ResponseModel> addUser(UserModel user);
+
+  Future<ResponseModel> addUserID(UserIDModel userID);
 
   Future<ResponseModel> updateUser(UserModel user);
 

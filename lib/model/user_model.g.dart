@@ -17,6 +17,12 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String? ?? '',
       accountStatus: json['accountStatus'] as String? ?? 'Pending',
       penaltyPoints: (json['penaltyPoints'] as num?)?.toInt() ?? 0,
+      phone: json['phone'] as String?,
+      profileImagePath: json['profileImagePath'] as String? ?? '',
+      gcashQR: json['gcashQR'] as String? ?? '',
+      birthday: json['birthday'] == null
+          ? null
+          : DateTime.parse(json['birthday'] as String),
       junkshopName: json['junkshopName'] as String? ?? '',
     );
 
@@ -31,5 +37,9 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'email': instance.email,
       'accountStatus': instance.accountStatus,
       'penaltyPoints': instance.penaltyPoints,
+      'phone': instance.phone,
+      'profileImagePath': instance.profileImagePath,
+      'gcashQR': instance.gcashQR,
+      'birthday': instance.birthday?.toIso8601String(),
       'junkshopName': instance.junkshopName,
     };

@@ -127,7 +127,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       const SizedBox(
                           height: ReGainSizes.spaceBtwInputFields / 2),
 
-                      // Contact Number
+                      // Email
                       RegainTextbox(
                         controller: emailController,
                         validator: (value) {
@@ -199,8 +199,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       RegainButtons(
                         text: ReGainTexts.next,
                         onPressed:
-                            //() {
-                            //   Navigator.push(
+                            // () {
+                            //   Navigator.pushReplacement(
                             //     context,
                             //     MaterialPageRoute(
                             //       builder: (context) => const RegistrationIDPage(),
@@ -266,16 +266,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     if (_formKey.currentState!.validate()) {
       final user = UserModel(
         role: userRole,
-        username: usernameController.text,
-        email: emailController.text,
-        password: passwordController.text,
+        username: usernameController.text.trim(),
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
       Provider.of<AppDataProvider>(context, listen: false)
           .addUser(user)
           .then((response) {
         if (response.statusCode == 200) {
           resetFields();
-          Navigator.pushNamed(context, RouteManager.routeLogin);
+          //Navigator.pushNamed(context, RouteManager.routeLogin);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RegistrationIDPage(
+                user: user,
+              ),
+            ),
+          );
           ReGainHelperFunctions.showSnackBar(context, response.message);
         } else if (response.statusCode == 400) {
           setState(() {

@@ -32,7 +32,7 @@ class ChatService with ChangeNotifier {
     // 2. Now, connect to WebSocket
     stompClient = StompClient(
       config: StompConfig(
-        url: 'ws://$ipAddress:443/ws-chat', // WebSocket URL
+        url: 'wss://$ipAddress:443/ws-chat', // WebSocket URL
 
         onConnect: (frame) {
           print('Connected to WebSocket');

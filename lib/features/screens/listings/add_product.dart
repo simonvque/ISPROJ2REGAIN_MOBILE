@@ -215,7 +215,7 @@ class _AddProductState extends State<AddProduct> {
                             .toList(),
                         validator: (value) {
                           if (value == null) {
-                            return "Please select a valid location";
+                            return "Please select a valid category";
                           }
                           return null;
                         },

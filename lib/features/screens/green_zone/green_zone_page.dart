@@ -32,8 +32,8 @@ class _GreenZonePageState extends State<GreenZonePage> {
 
   @override
   void initState() {
-    super.initState();
     Provider.of<GreenZoneProvider>(context, listen: false).getAllArticles();
+    super.initState();
   }
 
   @override
@@ -48,7 +48,10 @@ class _GreenZonePageState extends State<GreenZonePage> {
             return const Center(child: Text('No articles available'));
           } else {
             final totalPages = (provider.articles.length / itemsPerPage).ceil();
-            final articlesToShow = provider.articles.skip(currentPage * itemsPerPage).take(itemsPerPage).toList();
+            final articlesToShow = provider.articles
+                .skip(currentPage * itemsPerPage)
+                .take(itemsPerPage)
+                .toList();
 
             return Column(
               children: [
@@ -57,15 +60,18 @@ class _GreenZonePageState extends State<GreenZonePage> {
                     itemCount: articlesToShow.length,
                     itemBuilder: (context, index) {
                       final article = articlesToShow[index];
-                      final randomIcon = randomIcons[Random().nextInt(randomIcons.length)];
+                      final randomIcon =
+                          randomIcons[Random().nextInt(randomIcons.length)];
 
-                      String decodedSummary = utf8.decode(article.summary.codeUnits);
+                      String decodedSummary =
+                          utf8.decode(article.summary.codeUnits);
 
                       return Column(
                         children: [
                           ListTile(
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                            leading: Icon(randomIcon, size: 28, color: green), 
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
+                            leading: Icon(randomIcon, size: 28, color: green),
                             title: Text(
                               article.title,
                               style: const TextStyle(
@@ -157,5 +163,3 @@ class _GreenZonePageState extends State<GreenZonePage> {
     );
   }
 }
-
-

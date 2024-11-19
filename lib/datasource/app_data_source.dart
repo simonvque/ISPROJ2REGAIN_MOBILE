@@ -13,6 +13,7 @@ import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
+import 'package:regain_mobile/model/user_id_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:regain_mobile/model/view_product_model.dart';
@@ -505,6 +506,19 @@ class AppDataSource extends DataSource {
     } catch (error) {
       // Log the exact error and rethrow to handle it at the call site
       print('Error occurred while fetching articles: $error');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ResponseModel> addUserID(UserIDModel userID) async {
+    final url = '$baseUrl${'user/addID'}';
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: header, body: jsonEncode(userID));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
       rethrow;
     }
   }
