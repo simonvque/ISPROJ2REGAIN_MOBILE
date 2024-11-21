@@ -34,7 +34,6 @@ class AppDataSource extends DataSource {
 
   // baseUrl = emulator IP + Spring Boot backend port + route
   final String baseUrl = 'https://regain-api.isproj.org/api/';
-  final String url2 = 'https://regain.isproj.org/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -96,6 +95,8 @@ class AppDataSource extends DataSource {
   Future<ResponseModel> _getResponseModel(http.Response response) async {
     ResponseStatus status = ResponseStatus.NONE;
     ResponseModel responseModel = ResponseModel();
+    print('Response Status Code: ${response.statusCode}');
+    print('Response Body: ${response.body}');
     if (response.statusCode == 200) {
       status = ResponseStatus.SAVED;
 
@@ -485,7 +486,7 @@ class AppDataSource extends DataSource {
   //GreenZone
   @override
   Future<List<GreenZoneModel>> getAllArticles() async {
-    final url = '$url2${'green_zone/articles'}';
+    final url = '$baseUrl${'green_zone/articles'}';
     try {
       final response = await http.get(Uri.parse(url));
       print('Attempting to fetch articles from: $url');
