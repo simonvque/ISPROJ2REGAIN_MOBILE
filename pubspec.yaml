@@ -58,18 +58,26 @@ dependencies:
   percent_indicator: ^4.2.3
   stomp_dart_client: ^2.1.0
   web_socket_channel: ^3.0.1
+  flutter_launcher_icons: ^0.14.1
 
 dev_dependencies:
 
   flutter_test:
     sdk: flutter
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo/regain_white.png"  # Path to your logo image
+  remove_alpha_ios: true
+  adaptive_icon_background: "assets/images/logo/background.png"  # Path to the background image
+  adaptive_icon_foreground: "assets/images/logo/foreground.png"  # Path to the foreground image
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_launcher_icons: ^0.14.1
   flutter_lints: ^4.0.0
   build_runner:
   freezed:
@@ -185,15 +193,6 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
-flutter_launcher_icons:
-  android: true
-  ios: true
-  image_path: "assets/images/logo/regain_white.png"  # Path to your logo image
-  remove_alpha_ios: true
-  adaptive_icon:
-    background: "assets/images/logo/background.png"  # Path to the background image
-    foreground: "assets/images/logo/foreground.png"  # Path to the foreground image
-    
 flutter_native_splash:
   color: "#ffffff"  # You can set the background color (e.g., white).
   image: "assets/images/logo/regain.png"  # Path to your logo

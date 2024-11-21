@@ -4,7 +4,7 @@
     <application
         android:label="ReGain"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:theme="@style/LaunchTheme"
         android:usesCleartextTraffic="true">
         <activity
