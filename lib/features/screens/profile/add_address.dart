@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/features/screens/homepage/homepage.dart';
 import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/address_model.dart';
@@ -289,8 +290,7 @@ class _AddAddressState extends State<AddAddress> {
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
           resetFields();
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ManageAddresses()));
+          Navigator.pushReplacementNamed(context, RouteManager.routeNavMenu);
           ReGainHelperFunctions.showSnackBar(context, response.message);
         }
       });

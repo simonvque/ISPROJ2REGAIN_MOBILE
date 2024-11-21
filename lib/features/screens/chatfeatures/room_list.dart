@@ -18,7 +18,7 @@ class RoomListScreen extends StatelessWidget {
     ipAddress = dataSource.ipAddPort;
 
     final response = await http
-        .get(Uri.parse('https://$ipAddress/api/chat/user/$userId/rooms'));
+        .get(Uri.parse('http://$ipAddress/api/chat/user/$userId/rooms'));
 
     print('Response Code: ${response.statusCode}');
     print('Response Body: ${response.body}');

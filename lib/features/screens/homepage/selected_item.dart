@@ -405,7 +405,7 @@ Future<String> _fetchOrCreateChatRoom(
 Future<String?> _getExistingChatRoom(
     int userId1, int userId2, String ipAdd) async {
   final url = Uri.parse(
-      'https://$ipAdd/api/chat/room/$userId1-$userId2'); // Adjust API URL accordingly
+      'http://$ipAdd/api/chat/room/$userId1-$userId2'); // Adjust API URL accordingly
 
   final response = await http.get(url);
 
@@ -420,7 +420,7 @@ Future<String?> _getExistingChatRoom(
 Future<String> _createNewChatRoom(
     int userId1, int userId2, String ipAdd) async {
   final url = Uri.parse(
-      'https://$ipAdd/api/chat/createRoom?userId1=$userId1&userId2=$userId2');
+      'http://$ipAdd/api/chat/createRoom?userId1=$userId1&userId2=$userId2');
 
   final response = await http.post(
     url,
@@ -448,7 +448,7 @@ Future<String> _createNewChatRoom(
 
 Future<int> _fetchSellerIdByUsername(String username, String ipAdd) async {
   final url = Uri.parse(
-      'https://$ipAdd/api/user/seller/by-username/$username'); // Adjusted URL
+      'http://$ipAdd/api/user/seller/by-username/$username'); // Adjusted URL
 
   final response = await http.get(url);
 

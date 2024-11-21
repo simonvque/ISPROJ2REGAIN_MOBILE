@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:flutter/material.dart';
@@ -64,8 +65,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   children: [
                     const CircleAvatar(
                       radius: 50,
-                      backgroundImage:
-                          NetworkImage('https://example.com/profile_image.jpg'),
+                      backgroundImage: AssetImage(ReGainImages.exProfilePic),
                     ),
                     const SizedBox(height: 2),
                     TextButton(
@@ -229,6 +229,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           lastName: lastNameController.text,
           email: emailController.text,
           junkshopName: junkshopController.text,
+          accountStatus: model.accountStatus,
           password: model.password!);
       Provider.of<AppDataProvider>(context, listen: false)
           .updateUser(user)

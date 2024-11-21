@@ -17,7 +17,7 @@ class ChatService with ChangeNotifier {
 
   ChatService() {
     ipAddress = dataSource.ipAddPort;
-    serverUrl = 'https://$ipAddress/api/chat';
+    serverUrl = 'http://$ipAddress/api/chat';
   }
 
   // Store messages
@@ -32,7 +32,7 @@ class ChatService with ChangeNotifier {
     // 2. Now, connect to WebSocket
     stompClient = StompClient(
       config: StompConfig(
-        url: 'wss://$ipAddress:443/ws-chat', // WebSocket URL
+        url: 'ws://$ipAddress/ws-chat', // WebSocket URL
 
         onConnect: (frame) {
           print('Connected to WebSocket');
@@ -54,7 +54,7 @@ class ChatService with ChangeNotifier {
 
   Future<void> fetchChatHistory() async {
     final url =
-        '$serverUrl/room/$roomId/messages?page=0&size=50'; // Example pagination
+        '$serverUrl/room/$roomId/messages?page=0&size=100'; // Example pagination
 
     try {
       // Clear previous messages to avoid showing old data

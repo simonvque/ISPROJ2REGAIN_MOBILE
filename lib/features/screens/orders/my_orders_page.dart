@@ -82,11 +82,11 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
     //   method = methodTwo;
     // }
 
-    orders = await Provider.of<OrderProvider>(context, listen: false)
-        .getOrdersByDeliveryBuyer(methodOne, userId);
+    // orders = await Provider.of<OrderProvider>(context, listen: false)
+    //     .getOrdersByDeliveryBuyer(methodOne, userId);
 
-    orders2 = await Provider.of<OrderProvider>(context, listen: false)
-        .getOrdersByPickupBuyer(methodTwo, userId);
+    // orders2 = await Provider.of<OrderProvider>(context, listen: false)
+    //     .getOrdersByPickupBuyer(methodTwo, userId);
 
     // if (_selectedRole == 'As Buyer') {
     //   orders = await Provider.of<OrderProvider>(context, listen: false)

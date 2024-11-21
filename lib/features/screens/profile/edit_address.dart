@@ -283,8 +283,7 @@ class _EditAddressState extends State<EditAddress> {
         .deleteAddress(addressID!)
         .then((response) {
       if (response.statusCode == 200) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ManageAddresses()));
+        Navigator.pushReplacementNamed(context, RouteManager.routeNavMenu);
         ReGainHelperFunctions.showSnackBar(context, response.message);
       } else if (response.statusCode == 400) {
         ReGainHelperFunctions.showSnackBar(context,
