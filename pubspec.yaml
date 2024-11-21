@@ -60,6 +60,7 @@ dependencies:
   web_socket_channel: ^3.0.1
 
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
 
@@ -68,6 +69,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
+  flutter_launcher_icons: ^0.14.1
   flutter_lints: ^4.0.0
   build_runner:
   freezed:
@@ -182,3 +184,20 @@ flutter:
         - asset: assets/fonts/Montserrat/Montserrat-Italic.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo/regain_white.png"  # Path to your logo image
+  remove_alpha_ios: true
+  adaptive_icon:
+    background: "assets/images/logo/background.png"  # Path to the background image
+    foreground: "assets/images/logo/foreground.png"  # Path to the foreground image
+    
+flutter_native_splash:
+  color: "#ffffff"  # You can set the background color (e.g., white).
+  image: "assets/images/logo/regain.png"  # Path to your logo
+  android: true  # For Android
+  ios: true      # For iOS
+
+

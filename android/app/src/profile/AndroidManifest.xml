@@ -5,9 +5,10 @@
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="regain_mobile"
+        android:label="ReGain"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
+        android:theme="@style/LaunchTheme"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
