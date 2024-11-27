@@ -1,3 +1,4 @@
+// OrderProduct class containing order details and a list of statuses
 class OrderProduct {
   String sellerUsername;
   String buyerUsername;
@@ -22,9 +23,30 @@ class OrderProduct {
   });
 }
 
+// Enum for the status of the order
 enum OrderStatus {
-  pending,
-  inProgress,
+  toShip,
+  inTransit,
   delivered,
+  received,
   cancelled,
+}
+
+extension OrderStatusExtension on OrderStatus {
+  String get displayName {
+    switch (this) {
+      case OrderStatus.toShip:
+        return "To Ship";
+      case OrderStatus.inTransit:
+        return "In Transit";
+      case OrderStatus.delivered:
+        return "Delivered";
+      case OrderStatus.received:
+        return "Received";
+      case OrderStatus.cancelled:
+        return "Cancelled";
+      default:
+        return "Unknown";
+    }
+  }
 }
