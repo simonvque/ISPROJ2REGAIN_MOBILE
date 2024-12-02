@@ -72,4 +72,7 @@ abstract class DataSource {
   Future<List<OrderModel>> getOrdersByDeliverySeller(String method, int id);
   //Green Zone
   Future<List<GreenZoneModel>> getAllArticles();
+
+  Future<List<ViewProduct>> getFilteredProductsByCategory(
+      String category, int userId);
 }

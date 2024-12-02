@@ -1,14 +1,12 @@
 import 'dart:convert';
 //import 'dart:js_interop';
 
-import 'package:get/get.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/error_details_model.dart';
 import 'package:regain_mobile/model/green_zone_model.dart';
-import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
@@ -28,12 +26,15 @@ class AppDataSource extends DataSource {
 
   AppDataSource._privateConstructor();
 
-  final _ipAddPort = '159.223.37.215:40002';
+  // final _ipAddPort = '159.223.37.215:40002';
+  final _ipAddPort = '192.168.68.105:9191';
 
   get ipAddPort => _ipAddPort;
 
   // baseUrl = emulator IP + Spring Boot backend port + route
-  final String baseUrl = 'http://159.223.37.215:40002/api/';
+  // final String baseUrl = 'http://159.223.37.215:40002/api/';
+
+  final String baseUrl = 'http://192.168.68.105:9191/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -520,6 +521,29 @@ class AppDataSource extends DataSource {
       return await _getResponseModel(response);
     } catch (error) {
       print(error.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<ViewProduct>> getFilteredProductsByCategory(
+      String category, int userId) async {
+    final url =
+        '$baseUrl${'products/view/filter'}?category=$category&userId=$userId';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => ViewProduct.fromJson(mapList[index]));
+      } else {
+        print(
+            'Failed to fetch products for category: $category and userId: $userId');
+        print('Status Code: ${response.statusCode}, Body: ${response.body}');
+        return [];
+      }
+    } catch (error) {
+      print('Error occurred while fetching filtered products: $error');
       rethrow;
     }
   }
