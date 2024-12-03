@@ -17,6 +17,8 @@ class ProductDataProvider extends ChangeNotifier {
 
   late Product? _product;
 
+  List<ViewProduct> _searchedProducts = [];
+
   Product? get product => _product;
 
   // List<ViewProduct> _userProducts = [];
@@ -36,6 +38,8 @@ class ProductDataProvider extends ChangeNotifier {
   List<Category> get categories => _categories;
 
   List<ViewProduct> get filteredProducts => _filteredProducts;
+
+  List<ViewProduct> get searchedProducts => _searchedProducts;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -114,5 +118,22 @@ class ProductDataProvider extends ChangeNotifier {
       notifyListeners();
     }
     return _filteredProducts;
+  }
+
+  Future<List<ViewProduct>> searchProducts(String query, int userId) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      _searchedProducts = await _dataSource.searchProducts(query, userId);
+      _errorMessage = '';
+    } catch (e) {
+      _errorMessage = 'Failed to load search results: $e';
+      print(_errorMessage);
+      return [];
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+    return _searchedProducts;
   }
 }

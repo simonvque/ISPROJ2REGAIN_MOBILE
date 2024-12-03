@@ -75,4 +75,6 @@ abstract class DataSource {
 
   Future<List<ViewProduct>> getFilteredProductsByCategory(
       String category, int userId);
+
+  Future<List<ViewProduct>> searchProducts(String query, int userId);
 }

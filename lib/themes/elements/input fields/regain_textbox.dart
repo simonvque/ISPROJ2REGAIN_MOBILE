@@ -18,6 +18,7 @@ class RegainTextbox extends StatefulWidget {
   TextEditingController? controller;
   String? Function(String?)? validator;
   List<TextInputFormatter>? inputFormatters;
+  final ValueChanged<String>? onChanged;
 
   String? errorText;
   final bool obscureText;
@@ -40,6 +41,7 @@ class RegainTextbox extends StatefulWidget {
     this.suffixIcon,
     this.isUnderlineBorder = false,
     this.obscureText = false,
+    this.onChanged,
   });
 
   @override
@@ -55,6 +57,7 @@ class _RegainTextboxState extends State<RegainTextbox> {
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
       obscureText: widget.obscureText,
+      onChanged: widget.onChanged,
       style: TextStyle(color: widget.fontColor),
       decoration: InputDecoration(
         errorText: widget.errorText,

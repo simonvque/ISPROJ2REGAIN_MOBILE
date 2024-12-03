@@ -547,4 +547,24 @@ class AppDataSource extends DataSource {
       rethrow;
     }
   }
+
+  @override
+  Future<List<ViewProduct>> searchProducts(String query, int userId) async {
+    final url = '$baseUrl${'products/search'}?query=$query&userId=$userId';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => ViewProduct.fromJson(mapList[index]));
+      } else {
+        print('Failed to fetch products for query: $query and userId: $userId');
+        print('Status Code: ${response.statusCode}, Body: ${response.body}');
+        return [];
+      }
+    } catch (error) {
+      print('Error occurred while searching products: $error');
+      rethrow;
+    }
+  }
 }

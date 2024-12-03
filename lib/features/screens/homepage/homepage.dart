@@ -23,8 +23,9 @@ class HomepageScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomepageScreen> {
   String? _selectedCategory;
-
   List<ViewProduct> listAllProducts = [];
+  TextEditingController _searchController = TextEditingController();
+  List<ViewProduct> searchResults = [];
 
   @override
   void initState() {
@@ -45,6 +46,23 @@ class _HomeScreenState extends State<HomepageScreen> {
     });
   }
 
+  Future<void> _performSearch(String query) async {
+    final productProvider =
+        Provider.of<ProductDataProvider>(context, listen: false);
+    final userId = Provider.of<AppDataProvider>(context, listen: false).userId;
+
+    if (query.isEmpty) {
+      setState(() {
+        searchResults.clear();
+      });
+    } else {
+      final results = await productProvider.searchProducts(query, userId);
+      setState(() {
+        searchResults = results;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,10 +80,14 @@ class _HomeScreenState extends State<HomepageScreen> {
 
                 // Search bar
                 RegainTextbox(
+                  controller: _searchController,
                   hintText: 'Search',
                   prefixIcon: const Icon(Icons.search),
                   fillColor: white,
                   focusedBorderColor: white,
+                  onChanged: (value) {
+                    _performSearch(value); // Trigger search on text change
+                  },
                 ),
 
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
@@ -226,11 +248,13 @@ class _HomeScreenState extends State<HomepageScreen> {
                   // Grid View Items
                   Consumer<ProductDataProvider>(
                     builder: (context, provider, child) {
-                      return CardItems(
-                        items: _selectedCategory != null
-                            ? provider.filteredProducts
-                            : listAllProducts,
-                      );
+                      final productsToDisplay = searchResults.isNotEmpty
+                          ? searchResults
+                          : _selectedCategory != null
+                              ? provider.filteredProducts
+                              : listAllProducts;
+
+                      return CardItems(items: productsToDisplay);
                     },
                   ),
                 ],
