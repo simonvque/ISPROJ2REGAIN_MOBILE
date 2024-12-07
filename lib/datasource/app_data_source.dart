@@ -103,20 +103,27 @@ class AppDataSource extends DataSource {
       responseModel = ResponseModel.fromJson(jsonDecode(response.body));
       // UserModel userM = UserModel.fromJson(jsonDecode(response.body["response"]));
       responseModel.responseStatus = status;
-    }
-    // else if (response.statusCode == 401 || response.statusCode == 403) {
-    //   if (await hasTokenExpired()) {
-    //     status = ResponseStatus.EXPIRED;
-    //   } else {
-    //     status = ResponseStatus.UNAUTHORIZED;
-    //   }
-    //   responseModel = ResponseModel(
-    //     responseStatus: status,
-    //     statusCode: 401,
-    //     message: 'Access denied. Please login as Admin',
-    //   );
-    // }
-    else if (response.statusCode == 500 || response.statusCode == 400) {
+    } else if (response.statusCode == 401 || response.statusCode == 403) {
+      // if (response.statusCode == 403) {
+      //   status = ResponseStatus.EXPIRED;
+      // } else {
+      //   status = ResponseStatus.UNAUTHORIZED;
+      // }
+      status = ResponseStatus.UNAUTHORIZED;
+      //final json = jsonDecode(response.body);
+      //final errorDetails = ErrorDetails.fromJson(json);
+      // responseModel = ResponseModel(
+      //   responseStatus: status,
+      //   statusCode: 401,
+      //   message: 'Access denied. Please login as Admin',
+      // );
+      String msg = "Authentication error";
+      responseModel = ResponseModel(
+        responseStatus: status,
+        statusCode: response.statusCode,
+        message: msg,
+      );
+    } else if (response.statusCode == 500 || response.statusCode == 400) {
       final json = jsonDecode(response.body);
       final errorDetails = ErrorDetails.fromJson(json);
       status = ResponseStatus.FAILED;
