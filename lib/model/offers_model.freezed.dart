@@ -33,8 +33,12 @@ mixin _$OffersModel {
   int? get sellerID => throw _privateConstructorUsedError;
   set sellerID(int? value) => throw _privateConstructorUsedError;
 
+  /// Serializes this OffersModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of OffersModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OffersModelCopyWith<OffersModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -64,6 +68,8 @@ class _$OffersModelCopyWithImpl<$Res, $Val extends OffersModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OffersModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -128,6 +134,8 @@ class __$$OffersModelImplCopyWithImpl<$Res>
       _$OffersModelImpl _value, $Res Function(_$OffersModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of OffersModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -199,7 +207,9 @@ class _$OffersModelImpl implements _OffersModel {
     return 'OffersModel(offerID: $offerID, productID: $productID, buyerID: $buyerID, offerValue: $offerValue, isAccepted: $isAccepted, sellerID: $sellerID)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OffersModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$OffersModelImplCopyWith<_$OffersModelImpl> get copyWith =>
@@ -243,8 +253,11 @@ abstract class _OffersModel implements OffersModel {
   @override
   int? get sellerID;
   set sellerID(int? value);
+
+  /// Create a copy of OffersModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OffersModelImplCopyWith<_$OffersModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

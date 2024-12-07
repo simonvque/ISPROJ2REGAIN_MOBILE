@@ -31,8 +31,12 @@ mixin _$UserIDModel {
   String? get idImage => throw _privateConstructorUsedError;
   set idImage(String? value) => throw _privateConstructorUsedError;
 
+  /// Serializes this UserIDModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserIDModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserIDModelCopyWith<UserIDModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -63,6 +67,8 @@ class _$UserIDModelCopyWithImpl<$Res, $Val extends UserIDModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserIDModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -96,6 +102,8 @@ class _$UserIDModelCopyWithImpl<$Res, $Val extends UserIDModel>
     ) as $Val);
   }
 
+  /// Create a copy of UserIDModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserModelCopyWith<$Res> get user {
@@ -132,6 +140,8 @@ class __$$_UserIDModelImplCopyWithImpl<$Res>
       _$_UserIDModelImpl _value, $Res Function(_$_UserIDModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserIDModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -203,7 +213,9 @@ class _$_UserIDModelImpl with DiagnosticableTreeMixin implements __UserIDModel {
       ..add(DiagnosticsProperty('idImage', idImage));
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserIDModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$_UserIDModelImplCopyWith<_$_UserIDModelImpl> get copyWith =>
@@ -243,8 +255,11 @@ abstract class __UserIDModel implements UserIDModel {
   @override
   String? get idImage;
   set idImage(String? value);
+
+  /// Create a copy of UserIDModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$_UserIDModelImplCopyWith<_$_UserIDModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

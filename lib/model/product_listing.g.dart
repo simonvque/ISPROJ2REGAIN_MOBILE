@@ -17,6 +17,7 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
       categoryID: (json['categoryID'] as num?)?.toInt(),
       price: json['price'] as String,
       canDeliver: json['canDeliver'] as bool,
+      status: json['status'] as String? ?? 'Pending',
     );
 
 Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
       'categoryID': instance.categoryID,
       'price': instance.price,
       'canDeliver': instance.canDeliver,
+      'status': instance.status,
     };

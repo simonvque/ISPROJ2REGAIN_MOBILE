@@ -38,9 +38,15 @@ mixin _$Product {
   set price(String value) => throw _privateConstructorUsedError;
   bool get canDeliver => throw _privateConstructorUsedError;
   set canDeliver(bool value) => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
+  set status(String? value) => throw _privateConstructorUsedError;
 
+  /// Serializes this Product to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Product
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ProductCopyWith<Product> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -58,7 +64,8 @@ abstract class $ProductCopyWith<$Res> {
       int? location,
       int? categoryID,
       String price,
-      bool canDeliver});
+      bool canDeliver,
+      String? status});
 }
 
 /// @nodoc
@@ -71,6 +78,8 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Product
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -83,6 +92,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? categoryID = freezed,
     Object? price = null,
     Object? canDeliver = null,
+    Object? status = freezed,
   }) {
     return _then(_value.copyWith(
       productID: freezed == productID
@@ -121,6 +131,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.canDeliver
           : canDeliver // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -141,7 +155,8 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
       int? location,
       int? categoryID,
       String price,
-      bool canDeliver});
+      bool canDeliver,
+      String? status});
 }
 
 /// @nodoc
@@ -152,6 +167,8 @@ class __$$ProductImplCopyWithImpl<$Res>
       _$ProductImpl _value, $Res Function(_$ProductImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Product
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -164,6 +181,7 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? categoryID = freezed,
     Object? price = null,
     Object? canDeliver = null,
+    Object? status = freezed,
   }) {
     return _then(_$ProductImpl(
       productID: freezed == productID
@@ -202,6 +220,10 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.canDeliver
           : canDeliver // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -218,7 +240,8 @@ class _$ProductImpl implements _Product {
       required this.location,
       required this.categoryID,
       required this.price,
-      required this.canDeliver});
+      required this.canDeliver,
+      this.status = 'Pending'});
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductImplFromJson(json);
@@ -242,13 +265,18 @@ class _$ProductImpl implements _Product {
   String price;
   @override
   bool canDeliver;
+  @override
+  @JsonKey()
+  String? status;
 
   @override
   String toString() {
-    return 'Product(productID: $productID, sellerID: $sellerID, productName: $productName, description: $description, weight: $weight, location: $location, categoryID: $categoryID, price: $price, canDeliver: $canDeliver)';
+    return 'Product(productID: $productID, sellerID: $sellerID, productName: $productName, description: $description, weight: $weight, location: $location, categoryID: $categoryID, price: $price, canDeliver: $canDeliver, status: $status)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Product
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ProductImplCopyWith<_$ProductImpl> get copyWith =>
@@ -272,7 +300,8 @@ abstract class _Product implements Product {
       required int? location,
       required int? categoryID,
       required String price,
-      required bool canDeliver}) = _$ProductImpl;
+      required bool canDeliver,
+      String? status}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
@@ -304,7 +333,13 @@ abstract class _Product implements Product {
   bool get canDeliver;
   set canDeliver(bool value);
   @override
-  @JsonKey(ignore: true)
+  String? get status;
+  set status(String? value);
+
+  /// Create a copy of Product
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProductImplCopyWith<_$ProductImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -41,8 +41,12 @@ mixin _$ViewProduct {
   bool get isFavorite => throw _privateConstructorUsedError;
   set isFavorite(bool value) => throw _privateConstructorUsedError;
 
+  /// Serializes this ViewProduct to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ViewProduct
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ViewProductCopyWith<ViewProduct> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -76,6 +80,8 @@ class _$ViewProductCopyWithImpl<$Res, $Val extends ViewProduct>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ViewProduct
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -164,6 +170,8 @@ class __$$ViewProductImplCopyWithImpl<$Res>
       _$ViewProductImpl _value, $Res Function(_$ViewProductImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ViewProduct
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -267,7 +275,9 @@ class _$ViewProductImpl implements _ViewProduct {
     return 'ViewProduct(productID: $productID, productName: $productName, location: $location, price: $price, sellerUsername: $sellerUsername, description: $description, weight: $weight, category: $category, canDeliver: $canDeliver, isFavorite: $isFavorite)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ViewProduct
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ViewProductImplCopyWith<_$ViewProductImpl> get copyWith =>
@@ -327,8 +337,11 @@ abstract class _ViewProduct implements ViewProduct {
   @override
   bool get isFavorite;
   set isFavorite(bool value);
+
+  /// Create a copy of ViewProduct
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ViewProductImplCopyWith<_$ViewProductImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

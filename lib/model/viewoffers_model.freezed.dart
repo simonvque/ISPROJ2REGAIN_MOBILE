@@ -37,8 +37,12 @@ mixin _$ViewOffersModel {
       throw _privateConstructorUsedError; // add bool isOrdered if there is an existing order with the ViewProduct
   set sellerName(String value) => throw _privateConstructorUsedError;
 
+  /// Serializes this ViewOffersModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ViewOffersModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ViewOffersModelCopyWith<ViewOffersModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -71,6 +75,8 @@ class _$ViewOffersModelCopyWithImpl<$Res, $Val extends ViewOffersModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ViewOffersModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -114,6 +120,8 @@ class _$ViewOffersModelCopyWithImpl<$Res, $Val extends ViewOffersModel>
     ) as $Val);
   }
 
+  /// Create a copy of ViewOffersModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ViewProductCopyWith<$Res> get product {
@@ -152,6 +160,8 @@ class __$$ViewOffersModelImplCopyWithImpl<$Res>
       _$ViewOffersModelImpl _value, $Res Function(_$ViewOffersModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ViewOffersModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -232,7 +242,9 @@ class _$ViewOffersModelImpl implements _ViewOffersModel {
     return 'ViewOffersModel(offerID: $offerID, buyerName: $buyerName, product: $product, offerValue: $offerValue, isAccepted: $isAccepted, isOrdered: $isOrdered, sellerName: $sellerName)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ViewOffersModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ViewOffersModelImplCopyWith<_$ViewOffersModelImpl> get copyWith =>
@@ -277,13 +289,18 @@ abstract class _ViewOffersModel implements ViewOffersModel {
   set isAccepted(bool? value);
   @override
   bool? get isOrdered;
-  set isOrdered(bool? value);
-  @override // add bool isOrdered if there is an existing order with the ViewProduct
+  set isOrdered(
+      bool?
+          value); // add bool isOrdered if there is an existing order with the ViewProduct
+  @override
   String
       get sellerName; // add bool isOrdered if there is an existing order with the ViewProduct
   set sellerName(String value);
+
+  /// Create a copy of ViewOffersModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ViewOffersModelImplCopyWith<_$ViewOffersModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

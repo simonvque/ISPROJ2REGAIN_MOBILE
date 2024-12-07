@@ -14,7 +14,8 @@ class Product with _$Product {
       required int? location,
       required int? categoryID,
       required String price,
-      required bool canDeliver}) = _Product;
+      required bool canDeliver,
+      @Default('Pending') String? status}) = _Product;
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
 }
