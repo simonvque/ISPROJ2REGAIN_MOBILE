@@ -230,7 +230,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           email: emailController.text,
           junkshopName: junkshopController.text,
           accountStatus: model.accountStatus,
-          password: model.password!);
+          password: model.password);
       Provider.of<AppDataProvider>(context, listen: false)
           .updateUser(user)
           .then((response) {

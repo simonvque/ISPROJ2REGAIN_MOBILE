@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
-import 'package:regain_mobile/features/screens/qr_payment/payment_details_page.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/payment_model.dart';

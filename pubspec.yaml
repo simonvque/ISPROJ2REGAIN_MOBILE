@@ -39,9 +39,8 @@ dependencies:
   iconsax_flutter: ^1.0.0
 
   http: ^1.2.1
-  intl: ^0.19.0
+  intl: ^0.20.1
   provider:
-  freezed_annotation:
   json_annotation: ^4.9.0
   shared_preferences:
   logger: ^2.0.1
@@ -59,11 +58,14 @@ dependencies:
   stomp_dart_client: ^2.1.0
   web_socket_channel: ^3.0.1
   flutter_launcher_icons: ^0.14.1
+  freezed: ^2.5.2
 
 dev_dependencies:
 
+  build_runner: ^2.4.11
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.8.0
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -79,10 +81,6 @@ flutter_launcher_icons:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
-  build_runner:
-  freezed:
-  json_serializable:
-  decimal: ^3.0.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
