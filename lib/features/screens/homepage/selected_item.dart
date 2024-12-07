@@ -254,6 +254,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
             ),
           ),
 //////////////////////// REPORTS PAGE
+//////////////////////// REPORTS PAGE
           Positioned(
             top: 16,
             right: 16,
@@ -278,6 +279,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => ReportPage(
+                        reportType: 'product', // Pass reportType as 'product'
                         productName: widget.item.productName,
                         sellerUsername: widget.item.sellerUsername,
                         productCategory: widget.item.category,
@@ -299,6 +301,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => ReportPage(
+                          reportType: 'user', // Pass reportType as 'user'
                           productName: '',
                           sellerUsername: sellerUsername,
                           productCategory: '',

@@ -6,6 +6,7 @@ import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 class ReportPage extends StatefulWidget {
+  final String reportType; // 'product' or 'user'
   final String productName;
   final String sellerUsername;
   final String productCategory;
@@ -15,6 +16,7 @@ class ReportPage extends StatefulWidget {
 
   const ReportPage({
     super.key,
+    required this.reportType,
     required this.productName,
     required this.sellerUsername,
     required this.productCategory,
@@ -28,7 +30,7 @@ class ReportPage extends StatefulWidget {
 }
 
 class ReportPageState extends State<ReportPage> {
-  String? reportType; // 'product' or 'user'
+  late String reportType;
   String? selectedIssue;
   bool showError = false;
 
@@ -55,12 +57,11 @@ class ReportPageState extends State<ReportPage> {
 
   final TextEditingController detailsController = TextEditingController();
 
-  void selectReportType(String type) {
-    setState(() {
-      reportType = type;
-      selectedIssue = null;
-      showError = false;
-    });
+  @override
+  void initState() {
+    super.initState();
+    reportType =
+        widget.reportType; // Set reportType from the widget's parameter
   }
 
   void selectIssue(String issue) {
@@ -81,7 +82,7 @@ class ReportPageState extends State<ReportPage> {
     final appDataSource = AppDataSource();
 
     if (reportType == 'product') {
-      // Product report
+      // Product report payload
       final reportPayload = {
         "reporterID": widget.reporterID,
         "reportedListingID": widget.reportedListingID,
@@ -113,7 +114,7 @@ class ReportPageState extends State<ReportPage> {
         );
       }
     } else if (reportType == 'user') {
-      // User report
+      // User report payload
       final userReportPayload = {
         "reporterID": widget.reporterID,
         "reportedUserID": widget.reportedListingID,
@@ -155,10 +156,6 @@ class ReportPageState extends State<ReportPage> {
           setState(() {
             selectedIssue = null; // Reset selected issue
           });
-        } else if (reportType != null) {
-          setState(() {
-            reportType = null; // Reset report type selection
-          });
         } else {
           Navigator.of(context).pop(); // Navigate back
         }
@@ -169,31 +166,7 @@ class ReportPageState extends State<ReportPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (reportType == null) ...[
-                // Initial selection: Report Product or User
-                Text(
-                  'What are you reporting?',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                const SizedBox(height: 20),
-                RegainButtons(
-                  onPressed: () => selectReportType('product'),
-                  text: 'I’m reporting the product',
-                  type: ButtonType.outlined,
-                  size: ButtonSize.large,
-                  txtSize: BtnTxtSize.large,
-                  rightIcon: CupertinoIcons.chevron_forward,
-                ),
-                const SizedBox(height: 12),
-                RegainButtons(
-                  onPressed: () => selectReportType('user'),
-                  text: 'I’m reporting the user',
-                  type: ButtonType.outlined,
-                  size: ButtonSize.large,
-                  txtSize: BtnTxtSize.large,
-                  rightIcon: CupertinoIcons.chevron_forward,
-                ),
-              ] else if (selectedIssue == null) ...[
+              if (selectedIssue == null) ...[
                 // Issue selection based on report type
                 Text(
                   reportType == 'product'
