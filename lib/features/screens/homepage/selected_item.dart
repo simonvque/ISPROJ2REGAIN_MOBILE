@@ -9,6 +9,9 @@ import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/favorites_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
+
+import 'package:regain_mobile/features/screens/report_features/report_page.dart';
+
 import 'package:http/http.dart' as http;
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
@@ -250,14 +253,79 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
               },
             ),
           ),
+//////////////////////// REPORTS PAGE
           Positioned(
             top: 16,
             right: 16,
-            child: IconButton(
+            child: PopupMenuButton<String>(
               icon: const Icon(Icons.flag, color: Colors.white),
-              onPressed: () {
-                // Navigate to report page or perform action
+              onSelected: (String reportType) async {
+                final appDataProvider =
+                    Provider.of<AppDataProvider>(context, listen: false);
+                final reporterID = appDataProvider.userId;
+
+                if (reporterID == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('You must be logged in to report an item.'),
+                    ),
+                  );
+                  return;
+                }
+
+                if (reportType == 'product') {
+                  // Navigate to the ReportPage for reporting a product
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ReportPage(
+                        productName: widget.item.productName,
+                        sellerUsername: widget.item.sellerUsername,
+                        productCategory: widget.item.category,
+                        productPrice: widget.item.price.toString(),
+                        reporterID: reporterID,
+                        reportedListingID: widget.item.productID, // Product ID
+                      ),
+                    ),
+                  );
+                } else if (reportType == 'user') {
+                  final sellerUsername = widget.item.sellerUsername;
+
+                  try {
+                    // Fetch seller ID dynamically using the seller's username
+                    final sellerId = await _fetchSellerIdByUsername(
+                        sellerUsername, ipAddress);
+
+                    // Navigate to the ReportPage for reporting a user
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ReportPage(
+                          productName: '',
+                          sellerUsername: sellerUsername,
+                          productCategory: '',
+                          productPrice: '',
+                          reporterID: reporterID,
+                          reportedListingID:
+                              sellerId, // Seller's User ID fetched dynamically
+                        ),
+                      ),
+                    );
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Failed to fetch seller ID: $e')),
+                    );
+                  }
+                }
               },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                const PopupMenuItem<String>(
+                  value: 'product',
+                  child: Text('Report Product'),
+                ),
+                const PopupMenuItem<String>(
+                  value: 'user',
+                  child: Text('Report User'),
+                ),
+              ],
             ),
           ),
         ],
@@ -331,7 +399,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                         sellerUsername: widget.item.sellerUsername,
                         defaultOfferPrice: widget.item.price,
                         prod: widget.item,
-                        buyerName: username!,
+                        buyerName: username,
                       ); // Display OfferPricePopup as a dialog
                     },
                   );

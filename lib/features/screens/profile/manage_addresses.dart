@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/features/screens/profile/add_address.dart';
@@ -8,7 +7,6 @@ import 'package:regain_mobile/features/screens/profile/edit_address.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/provider/address_data_provider.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
-import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 
 class ManageAddresses extends StatefulWidget {

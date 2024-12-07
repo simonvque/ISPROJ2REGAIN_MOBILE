@@ -13,8 +13,6 @@ import 'package:regain_mobile/features/screens/profile/profile_menu/contactus_pa
 import 'package:regain_mobile/features/screens/profile/profile_menu/listing_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/penalty_page.dart';
 import 'package:regain_mobile/features/screens/profile/settings/settings_page.dart';
-import 'package:regain_mobile/features/screens/profile/profile_menu/transactions_page.dart';
-import 'package:regain_mobile/features/screens/profile/util/transactions_data.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 
