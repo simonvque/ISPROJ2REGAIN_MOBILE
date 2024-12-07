@@ -27,14 +27,14 @@ class AppDataSource extends DataSource {
   AppDataSource._privateConstructor();
 
   // final _ipAddPort = '159.223.37.215:40002';
-  final _ipAddPort = '192.168.1.191:9191';
+  final _ipAddPort = '192.168.68.113:9191';
 
   get ipAddPort => _ipAddPort;
 
   // baseUrl = emulator IP + Spring Boot backend port + route
   // final String baseUrl = 'http://159.223.37.215:40002/api/';
 
-  final String baseUrl = 'http://192.168.1.191:9191/api/';
+  final String baseUrl = 'http://192.168.68.113:9191/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -553,6 +553,48 @@ class AppDataSource extends DataSource {
       return await _getResponseModel(response);
     } catch (error) {
       print(error.toString());
+      rethrow;
+    }
+  }
+
+  Future<int> getPenaltyPoints(int userId) async {
+    final url = '$baseUrl${'user/$userId/penalty-points'}';
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: header,
+      );
+
+      print('Response Status Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data['response'] as int? ??
+            0; // Extract penalty points from 'response'
+      } else {
+        throw Exception(
+            'Failed to fetch penalty points: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching penalty points: $error');
+      rethrow;
+    }
+  }
+
+  Future<Map<String, List<dynamic>>> getUserAndListingReports(
+      int userId) async {
+    final url = '$baseUrl${'user/$userId/reports'}';
+    try {
+      final response = await http.get(Uri.parse(url), headers: header);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        return data
+            .map((key, value) => MapEntry(key, List<dynamic>.from(value)));
+      }
+      return {};
+    } catch (error) {
+      print('Error fetching reports: $error');
       rethrow;
     }
   }
