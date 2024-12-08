@@ -18,6 +18,7 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
       price: json['price'] as String,
       image: const Uint8ListConverter().fromJson(json['image'] as String),
       canDeliver: json['canDeliver'] as bool,
+      status: json['status'] as String? ?? 'Pending',
     );
 
 Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
@@ -32,4 +33,5 @@ Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
       'price': instance.price,
       'image': const Uint8ListConverter().toJson(instance.image),
       'canDeliver': instance.canDeliver,
+      'status': instance.status,
     };

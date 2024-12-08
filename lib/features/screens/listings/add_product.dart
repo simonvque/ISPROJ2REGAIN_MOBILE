@@ -222,7 +222,7 @@ class _AddProductState extends State<AddProduct> {
       Provider.of<ProductDataProvider>(context, listen: false)
           .addProduct(prod, _selectedImage, context)
           .then((response) {
-        if (response.responseStatus == ResponseStatus.SAVED) {
+        if (response.statusCode == 200) {
           resetFields();
           ReGainHelperFunctions.showSnackBar(
             context,

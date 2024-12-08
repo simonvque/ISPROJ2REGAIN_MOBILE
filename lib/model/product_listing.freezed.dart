@@ -42,6 +42,8 @@ mixin _$Product {
   set image(Uint8List value) => throw _privateConstructorUsedError;
   bool get canDeliver => throw _privateConstructorUsedError;
   set canDeliver(bool value) => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
+  set status(String? value) => throw _privateConstructorUsedError;
 
   /// Serializes this Product to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -66,6 +68,8 @@ abstract class $ProductCopyWith<$Res> {
       int? location,
       int? categoryID,
       String price,
+      bool canDeliver,
+      String? status
       @Uint8ListConverter() Uint8List image,
       bool canDeliver});
 }
@@ -95,6 +99,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? price = null,
     Object? image = null,
     Object? canDeliver = null,
+    Object? status = freezed,
   }) {
     return _then(_value.copyWith(
       productID: freezed == productID
@@ -137,6 +142,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.canDeliver
           : canDeliver // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -157,8 +166,9 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
       int? location,
       int? categoryID,
       String price,
-      @Uint8ListConverter() Uint8List image,
-      bool canDeliver});
+      bool canDeliver,
+      String? status,
+      @Uint8ListConverter() Uint8List image});
 }
 
 /// @nodoc
@@ -184,6 +194,7 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? price = null,
     Object? image = null,
     Object? canDeliver = null,
+    Object? status = freezed,
   }) {
     return _then(_$ProductImpl(
       productID: freezed == productID
@@ -226,6 +237,10 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.canDeliver
           : canDeliver // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -242,8 +257,9 @@ class _$ProductImpl implements _Product {
       required this.location,
       required this.categoryID,
       required this.price,
-      @Uint8ListConverter() required this.image,
-      required this.canDeliver});
+      required this.canDeliver,
+      this.status = 'Pending',
+      @Uint8ListConverter() required this.image,});
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductImplFromJson(json);
@@ -270,10 +286,13 @@ class _$ProductImpl implements _Product {
   Uint8List image;
   @override
   bool canDeliver;
+  @override
+  @JsonKey()
+  String? status;
 
   @override
   String toString() {
-    return 'Product(productID: $productID, sellerID: $sellerID, productName: $productName, description: $description, weight: $weight, location: $location, categoryID: $categoryID, price: $price, image: $image, canDeliver: $canDeliver)';
+    return 'Product(productID: $productID, sellerID: $sellerID, productName: $productName, description: $description, weight: $weight, location: $location, categoryID: $categoryID, price: $price, canDeliver: $canDeliver, status: $status, image: $image)';
   }
 
   /// Create a copy of Product
@@ -302,8 +321,9 @@ abstract class _Product implements Product {
       required int? location,
       required int? categoryID,
       required String price,
-      @Uint8ListConverter() required Uint8List image,
-      required bool canDeliver}) = _$ProductImpl;
+      required bool canDeliver,
+      String? status,
+      @Uint8ListConverter() required Uint8List image}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
@@ -339,6 +359,9 @@ abstract class _Product implements Product {
   @override
   bool get canDeliver;
   set canDeliver(bool value);
+  @override
+  String? get status;
+  set status(String? value);
 
   /// Create a copy of Product
   /// with the given fields replaced by the non-null parameter values.

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
@@ -98,12 +99,12 @@ class PaymentDetailsPage extends StatelessWidget {
               text: 'Confirm Payment',
               onPressed: () {
                 //where to redirect
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const RegistrationCompletePage(),
-                //   ),
-                // );
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NavigationMenu(),
+                  ),
+                );
               },
               type: ButtonType.filled,
               txtSize: BtnTxtSize.large,
