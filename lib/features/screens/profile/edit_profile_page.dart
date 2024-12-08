@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
@@ -45,6 +46,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void _getData() {
     model = Provider.of<AppDataProvider>(context, listen: false).user!;
+
+    // Validate essential fields
+    if (model.username == null || model.username.isEmpty) {
+      throw Exception("Username is required but not provided");
+    }
+    if (model.password == null || model.password.isEmpty) {
+      throw Exception("Password is required but not provided");
+    }
     usernameController.text = model.username;
     firstNameController.text = model.firstName ?? "";
     lastNameController.text = model.lastName ?? "";
@@ -57,8 +66,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
+      final file = File(pickedFile.path);
+      final fileSize = file.lengthSync();
+      final mimeType = lookupMimeType(file.path);
+
+      if (fileSize > 2 * 1024 * 1024) {
+        // 2MB limit
+        ReGainHelperFunctions.showSnackBar(
+            context, 'Image size must be under 2MB.');
+        return;
+      }
+
+      if (mimeType != 'image/jpeg' && mimeType != 'image/png') {
+        ReGainHelperFunctions.showSnackBar(
+            context, 'Invalid image format. Only JPEG and PNG are supported.');
+        return;
+      }
+
       setState(() {
-        _profileImage = File(pickedFile.path);
+        _profileImage = file;
       });
     }
   }
@@ -189,16 +215,34 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void updateProfile() {
     if (_profileKey.currentState!.validate()) {
+      // Check if username and password are not null
+      if (model.username == null || model.password == null) {
+        ReGainHelperFunctions.showSnackBar(
+            context, 'Username or Password cannot be null');
+        return;
+      }
       final user = UserModel(
         id: model.id,
         username: model.username,
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
-        email: emailController.text,
-        junkshopName: junkshopController.text,
+        firstName:
+            firstNameController.text.isNotEmpty ? firstNameController.text : "",
+        lastName:
+            lastNameController.text.isNotEmpty ? lastNameController.text : "",
+        email: emailController.text.isNotEmpty ? emailController.text : "",
+        junkshopName:
+            junkshopController.text.isNotEmpty ? junkshopController.text : "",
         accountStatus: model.accountStatus,
-        password: model.password!,
+        password: model.password,
       );
+
+      print("Updating user: ${user.toJson()}"); // Debug
+
+      if (_profileImage != null) {
+        print("Profile image path: ${_profileImage!.path}");
+      } else {
+        print("No profile image selected.");
+      }
+
       Provider.of<AppDataProvider>(context, listen: false)
           .updateUser(user, profileImage: _profileImage)
           .then((response) {
@@ -208,8 +252,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
               context, 'Profile updated successfully!');
         } else {
           ReGainHelperFunctions.showSnackBar(
-              context, 'Failed to update profile.');
+              context, response.message ?? 'Failed to update profile.');
         }
+      }).catchError((error) {
+        ReGainHelperFunctions.showSnackBar(
+            context, 'An unexpected error occurred: $error');
       });
     }
   }
