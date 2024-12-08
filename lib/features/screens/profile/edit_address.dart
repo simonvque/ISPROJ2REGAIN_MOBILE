@@ -36,7 +36,9 @@ class _EditAddressState extends State<EditAddress> {
   void _getData() {
     // unitNumberController.text;
     addressID = widget.address.addressID;
-    unitNumberController.text = widget.address.unitNumber!;
+    if (widget.address.unitNumber != null) {
+      unitNumberController.text = widget.address.unitNumber!;
+    }
     // widget.address.unitNumber != null ? '' : widget.address.unitNumber;
     streetController.text = widget.address.street;
     barangayController.text = widget.address.barangay;
