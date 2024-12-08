@@ -68,4 +68,13 @@ abstract class DataSource {
   Future<List<OrderModel>> getOrdersByDeliverySeller(String method, int id);
   //Green Zone
   Future<List<GreenZoneModel>> getAllArticles();
+
+  // Request password reset
+  Future<ResponseModel> requestPasswordReset(String email);
+
+  // Reset password 
+  Future<ResponseModel> resetPassword(String otp, String newPassword);
+
+  //Verify Otp
+  Future<ResponseModel> verifyOtp(String otp);
 }
