@@ -1,15 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
-import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/favorites_data_provider.dart';
-import 'package:regain_mobile/provider/product_data_provider.dart';
 
 import '../selected_item.dart';
 

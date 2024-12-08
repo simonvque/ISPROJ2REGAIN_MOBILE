@@ -152,6 +152,7 @@ class _AddAddressState extends State<AddAddress> {
                     if (value == null || value.isEmpty) {
                       return "Please enter a street address";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                     labelText: 'Street address, house number',
@@ -171,6 +172,7 @@ class _AddAddressState extends State<AddAddress> {
                     if (value == null || value.isEmpty) {
                       return "Please enter a barangay";
                     }
+                    return null;
                   },
                   controller: barangayController,
                   decoration: InputDecoration(
@@ -192,6 +194,7 @@ class _AddAddressState extends State<AddAddress> {
                     if (value == null || value.isEmpty) {
                       return "Please enter a city";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                     labelText: 'City',
@@ -212,6 +215,7 @@ class _AddAddressState extends State<AddAddress> {
                     if (value == null || value.isEmpty) {
                       return "Please enter a state or region";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                     labelText: 'State or region',
@@ -234,6 +238,7 @@ class _AddAddressState extends State<AddAddress> {
                     if (value?.length != 4) {
                       return "Please enter a valid zip code";
                     }
+                    return null;
                   },
                   controller: zipCodeController,
                   decoration: InputDecoration(
