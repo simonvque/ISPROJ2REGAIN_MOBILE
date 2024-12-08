@@ -31,8 +31,12 @@ mixin _$FavoriteModel {
   int? get sellerID => throw _privateConstructorUsedError;
   set sellerID(int? value) => throw _privateConstructorUsedError;
 
+  /// Serializes this FavoriteModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FavoriteModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FavoriteModelCopyWith<FavoriteModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,6 +65,8 @@ class _$FavoriteModelCopyWithImpl<$Res, $Val extends FavoriteModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FavoriteModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -119,6 +125,8 @@ class __$$FavoriteModelImplCopyWithImpl<$Res>
       _$FavoriteModelImpl _value, $Res Function(_$FavoriteModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FavoriteModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -183,7 +191,9 @@ class _$FavoriteModelImpl implements _FavoriteModel {
     return 'FavoriteModel(favoriteID: $favoriteID, userID: $userID, productID: $productID, isFavorite: $isFavorite, sellerID: $sellerID)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FavoriteModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FavoriteModelImplCopyWith<_$FavoriteModelImpl> get copyWith =>
@@ -223,8 +233,11 @@ abstract class _FavoriteModel implements FavoriteModel {
   @override
   int? get sellerID;
   set sellerID(int? value);
+
+  /// Create a copy of FavoriteModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FavoriteModelImplCopyWith<_$FavoriteModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

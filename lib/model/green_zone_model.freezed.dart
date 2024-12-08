@@ -26,8 +26,12 @@ mixin _$GreenZoneModel {
   String get summary => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
 
+  /// Serializes this GreenZoneModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of GreenZoneModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GreenZoneModelCopyWith<GreenZoneModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +55,8 @@ class _$GreenZoneModelCopyWithImpl<$Res, $Val extends GreenZoneModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of GreenZoneModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -104,6 +110,8 @@ class __$$GreenZoneModelImplCopyWithImpl<$Res>
       _$GreenZoneModelImpl _value, $Res Function(_$GreenZoneModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of GreenZoneModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -179,11 +187,13 @@ class _$GreenZoneModelImpl implements _GreenZoneModel {
             (identical(other.date, date) || other.date == date));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, title, link, summary, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GreenZoneModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GreenZoneModelImplCopyWith<_$GreenZoneModelImpl> get copyWith =>
@@ -219,8 +229,11 @@ abstract class _GreenZoneModel implements GreenZoneModel {
   String get summary;
   @override
   DateTime get date;
+
+  /// Create a copy of GreenZoneModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GreenZoneModelImplCopyWith<_$GreenZoneModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

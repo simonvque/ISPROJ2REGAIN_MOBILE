@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -138,6 +140,16 @@ class _CardItemState extends State<CardItem> {
   Widget build(BuildContext context) {
     final bool isSellerDropOff = widget.item.canDeliver;
 
+    // Decode Base64 image if available
+    Uint8List? imageBytes;
+    if (widget.item.image != null && widget.item.image!.isNotEmpty) {
+      try {
+        imageBytes = base64Decode(widget.item.image!);
+      } catch (e) {
+        debugPrint('Error decoding Base64 image: $e');
+      }
+    }
+
     return Card(
       child: InkWell(
         onTap: () {
@@ -152,18 +164,21 @@ class _CardItemState extends State<CardItem> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Stack(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 100,
-                  child: Image.asset(
-                    ReGainImages.onboardingImage3,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ],
+            // Dynamic Image Section
+            SizedBox(
+              width: double.infinity,
+              height: 100,
+              child: imageBytes != null
+                  ? Image.memory(
+                      imageBytes,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      ReGainImages.onboardingImage3,
+                      fit: BoxFit.cover,
+                    ),
             ),
+            // Remaining card content
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Row(
@@ -183,14 +198,7 @@ class _CardItemState extends State<CardItem> {
                       isFavorite ? Icons.favorite : Icons.favorite_border,
                       color: isFavorite ? Colors.red : Colors.black,
                     ),
-                    onPressed: () {
-                      // INSERT ADD FAVORITE HERE <<<<<<<<<<<<<
-                      // setState(() {
-                      //   isFavorite = !isFavorite;
-                      // });
-                      // isFavorite = !isFavorite;
-                      addFavorite();
-                    },
+                    onPressed: () => addFavorite(),
                   ),
                 ],
               ),

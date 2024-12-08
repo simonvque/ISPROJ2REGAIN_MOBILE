@@ -45,23 +45,21 @@ class _NavigationMenuState extends State<NavigationMenu> {
     ];
 
     return Scaffold(
-      body: Center(
+      body: SafeArea(
         child: body[_currentIndex],
       ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         foregroundColor: white,
         backgroundColor: green,
         child: const Icon(Icons.add),
         onPressed: () {
-          // changed to pushreplacementnamed so user can't press "back" button with nav bar
+          // Navigate to the Add Product route
           Navigator.pushNamed(context, RouteManager.routeAddProduct);
         },
       ),
-      resizeToAvoidBottomInset:
-          false, // This keeps the floating action button in place when the keyboard pops up
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: green,

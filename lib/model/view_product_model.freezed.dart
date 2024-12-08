@@ -40,9 +40,15 @@ mixin _$ViewProduct {
   set canDeliver(bool value) => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
   set isFavorite(bool value) => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
+  set image(String? value) => throw _privateConstructorUsedError;
 
+  /// Serializes this ViewProduct to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ViewProduct
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ViewProductCopyWith<ViewProduct> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -63,7 +69,8 @@ abstract class $ViewProductCopyWith<$Res> {
       String weight,
       String category,
       bool canDeliver,
-      bool isFavorite});
+      bool isFavorite,
+      String? image});
 }
 
 /// @nodoc
@@ -76,6 +83,8 @@ class _$ViewProductCopyWithImpl<$Res, $Val extends ViewProduct>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ViewProduct
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -89,6 +98,7 @@ class _$ViewProductCopyWithImpl<$Res, $Val extends ViewProduct>
     Object? category = null,
     Object? canDeliver = null,
     Object? isFavorite = null,
+    Object? image = freezed,
   }) {
     return _then(_value.copyWith(
       productID: null == productID
@@ -131,6 +141,10 @@ class _$ViewProductCopyWithImpl<$Res, $Val extends ViewProduct>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -153,7 +167,8 @@ abstract class _$$ViewProductImplCopyWith<$Res>
       String weight,
       String category,
       bool canDeliver,
-      bool isFavorite});
+      bool isFavorite,
+      String? image});
 }
 
 /// @nodoc
@@ -164,6 +179,8 @@ class __$$ViewProductImplCopyWithImpl<$Res>
       _$ViewProductImpl _value, $Res Function(_$ViewProductImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ViewProduct
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -177,6 +194,7 @@ class __$$ViewProductImplCopyWithImpl<$Res>
     Object? category = null,
     Object? canDeliver = null,
     Object? isFavorite = null,
+    Object? image = freezed,
   }) {
     return _then(_$ViewProductImpl(
       productID: null == productID
@@ -219,6 +237,10 @@ class __$$ViewProductImplCopyWithImpl<$Res>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -236,7 +258,8 @@ class _$ViewProductImpl implements _ViewProduct {
       required this.weight,
       required this.category,
       required this.canDeliver,
-      required this.isFavorite});
+      required this.isFavorite,
+      this.image = ''});
 
   factory _$ViewProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ViewProductImplFromJson(json);
@@ -261,13 +284,18 @@ class _$ViewProductImpl implements _ViewProduct {
   bool canDeliver;
   @override
   bool isFavorite;
+  @override
+  @JsonKey()
+  String? image;
 
   @override
   String toString() {
-    return 'ViewProduct(productID: $productID, productName: $productName, location: $location, price: $price, sellerUsername: $sellerUsername, description: $description, weight: $weight, category: $category, canDeliver: $canDeliver, isFavorite: $isFavorite)';
+    return 'ViewProduct(productID: $productID, productName: $productName, location: $location, price: $price, sellerUsername: $sellerUsername, description: $description, weight: $weight, category: $category, canDeliver: $canDeliver, isFavorite: $isFavorite, image: $image)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ViewProduct
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ViewProductImplCopyWith<_$ViewProductImpl> get copyWith =>
@@ -292,7 +320,8 @@ abstract class _ViewProduct implements ViewProduct {
       required String weight,
       required String category,
       required bool canDeliver,
-      required bool isFavorite}) = _$ViewProductImpl;
+      required bool isFavorite,
+      String? image}) = _$ViewProductImpl;
 
   factory _ViewProduct.fromJson(Map<String, dynamic> json) =
       _$ViewProductImpl.fromJson;
@@ -328,7 +357,13 @@ abstract class _ViewProduct implements ViewProduct {
   bool get isFavorite;
   set isFavorite(bool value);
   @override
-  @JsonKey(ignore: true)
+  String? get image;
+  set image(String? value);
+
+  /// Create a copy of ViewProduct
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ViewProductImplCopyWith<_$ViewProductImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

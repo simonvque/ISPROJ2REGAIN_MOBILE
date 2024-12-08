@@ -196,9 +196,22 @@ class _HomeScreenState extends State<HomepageScreen> {
                       },
                       child: Column(
                         children: <Widget>[
-                          const CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                'https://lh4.googleusercontent.com/proxy/diAq9zObVXZOBQ-35PuawibY4uFDrnmQUd18A7cvh_e661B0Y4HFLCyVmCZE8DmsExSSrAaaTazBZ92XxJuIjT-tBBbpdXWJ3OVM1TRbmzg3u8z4KKcTg3VZLtRJ8LIdvg'),
+                          Consumer<AppDataProvider>(
+                            builder: (context, appDataProvider, child) {
+                              final user = appDataProvider.user;
+
+                              return CircleAvatar(
+                                radius: 20,
+                                backgroundImage: (user?.profileImage != null &&
+                                        user!.profileImage!.isNotEmpty)
+                                    ? MemoryImage(user
+                                        .profileImage!) // Use the profile image if present
+                                    : const AssetImage(
+                                        ReGainImages
+                                            .exProfilePic) as ImageProvider<
+                                        Object>, // Use default image if null
+                              );
+                            },
                           ),
                           const SizedBox(height: 4),
                           Text(

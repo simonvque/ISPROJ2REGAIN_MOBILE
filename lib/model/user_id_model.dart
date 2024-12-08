@@ -13,8 +13,6 @@ class UserIDModel with _$UserIDModel {
     String? idType,
     String? idNumber,
     String? idImage,
-
-    //@Uint8ListConverter() Uint8List? image, ---> causes dart build_runner to error due to null check. May be due to the type coverter
   }) = __UserIDModel;
   factory UserIDModel.fromJson(Map<String, dynamic> json) =>
       _$UserIDModelFromJson(json);

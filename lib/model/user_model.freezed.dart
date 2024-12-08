@@ -42,15 +42,27 @@ mixin _$UserModel {
   set phone(String? value) => throw _privateConstructorUsedError;
   String? get profileImagePath => throw _privateConstructorUsedError;
   set profileImagePath(String? value) => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get profileImage => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  set profileImage(Uint8List? value) => throw _privateConstructorUsedError;
   String? get gcashQR => throw _privateConstructorUsedError;
   set gcashQR(String? value) => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get gcashQRcode => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  set gcashQRcode(Uint8List? value) => throw _privateConstructorUsedError;
   DateTime? get birthday => throw _privateConstructorUsedError;
   set birthday(DateTime? value) => throw _privateConstructorUsedError;
   String? get junkshopName => throw _privateConstructorUsedError;
   set junkshopName(String? value) => throw _privateConstructorUsedError;
 
+  /// Serializes this UserModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserModelCopyWith<UserModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -72,7 +84,9 @@ abstract class $UserModelCopyWith<$Res> {
       int? penaltyPoints,
       String? phone,
       String? profileImagePath,
+      @Uint8ListConverter() Uint8List? profileImage,
       String? gcashQR,
+      @Uint8ListConverter() Uint8List? gcashQRcode,
       DateTime? birthday,
       String? junkshopName});
 }
@@ -87,6 +101,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,7 +117,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? penaltyPoints = freezed,
     Object? phone = freezed,
     Object? profileImagePath = freezed,
+    Object? profileImage = freezed,
     Object? gcashQR = freezed,
+    Object? gcashQRcode = freezed,
     Object? birthday = freezed,
     Object? junkshopName = freezed,
   }) {
@@ -150,10 +168,18 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.profileImagePath
           : profileImagePath // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
       gcashQR: freezed == gcashQR
           ? _value.gcashQR
           : gcashQR // ignore: cast_nullable_to_non_nullable
               as String?,
+      gcashQRcode: freezed == gcashQRcode
+          ? _value.gcashQRcode
+          : gcashQRcode // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
       birthday: freezed == birthday
           ? _value.birthday
           : birthday // ignore: cast_nullable_to_non_nullable
@@ -186,7 +212,9 @@ abstract class _$$UserModelImplCopyWith<$Res>
       int? penaltyPoints,
       String? phone,
       String? profileImagePath,
+      @Uint8ListConverter() Uint8List? profileImage,
       String? gcashQR,
+      @Uint8ListConverter() Uint8List? gcashQRcode,
       DateTime? birthday,
       String? junkshopName});
 }
@@ -199,6 +227,8 @@ class __$$UserModelImplCopyWithImpl<$Res>
       _$UserModelImpl _value, $Res Function(_$UserModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -213,7 +243,9 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? penaltyPoints = freezed,
     Object? phone = freezed,
     Object? profileImagePath = freezed,
+    Object? profileImage = freezed,
     Object? gcashQR = freezed,
+    Object? gcashQRcode = freezed,
     Object? birthday = freezed,
     Object? junkshopName = freezed,
   }) {
@@ -262,10 +294,18 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.profileImagePath
           : profileImagePath // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
       gcashQR: freezed == gcashQR
           ? _value.gcashQR
           : gcashQR // ignore: cast_nullable_to_non_nullable
               as String?,
+      gcashQRcode: freezed == gcashQRcode
+          ? _value.gcashQRcode
+          : gcashQRcode // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
       birthday: freezed == birthday
           ? _value.birthday
           : birthday // ignore: cast_nullable_to_non_nullable
@@ -293,7 +333,9 @@ class _$UserModelImpl implements _UserModel {
       this.penaltyPoints = 0,
       this.phone,
       this.profileImagePath = '',
+      @Uint8ListConverter() this.profileImage,
       this.gcashQR = '',
+      @Uint8ListConverter() this.gcashQRcode,
       this.birthday,
       this.junkshopName = ''});
 
@@ -330,8 +372,14 @@ class _$UserModelImpl implements _UserModel {
   @JsonKey()
   String? profileImagePath;
   @override
+  @Uint8ListConverter()
+  Uint8List? profileImage;
+  @override
   @JsonKey()
   String? gcashQR;
+  @override
+  @Uint8ListConverter()
+  Uint8List? gcashQRcode;
   @override
   DateTime? birthday;
   @override
@@ -340,10 +388,12 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, role: $role, firstName: $firstName, lastName: $lastName, username: $username, password: $password, email: $email, accountStatus: $accountStatus, penaltyPoints: $penaltyPoints, phone: $phone, profileImagePath: $profileImagePath, gcashQR: $gcashQR, birthday: $birthday, junkshopName: $junkshopName)';
+    return 'UserModel(id: $id, role: $role, firstName: $firstName, lastName: $lastName, username: $username, password: $password, email: $email, accountStatus: $accountStatus, penaltyPoints: $penaltyPoints, phone: $phone, profileImagePath: $profileImagePath, profileImage: $profileImage, gcashQR: $gcashQR, gcashQRcode: $gcashQRcode, birthday: $birthday, junkshopName: $junkshopName)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
@@ -370,7 +420,9 @@ abstract class _UserModel implements UserModel {
       int? penaltyPoints,
       String? phone,
       String? profileImagePath,
+      @Uint8ListConverter() Uint8List? profileImage,
       String? gcashQR,
+      @Uint8ListConverter() Uint8List? gcashQRcode,
       DateTime? birthday,
       String? junkshopName}) = _$UserModelImpl;
 
@@ -411,16 +463,29 @@ abstract class _UserModel implements UserModel {
   String? get profileImagePath;
   set profileImagePath(String? value);
   @override
+  @Uint8ListConverter()
+  Uint8List? get profileImage;
+  @Uint8ListConverter()
+  set profileImage(Uint8List? value);
+  @override
   String? get gcashQR;
   set gcashQR(String? value);
+  @override
+  @Uint8ListConverter()
+  Uint8List? get gcashQRcode;
+  @Uint8ListConverter()
+  set gcashQRcode(Uint8List? value);
   @override
   DateTime? get birthday;
   set birthday(DateTime? value);
   @override
   String? get junkshopName;
   set junkshopName(String? value);
+
+  /// Create a copy of UserModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
