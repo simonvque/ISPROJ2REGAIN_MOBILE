@@ -1,4 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
@@ -19,42 +22,24 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
-  final tempUser = 1;
-
-  bool isSellerDelivering = false;
-  Category? _selectedCategory;
-  // AddressModel? _selectedLocation;
-  // String? _selectedLocation;
-  int? _selectedLocation;
-
   final _addProductKey = GlobalKey<FormState>();
-  String? errorTxt;
-  // final currencyFormat = NumberFormat("###,##0.00", "en_PH");
 
   final productNameController = TextEditingController();
   final priceController = TextEditingController();
-  final categoryController = TextEditingController();
   final weightController = TextEditingController();
   final descController = TextEditingController();
-  final locationController = TextEditingController();
 
-  // List<Category> categList = [];
+  bool isSellerDelivering = false;
+  Category? _selectedCategory;
+  int? _selectedLocation;
+  File? _selectedImage; // Store the selected image
+  final ImagePicker _imagePicker = ImagePicker(); // For image picking
 
-  // @override
-  // void didChangeDependencies() {
-  //   _getData();
-  //   super.didChangeDependencies();
-  // }
   @override
   void initState() {
     _getData();
-
     super.initState();
   }
-
-  // temporary addresses list
-  // final List<String> addresses =
-  //     TestAddresses.values.map((e) => e.name).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +50,25 @@ class _AddProductState extends State<AddProduct> {
         title: const Text('Add Product Listing'),
         iconTheme: const IconThemeData(color: white),
       ),
-      body: SingleChildScrollView(
-          child: Form(
+      body: Consumer<ProductDataProvider>(
+        builder: (context, provider, child) {
+          return Stack(
+            children: [
+              _buildForm(context),
+              if (provider.isLoading)
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildForm(BuildContext context) {
+    return SingleChildScrollView(
+      child: Form(
         key: _addProductKey,
         child: Column(
           children: [
@@ -80,268 +82,89 @@ class _AddProductState extends State<AddProduct> {
                     color: black,
                     fontSize: 20.0,
                     fontWeight: FontWeight.w700,
-                    //fontFamily: 'Montserrat',
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.15,
-                  width: MediaQuery.of(context).size.width * 0.30,
-                  decoration: const BoxDecoration(
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-            ),
-            const Align(
-              alignment: Alignment.centerLeft,
+            GestureDetector(
+              onTap: _pickImage,
               child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
-                  'Add Details',
-                  style: TextStyle(
-                    color: black,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(5.0),
-              height: MediaQuery.of(context).size.height * 0.09,
-              child: TextFormField(
-                controller: productNameController,
-                decoration: InputDecoration(
-                  errorText: errorTxt,
-                  errorMaxLines: 1,
-                  errorStyle: const TextStyle(
-                    fontSize: 10.00,
-                  ),
-                  hintText: 'Name of the Product',
-                  hintStyle: const TextStyle(fontSize: 15.0),
-                  border: const OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter a valid product name";
-                  }
-                  return null;
-                },
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(5.0),
-              height: MediaQuery.of(context).size.height * 0.09,
-              child: TextFormField(
-                controller: priceController,
-                decoration: InputDecoration(
-                  prefixText: "₱",
-                  errorText: errorTxt,
-                  errorMaxLines: 1,
-                  errorStyle: const TextStyle(
-                    fontSize: 10.00,
-                  ),
-                  hintText: 'Price',
-                  hintStyle: const TextStyle(fontSize: 15.0),
-                  border: const OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-                inputFormatters: [],
-                validator: (value) {
-                  if (value == null ||
-                      value.isEmpty ||
-                      validateDecimalInput(value) == false) {
-                    return "Please enter a valid price";
-                  } else if (double.parse(value) > 100000.00) {
-                    return "Please list a smaller price";
-                  }
-                  return null;
-                },
-              ),
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 3,
+                padding: const EdgeInsets.all(5.0),
+                child: Align(
+                  alignment: Alignment.center,
                   child: Container(
-                    padding: const EdgeInsets.all(5.0),
-                    height: MediaQuery.of(context).size.height * 0.12,
-                    child: Consumer<CategoryDataProvider>(
-                      builder: (context, provider, child) =>
-                          DropdownButtonFormField<Category>(
-                        hint: (errorTxt == null || errorTxt!.isEmpty)
-                            ? const Text('Category',
-                                style: TextStyle(fontSize: 15.0))
-                            : null,
-                        decoration: InputDecoration(
-                          // hintText:
-                          //     (_selectedCategory == null || errorTxt != null)
-                          //         ? "Category"
-                          //         : null,
-                          errorText: errorTxt,
-                          errorStyle: const TextStyle(
-                            fontSize: 8.0,
-                          ),
-                          errorMaxLines: 2,
-                          border: const OutlineInputBorder(),
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedCategory = value;
-                          });
-                        },
-                        value: _selectedCategory,
-                        items: provider.categoryList
-                            .map((e) => DropdownMenuItem<Category>(
-                                  value: e,
-                                  child: Text(
-                                    e.categoryName,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(backgroundColor: white),
-                                  ),
-                                ))
-                            .toList(),
-                        validator: (value) {
-                          if (value == null) {
-                            return "Please select a valid category";
-                          }
-                          return null;
-                        },
-                      ),
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    width: MediaQuery.of(context).size.width * 0.30,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      border: Border.all(color: black),
+                      image: _selectedImage != null
+                          ? DecorationImage(
+                              image: FileImage(_selectedImage!),
+                              fit: BoxFit.cover,
+                            )
+                          : null,
                     ),
+                    child: _selectedImage == null
+                        ? const Icon(
+                            Icons.camera_alt,
+                            color: white,
+                            size: 40,
+                          )
+                        : null,
                   ),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: Container(
-                    padding: const EdgeInsets.all(5.0),
-                    height: MediaQuery.of(context).size.height * 0.12,
-                    child: TextFormField(
-                      controller: weightController,
-                      decoration: InputDecoration(
-                        suffixText: "kg",
-                        errorText: errorTxt,
-                        errorStyle: const TextStyle(fontSize: 8.0),
-                        hintText: 'Weight',
-                        hintStyle: const TextStyle(fontSize: 15.0),
-                        border: const OutlineInputBorder(),
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null ||
-                            value.isEmpty ||
-                            validateDecimalInput(value) == false) {
-                          return "Please enter a valid weight";
-                        } else if (double.parse(value) > 25.00) {
-                          return "Please list a smaller weight";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              padding: const EdgeInsets.all(10.0),
-              height: MediaQuery.of(context).size.height * 0.18,
-              child: TextFormField(
-                controller: descController,
-                maxLines: 5,
-                decoration: const InputDecoration(
-                  hintText:
-                      'Please provide a brief description of the recyclable product',
-                  hintStyle: TextStyle(fontSize: 15.0),
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
-            // Container(
-            //   padding: const EdgeInsets.all(10.0),
-            //   height: MediaQuery.of(context).size.height * 0.09,
-            //   child: TextFormField(
-            //     decoration: const InputDecoration(
-            //       hintText: 'Location',
-            //       hintStyle: TextStyle(fontSize: 15.0),
-            //       border: OutlineInputBorder(),
-            //     ),
-            //   ),
-            // ),
-            Consumer<AddressDataProvider>(
-              builder: (context, value, child) => Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                height: MediaQuery.of(context).size.height * 0.12,
-                child: DropdownButtonFormField(
-                  hint:
-                      const Text('Location', style: TextStyle(fontSize: 15.0)),
-                  decoration: const InputDecoration(
-                    errorStyle: TextStyle(
-                      fontSize: 8.0,
-                    ),
-                    border: OutlineInputBorder(),
-                  ),
-                  items: value.userAddress.map((e) {
-                    return DropdownMenuItem<int>(
-                      value: e.addressID,
-                      child: Text(
-                        '${e.city}-${e.street}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(backgroundColor: white),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedLocation = value;
-                    });
-                  },
-                  value: _selectedLocation,
-                  validator: (value) {
-                    if (value == null || value <= 0) {
-                      return "Please select a valid location";
-                    }
-                    return null;
-                  },
-                ),
-              ),
+            _buildTextField(
+              controller: productNameController,
+              hintText: 'Name of the Product',
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Please enter a valid product name";
+                }
+                return null;
+              },
             ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: Checkbox(
-                      value: isSellerDelivering,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          isSellerDelivering = value!;
-                        });
-                      }),
-                ),
-                const Expanded(
-                  flex: 5,
-                  child: Text('Will you be providing delivery to the buyer?'),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: IconButton(
-                      icon: const Icon(Icons.info_outline),
-                      onPressed: () {
-                        ReGainHelperFunctions.showSnackBar(
-                            context, 'info about delivery');
-                      },
-                    )),
-              ],
+            _buildTextField(
+              controller: priceController,
+              hintText: 'Price',
+              prefixText: '₱',
+              keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null ||
+                    value.isEmpty ||
+                    !_validateDecimalInput(value)) {
+                  return "Please enter a valid price";
+                }
+                return null;
+              },
             ),
+            Consumer<CategoryDataProvider>(
+              builder: (context, provider, child) =>
+                  _buildCategoryDropdown(provider.categoryList),
+            ),
+            _buildTextField(
+              controller: weightController,
+              hintText: 'Weight',
+              suffixText: 'kg',
+              keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null ||
+                    value.isEmpty ||
+                    !_validateDecimalInput(value)) {
+                  return "Please enter a valid weight";
+                }
+                return null;
+              },
+            ),
+            _buildTextField(
+              controller: descController,
+              hintText: 'Description',
+              maxLines: 5,
+            ),
+            _buildLocationDropdown(context),
+            _buildDeliveryCheckbox(),
             Container(
               padding: const EdgeInsets.fromLTRB(5, 10, 5, 20),
               height: MediaQuery.of(context).size.height * 0.10,
@@ -353,72 +176,207 @@ class _AddProductState extends State<AddProduct> {
                   backgroundColor: green,
                   foregroundColor: white,
                 ),
-                child: const Text('Add Product',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      //fontFamily: 'Montserrat',
-                    )),
-                onPressed: () {
-                  addProduct();
-                },
+                onPressed: () => addProduct(context),
+                child: const Text('Add Product'),
               ),
             ),
           ],
         ),
-      )),
+      ),
     );
   }
 
-  void addProduct() {
-    if (_addProductKey.currentState!.validate()) {
-      final prod = Product(
-          productName: productNameController.text,
-          sellerID: Provider.of<AppDataProvider>(context, listen: false).userId,
-          price: priceController.text,
-          categoryID: _selectedCategory?.categoryID,
-          weight: weightController.text,
-          description: descController.text,
-          // location: addresses.indexOf(locationController.text),
-          location: _selectedLocation,
-          canDeliver: isSellerDelivering);
-      Provider.of<ProductDataProvider>(context, listen: false)
-          .addProduct(prod)
-          .then((response) {
-        if (response.responseStatus == ResponseStatus.SAVED) {
-          resetFields();
-          Navigator.pushNamed(context, RouteManager.routeNavMenu);
-          ReGainHelperFunctions.showSnackBar(context, response.message);
-        }
+  void _pickImage() async {
+    final pickedFile = await _imagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
       });
     }
   }
 
-  bool validateDecimalInput(String input) {
-    String pattern = r'^(?=\D*(?:\d\D*){1,12}$)\d+(?:\.\d{1,2})?$';
-    RegExp regex = RegExp(pattern);
-    return regex.hasMatch(input);
+  void addProduct(BuildContext context) {
+    if (_addProductKey.currentState!.validate()) {
+      if (_selectedImage == null) {
+        ReGainHelperFunctions.showSnackBar(
+          context,
+          'Please select an image for the product',
+        );
+        return;
+      }
+
+      final prod = Product(
+        productName: productNameController.text,
+        sellerID: Provider.of<AppDataProvider>(context, listen: false).userId,
+        price: priceController.text,
+        categoryID: _selectedCategory?.categoryID,
+        weight: weightController.text,
+        description: descController.text,
+        location: _selectedLocation,
+        canDeliver: isSellerDelivering,
+        image: _selectedImage!.readAsBytesSync(),
+      );
+
+      Provider.of<ProductDataProvider>(context, listen: false)
+          .addProduct(prod, _selectedImage, context)
+          .then((response) {
+        if (response.responseStatus == ResponseStatus.SAVED) {
+          resetFields();
+          ReGainHelperFunctions.showSnackBar(
+            context,
+            'Product added successfully!',
+          );
+          Future.delayed(const Duration(seconds: 2), () {
+            Navigator.pushNamed(context, RouteManager.routeNavMenu);
+          });
+        } else {
+          ReGainHelperFunctions.showSnackBar(
+            context,
+            'Failed to add product. Please try again.',
+          );
+        }
+      }).catchError((error) {
+        ReGainHelperFunctions.showSnackBar(
+          context,
+          'An unexpected error occurred. Please try again later.',
+        );
+      });
+    }
+  }
+
+  String sanitizeMessage(String message) {
+    if (message.length > 200) {
+      return message.substring(0, 200) + '...'; // Truncate if too long
+    }
+    return message;
+  }
+
+  bool _validateDecimalInput(String input) {
+    String pattern = r'^\d+(\.\d{1,2})?$';
+    return RegExp(pattern).hasMatch(input);
   }
 
   void resetFields() {
     productNameController.clear();
     priceController.clear();
-    categoryController.clear();
-    _selectedCategory = null;
     weightController.clear();
     descController.clear();
-    locationController.clear();
+    _selectedCategory = null;
+    _selectedLocation = null;
+    _selectedImage = null;
     isSellerDelivering = false;
+    setState(() {});
   }
 
-  @override
-  void dispose() {
-    productNameController.dispose();
-    priceController.dispose();
-    categoryController.dispose();
-    weightController.dispose();
-    descController.dispose();
-    locationController.dispose();
-    super.dispose();
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String hintText,
+    String? prefixText,
+    String? suffixText,
+    TextInputType keyboardType = TextInputType.text,
+    int maxLines = 1,
+    String? Function(String?)? validator,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: keyboardType,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          hintText: hintText,
+          prefixText: prefixText,
+          suffixText: suffixText,
+          border: const OutlineInputBorder(),
+        ),
+        validator: validator,
+      ),
+    );
+  }
+
+  Widget _buildCategoryDropdown(List<Category> categories) {
+    return Container(
+      padding: const EdgeInsets.all(5.0),
+      child: DropdownButtonFormField<Category>(
+        decoration: const InputDecoration(
+          hintText: 'Category',
+          border: OutlineInputBorder(),
+        ),
+        value: _selectedCategory,
+        items: categories.map((category) {
+          return DropdownMenuItem<Category>(
+            value: category,
+            child: Text(category.categoryName),
+          );
+        }).toList(),
+        onChanged: (value) {
+          setState(() {
+            _selectedCategory = value;
+          });
+        },
+        validator: (value) {
+          if (value == null) {
+            return 'Please select a valid category';
+          }
+          return null;
+        },
+      ),
+    );
+  }
+
+  Widget _buildLocationDropdown(BuildContext context) {
+    return Consumer<AddressDataProvider>(
+      builder: (context, value, child) => Container(
+        padding: const EdgeInsets.all(5.0),
+        child: DropdownButtonFormField<int>(
+          decoration: const InputDecoration(
+            hintText: 'Location',
+            border: OutlineInputBorder(),
+          ),
+          value: _selectedLocation,
+          items: value.userAddress.map((address) {
+            return DropdownMenuItem<int>(
+              value: address.addressID,
+              child: Text('${address.city} - ${address.street}'),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedLocation = value;
+            });
+          },
+          validator: (value) {
+            if (value == null) {
+              return 'Please select a valid location';
+            }
+            return null;
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDeliveryCheckbox() {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: Checkbox(
+              value: isSellerDelivering,
+              onChanged: (bool? value) {
+                setState(() {
+                  isSellerDelivering = value!;
+                });
+              }),
+        ),
+        const Expanded(
+          flex: 5,
+          child: Text('Will you be providing delivery to the buyer?'),
+        ),
+      ],
+    );
   }
 
   void _getData() {

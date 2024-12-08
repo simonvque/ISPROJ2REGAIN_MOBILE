@@ -41,8 +41,12 @@ mixin _$OrderModel {
   AddressModel? get address => throw _privateConstructorUsedError;
   set address(AddressModel? value) => throw _privateConstructorUsedError;
 
+  /// Serializes this OrderModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of OrderModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OrderModelCopyWith<OrderModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -80,6 +84,8 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OrderModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -138,6 +144,8 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     ) as $Val);
   }
 
+  /// Create a copy of OrderModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ViewProductCopyWith<$Res> get product {
@@ -146,6 +154,8 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     });
   }
 
+  /// Create a copy of OrderModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PaymentModelCopyWith<$Res>? get paymentMethod {
@@ -158,6 +168,8 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     });
   }
 
+  /// Create a copy of OrderModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AddressModelCopyWith<$Res>? get address {
@@ -207,6 +219,8 @@ class __$$OrderModelImplCopyWithImpl<$Res>
       _$OrderModelImpl _value, $Res Function(_$OrderModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of OrderModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -310,7 +324,9 @@ class _$OrderModelImpl implements _OrderModel {
     return 'OrderModel(orderID: $orderID, product: $product, buyerUsername: $buyerUsername, orderDate: $orderDate, deliveryMethod: $deliveryMethod, deliveryDate: $deliveryDate, paymentMethod: $paymentMethod, totalAmount: $totalAmount, currentStatus: $currentStatus, address: $address)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OrderModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$OrderModelImplCopyWith<_$OrderModelImpl> get copyWith =>
@@ -370,8 +386,11 @@ abstract class _OrderModel implements OrderModel {
   @override
   AddressModel? get address;
   set address(AddressModel? value);
+
+  /// Create a copy of OrderModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OrderModelImplCopyWith<_$OrderModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

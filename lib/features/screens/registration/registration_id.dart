@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
@@ -27,6 +31,8 @@ class RegistrationIDPage extends StatefulWidget {
 class _RegistrationIDPageState extends State<RegistrationIDPage> {
   final _regIDKey = GlobalKey<FormState>();
 
+  File? _idImageFile;
+
   String? errorTxt;
 
   //final idTypeController = TextEditingController();
@@ -39,6 +45,13 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
 
   void _addUserID() {
     if (_regIDKey.currentState!.validate()) {
+      if (_idImageFile == null) {
+        setState(() {
+          errorTxt = "Please upload an ID image.";
+        });
+        return;
+      }
+
       final submittedUser = UserModel(
         lastName: lastNameController.text.trim(),
         firstName: firstNameController.text.trim(),
@@ -47,11 +60,16 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
         password: widget.user.password,
         birthday: _selectedDateTime,
       );
+
+      final base64Image = base64Encode(_idImageFile!.readAsBytesSync());
+
       final userIDDetails = UserIDModel(
         user: submittedUser,
         idType: idType,
         idNumber: idNumController.text.trim(),
+        idImage: base64Image, // Add Base64-encoded image
       );
+
       Provider.of<AppDataProvider>(context, listen: false)
           .addUserID(userIDDetails)
           .then((response) {
@@ -63,7 +81,7 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
             ),
           );
           ReGainHelperFunctions.showSnackBar(context, response.message);
-        } else if (response.statusCode != 200) {
+        } else {
           setState(() {
             errorTxt = response.message;
           });
@@ -89,6 +107,17 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
     lastNameController.dispose();
     bdayController.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickIDImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _idImageFile = File(pickedFile.path);
+      });
+    }
   }
 
   @override
@@ -146,17 +175,22 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
               ),
               const SizedBox(height: 10),
               Center(
-                child: Container(
-                  width: screenWidth > 600 ? 150 : 100,
-                  height: screenWidth > 600 ? 150 : 100,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 2),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.grey,
-                    size: screenWidth > 600 ? 60 : 40,
+                child: GestureDetector(
+                  onTap: _pickIDImage, // Call the image picker
+                  child: Container(
+                    width: screenWidth > 600 ? 150 : 100,
+                    height: screenWidth > 600 ? 150 : 100,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: _idImageFile != null
+                        ? Image.file(_idImageFile!, fit: BoxFit.cover)
+                        : Icon(
+                            Icons.add,
+                            color: Colors.grey,
+                            size: screenWidth > 600 ? 60 : 40,
+                          ),
                   ),
                 ),
               ),

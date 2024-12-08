@@ -29,8 +29,12 @@ mixin _$ErrorDetails {
   int get timestamp => throw _privateConstructorUsedError;
   set timestamp(int value) => throw _privateConstructorUsedError;
 
+  /// Serializes this ErrorDetails to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ErrorDetails
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ErrorDetailsCopyWith<ErrorDetails> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$ErrorDetailsCopyWithImpl<$Res, $Val extends ErrorDetails>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ErrorDetails
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -110,6 +116,8 @@ class __$$ErrorDetailsImplCopyWithImpl<$Res>
       _$ErrorDetailsImpl _value, $Res Function(_$ErrorDetailsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ErrorDetails
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -165,7 +173,9 @@ class _$ErrorDetailsImpl implements _ErrorDetails {
     return 'ErrorDetails(errorCode: $errorCode, errorMessage: $errorMessage, devErrorMessage: $devErrorMessage, timestamp: $timestamp)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ErrorDetails
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorDetailsImplCopyWith<_$ErrorDetailsImpl> get copyWith =>
@@ -201,8 +211,11 @@ abstract class _ErrorDetails implements ErrorDetails {
   @override
   int get timestamp;
   set timestamp(int value);
+
+  /// Create a copy of ErrorDetails
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorDetailsImplCopyWith<_$ErrorDetailsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

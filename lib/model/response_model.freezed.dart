@@ -31,8 +31,12 @@ mixin _$ResponseModel {
   set response(Map<String, dynamic> value) =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this ResponseModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ResponseModelCopyWith<ResponseModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,6 +64,8 @@ class _$ResponseModelCopyWithImpl<$Res, $Val extends ResponseModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ResponseModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -112,6 +118,8 @@ class __$$ResponseModelImplCopyWithImpl<$Res>
       _$ResponseModelImpl _value, $Res Function(_$ResponseModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ResponseModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -171,7 +179,9 @@ class _$ResponseModelImpl implements _ResponseModel {
     return 'ResponseModel(responseStatus: $responseStatus, statusCode: $statusCode, message: $message, response: $response)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ResponseModelImplCopyWith<_$ResponseModelImpl> get copyWith =>
@@ -207,8 +217,11 @@ abstract class _ResponseModel implements ResponseModel {
   @override
   Map<String, dynamic> get response;
   set response(Map<String, dynamic> value);
+
+  /// Create a copy of ResponseModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ResponseModelImplCopyWith<_$ResponseModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

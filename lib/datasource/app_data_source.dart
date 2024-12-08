@@ -1,5 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 //import 'dart:js_interop';
+
+import 'package:flutter/material.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
 
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
@@ -64,15 +70,74 @@ class AppDataSource extends DataSource {
   }
 
   @override
-  Future<ResponseModel> updateUser(UserModel user) async {
+  Future<ResponseModel> updateUser(
+      UserModel user, File? profileImage, File? gcashQRcode) async {
     final url = '$baseUrl${'user/update'}';
+
     try {
-      final response = await http.put(Uri.parse(url),
-          headers: header, body: jsonEncode(user));
-      return await _getResponseModel(response);
-    } catch (error) {
-      print(error.toString());
-      rethrow;
+      // Create a multipart request
+      final request = http.MultipartRequest('PUT', Uri.parse(url));
+
+      // Add fields to the request
+      request.fields['id'] = user.id.toString();
+      request.fields['firstName'] = user.firstName ?? '';
+      request.fields['lastName'] = user.lastName ?? '';
+      request.fields['username'] = user.username;
+      request.fields['email'] = user.email ?? '';
+      request.fields['role'] = user.role;
+      request.fields['password'] = user.password;
+      request.fields['phone'] = user.phone ?? '';
+      request.fields['birthday'] = user.birthday?.toIso8601String() ?? '';
+      request.fields['junkshopName'] = user.junkshopName ?? '';
+
+      // Add profileImage if provided
+      if (profileImage != null) {
+        final mimeType = lookupMimeType(
+            profileImage.path); // Dynamically determine MIME type
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'profileImage',
+            profileImage.path,
+            contentType: mimeType != null ? MediaType.parse(mimeType) : null,
+          ),
+        );
+      }
+
+      // Add gcashQRcode if provided
+      if (gcashQRcode != null) {
+        final mimeType =
+            lookupMimeType(gcashQRcode.path); // Dynamically determine MIME type
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'gcashQRcode',
+            gcashQRcode.path,
+            contentType: mimeType != null ? MediaType.parse(mimeType) : null,
+          ),
+        );
+      }
+
+      // Send the request and wait for a response
+      final response = await request.send();
+      final responseData = await http.Response.fromStream(response);
+
+      // Handle response
+      if (response.statusCode == 200) {
+        return ResponseModel(
+          responseStatus: ResponseStatus.SAVED,
+          message: 'User updated successfully.',
+          response: json.decode(responseData.body),
+        );
+      } else {
+        return ResponseModel(
+          responseStatus: ResponseStatus.FAILED,
+          message: 'Failed to update user: ${responseData.body}',
+        );
+      }
+    } catch (e) {
+      return ResponseModel(
+        responseStatus: ResponseStatus.FAILED,
+        message: 'An unexpected error occurred. Please try again later.',
+      );
     }
   }
 
@@ -94,8 +159,6 @@ class AppDataSource extends DataSource {
   Future<ResponseModel> _getResponseModel(http.Response response) async {
     ResponseStatus status = ResponseStatus.NONE;
     ResponseModel responseModel = ResponseModel();
-    print('Response Status Code: ${response.statusCode}');
-    print('Response Body: ${response.body}');
     if (response.statusCode == 200) {
       status = ResponseStatus.SAVED;
 
@@ -177,17 +240,66 @@ class AppDataSource extends DataSource {
     }
   }
 
-  // PRODUCTS
+  void logFileDetails(File image) {
+    final mimeType = lookupMimeType(image.path);
+    debugPrint("File Path: ${image.path}");
+    debugPrint("MIME Type: $mimeType");
+  }
+
   @override
-  Future<ResponseModel> addProduct(Product product) async {
+  Future<ResponseModel> addProduct(Product product, File? image) async {
     final url = '$baseUrl${'products/add'}';
+
+    // Log the file details before adding it to the request
+    if (image != null) {
+      logFileDetails(image);
+    }
+
     try {
-      final response = await http.post(Uri.parse(url),
-          headers: header, body: jsonEncode(product));
-      return await _getResponseModel(response);
-    } catch (error) {
-      print(error.toString());
-      rethrow;
+      // Create a multipart request
+      final request = http.MultipartRequest('POST', Uri.parse(url));
+
+      // Add fields to the request
+      request.fields['productName'] = product.productName;
+      request.fields['description'] = product.description ?? '';
+      request.fields['weight'] = product.weight;
+      request.fields['location'] = product.location.toString();
+      request.fields['categoryID'] = product.categoryID.toString();
+      request.fields['price'] = product.price;
+      request.fields['canDeliver'] = product.canDeliver.toString();
+      request.fields['sellerID'] = product.sellerID.toString();
+
+      // Add the image file, if provided
+      if (image != null) {
+        final mimeType = lookupMimeType(image.path);
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'image',
+            image.path,
+            contentType: mimeType != null ? MediaType.parse(mimeType) : null,
+          ),
+        );
+      }
+
+      // Send the request and wait for a response
+      final response = await request.send();
+      final responseData = await http.Response.fromStream(response);
+
+      // Handle response
+      if (response.statusCode == 200) {
+        return ResponseModel(
+          responseStatus: ResponseStatus.SAVED,
+          message: responseData.body,
+        );
+      } else {
+        return ResponseModel(
+          responseStatus: ResponseStatus.FAILED,
+          message: responseData.body,
+        );
+      }
+    } catch (e) {
+      debugPrint('Error adding product: $e');
+      throw Exception('Error adding product: $e');
     }
   }
 
@@ -204,15 +316,54 @@ class AppDataSource extends DataSource {
   }
 
   @override
-  Future<ResponseModel> updateProduct(int id, Product product) async {
+  Future<ResponseModel> updateProduct(
+      int id, Product product, File? image) async {
     final url = '$baseUrl${'products/update/$id'}';
+
     try {
-      final response = await http.put(Uri.parse(url),
-          headers: header, body: jsonEncode(product));
-      return await _getResponseModel(response);
-    } catch (error) {
-      print(error.toString());
-      rethrow;
+      // Create a multipart request
+      final request = http.MultipartRequest('PUT', Uri.parse(url));
+
+      // Add fields to the request
+      request.fields['productName'] = product.productName;
+      request.fields['description'] = product.description ?? '';
+      request.fields['weight'] = product.weight;
+      request.fields['location'] = product.location.toString();
+      request.fields['categoryID'] = product.categoryID.toString();
+      request.fields['price'] = product.price;
+      request.fields['canDeliver'] = product.canDeliver.toString();
+      request.fields['sellerID'] = product.sellerID.toString();
+
+      // Add the image file, if provided
+      if (image != null) {
+        final mimeType = lookupMimeType(image.path); // Use lookupMimeType
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'image',
+            image.path,
+            contentType: mimeType != null ? MediaType.parse(mimeType) : null,
+          ),
+        );
+      }
+
+      // Send the request and wait for a response
+      final response = await request.send();
+      final responseData = await http.Response.fromStream(response);
+
+      // Handle response
+      if (response.statusCode == 200) {
+        return ResponseModel(
+          responseStatus: ResponseStatus.SAVED,
+          message: responseData.body,
+        );
+      } else {
+        return ResponseModel(
+          responseStatus: ResponseStatus.FAILED,
+          message: responseData.body,
+        );
+      }
+    } catch (e) {
+      throw Exception('Error updating product: $e');
     }
   }
 
@@ -528,6 +679,26 @@ class AppDataSource extends DataSource {
     }
   }
 
+  @override
+  Future<List<ViewProduct>> getFilteredProductsByCategory(
+      String category, int userId) async {
+    final url =
+        '$baseUrl${'products/view/filter'}?category=$category&userId=$userId';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => ViewProduct.fromJson(mapList[index]));
+      } else {
+        print(
+            'Failed to fetch products for category: $category and userId: $userId');
+        print('Status Code: ${response.statusCode}, Body: ${response.body}');
+        return [];
+      }
+    } catch (error) {
+      print('Error occurred while fetching filtered products: $error');
+      
 @override
 Future<ResponseModel> requestPasswordReset(String email) async {
   final url = '$baseUrl${'password/request-reset'}'; 
@@ -610,6 +781,24 @@ Future<ResponseModel> verifyOtp(String otp) async {
     }
   }
 
+
+  @override
+  Future<List<ViewProduct>> searchProducts(String query, int userId) async {
+    final url = '$baseUrl${'products/search'}?query=$query&userId=$userId';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final mapList = json.decode(response.body) as List;
+        return List.generate(
+            mapList.length, (index) => ViewProduct.fromJson(mapList[index]));
+      } else {
+        print('Failed to fetch products for query: $query and userId: $userId');
+        print('Status Code: ${response.statusCode}, Body: ${response.body}');
+        return [];
+      }
+    } catch (error) {
+      print('Error occurred while searching products: $error');
+
   Future<ResponseModel> addUserReport(
       Map<String, dynamic> reportPayload) async {
     final url = '$baseUrl${'userreports/add'}';
@@ -651,6 +840,26 @@ Future<ResponseModel> verifyOtp(String otp) async {
     }
   }
 
+
+  @override
+  Future<Uint8List?> getSellerProfileImage(String username) async {
+    final url = '$baseUrl${'user/profile-image/$username'}';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        // Decode the Base64 image
+        return base64Decode(response.body);
+      } else {
+        print('Failed to fetch profile image for username: $username');
+        print('Status Code: ${response.statusCode}, Body: ${response.body}');
+      }
+    } catch (error) {
+      print('Error occurred while fetching profile image: $error');
+    }
+    return null; // Return null if no image is found or an error occurs
+  }
+
   Future<Map<String, List<dynamic>>> getUserAndListingReports(
       int userId) async {
     final url = '$baseUrl${'user/$userId/reports'}';
@@ -667,5 +876,4 @@ Future<ResponseModel> verifyOtp(String otp) async {
       rethrow;
     }
   }
-
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,12 +44,23 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
 
   final dataSource = AppDataSource();
   late String ipAddress = dataSource.ipAddPort;
+  Uint8List? sellerProfileImage;
 
   @override
   void initState() {
     // TODO: implement initState
     isFavorite = widget.item.isFavorite;
+    _fetchSellerProfileImage(widget.item.sellerUsername);
     super.initState();
+  }
+
+  Future<void> _fetchSellerProfileImage(String username) async {
+    final dataSource = AppDataSource();
+    final profileImage = await dataSource.getSellerProfileImage(username);
+
+    setState(() {
+      sellerProfileImage = profileImage;
+    });
   }
 
   // updates selected item if user favorites card from homepage
@@ -84,6 +96,19 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
   Widget build(BuildContext context) {
     final List<String> reviewTags = ['Timeliness', 'Professional', 'Friendly'];
 
+    final user = Provider.of<AppDataProvider>(context, listen: false).user;
+
+    // Decode the base64 image string from the item
+    Uint8List? decodedImage;
+    if (widget.item.image != null && widget.item.image!.isNotEmpty) {
+      try {
+        decodedImage = base64Decode(widget.item.image!);
+      } catch (e) {
+        debugPrint('Error decoding image: $e');
+        decodedImage = null;
+      }
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -91,11 +116,18 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  ReGainImages.plastic,
+                SizedBox(
                   height: 200,
                   width: double.infinity,
-                  fit: BoxFit.cover,
+                  child: decodedImage != null
+                      ? Image.memory(
+                          decodedImage,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          ReGainImages.onboardingImage3,
+                          fit: BoxFit.cover,
+                        ),
                 ),
                 const SizedBox(height: 16),
                 Padding(
@@ -195,10 +227,12 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                       const SizedBox(height: 8),
                       Row(
                         children: [
-                          const CircleAvatar(
-                            backgroundImage: AssetImage(
-                                'assets/images/profile/profileSam.jpg'), // Replace with actual profile image
-                            radius: 24,
+                          CircleAvatar(
+                            radius: 40,
+                            backgroundImage: sellerProfileImage != null
+                                ? MemoryImage(sellerProfileImage!)
+                                : const AssetImage(ReGainImages.exProfilePic)
+                                    as ImageProvider,
                           ),
                           const SizedBox(width: 16),
                           Column(
