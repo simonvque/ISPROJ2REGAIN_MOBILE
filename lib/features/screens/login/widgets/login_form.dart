@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/user_model.dart';
-import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 

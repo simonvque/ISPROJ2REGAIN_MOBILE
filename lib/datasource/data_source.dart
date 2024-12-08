@@ -1,6 +1,10 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
@@ -20,7 +24,8 @@ abstract class DataSource {
 
   Future<ResponseModel> addUserID(UserIDModel userID);
 
-  Future<ResponseModel> updateUser(UserModel user);
+  Future<ResponseModel> updateUser(
+      UserModel user, File? profileImage, File? gcashQRcode);
 
   // Future<UserModel?> getUserById(int id);
 
@@ -32,9 +37,9 @@ abstract class DataSource {
 
   Future<ResponseModel> deleteAddress(int id);
 
-  Future<ResponseModel> addProduct(Product product);
+  Future<ResponseModel> addProduct(Product product, File? image);
 
-  Future<ResponseModel> updateProduct(int id, Product product);
+  Future<ResponseModel> updateProduct(int id, Product product, File? image);
 
   Future<ResponseModel> deleteProduct(int id);
 
@@ -78,4 +83,20 @@ abstract class DataSource {
 
   //Green Zone
   Future<List<GreenZoneModel>> getAllArticles();
+
+  Future<List<ViewProduct>> getFilteredProductsByCategory(
+      String category, int userId);
+
+  Future<List<ViewProduct>> searchProducts(String query, int userId);
+
+  Future<Uint8List?> getSellerProfileImage(String username);
+
+  // Request password reset
+  Future<ResponseModel> requestPasswordReset(String email);
+
+  // Reset password
+  Future<ResponseModel> resetPassword(String otp, String newPassword);
+
+  //Verify Otp
+  Future<ResponseModel> verifyOtp(String otp);
 }

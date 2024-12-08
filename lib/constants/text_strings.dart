@@ -81,11 +81,27 @@ class ReGainTexts {
   //Penalty points text
   static const String penaltyTitle = "My Penalty Points";
   static const String aboutPenPal =
-      '''Welcome to Penalty Points where  you can keep track of your report activity on Regain. 
-      
-      Penalty points are based on your interactions within the app, such as reporting issues or violations. Your credit score reflects how well you maintain a positive presence in our community. It's our way of ensuring a fair and respectful environment for all users.
-      
-      Explore your credit score, view reports you've submitted, and stay updated on any potential violations. Together, we can make Regain a better place for buying and selling recyclables! ''';
+      '''Welcome to Penalty Points, where you can keep track of your report activity on Regain.
+
+Penalty points are based on your interactions within the app, such as reporting issues or violations. Your credit score reflects how well you maintain a positive presence in our community. It's our way of ensuring a fair and respectful environment for all users.
+
+If you have any issues or want to make an appeal, please email us at regain.helpservice@gmail.com.
+
+Please note: Your account will be affected based on the following penalty points:
+- **50 points**: Banned (permanent loss of access to Regain)
+- **30 points**: Frozen (temporary suspension of account access)
+- **15 points**: Restricted (limited access to certain features)
+
+Penalty points and account status will reset every Monday of the fiscal quarter. However, if your account reaches 50 penalty points, you will be permanently banned and unable to access Regain.
+
+Explore your credit score, view reports you've submitted, and stay updated on any potential violations. Together, we can make Regain a better place for buying and selling recyclables!''';
+
+  // static const String aboutPenPal =
+  //     '''Welcome to Penalty Points where  you can keep track of your report activity on Regain.
+
+  //     Penalty points are based on your interactions within the app, such as reporting issues or violations. Your credit score reflects how well you maintain a positive presence in our community. It's our way of ensuring a fair and respectful environment for all users.
+
+  //     Explore your credit score, view reports you've submitted, and stay updated on any potential violations. Together, we can make Regain a better place for buying and selling recyclables! ''';
 }
 
 //to be transferred

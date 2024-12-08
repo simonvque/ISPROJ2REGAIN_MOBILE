@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
@@ -32,6 +35,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   bool usernameNotEditable = true;
 
   String? _errorMessage;
+  File? _profileImage; // To store the selected profile image
 
   @override
   void initState() {
@@ -46,6 +50,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
     lastNameController.text = model.lastName ?? "";
     emailController.text = model.email ?? "";
     junkshopController.text = model.junkshopName ?? "";
+  }
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _profileImage = File(pickedFile.path);
+      });
+    }
   }
 
   @override
@@ -63,13 +78,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
               Center(
                 child: Column(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage(ReGainImages.exProfilePic),
+                      backgroundImage: _profileImage != null
+                          ? FileImage(
+                              _profileImage!) // Use FileImage for the selected File
+                          : (model.profileImage != null &&
+                                  model.profileImage!.isNotEmpty
+                              ? MemoryImage(model
+                                  .profileImage!) // Use MemoryImage for Uint8List
+                              : const AssetImage(ReGainImages
+                                      .exProfilePic) // Default asset
+                                  as ImageProvider<Object>),
                     ),
                     const SizedBox(height: 2),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: _pickImage,
                       child: Text(
                         'Change Profile Picture',
                         style: Theme.of(context)
@@ -101,18 +125,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         borderSide: BorderSide(color: green)),
                     floatingLabelStyle: const TextStyle(color: green)),
               ),
-              // TextFormField(
-              //   controller: contactNoController,
-              //   readOnly: true,
-              //   decoration: InputDecoration(
-              //       errorText: _errorMessage,
-              //       labelText: "Contact Number",
-              //       hintText: "Your unique contact number",
-              //       hintStyle: const TextStyle(fontSize: 12),
-              //       focusedBorder: const UnderlineInputBorder(
-              //           borderSide: BorderSide(color: green)),
-              //       floatingLabelStyle: const TextStyle(color: green)),
-              // ),
               TextFormField(
                 controller: firstNameController,
                 decoration: const InputDecoration(
@@ -134,20 +146,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     floatingLabelStyle: TextStyle(color: green)),
               ),
               const SizedBox(height: 10),
-              // TextFormField(
-              //   controller: emailController,
-              //   decoration: const InputDecoration(
-              //       labelText: "Email",
-              //       hintText: "Enter email",
-              //       hintStyle: TextStyle(fontSize: 12),
-              //       focusedBorder: UnderlineInputBorder(
-              //           borderSide: BorderSide(color: green)),
-              //       floatingLabelStyle: TextStyle(color: green)),
-              // ),
-              // const SizedBox(height: 20),
 
-              // Junk Shop Information Section
-              // model.role ?= ""
               Text(
                 'Junk Shop Information',
                 style: Theme.of(context).textTheme.titleLarge,
@@ -163,48 +162,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         borderSide: BorderSide(color: green)),
                     floatingLabelStyle: TextStyle(color: green)),
               ),
-
-              const SizedBox(height: ReGainSizes.largeSpace),
-
+              const SizedBox(height: 20),
               Row(
                 children: [
-                  // Expanded(
-                  //   flex: 1,
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(8.0),
-                  //     child: ElevatedButton(
-                  //       style: ElevatedButton.styleFrom(
-                  //         shape: RoundedRectangleBorder(
-                  //             borderRadius: BorderRadius.circular(5.0)),
-                  //         backgroundColor: Colors.grey.shade700,
-                  //         foregroundColor: white,
-                  //       ),
-                  //       child: const Padding(
-                  //         padding: EdgeInsets.all(5.0),
-                  //         child: Text('Change Username',
-                  //             style: TextStyle(
-                  //               fontSize: 13.0,
-                  //               fontWeight: FontWeight.w800,
-                  //               //fontFamily: 'Montserrat',
-                  //             )),
-                  //       ),
-                  //       onPressed: () {
-                  //         setState(() {
-                  //           usernameNotEditable = false;
-                  //         });
-                  //       },
-                  //     ),
-                  //   ),
-                  // ),
                   Expanded(
                     flex: 1,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: RegainButtons(
                         text: 'Save',
-                        onPressed: () {
-                          updateProfile();
-                        },
+                        onPressed: updateProfile,
                         type: ButtonType.filled,
                         size: ButtonSize.large,
                         txtSize: BtnTxtSize.large,
@@ -223,24 +190,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void updateProfile() {
     if (_profileKey.currentState!.validate()) {
       final user = UserModel(
-          id: model.id,
-          username: model.username,
-          firstName: firstNameController.text,
-          lastName: lastNameController.text,
-          email: emailController.text,
-          junkshopName: junkshopController.text,
-          accountStatus: model.accountStatus,
-          password: model.password!);
+        id: model.id,
+        username: model.username,
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        email: emailController.text,
+        junkshopName: junkshopController.text,
+        accountStatus: model.accountStatus,
+        password: model.password!,
+      );
       Provider.of<AppDataProvider>(context, listen: false)
-          .updateUser(user)
+          .updateUser(user, profileImage: _profileImage)
           .then((response) {
         if (response.statusCode == 200) {
           Navigator.pushNamed(context, RouteManager.routeNavMenu);
-          ReGainHelperFunctions.showSnackBar(context, response.message);
-        } else if (response.statusCode == 400) {
-          setState(() {
-            _errorMessage = response.message;
-          });
+          ReGainHelperFunctions.showSnackBar(
+              context, 'Profile updated successfully!');
+        } else {
+          ReGainHelperFunctions.showSnackBar(
+              context, 'Failed to update profile.');
         }
       });
     }

@@ -19,6 +19,7 @@ _$ViewProductImpl _$$ViewProductImplFromJson(Map<String, dynamic> json) =>
       canDeliver: json['canDeliver'] as bool,
       isFavorite: json['isFavorite'] as bool,
       status: json['status'] as String,
+      image: json['image'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$ViewProductImplToJson(_$ViewProductImpl instance) =>
@@ -34,4 +35,5 @@ Map<String, dynamic> _$$ViewProductImplToJson(_$ViewProductImpl instance) =>
       'canDeliver': instance.canDeliver,
       'isFavorite': instance.isFavorite,
       'status': instance.status,
+      'image': instance.image,
     };

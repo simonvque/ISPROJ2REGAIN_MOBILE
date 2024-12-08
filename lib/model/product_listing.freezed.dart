@@ -36,6 +36,10 @@ mixin _$Product {
   set categoryID(int? value) => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   set price(String value) => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List get image => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  set image(Uint8List value) => throw _privateConstructorUsedError;
   bool get canDeliver => throw _privateConstructorUsedError;
   set canDeliver(bool value) => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
@@ -65,7 +69,9 @@ abstract class $ProductCopyWith<$Res> {
       int? categoryID,
       String price,
       bool canDeliver,
-      String? status});
+      String? status
+      @Uint8ListConverter() Uint8List image,
+      bool canDeliver});
 }
 
 /// @nodoc
@@ -91,6 +97,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? location = freezed,
     Object? categoryID = freezed,
     Object? price = null,
+    Object? image = null,
     Object? canDeliver = null,
     Object? status = freezed,
   }) {
@@ -127,6 +134,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
       canDeliver: null == canDeliver
           ? _value.canDeliver
           : canDeliver // ignore: cast_nullable_to_non_nullable
@@ -156,7 +167,8 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
       int? categoryID,
       String price,
       bool canDeliver,
-      String? status});
+      String? status,
+      @Uint8ListConverter() Uint8List image});
 }
 
 /// @nodoc
@@ -180,6 +192,7 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? location = freezed,
     Object? categoryID = freezed,
     Object? price = null,
+    Object? image = null,
     Object? canDeliver = null,
     Object? status = freezed,
   }) {
@@ -216,6 +229,10 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
       canDeliver: null == canDeliver
           ? _value.canDeliver
           : canDeliver // ignore: cast_nullable_to_non_nullable
@@ -241,7 +258,8 @@ class _$ProductImpl implements _Product {
       required this.categoryID,
       required this.price,
       required this.canDeliver,
-      this.status = 'Pending'});
+      this.status = 'Pending',
+      @Uint8ListConverter() required this.image,});
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductImplFromJson(json);
@@ -264,6 +282,9 @@ class _$ProductImpl implements _Product {
   @override
   String price;
   @override
+  @Uint8ListConverter()
+  Uint8List image;
+  @override
   bool canDeliver;
   @override
   @JsonKey()
@@ -271,7 +292,7 @@ class _$ProductImpl implements _Product {
 
   @override
   String toString() {
-    return 'Product(productID: $productID, sellerID: $sellerID, productName: $productName, description: $description, weight: $weight, location: $location, categoryID: $categoryID, price: $price, canDeliver: $canDeliver, status: $status)';
+    return 'Product(productID: $productID, sellerID: $sellerID, productName: $productName, description: $description, weight: $weight, location: $location, categoryID: $categoryID, price: $price, canDeliver: $canDeliver, status: $status, image: $image)';
   }
 
   /// Create a copy of Product
@@ -301,7 +322,8 @@ abstract class _Product implements Product {
       required int? categoryID,
       required String price,
       required bool canDeliver,
-      String? status}) = _$ProductImpl;
+      String? status,
+      @Uint8ListConverter() required Uint8List image}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
@@ -329,6 +351,11 @@ abstract class _Product implements Product {
   @override
   String get price;
   set price(String value);
+  @override
+  @Uint8ListConverter()
+  Uint8List get image;
+  @Uint8ListConverter()
+  set image(Uint8List value);
   @override
   bool get canDeliver;
   set canDeliver(bool value);

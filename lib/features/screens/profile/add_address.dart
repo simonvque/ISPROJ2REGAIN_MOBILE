@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
-import 'package:regain_mobile/features/screens/homepage/homepage.dart';
-import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
-import 'package:regain_mobile/helper_functions.dart';
-import 'package:regain_mobile/model/address_model.dart';
-import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/provider/address_data_provider.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
+import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
+import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 class AddAddress extends StatefulWidget {
-  const AddAddress({super.key});
+  const AddAddress({Key? key}) : super(key: key);
 
   @override
   State<AddAddress> createState() => _AddAddressState();
 }
 
 class _AddAddressState extends State<AddAddress> {
-  int userID = 1;
-  int? addressID;
   final unitNumberController = TextEditingController();
   final streetController = TextEditingController();
   final barangayController = TextEditingController();
@@ -32,6 +30,12 @@ class _AddAddressState extends State<AddAddress> {
 
   final _addAddressKey = GlobalKey<FormState>();
 
+  LatLng _currentMapPosition = LatLng(14.5995, 120.9842); // Default: Manila
+  LatLng? _validatedMapPosition; // Track last validated position
+  MapController _mapController = MapController();
+  bool _isAddressValidated = false; // Track if address has been validated
+  double _currentZoom = 13.0; // Track current zoom level
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,232 +43,150 @@ class _AddAddressState extends State<AddAddress> {
         backgroundColor: green,
         foregroundColor: white,
         title: const Text('Add Address'),
-        iconTheme: const IconThemeData(color: white),
-        actions: [
-          // IconButton(
-          //     onPressed: () {},
-          //     icon: Icon(
-          //       Icons.add_location,
-          //       color: white,
-          //     )),
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, RouteManager.routeNavMenu);
-              },
-              icon: const Icon(
-                Icons.home,
-                color: white,
-              )),
-        ],
       ),
       body: SingleChildScrollView(
-        child: Form(
-          key: _addAddressKey,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.all(14.0),
-                  child: Text(
-                    'Add Address Details',
-                    style: TextStyle(
-                      color: black,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w700,
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      height: 300,
+                      child: FlutterMap(
+                        mapController: _mapController,
+                        options: MapOptions(
+                          initialCenter: _currentMapPosition,
+                          initialZoom: _currentZoom,
+                        ),
+                        children: [
+                          TileLayer(
+                            urlTemplate:
+                                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                            subdomains: ['a', 'b', 'c'],
+                          ),
+                          MarkerLayer(
+                            markers: [
+                              Marker(
+                                point: _currentMapPosition,
+                                width: 80.0,
+                                height: 80.0,
+                                child: Icon(
+                                  Icons.location_pin,
+                                  color: Colors.red,
+                                  size: 40.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                // height: MediaQuery.of(context).size.height * 0.09,
-                // width: MediaQuery.of(context).size.width * 0.65,
-                child: TextFormField(
-                  controller: unitNumberController,
-                  decoration: InputDecoration(
-                    labelText: 'Unit number, apartment, etc.',
-                    labelStyle:
-                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
-                    hintText: '(optional) ex: Unit 22B',
-                    hintStyle: const TextStyle(fontSize: 15.0),
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       flex: 3,
-              //       child: Container(
-              //         padding: const EdgeInsets.all(10.0),
-              //         height: MediaQuery.of(context).size.height * 0.09,
-              //         // width: MediaQuery.of(context).size.width * 0.65,
-              //         child: TextFormField(
-              //           controller: unitNumberController,
-              //           decoration: InputDecoration(
-              //             labelText: 'Unit number, apartment, etc.',
-              //             labelStyle: TextStyle(
-              //                 fontSize: 15.0, color: Colors.grey.shade700),
-              //             hintText: '(optional) ex: Unit 22B',
-              //             hintStyle: const TextStyle(fontSize: 15.0),
-              //             border: const OutlineInputBorder(),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //     Expanded(
-              //       flex: 2,
-              //       child: Container(
-              //         padding: const EdgeInsets.fromLTRB(0, 10.0, 10.0, 10.0),
-              //         height: MediaQuery.of(context).size.height * 0.09,
-              //         // width: MediaQuery.of(context).size.width * 0.30,
-              //         child: TextFormField(
-              //           keyboardType: TextInputType.number,
-              //           inputFormatters: [
-              //             FilteringTextInputFormatter.digitsOnly
-              //           ],
-              //           validator: (value) {
-              //             if (value?.length != 4) {
-              //               return "Please enter a valid zip code";
-              //             }
-              //           },
-              //           controller: zipCodeController,
-              //           decoration: InputDecoration(
-              //             labelText: 'Zip Code',
-              //             labelStyle: TextStyle(
-              //                 fontSize: 15.0, color: Colors.grey.shade700),
-              //             hintText: 'ex: 1651',
-              //             hintStyle: const TextStyle(fontSize: 15.0),
-              //             border: const OutlineInputBorder(),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                // height: MediaQuery.of(context).size.height * 0.09,
-                child: TextFormField(
-                  controller: streetController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter a street address";
-                    }
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Street address, house number',
-                    labelStyle:
-                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
-                    hintText: 'ex: 117 Mindanao Ave',
-                    hintStyle: const TextStyle(fontSize: 15.0),
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                // height: MediaQuery.of(context).size.height * 0.09,
-                child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter a barangay";
-                    }
-                  },
-                  controller: barangayController,
-                  decoration: InputDecoration(
-                    labelText: 'Barangay, subdivision, etc',
-                    labelStyle:
-                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
-                    hintText: 'ex: Bambang',
-                    hintStyle: const TextStyle(fontSize: 15.0),
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                // height: MediaQuery.of(context).size.height * 0.09,
-                child: TextFormField(
-                  controller: cityController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter a city";
-                    }
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'City',
-                    labelStyle:
-                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
-                    hintText: 'ex: Pasig City',
-                    hintStyle: const TextStyle(fontSize: 15.0),
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                // height: MediaQuery.of(context).size.height * 0.09,
-                child: TextFormField(
-                  controller: stateController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter a state or region";
-                    }
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'State or region',
-                    labelStyle:
-                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
-                    hintText: 'ex: Metro Manila',
-                    hintStyle: const TextStyle(fontSize: 15.0),
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                // height: MediaQuery.of(context).size.height * 0.20,
-                // width: MediaQuery.of(context).size.width * 0.30,
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  validator: (value) {
-                    if (value?.length != 4) {
-                      return "Please enter a valid zip code";
-                    }
-                  },
-                  controller: zipCodeController,
-                  decoration: InputDecoration(
-                    labelText: 'Zip Code',
-                    labelStyle:
-                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
-                    hintText: 'ex: 1651',
-                    hintStyle: const TextStyle(fontSize: 15.0),
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(5, 15, 5, 20),
-                height: MediaQuery.of(context).size.height * 0.10,
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
-                    backgroundColor: green,
-                    foregroundColor: white,
-                  ),
-                  child: const Text('Submit',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        //fontFamily: 'Montserrat',
+                  Positioned(
+                      top: 10,
+                      right: 10,
+                      child: Column(
+                        children: [
+                          FloatingActionButton(
+                            mini: true,
+                            backgroundColor: green,
+                            onPressed: () => _zoomMap(1.0),
+                            heroTag: "zoomIn", // Unique tag
+                            child: Icon(Icons.zoom_in, color: white),
+                          ),
+                          const SizedBox(height: 8),
+                          FloatingActionButton(
+                            mini: true,
+                            backgroundColor: green,
+                            onPressed: () => _zoomMap(-1.0),
+                            heroTag: "zoomOut", // Unique tag
+                            child: Icon(Icons.zoom_out, color: white),
+                          ),
+                          const SizedBox(height: 8),
+                          FloatingActionButton(
+                            mini: true,
+                            backgroundColor: green,
+                            onPressed: _recenterMap,
+                            heroTag: "recenter", // Unique tag
+                            child: Icon(Icons.my_location, color: white),
+                          ),
+                        ],
                       )),
-                  onPressed: () {
-                    addAddress();
-                  },
+                ],
+              ),
+              Form(
+                key: _addAddressKey,
+                child: Column(
+                  children: [
+                    buildTextField(
+                        unitNumberController,
+                        'Unit number, apartment, etc.',
+                        '(optional) ex: Unit 22B'),
+                    buildTextField(
+                      streetController,
+                      'Street address, house number',
+                      'ex: 117 Mindanao Ave',
+                      validator: (value) => value == null || value.isEmpty
+                          ? "Please enter a street address"
+                          : null,
+                    ),
+                    buildTextField(
+                      barangayController,
+                      'Barangay, subdivision, etc',
+                      'ex: Bambang',
+                      validator: (value) => value == null || value.isEmpty
+                          ? "Please enter a barangay"
+                          : null,
+                    ),
+                    buildTextField(
+                      cityController,
+                      'City',
+                      'ex: Pasig City',
+                      validator: (value) => value == null || value.isEmpty
+                          ? "Please enter a city"
+                          : null,
+                    ),
+                    buildTextField(
+                      stateController,
+                      'State or region',
+                      'ex: Metro Manila',
+                      validator: (value) => value == null || value.isEmpty
+                          ? "Please enter a state or region"
+                          : null,
+                    ),
+                    buildTextField(
+                      zipCodeController,
+                      'Zip Code',
+                      'ex: 1651',
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      validator: (value) => value?.length != 4
+                          ? "Please enter a valid zip code"
+                          : null,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        RegainButtons(
+                          text: 'Validate',
+                          onPressed: validateAddress,
+                          type: ButtonType.outlined,
+                          size: ButtonSize.small,
+                          txtSize: BtnTxtSize.small,
+                        ),
+                        RegainButtons(
+                          text: 'Submit',
+                          onPressed: handleSubmit,
+                          type: ButtonType.filled,
+                          size: ButtonSize.small,
+                          txtSize: BtnTxtSize.small,
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ),
             ],
@@ -274,27 +196,149 @@ class _AddAddressState extends State<AddAddress> {
     );
   }
 
-  void addAddress() {
-    if (_addAddressKey.currentState!.validate()) {
-      final address = AddressModel(
-        unitNumber: unitNumberController.text,
-        street: streetController.text,
-        barangay: barangayController.text,
-        city: cityController.text,
-        province: stateController.text,
-        zipCode: zipCodeController.text,
-        userID: Provider.of<AppDataProvider>(context, listen: false).userId,
-      );
-      Provider.of<AddressDataProvider>(context, listen: false)
-          .addAddress(address)
-          .then((response) {
-        if (response.responseStatus == ResponseStatus.SAVED) {
-          resetFields();
-          Navigator.pushReplacementNamed(context, RouteManager.routeNavMenu);
-          ReGainHelperFunctions.showSnackBar(context, response.message);
-        }
+  Widget buildTextField(
+      TextEditingController controller, String label, String hint,
+      {String? Function(String?)? validator,
+      TextInputType keyboardType = TextInputType.text,
+      List<TextInputFormatter>? inputFormatters}) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
+        validator: validator,
+        decoration: InputDecoration(
+          labelText: label,
+          hintText: hint,
+          border: const OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+
+  void _zoomMap(double zoomChange) {
+    setState(() {
+      _currentZoom += zoomChange;
+    });
+    _mapController.move(_currentMapPosition, _currentZoom);
+  }
+
+  void _recenterMap() {
+    if (_validatedMapPosition != null) {
+      setState(() {
+        _currentMapPosition = _validatedMapPosition!;
+        _currentZoom = 15.0; // Default zoom level after validation
       });
+      _mapController.move(_currentMapPosition, _currentZoom);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              "No validated address found. Please validate the address first."),
+          duration: Duration(seconds: 3),
+        ),
+      );
     }
+  }
+
+  Future<void> handleSubmit() async {
+    if (_addAddressKey.currentState!.validate()) {
+      if (_isAddressValidated) {
+        addAddress();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Please validate the address before submitting."),
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> validateAddress() async {
+    final streetAddress = streetController.text;
+    final city = cityController.text;
+    final state = stateController.text;
+    final zipCode = zipCodeController.text;
+
+    if (streetAddress.isEmpty ||
+        city.isEmpty ||
+        state.isEmpty ||
+        zipCode.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              "Please fill in Street Address, City, State/Region, and Zip Code."),
+        ),
+      );
+      return;
+    }
+
+    final fullAddress = "$streetAddress, $city, $state, $zipCode";
+    final url = Uri.parse(
+        "https://nominatim.openstreetmap.org/search?q=$fullAddress&format=json&addressdetails=1");
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final List data = json.decode(response.body);
+
+        if (data.isNotEmpty) {
+          final location = data.first;
+          setState(() {
+            _currentMapPosition = LatLng(
+                double.parse(location['lat']), double.parse(location['lon']));
+            _validatedMapPosition =
+                _currentMapPosition; // Save validated position
+          });
+          _mapController.move(_currentMapPosition, 15.0);
+          _isAddressValidated = true; // Mark address as validated
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Address validated successfully!")),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Address not found. Please try again.")),
+          );
+          _isAddressValidated = false; // Reset validation status
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text("Failed to connect to the validation service.")),
+        );
+        _isAddressValidated = false;
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error validating address: $e")),
+      );
+      _isAddressValidated = false;
+    }
+  }
+
+  void addAddress() {
+    final address = AddressModel(
+      unitNumber: unitNumberController.text,
+      street: streetController.text,
+      barangay: barangayController.text,
+      city: cityController.text,
+      province: stateController.text,
+      zipCode: zipCodeController.text,
+      userID: Provider.of<AppDataProvider>(context, listen: false).userId,
+    );
+    Provider.of<AddressDataProvider>(context, listen: false)
+        .addAddress(address)
+        .then((response) {
+      if (response.responseStatus == ResponseStatus.SAVED) {
+        resetFields();
+        Navigator.pushReplacementNamed(context, RouteManager.routeNavMenu);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(response.message)));
+      }
+    });
   }
 
   void resetFields() {
@@ -304,6 +348,7 @@ class _AddAddressState extends State<AddAddress> {
     cityController.clear();
     stateController.clear();
     zipCodeController.clear();
+    _isAddressValidated = false; // Reset validation status
   }
 
   @override

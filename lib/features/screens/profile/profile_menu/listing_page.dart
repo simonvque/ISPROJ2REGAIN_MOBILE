@@ -1,9 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
@@ -12,9 +8,7 @@ import 'package:regain_mobile/features/screens/listings/add_product.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/edit_listing_page.dart';
 import 'package:regain_mobile/helper_functions.dart';
-import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/product_listing.dart';
-import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';

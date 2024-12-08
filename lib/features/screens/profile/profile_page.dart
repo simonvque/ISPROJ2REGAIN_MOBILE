@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
-import 'package:regain_mobile/features/screens/profile/util/user_data.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 import '../../../constants/image_strings.dart';
@@ -25,26 +24,22 @@ class ProfilePage extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 60,
-                backgroundImage: AssetImage(ReGainImages.exProfilePic),
+                backgroundImage: user?.profileImage != null &&
+                        user!.profileImage!.isNotEmpty
+                    ? MemoryImage(user
+                        .profileImage!) // Use profile image from the database
+                    : const AssetImage(ReGainImages.exProfilePic)
+                        as ImageProvider, // Default profile picture
               ),
               const SizedBox(
                 height: ReGainSizes.spaceBtwItems / 4,
               ),
               Text(
-                '@${user!.username}',
+                '@${user?.username ?? "Unknown User"}',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              // Text(
-              //   user.contactNumber!,
-              //   style: Theme.of(context).textTheme.labelMedium,
-              // ),
-              // Text(
-              //   // user.contactNumber!
-              //   'remove later',
-              //   style: Theme.of(context).textTheme.labelMedium,
-              // ),
               const SizedBox(
                 height: ReGainSizes.spaceBtwItems,
               ),
