@@ -83,13 +83,13 @@ abstract class DataSource {
   Future<List<ViewProduct>> searchProducts(String query, int userId);
 
   Future<Uint8List?> getSellerProfileImage(String username);
-  
+
   // Request password reset
   Future<ResponseModel> requestPasswordReset(String email);
 
-  // Reset password 
+  // Reset password
   Future<ResponseModel> resetPassword(String otp, String newPassword);
-  
+
   //Verify Otp
   Future<ResponseModel> verifyOtp(String otp);
 }

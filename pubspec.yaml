@@ -67,7 +67,7 @@ dependencies:
   latlong2: ^0.9.1
   freezed: ^2.5.7
 
-dev_dependencies: 
+dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.4.13
@@ -76,10 +76,10 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/logo/regain_white.png"  # Path to your logo image
+  image_path: "assets/images/logo/regain_white.png" # Path to your logo image
   remove_alpha_ios: true
-  adaptive_icon_background: "assets/images/logo/background.png"  # Path to the background image
-  adaptive_icon_foreground: "assets/images/logo/foreground.png"  # Path to the foreground image
+  adaptive_icon_background: "assets/images/logo/background.png" # Path to the background image
+  adaptive_icon_foreground: "assets/images/logo/foreground.png" # Path to the foreground image
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -198,9 +198,8 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 flutter_native_splash:
-  color: "#ffffff"  # You can set the background color (e.g., white).
-  image: "assets/images/logo/regain.png"  # Path to your logo
-  android: true  # For Android
-  ios: true      # For iOS
-
+  color: "#ffffff" # You can set the background color (e.g., white).
+  image: "assets/images/logo/regain.png" # Path to your logo
+  android: true # For Android
+  ios: true # For iOS
 

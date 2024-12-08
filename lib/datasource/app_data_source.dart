@@ -36,6 +36,8 @@ class AppDataSource extends DataSource {
   final _ipAddPort = '159.223.37.215:40002';
   // final _ipAddPort = '192.168.68.113:9191';
 
+  get ipAddPort => _ipAddPort;
+
   // baseUrl = emulator IP + Spring Boot backend port + route
   final String baseUrl = 'http://159.223.37.215:40002/api/';
   // final String baseUrl = 'http://192.168.68.113:9191/api/';
@@ -698,72 +700,75 @@ class AppDataSource extends DataSource {
       }
     } catch (error) {
       print('Error occurred while fetching filtered products: $error');
-      
-@override
-Future<ResponseModel> requestPasswordReset(String email) async {
-  final url = '$baseUrl${'password/request-reset'}'; 
-
-  try {
-    final response = await http.post(
-      Uri.parse(url),
-      headers: header,
-      body: jsonEncode({'email': email}),
-    );
-
-    if (response.statusCode == 200) {
-      return await _getResponseModel(response);
-    } else {
-      throw Exception('Failed to request password reset: ${response.body}');
+      rethrow;
     }
-  } catch (error) {
-    print('Error during password reset request: $error');
-    rethrow;
   }
-}
 
-@override
-Future<ResponseModel> resetPassword(String otp, String newPassword) async {
-  final url = '$baseUrl${'password/reset'}';
+  @override
+  Future<ResponseModel> requestPasswordReset(String email) async {
+    final url = '$baseUrl${'password/request-reset'}';
 
-  try {
-    final response = await http.post(
-      Uri.parse(url),
-      headers: header,
-      body: jsonEncode({'otp': otp, 'newPassword': newPassword}),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: header,
+        body: jsonEncode({'email': email}),
+      );
 
-    if (response.statusCode == 200) {
-      return await _getResponseModel(response);
-    } else {
-      throw Exception('Failed to reset password: ${response.body}');
+      if (response.statusCode == 200) {
+        return await _getResponseModel(response);
+      } else {
+        throw Exception('Failed to request password reset: ${response.body}');
+      }
+    } catch (error) {
+      print('Error during password reset request: $error');
+      rethrow;
     }
-  } catch (error) {
-    print('Error during password reset: $error');
-    rethrow;
   }
-}
 
-@override
-Future<ResponseModel> verifyOtp(String otp) async {
-  final url = '$baseUrl${'password/verify-otp'}'; 
+  @override
+  Future<ResponseModel> resetPassword(String otp, String newPassword) async {
+    final url = '$baseUrl${'password/reset'}';
 
-  try {
-    final response = await http.post(
-      Uri.parse(url),
-      headers: header,
-      body: jsonEncode({'otp': otp}),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: header,
+        body: jsonEncode({'otp': otp, 'newPassword': newPassword}),
+      );
 
-    if (response.statusCode == 200) {
-      return await _getResponseModel(response);  
-    } else {
-      throw Exception('Failed to verify OTP: ${response.body}');
+      if (response.statusCode == 200) {
+        return await _getResponseModel(response);
+      } else {
+        throw Exception('Failed to reset password: ${response.body}');
+      }
+    } catch (error) {
+      print('Error during password reset: $error');
+      rethrow;
     }
-  } catch (error) {
-    print('Error during OTP verification: $error');
-    rethrow;
   }
-}
+
+  @override
+  Future<ResponseModel> verifyOtp(String otp) async {
+    final url = '$baseUrl${'password/verify-otp'}';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: header,
+        body: jsonEncode({'otp': otp}),
+      );
+
+      if (response.statusCode == 200) {
+        return await _getResponseModel(response);
+      } else {
+        throw Exception('Failed to verify OTP: ${response.body}');
+      }
+    } catch (error) {
+      print('Error during OTP verification: $error');
+      rethrow;
+    }
+  }
 
   Future<ResponseModel> addListingReport(
       Map<String, dynamic> reportPayload) async {
@@ -781,7 +786,6 @@ Future<ResponseModel> verifyOtp(String otp) async {
     }
   }
 
-
   @override
   Future<List<ViewProduct>> searchProducts(String query, int userId) async {
     final url = '$baseUrl${'products/search'}?query=$query&userId=$userId';
@@ -798,6 +802,9 @@ Future<ResponseModel> verifyOtp(String otp) async {
       }
     } catch (error) {
       print('Error occurred while searching products: $error');
+      rethrow;
+    }
+  }
 
   Future<ResponseModel> addUserReport(
       Map<String, dynamic> reportPayload) async {
@@ -839,7 +846,6 @@ Future<ResponseModel> verifyOtp(String otp) async {
       rethrow;
     }
   }
-
 
   @override
   Future<Uint8List?> getSellerProfileImage(String username) async {
