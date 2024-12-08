@@ -145,8 +145,25 @@ class Room {
 
   String get timestampFormatted {
     try {
-      final dateTime = DateTime.parse(timestamp);
-      return "${dateTime.hour}:${dateTime.minute}";
+      // Parse the timestamp as UTC
+      final dateTime = DateTime.parse(timestamp).toLocal();
+      final now = DateTime.now();
+
+      // Format the time with leading zeros
+      final hour = dateTime.hour.toString().padLeft(2, '0');
+      final minute = dateTime.minute.toString().padLeft(2, '0');
+
+      if (dateTime.year == now.year &&
+          dateTime.month == now.month &&
+          dateTime.day == now.day) {
+        // If the timestamp is today
+        return "$hour:$minute";
+      } else {
+        // If the timestamp is not today
+        final month = dateTime.month.toString().padLeft(2, '0');
+        final day = dateTime.day.toString().padLeft(2, '0');
+        return "$month/$day $hour:$minute";
+      }
     } catch (e) {
       print("Invalid timestamp format: $timestamp");
       return 'Invalid Timestamp';

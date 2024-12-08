@@ -169,24 +169,36 @@ class ChatMessage {
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) {
     return ChatMessage(
-      content: json['content'],
-      senderId: json['senderId'].toString(),
-      receiverId: json['receiverId'].toString(),
-      senderUsername: json['senderUsername'],
-      receiverUsername: json['receiverUsername'],
-      roomId: json['roomId'],
-      timestamp: json['timestamp'],
+      content: json['content'] ?? '',
+      senderId: json['senderId']?.toString() ?? '',
+      receiverId: json['receiverId']?.toString() ?? '',
+      senderUsername: json['senderUsername'] ?? 'Unknown',
+      receiverUsername: json['receiverUsername'] ?? 'Unknown',
+      roomId: json['roomId'] ?? '',
+      timestamp: json['timestamp'] ?? '',
     );
   }
 
   String get timestampFormatted {
     try {
-      final dateTime = DateTime.parse(timestamp);
+      // Parse the timestamp as UTC
+      final dateTime = DateTime.parse(timestamp).toLocal();
       final now = DateTime.now();
-      if (dateTime.day == now.day) {
-        return "${dateTime.hour}:${dateTime.minute}";
+
+      // Format the time with leading zeros
+      final hour = dateTime.hour.toString().padLeft(2, '0');
+      final minute = dateTime.minute.toString().padLeft(2, '0');
+
+      if (dateTime.year == now.year &&
+          dateTime.month == now.month &&
+          dateTime.day == now.day) {
+        // If the timestamp is today
+        return "$hour:$minute";
       } else {
-        return "${dateTime.month}/${dateTime.day} ${dateTime.hour}:${dateTime.minute}";
+        // If the timestamp is not today
+        final month = dateTime.month.toString().padLeft(2, '0');
+        final day = dateTime.day.toString().padLeft(2, '0');
+        return "$month/$day $hour:$minute";
       }
     } catch (e) {
       print("Invalid timestamp format: $timestamp");
