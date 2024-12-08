@@ -28,12 +28,19 @@ class AppDataSource extends DataSource {
 
   AppDataSource._privateConstructor();
 
-  final _ipAddPort = '159.223.37.215:40002';
+  // for cloud
+  // final _ipAddPort = '159.223.37.215:40002';
 
-  get ipAddPort => _ipAddPort;
+  // for local
+    final _ipAddPort = 'http://192.168.1.24:9191';
 
-  // baseUrl = emulator IP + Spring Boot backend port + route
-  final String baseUrl = 'http://159.223.37.215:40002/api/';
+    get ipAddPort => _ipAddPort;
+
+  // baseUrl = emulator IP + Spring Boot backend port + route (for cloud)
+  // final String baseUrl = 'http://159.223.37.215:40002/api/';
+
+  // for local
+  final String baseUrl = 'http://10.0.2.2:9191/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -499,13 +506,11 @@ class AppDataSource extends DataSource {
         return List.generate(
             mapList.length, (index) => GreenZoneModel.fromJson(mapList[index]));
       } else {
-        // Log error if the status code is not 200
         print('Failed to fetch articles. Status code: ${response.statusCode}');
         print('Response body: ${response.body}');
         return [];
       }
     } catch (error) {
-      // Log the exact error and rethrow to handle it at the call site
       print('Error occurred while fetching articles: $error');
       rethrow;
     }
@@ -523,4 +528,71 @@ class AppDataSource extends DataSource {
       rethrow;
     }
   }
+
+@override
+Future<ResponseModel> requestPasswordReset(String email) async {
+  final url = '$baseUrl${'password/request-reset'}'; 
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: header,
+      body: jsonEncode({'email': email}),
+    );
+
+    if (response.statusCode == 200) {
+      return await _getResponseModel(response);
+    } else {
+      throw Exception('Failed to request password reset: ${response.body}');
+    }
+  } catch (error) {
+    print('Error during password reset request: $error');
+    rethrow;
+  }
+}
+
+@override
+Future<ResponseModel> resetPassword(String otp, String newPassword) async {
+  final url = '$baseUrl${'password/reset'}';
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: header,
+      body: jsonEncode({'otp': otp, 'newPassword': newPassword}),
+    );
+
+    if (response.statusCode == 200) {
+      return await _getResponseModel(response);
+    } else {
+      throw Exception('Failed to reset password: ${response.body}');
+    }
+  } catch (error) {
+    print('Error during password reset: $error');
+    rethrow;
+  }
+}
+
+@override
+Future<ResponseModel> verifyOtp(String otp) async {
+  final url = '$baseUrl${'password/verify-otp'}'; 
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: header,
+      body: jsonEncode({'otp': otp}),
+    );
+
+    if (response.statusCode == 200) {
+      return await _getResponseModel(response);  
+    } else {
+      throw Exception('Failed to verify OTP: ${response.body}');
+    }
+  } catch (error) {
+    print('Error during OTP verification: $error');
+    rethrow;
+  }
+}
+
 }
