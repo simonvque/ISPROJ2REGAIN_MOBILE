@@ -8,10 +8,8 @@ import 'package:regain_mobile/datasource/app_data_source.dart';
 import 'package:regain_mobile/features/screens/homepage/selected_item.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/helper_functions.dart';
-import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
 import 'package:regain_mobile/provider/offers_data_provider.dart';
-import 'package:regain_mobile/routes/route_manager.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 import 'package:regain_mobile/themes/elements/input%20fields/regain_textbox.dart';
 

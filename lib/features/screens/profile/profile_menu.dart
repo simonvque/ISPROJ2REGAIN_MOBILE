@@ -13,8 +13,6 @@ import 'package:regain_mobile/features/screens/profile/profile_menu/contactus_pa
 import 'package:regain_mobile/features/screens/profile/profile_menu/listing_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/penalty_page.dart';
 import 'package:regain_mobile/features/screens/profile/settings/settings_page.dart';
-import 'package:regain_mobile/features/screens/profile/profile_menu/transactions_page.dart';
-import 'package:regain_mobile/features/screens/profile/util/transactions_data.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 
@@ -158,14 +156,14 @@ class ProfileMenu extends StatelessWidget {
         RegainButtons(
           text: 'Penalty points',
           onPressed: () {
-            int? points = Provider.of<AppDataProvider>(context, listen: false)
-                .user!
-                .penaltyPoints;
-            points ??= 1;
+            final appDataProvider =
+                Provider.of<AppDataProvider>(context, listen: false);
+            final userId = appDataProvider.userId;
+
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PenaltyPage(penaltyPoints: points),
+                builder: (context) => PenaltyPage(userId: userId),
               ),
             );
           },

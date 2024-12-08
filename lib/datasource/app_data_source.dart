@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
+
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
 import 'package:regain_mobile/model/address_model.dart';
@@ -31,15 +32,13 @@ class AppDataSource extends DataSource {
 
   AppDataSource._privateConstructor();
 
-  // final _ipAddPort = '159.223.37.215:40002';
-  final _ipAddPort = '192.168.68.105:9191';
-
-  get ipAddPort => _ipAddPort;
+  // for cloud
+  final _ipAddPort = '159.223.37.215:40002';
+  // final _ipAddPort = '192.168.68.113:9191';
 
   // baseUrl = emulator IP + Spring Boot backend port + route
-  // final String baseUrl = 'http://159.223.37.215:40002/api/';
-
-  final String baseUrl = 'http://192.168.68.105:9191/api/';
+  final String baseUrl = 'http://159.223.37.215:40002/api/';
+  // final String baseUrl = 'http://192.168.68.113:9191/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -166,20 +165,27 @@ class AppDataSource extends DataSource {
       responseModel = ResponseModel.fromJson(jsonDecode(response.body));
       // UserModel userM = UserModel.fromJson(jsonDecode(response.body["response"]));
       responseModel.responseStatus = status;
-    }
-    // else if (response.statusCode == 401 || response.statusCode == 403) {
-    //   if (await hasTokenExpired()) {
-    //     status = ResponseStatus.EXPIRED;
-    //   } else {
-    //     status = ResponseStatus.UNAUTHORIZED;
-    //   }
-    //   responseModel = ResponseModel(
-    //     responseStatus: status,
-    //     statusCode: 401,
-    //     message: 'Access denied. Please login as Admin',
-    //   );
-    // }
-    else if (response.statusCode == 500 || response.statusCode == 400) {
+    } else if (response.statusCode == 401 || response.statusCode == 403) {
+      // if (response.statusCode == 403) {
+      //   status = ResponseStatus.EXPIRED;
+      // } else {
+      //   status = ResponseStatus.UNAUTHORIZED;
+      // }
+      status = ResponseStatus.UNAUTHORIZED;
+      //final json = jsonDecode(response.body);
+      //final errorDetails = ErrorDetails.fromJson(json);
+      // responseModel = ResponseModel(
+      //   responseStatus: status,
+      //   statusCode: 401,
+      //   message: 'Access denied. Please login as Admin',
+      // );
+      String msg = "Authentication error";
+      responseModel = ResponseModel(
+        responseStatus: status,
+        statusCode: response.statusCode,
+        message: msg,
+      );
+    } else if (response.statusCode == 500 || response.statusCode == 400) {
       final json = jsonDecode(response.body);
       final errorDetails = ErrorDetails.fromJson(json);
       status = ResponseStatus.FAILED;
@@ -650,13 +656,11 @@ class AppDataSource extends DataSource {
         return List.generate(
             mapList.length, (index) => GreenZoneModel.fromJson(mapList[index]));
       } else {
-        // Log error if the status code is not 200
         print('Failed to fetch articles. Status code: ${response.statusCode}');
         print('Response body: ${response.body}');
         return [];
       }
     } catch (error) {
-      // Log the exact error and rethrow to handle it at the call site
       print('Error occurred while fetching articles: $error');
       rethrow;
     }
@@ -694,9 +698,89 @@ class AppDataSource extends DataSource {
       }
     } catch (error) {
       print('Error occurred while fetching filtered products: $error');
+      
+@override
+Future<ResponseModel> requestPasswordReset(String email) async {
+  final url = '$baseUrl${'password/request-reset'}'; 
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: header,
+      body: jsonEncode({'email': email}),
+    );
+
+    if (response.statusCode == 200) {
+      return await _getResponseModel(response);
+    } else {
+      throw Exception('Failed to request password reset: ${response.body}');
+    }
+  } catch (error) {
+    print('Error during password reset request: $error');
+    rethrow;
+  }
+}
+
+@override
+Future<ResponseModel> resetPassword(String otp, String newPassword) async {
+  final url = '$baseUrl${'password/reset'}';
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: header,
+      body: jsonEncode({'otp': otp, 'newPassword': newPassword}),
+    );
+
+    if (response.statusCode == 200) {
+      return await _getResponseModel(response);
+    } else {
+      throw Exception('Failed to reset password: ${response.body}');
+    }
+  } catch (error) {
+    print('Error during password reset: $error');
+    rethrow;
+  }
+}
+
+@override
+Future<ResponseModel> verifyOtp(String otp) async {
+  final url = '$baseUrl${'password/verify-otp'}'; 
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: header,
+      body: jsonEncode({'otp': otp}),
+    );
+
+    if (response.statusCode == 200) {
+      return await _getResponseModel(response);  
+    } else {
+      throw Exception('Failed to verify OTP: ${response.body}');
+    }
+  } catch (error) {
+    print('Error during OTP verification: $error');
+    rethrow;
+  }
+}
+
+  Future<ResponseModel> addListingReport(
+      Map<String, dynamic> reportPayload) async {
+    final url = '$baseUrl${'listingreports/add'}';
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: header,
+        body: jsonEncode(reportPayload),
+      );
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
       rethrow;
     }
   }
+
 
   @override
   Future<List<ViewProduct>> searchProducts(String query, int userId) async {
@@ -714,9 +798,48 @@ class AppDataSource extends DataSource {
       }
     } catch (error) {
       print('Error occurred while searching products: $error');
+
+  Future<ResponseModel> addUserReport(
+      Map<String, dynamic> reportPayload) async {
+    final url = '$baseUrl${'userreports/add'}';
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: header,
+        body: jsonEncode(reportPayload),
+      );
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
       rethrow;
     }
   }
+
+  Future<int> getPenaltyPoints(int userId) async {
+    final url = '$baseUrl${'user/$userId/penalty-points'}';
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: header,
+      );
+
+      print('Response Status Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data['response'] as int? ??
+            0; // Extract penalty points from 'response'
+      } else {
+        throw Exception(
+            'Failed to fetch penalty points: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching penalty points: $error');
+      rethrow;
+    }
+  }
+
 
   @override
   Future<Uint8List?> getSellerProfileImage(String username) async {
@@ -735,5 +858,22 @@ class AppDataSource extends DataSource {
       print('Error occurred while fetching profile image: $error');
     }
     return null; // Return null if no image is found or an error occurs
+  }
+
+  Future<Map<String, List<dynamic>>> getUserAndListingReports(
+      int userId) async {
+    final url = '$baseUrl${'user/$userId/reports'}';
+    try {
+      final response = await http.get(Uri.parse(url), headers: header);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        return data
+            .map((key, value) => MapEntry(key, List<dynamic>.from(value)));
+      }
+      return {};
+    } catch (error) {
+      print('Error fetching reports: $error');
+      rethrow;
+    }
   }
 }

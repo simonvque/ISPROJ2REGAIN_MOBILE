@@ -7,6 +7,7 @@ import 'package:regain_mobile/provider/address_data_provider.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
 import 'package:regain_mobile/provider/favorites_data_provider.dart';
+import 'package:regain_mobile/provider/forgot_password_provider.dart';
 import 'package:regain_mobile/provider/green_zone_provider.dart';
 import 'package:regain_mobile/provider/offers_data_provider.dart';
 import 'package:regain_mobile/provider/order_provider.dart';
@@ -49,6 +50,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ChatService()),
         ChangeNotifierProvider<OrderProvider>(
             create: (context) => OrderProvider()),
+        ChangeNotifierProvider<ForgotPasswordProvider>(
+            create: (context) => ForgotPasswordProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
