@@ -15,9 +15,9 @@ class PenaltyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double score = 1.0; // verify data type in database schema
+    //double score = 1.0; // verify data type in database schema
 
-    // double score = penaltyPoints!.toDouble();
+    double score = penaltyPoints!.toDouble();
 
     // Check specific penalty points criteria
     Color getProgressColor(double score) {

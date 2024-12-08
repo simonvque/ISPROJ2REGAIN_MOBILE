@@ -6,7 +6,6 @@ import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/green_zone_model.dart';
 import 'package:regain_mobile/model/offers_model.dart';
-import 'package:regain_mobile/model/order_log.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
@@ -68,14 +67,9 @@ abstract class DataSource {
 
   Future<ResponseModel> addOrder(OrderModel order);
 
-  Future<ResponseModel> updateOrder(OrderModel order, int id);
+  Future<List<OrderModel>> getOrdersByDeliveryBuyer(String method, int id);
 
-  Future<List<OrderModel>> getOrdersByDeliveryBuyer(int id);
-
-  Future<List<OrderModel>> getOrdersByDeliverySeller(int id);
-
-  Future<List<OrderLog>> getOrderLogsByOrderId(int id);
-
+  Future<List<OrderModel>> getOrdersByDeliverySeller(String method, int id);
   //Green Zone
   Future<List<GreenZoneModel>> getAllArticles();
 }

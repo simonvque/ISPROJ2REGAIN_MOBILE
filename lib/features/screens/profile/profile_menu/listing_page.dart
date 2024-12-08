@@ -108,7 +108,7 @@ class _ListingPageState extends State<ListingPage> {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 subtitle: Text(
-                  'PHP ${product.price} - ${product.status}',
+                  'PHP ${product.price} - ${product.location}',
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 trailing: const Icon(CupertinoIcons.ellipsis_vertical),

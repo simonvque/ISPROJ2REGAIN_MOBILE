@@ -15,8 +15,7 @@ class ViewProduct with _$ViewProduct {
       required String weight,
       required String category,
       required bool canDeliver,
-      required bool isFavorite,
-      required String status}) = _ViewProduct;
+      required bool isFavorite}) = _ViewProduct;
   factory ViewProduct.fromJson(Map<String, dynamic> json) =>
       _$ViewProductFromJson(json);
 }

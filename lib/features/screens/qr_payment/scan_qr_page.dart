@@ -75,7 +75,7 @@ class ScanQRPage extends StatelessWidget {
             RegainButtons(
               text: ReGainTexts.next,
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const PaymentDetailsPage(),

@@ -388,7 +388,7 @@ class _AddProductState extends State<AddProduct> {
       Provider.of<ProductDataProvider>(context, listen: false)
           .addProduct(prod)
           .then((response) {
-        if (response.statusCode == 200) {
+        if (response.responseStatus == ResponseStatus.SAVED) {
           resetFields();
           Navigator.pushNamed(context, RouteManager.routeNavMenu);
           ReGainHelperFunctions.showSnackBar(context, response.message);

@@ -160,7 +160,7 @@ class _AddressItemState extends State<AddressItem> {
                 builder: (context) =>
                     EditAddress(address: widget.addressItem)));
       },
-      subtitle: widget.addressItem.unitNumber != null
+      subtitle: widget.addressItem.unitNumber != ''
           ? Text(
               '${widget.addressItem.unitNumber} ${widget.addressItem.street}, ${widget.addressItem.barangay}, ${widget.addressItem.province}')
           : Text(

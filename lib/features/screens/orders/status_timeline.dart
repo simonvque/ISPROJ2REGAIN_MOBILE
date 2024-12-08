@@ -99,6 +99,7 @@
 //   }
 // }
 
+
 // // Widget for each status in the timeline
 // class StatusItem extends StatelessWidget {
 //   final String status;
@@ -145,6 +146,7 @@
 //   }
 // }
 
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:regain_mobile/constants/colors.dart';
@@ -162,8 +164,7 @@ class StatusTimeline extends StatelessWidget {
         final index = entry.key;
         final statusItem = entry.value;
         return StatusItem(
-          status: statusItem
-              .displayName, // Use the displayName getter from the extension
+          status: statusItem.displayName, // Use the displayName getter from the extension
           timestamp: DateTime.now(), // Temporary timestamp
           isCurrent: index == 0, // Determine if it's the current status
         );
@@ -208,7 +209,7 @@ class StatusItem extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            DateFormat('MM/dd/yyyy').format(timestamp),
+            DateFormat('dd/MM/yyyy').format(timestamp),
             style: Theme.of(context).textTheme.labelMedium,
           ),
         ],

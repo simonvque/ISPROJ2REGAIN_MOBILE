@@ -10,7 +10,6 @@ import 'package:regain_mobile/model/error_details_model.dart';
 import 'package:regain_mobile/model/green_zone_model.dart';
 import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
-import 'package:regain_mobile/model/order_log.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
@@ -29,12 +28,12 @@ class AppDataSource extends DataSource {
 
   AppDataSource._privateConstructor();
 
-  final _ipAddPort = '192.168.1.15:9191';
+  final _ipAddPort = '159.223.37.215:40002';
 
   get ipAddPort => _ipAddPort;
 
   // baseUrl = emulator IP + Spring Boot backend port + route
-  final String baseUrl = 'http://192.168.1.15:9191/api/';
+  final String baseUrl = 'http://159.223.37.215:40002/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -118,12 +117,11 @@ class AppDataSource extends DataSource {
       //   statusCode: 401,
       //   message: 'Access denied. Please login as Admin',
       // );
-      final json = jsonDecode(response.body);
-      final errorDetails = ErrorDetails.fromJson(json);
+      String msg = "Authentication error";
       responseModel = ResponseModel(
         responseStatus: status,
         statusCode: response.statusCode,
-        message: errorDetails.errorMessage,
+        message: msg,
       );
     } else if (response.statusCode == 500 || response.statusCode == 400) {
       final json = jsonDecode(response.body);
@@ -459,21 +457,9 @@ class AppDataSource extends DataSource {
   }
 
   @override
-  Future<ResponseModel> updateOrder(OrderModel order, int id) async {
-    final url = '$baseUrl${'orders/update/$id'}';
-    try {
-      final response = await http.put(Uri.parse(url),
-          headers: header, body: jsonEncode(order));
-      return await _getResponseModel(response);
-    } catch (error) {
-      print(error.toString());
-      rethrow;
-    }
-  }
-
-  @override
-  Future<List<OrderModel>> getOrdersByDeliveryBuyer(int id) async {
-    final url = '$baseUrl${'orders/buyer/$id'}';
+  Future<List<OrderModel>> getOrdersByDeliveryBuyer(
+      String method, int id) async {
+    final url = '$baseUrl${'orders/buyer/$id/$method'}';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -488,34 +474,17 @@ class AppDataSource extends DataSource {
   }
 
   @override
-  Future<List<OrderModel>> getOrdersByDeliverySeller(int id) async {
-    final url = '$baseUrl${'orders/seller/$id'}';
+  Future<List<OrderModel>> getOrdersByDeliverySeller(
+      String method, int id) async {
+    final url = '$baseUrl${'orders/seller/$id/$method'}';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final mapList = json.decode(response.body) as List;
         return List.generate(
             mapList.length, (index) => OrderModel.fromJson(mapList[index]));
-      } else {
-        return [];
       }
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<List<OrderLog>> getOrderLogsByOrderId(int id) async {
-    final url = '$baseUrl${'orders/logs/$id'}';
-    try {
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        final mapList = json.decode(response.body) as List;
-        return List.generate(
-            mapList.length, (index) => OrderLog.fromJson(mapList[index]));
-      } else {
-        return [];
-      }
+      return [];
     } catch (error) {
       rethrow;
     }
