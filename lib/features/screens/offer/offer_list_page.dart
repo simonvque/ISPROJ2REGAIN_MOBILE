@@ -5,8 +5,6 @@ import 'package:regain_mobile/datasource/app_data_source.dart';
 import 'package:regain_mobile/features/screens/offer/offer_tile/buyer_offer_tile.dart';
 import 'package:regain_mobile/features/screens/offer/seller_offerlist_page.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
-import 'package:regain_mobile/model/offers_model.dart';
-import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';

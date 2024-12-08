@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/features/screens/green_zone/green_zone_page.dart';
 import 'package:regain_mobile/features/screens/homepage/homepage.dart';
-import 'package:regain_mobile/features/screens/homepage/selected_item.dart';
 import 'package:regain_mobile/features/screens/listings/add_product.dart';
 import 'package:regain_mobile/features/screens/listings/user_products_screen.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
 import 'package:regain_mobile/features/screens/onboarding/onboarding.dart';
-import 'package:regain_mobile/features/screens/onboarding/widgets/onboarding_navigation.dart';
 import 'package:regain_mobile/features/screens/orders/my_orders_page.dart';
 import 'package:regain_mobile/features/screens/profile/edit_profile_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_page.dart';
@@ -56,7 +54,7 @@ class RouteManager {
             builder: (context) => const UserProductsScreen());
       case routeOrderTracking:
         return MaterialPageRoute(builder: (context) => OrderTrackingPage());
-      case routeGreenZone: 
+      case routeGreenZone:
         return MaterialPageRoute(builder: (context) => GreenZonePage());
       default:
         throw const FormatException(routeNotFound);

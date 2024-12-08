@@ -199,7 +199,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         accountStatus: model.accountStatus,
         password: model.password!,
       );
-
       Provider.of<AppDataProvider>(context, listen: false)
           .updateUser(user, profileImage: _profileImage)
           .then((response) {
