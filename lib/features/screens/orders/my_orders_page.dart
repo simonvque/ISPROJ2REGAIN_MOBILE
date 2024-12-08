@@ -201,7 +201,6 @@
 //   }
 // }
 
-
 // import 'package:flutter/material.dart';
 // import 'package:regain_mobile/constants/colors.dart';
 // import 'package:regain_mobile/themes/app_bar.dart';
@@ -323,10 +322,13 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/features/screens/orders/order_log_page.dart';
+import 'package:regain_mobile/model/order_model.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
+import 'package:regain_mobile/provider/order_provider.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 
 class OrderTrackingPage extends StatefulWidget {
@@ -338,18 +340,87 @@ class OrderTrackingPage extends StatefulWidget {
 
 class _OrderTrackingPageState extends State<OrderTrackingPage> {
   // Temporary data for UI demo (with status field for dynamic updates)
-  List<Map<String, String?>> buyerOrders = [
-    {"id": "1", "productName": "Product 1", "username": "seller123", "status": "To Ship", "price": "Php 150"},
-    {"id": "2", "productName": "Product 2", "username": "seller456", "status": "To Ship", "price": "Php 200"},
-  ];
 
-  List<Map<String, String?>> sellerOrders = [
-    {"id": "3", "productName": "Product A", "username": "buyer123", "status": "To Ship", "price": "Php 300"},
-    {"id": "4", "productName": "Product B", "username": "buyer456", "status": "To Ship", "price": "Php 250"},
-  ];
+  bool buyerLoaded = false;
+  bool sellerLoaded = false;
+
+  List<OrderModel> buyerOrders = [];
+
+  // // order id, Product product, sellerUsername, Order status, Order total amount
+  // List<Map<String, String?>> buyerOrders = [
+  //   {
+  //     "id": "1",
+  //     "productName": "Product 1",
+  //     "username": "seller123",
+  //     "status": "To Ship",
+  //     "price": "Php 150"
+  //   },
+  //   {
+  //     "id": "2",
+  //     "productName": "Product 2",
+  //     "username": "seller456",
+  //     "status": "To Ship",
+  //     "price": "Php 200"
+  //   },
+  // ];
+
+  List<OrderModel> sellerOrders = [];
+
+  // List<Map<String, String?>> sellerOrders = [
+  //   // order id, Product product, sellerUsername, Order status, Order total amount
+  //   {
+  //     "id": "3",
+  //     "productName": "Product A",
+  //     "username": "buyer123",
+  //     "status": "To Ship",
+  //     "price": "Php 300"
+  //   },
+  //   {
+  //     "id": "4",
+  //     "productName": "Product B",
+  //     "username": "buyer456",
+  //     "status": "To Ship",
+  //     "price": "Php 250"
+  //   },
+  // ];
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   fetchData();
+  //   super.initState();
+  // }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    fetchData();
+    super.didChangeDependencies();
+  }
+
+  void fetchData() async {
+    final user = Provider.of<AppDataProvider>(context, listen: false).userId;
+
+    buyerOrders = await Provider.of<OrderProvider>(context, listen: false)
+        .getOrdersByBuyer(user);
+    sellerOrders = await Provider.of<OrderProvider>(context, listen: false)
+        .getOrdersBySeller(user);
+
+    setState(() {});
+
+    // if (buyerOrders.isNotEmpty || sellerOrders.isNotEmpty) {
+    //   setState(() {});
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
+    //fetchData();
+    List<OrderModel>? buyerlist =
+        Provider.of<OrderProvider>(context, listen: true).ordersBuyer;
+
+    List<OrderModel>? sellerList =
+        Provider.of<OrderProvider>(context, listen: true).ordersSeller;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -368,98 +439,239 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
         ),
         body: TabBarView(
           children: [
-            _buildOrderList(buyerOrders),
-            _buildOrderList(sellerOrders),
+            _buildOrderList(buyerlist!, "buyer"),
+            _buildOrderList(sellerList!, "seller"),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildOrderList(List<Map<String, String?>> orders) {
-    return ListView.builder(
-      itemCount: orders.length,
-      itemBuilder: (context, index) {
-        final order = orders[index];
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0), // Adjust spacing
-          child: InkWell(
-            onTap: () {
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => OrderLogPage()));
-              debugPrint("Navigating to log page for Order ID: ${order["id"]}");
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the top to avoid misalignment
-                children: [
-                  // Photo Box
-                  Container(
-                    width: 72,
-                    height: 72,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: const Icon(Icons.image, color: Colors.grey), // Placeholder image
-                  ),
-                  const SizedBox(width: 16.0), // Space between image and text
+  Widget _buildOrderList(List<OrderModel> orderList, String method) {
+    String role = method;
 
-                  // Product Info
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+    if (role == "buyer")
+      return ListView.builder(
+        itemCount: orderList.length,
+        itemBuilder: (context, index) {
+          final order = orderList[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 8.0, vertical: 10.0), // Adjust spacing
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OrderLogPage(
+                              order: order,
+                              role: role,
+                            )));
+                debugPrint(
+                    "Navigating to log page for Order ID: ${order.orderID}");
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment
+                      .start, // Align text to the top to avoid misalignment
+                  children: [
+                    // Photo Box
+                    Container(
+                      width: 72,
+                      height: 72,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: const Icon(Icons.image,
+                          color: Colors.grey), // Placeholder image
+                    ),
+                    const SizedBox(width: 16.0), // Space between image and text
+
+                    // Product Info
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Product Name
+                          Text(
+                            '${order.product.productName}',
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            softWrap:
+                                true, // Ensure the text wraps instead of being truncated
+                          ),
+                          const SizedBox(height: 4.0),
+                          // Username
+                          if (role == "buyer")
+                            Text(
+                              "User: ${order.product.sellerUsername}",
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                                color: gray,
+                              ),
+                              softWrap:
+                                  true, // Ensure the text wraps instead of being truncated
+                            )
+                          else if (role == "seller")
+                            Text(
+                              "User: ${order.buyerUsername}",
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                                color: gray,
+                              ),
+                              softWrap:
+                                  true, // Ensure the text wraps instead of being truncated
+                            ),
+                          const SizedBox(height: 4.0),
+                          // Price
+                          Text(
+                            "${order.totalAmount}",
+                            style: const TextStyle(
+                              fontSize: 14.0,
+                              color: black,
+                            ),
+                            softWrap:
+                                true, // Ensure the text wraps instead of being truncated
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Order Status
+                    Text(
+                      order.currentStatus,
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                        color: green600,
+                      ),
+                      softWrap:
+                          true, // Ensure the text wraps instead of being truncated
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    else
+      return Consumer<OrderProvider>(
+        builder: (context, provider, child) => Expanded(
+          child: ListView.builder(
+            itemCount: provider.ordersSeller!.length,
+            itemBuilder: (context, index) {
+              final order = provider.ordersSeller![index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0, vertical: 10.0), // Adjust spacing
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => OrderLogPage(
+                                  order: order,
+                                  role: role,
+                                )));
+                    debugPrint(
+                        "Navigating to log page for Order ID: ${order.orderID}");
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment
+                          .start, // Align text to the top to avoid misalignment
                       children: [
-                        // Product Name
+                        // Photo Box
+                        Container(
+                          width: 72,
+                          height: 72,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: const Icon(Icons.image,
+                              color: Colors.grey), // Placeholder image
+                        ),
+                        const SizedBox(
+                            width: 16.0), // Space between image and text
+
+                        // Product Info
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Product Name
+                              Text(
+                                '${order.product.productName}',
+                                style: const TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                softWrap:
+                                    true, // Ensure the text wraps instead of being truncated
+                              ),
+                              const SizedBox(height: 4.0),
+                              // Username
+                              if (role == "buyer")
+                                Text(
+                                  "User: ${order.product.sellerUsername}",
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    color: gray,
+                                  ),
+                                  softWrap:
+                                      true, // Ensure the text wraps instead of being truncated
+                                )
+                              else if (role == "seller")
+                                Text(
+                                  "User: ${order.buyerUsername}",
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    color: gray,
+                                  ),
+                                  softWrap:
+                                      true, // Ensure the text wraps instead of being truncated
+                                ),
+                              const SizedBox(height: 4.0),
+                              // Price
+                              Text(
+                                "${order.totalAmount}",
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                  color: black,
+                                ),
+                                softWrap:
+                                    true, // Ensure the text wraps instead of being truncated
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // Order Status
                         Text(
-                          order["productName"] ?? 'No Product Name',
+                          order.currentStatus,
                           style: const TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 14.0,
                             fontWeight: FontWeight.bold,
+                            color: green600,
                           ),
-                          softWrap: true, // Ensure the text wraps instead of being truncated
-                        ),
-                        const SizedBox(height: 4.0),
-                        // Username
-                        Text(
-                          "User: ${order["username"] ?? 'Unknown User'}",
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            color: gray,
-                          ),
-                          softWrap: true, // Ensure the text wraps instead of being truncated
-                        ),
-                        const SizedBox(height: 4.0),
-                        // Price
-                        Text(
-                          "${order["price"] ?? '₱0'}",
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            color: black,
-                          ),
-                          softWrap: true, // Ensure the text wraps instead of being truncated
+                          softWrap:
+                              true, // Ensure the text wraps instead of being truncated
                         ),
                       ],
                     ),
                   ),
-
-                  // Order Status
-                  Text(
-                    order["status"] ?? 'No Status',
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold,
-                      color: green600,
-                    ),
-                    softWrap: true, // Ensure the text wraps instead of being truncated
-                  ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           ),
-        );
-      },
-    );
+        ),
+      );
   }
 }

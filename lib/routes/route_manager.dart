@@ -56,7 +56,7 @@ class RouteManager {
             builder: (context) => const UserProductsScreen());
       case routeOrderTracking:
         return MaterialPageRoute(builder: (context) => OrderTrackingPage());
-      case routeGreenZone: 
+      case routeGreenZone:
         return MaterialPageRoute(builder: (context) => GreenZonePage());
       default:
         throw const FormatException(routeNotFound);
