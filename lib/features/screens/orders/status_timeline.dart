@@ -147,27 +147,139 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/features/screens/orders/temp_orderprod.dart';
+import 'package:regain_mobile/model/order_log.dart';
+import 'package:regain_mobile/model/order_model.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
+import 'package:regain_mobile/provider/order_provider.dart';
 
-class StatusTimeline extends StatelessWidget {
-  final OrderProduct order;
+class StatusTimeline extends StatefulWidget {
+  final OrderModel order;
+  //final OrderModel orderModel;
 
-  const StatusTimeline({super.key, required this.order});
+  const StatusTimeline({
+    super.key,
+    required this.order,
+    //required this.orderModel,
+  });
+
+  @override
+  State<StatusTimeline> createState() => _StatusTimelineState();
+}
+
+class _StatusTimelineState extends State<StatusTimeline> {
+  late String currentStatus;
+  List<Map<String, String>> finalLog = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    currentStatus = widget.order.currentStatus;
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    _fetchData();
+    super.didChangeDependencies();
+  }
+
+  void _fetchData() async {
+    final userId = Provider.of<AppDataProvider>(context, listen: true).userId;
+    final List<OrderLog> logList =
+        await Provider.of<OrderProvider>(context, listen: false)
+            .getOrderLogs(widget.order.orderID!);
+
+    var initialDetail = {
+      'status': 'To Ship',
+      'timestamp': '${widget.order.orderDate}'
+    };
+
+    for (int x = 0; x < logList!.length; x++) {
+      int oneLess = x - 1;
+      if (x == 0) {
+        finalLog.add(initialDetail);
+      } else {
+        var detail = {
+          'status': '${logList[x].prevStatus}',
+          'timestamp': '${logList[oneLess].timeStamp}'
+        };
+        finalLog.add(detail);
+      }
+    }
+    String last = logList.last.timeStamp.toString();
+    var lastItem = {'status': currentStatus, 'timestamp': '${last}'};
+    finalLog.add(lastItem);
+
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
+    //final currentStatus = widget.order.currentStatus;
+    final logs = Provider.of<OrderProvider>(context, listen: true).orderLogs;
+    //debugPrint('logs ' + logs.toString());
+    debugPrint('fetchData ' + finalLog.toString());
+
+    final OrderProduct mockOrderProduct = OrderProduct(
+      sellerUsername: "seller123",
+      buyerUsername: "buyer123",
+      productName: "Product 1",
+      price: "150.00",
+      location: "Barangay XYZ, Manila",
+      isForDelivery: true,
+      deliveryDate: "2024-11-30",
+      paymentMode: "Cash on Delivery",
+      statusList: [
+        OrderStatus.toShip,
+        OrderStatus.inTransit,
+        OrderStatus.delivered,
+        OrderStatus.received,
+        OrderStatus.cancelled,
+      ], // Mock status list
+    );
+
+    //finalLog.add(initialDetail);
+
+    // order
+    // 0 to ship - orderdate
+    // 1 in transit - toship date
+    // 2 delivered - intransit date
+    // 3 received - delivered date
+
+    // current: in transit, previous: to ship, timestamp 0
+    // current: delivered, previous: in transit, timestamp 1
+    // current: received, previous: delivered, timestamp 2
+
+    // logs.forEach((log){
+    // });
     return Column(
-      children: order.statusList.asMap().entries.map((entry) {
-        final index = entry.key;
-        final statusItem = entry.value;
+      children: finalLog.asMap().entries.map((entry) {
+        //final index = entry.key;
+        final Map<String, String> pair = entry.value;
+        bool current = false;
+        if (currentStatus == pair['status']) {
+          setState(() {
+            current = true;
+          });
+        }
+        String status;
+        // if (index == 0) {
+        //   status = "To Ship";
+        // } else {
+        //   status = statusItem.prevStatus;
+        // }
         return StatusItem(
-          status: statusItem
-              .displayName, // Use the displayName getter from the extension
-          timestamp: DateTime.now(), // Temporary timestamp
-          isCurrent: index == 0, // Determine if it's the current status
+          status: pair['status']!,
+          // Use the displayName getter from the extension
+          timestamp: DateTime.parse(pair['timestamp']!), // Temporary timestamp
+          isCurrent: current,
+          // Determine if it's the current status i
         );
-      }).toList(),
+      }).toList(growable: true),
     );
   }
 }

@@ -411,7 +411,11 @@ class _OrderLogPageState extends State<OrderLogPage> {
               ),
               const SizedBox(height: 8),
               // Pass the mockOrderProduct to the StatusTimeline widget
-              StatusTimeline(order: mockOrderProduct),
+              //StatusTimeline(order: mockOrderProduct),
+              StatusTimeline(
+                order: widget.order,
+                //orderModel: widget.order,
+              ),
               const SizedBox(height: 20),
               // Conditional button based on delivery type
               if (widget.order.deliveryMethod == "Buyer Pick-up")
