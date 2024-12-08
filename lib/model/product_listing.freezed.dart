@@ -36,14 +36,14 @@ mixin _$Product {
   set categoryID(int? value) => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   set price(String value) => throw _privateConstructorUsedError;
-  @Uint8ListConverter()
-  Uint8List get image => throw _privateConstructorUsedError;
-  @Uint8ListConverter()
-  set image(Uint8List value) => throw _privateConstructorUsedError;
   bool get canDeliver => throw _privateConstructorUsedError;
   set canDeliver(bool value) => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
   set status(String? value) => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get image => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  set image(Uint8List? value) => throw _privateConstructorUsedError;
 
   /// Serializes this Product to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -69,9 +69,8 @@ abstract class $ProductCopyWith<$Res> {
       int? categoryID,
       String price,
       bool canDeliver,
-      String? status
-      @Uint8ListConverter() Uint8List image,
-      bool canDeliver});
+      String? status,
+      @Uint8ListConverter() Uint8List? image});
 }
 
 /// @nodoc
@@ -97,9 +96,9 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? location = freezed,
     Object? categoryID = freezed,
     Object? price = null,
-    Object? image = null,
     Object? canDeliver = null,
     Object? status = freezed,
+    Object? image = freezed,
   }) {
     return _then(_value.copyWith(
       productID: freezed == productID
@@ -134,10 +133,6 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
       canDeliver: null == canDeliver
           ? _value.canDeliver
           : canDeliver // ignore: cast_nullable_to_non_nullable
@@ -146,6 +141,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
     ) as $Val);
   }
 }
@@ -168,7 +167,7 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String price,
       bool canDeliver,
       String? status,
-      @Uint8ListConverter() Uint8List image});
+      @Uint8ListConverter() Uint8List? image});
 }
 
 /// @nodoc
@@ -192,9 +191,9 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? location = freezed,
     Object? categoryID = freezed,
     Object? price = null,
-    Object? image = null,
     Object? canDeliver = null,
     Object? status = freezed,
+    Object? image = freezed,
   }) {
     return _then(_$ProductImpl(
       productID: freezed == productID
@@ -229,10 +228,6 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
       canDeliver: null == canDeliver
           ? _value.canDeliver
           : canDeliver // ignore: cast_nullable_to_non_nullable
@@ -241,6 +236,10 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
     ));
   }
 }
@@ -259,7 +258,7 @@ class _$ProductImpl implements _Product {
       required this.price,
       required this.canDeliver,
       this.status = 'Pending',
-      @Uint8ListConverter() required this.image,});
+      @Uint8ListConverter() this.image});
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductImplFromJson(json);
@@ -282,13 +281,13 @@ class _$ProductImpl implements _Product {
   @override
   String price;
   @override
-  @Uint8ListConverter()
-  Uint8List image;
-  @override
   bool canDeliver;
   @override
   @JsonKey()
   String? status;
+  @override
+  @Uint8ListConverter()
+  Uint8List? image;
 
   @override
   String toString() {
@@ -323,7 +322,7 @@ abstract class _Product implements Product {
       required String price,
       required bool canDeliver,
       String? status,
-      @Uint8ListConverter() required Uint8List image}) = _$ProductImpl;
+      @Uint8ListConverter() Uint8List? image}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
@@ -352,16 +351,16 @@ abstract class _Product implements Product {
   String get price;
   set price(String value);
   @override
-  @Uint8ListConverter()
-  Uint8List get image;
-  @Uint8ListConverter()
-  set image(Uint8List value);
-  @override
   bool get canDeliver;
   set canDeliver(bool value);
   @override
   String? get status;
   set status(String? value);
+  @override
+  @Uint8ListConverter()
+  Uint8List? get image;
+  @Uint8ListConverter()
+  set image(Uint8List? value);
 
   /// Create a copy of Product
   /// with the given fields replaced by the non-null parameter values.

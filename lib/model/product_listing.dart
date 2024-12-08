@@ -19,7 +19,7 @@ class Product with _$Product {
       required String price,
       required bool canDeliver,
       @Default('Pending') String? status,
-      @Uint8ListConverter() required Uint8List image}) = _Product;
+      @Uint8ListConverter() Uint8List? image}) = _Product;
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
 }

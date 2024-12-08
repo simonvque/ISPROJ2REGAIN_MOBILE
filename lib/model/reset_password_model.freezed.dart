@@ -25,8 +25,12 @@ mixin _$ResetPasswordModel {
   DateTime get expirationTime => throw _privateConstructorUsedError;
   bool get isUsed => throw _privateConstructorUsedError;
 
+  /// Serializes this ResetPasswordModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ResetPasswordModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ResetPasswordModelCopyWith<ResetPasswordModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$ResetPasswordModelCopyWithImpl<$Res, $Val extends ResetPasswordModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ResetPasswordModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -98,6 +104,8 @@ class __$$ResetPasswordModelImplCopyWithImpl<$Res>
       $Res Function(_$ResetPasswordModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ResetPasswordModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -165,12 +173,14 @@ class _$ResetPasswordModelImpl implements _ResetPasswordModel {
             (identical(other.isUsed, isUsed) || other.isUsed == isUsed));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, otp, email, expirationTime, isUsed);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ResetPasswordModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ResetPasswordModelImplCopyWith<_$ResetPasswordModelImpl> get copyWith =>
@@ -203,8 +213,11 @@ abstract class _ResetPasswordModel implements ResetPasswordModel {
   DateTime get expirationTime;
   @override
   bool get isUsed;
+
+  /// Create a copy of ResetPasswordModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ResetPasswordModelImplCopyWith<_$ResetPasswordModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

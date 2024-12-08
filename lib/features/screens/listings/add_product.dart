@@ -226,7 +226,7 @@ class _AddProductState extends State<AddProduct> {
           resetFields();
           ReGainHelperFunctions.showSnackBar(
             context,
-            'Product added successfully!',
+            'Product up for verification!',
           );
           Future.delayed(const Duration(seconds: 2), () {
             Navigator.pushNamed(context, RouteManager.routeNavMenu);

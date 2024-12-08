@@ -16,7 +16,7 @@ class ViewProduct with _$ViewProduct {
       required String category,
       required bool canDeliver,
       required bool isFavorite,
-      required String status}) = _ViewProduct;
+      required String status,
       @Default('') String? image}) = _ViewProduct;
   factory ViewProduct.fromJson(Map<String, dynamic> json) =>
       _$ViewProductFromJson(json);

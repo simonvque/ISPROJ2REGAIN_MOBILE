@@ -16,9 +16,10 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
       location: (json['location'] as num?)?.toInt(),
       categoryID: (json['categoryID'] as num?)?.toInt(),
       price: json['price'] as String,
-      image: const Uint8ListConverter().fromJson(json['image'] as String),
       canDeliver: json['canDeliver'] as bool,
       status: json['status'] as String? ?? 'Pending',
+      image: _$JsonConverterFromJson<String, Uint8List>(
+          json['image'], const Uint8ListConverter().fromJson),
     );
 
 Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
@@ -31,7 +32,20 @@ Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
       'location': instance.location,
       'categoryID': instance.categoryID,
       'price': instance.price,
-      'image': const Uint8ListConverter().toJson(instance.image),
       'canDeliver': instance.canDeliver,
       'status': instance.status,
+      'image': _$JsonConverterToJson<String, Uint8List>(
+          instance.image, const Uint8ListConverter().toJson),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

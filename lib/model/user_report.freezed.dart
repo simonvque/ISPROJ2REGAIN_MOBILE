@@ -29,8 +29,12 @@ mixin _$UserReport {
   String? get timeStamp => throw _privateConstructorUsedError;
   String? get userReportStatus => throw _privateConstructorUsedError;
 
+  /// Serializes this UserReport to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserReport
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserReportCopyWith<UserReport> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +66,8 @@ class _$UserReportCopyWithImpl<$Res, $Val extends UserReport>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserReport
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -138,6 +144,8 @@ class __$$UserReportImplCopyWithImpl<$Res>
       _$UserReportImpl _value, $Res Function(_$UserReportImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserReport
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -247,7 +255,7 @@ class _$UserReportImpl implements _UserReport {
                 other.userReportStatus == userReportStatus));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -260,7 +268,9 @@ class _$UserReportImpl implements _UserReport {
       timeStamp,
       userReportStatus);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserReport
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserReportImplCopyWith<_$UserReportImpl> get copyWith =>
@@ -304,8 +314,11 @@ abstract class _UserReport implements UserReport {
   String? get timeStamp;
   @override
   String? get userReportStatus;
+
+  /// Create a copy of UserReport
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserReportImplCopyWith<_$UserReportImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

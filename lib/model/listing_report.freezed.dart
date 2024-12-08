@@ -29,8 +29,12 @@ mixin _$ListingReport {
   String? get timeStamp => throw _privateConstructorUsedError;
   String? get reportStatus => throw _privateConstructorUsedError;
 
+  /// Serializes this ListingReport to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ListingReport
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ListingReportCopyWith<ListingReport> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +66,8 @@ class _$ListingReportCopyWithImpl<$Res, $Val extends ListingReport>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ListingReport
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -138,6 +144,8 @@ class __$$ListingReportImplCopyWithImpl<$Res>
       _$ListingReportImpl _value, $Res Function(_$ListingReportImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ListingReport
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -247,7 +255,7 @@ class _$ListingReportImpl implements _ListingReport {
                 other.reportStatus == reportStatus));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -260,7 +268,9 @@ class _$ListingReportImpl implements _ListingReport {
       timeStamp,
       reportStatus);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ListingReport
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ListingReportImplCopyWith<_$ListingReportImpl> get copyWith =>
@@ -304,8 +314,11 @@ abstract class _ListingReport implements ListingReport {
   String? get timeStamp;
   @override
   String? get reportStatus;
+
+  /// Create a copy of ListingReport
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ListingReportImplCopyWith<_$ListingReportImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

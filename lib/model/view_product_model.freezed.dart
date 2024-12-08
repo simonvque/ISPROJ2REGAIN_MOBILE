@@ -176,7 +176,7 @@ abstract class _$$ViewProductImplCopyWith<$Res>
       String category,
       bool canDeliver,
       bool isFavorite,
-      String status});
+      String status,
       String? image});
 }
 
@@ -301,6 +301,7 @@ class _$ViewProductImpl implements _ViewProduct {
   bool isFavorite;
   @override
   String status;
+  @override
   @JsonKey()
   String? image;
 
@@ -340,7 +341,6 @@ abstract class _ViewProduct implements ViewProduct {
       required String status,
       String? image}) = _$ViewProductImpl;
 
-
   factory _ViewProduct.fromJson(Map<String, dynamic> json) =
       _$ViewProductImpl.fromJson;
 
@@ -377,6 +377,7 @@ abstract class _ViewProduct implements ViewProduct {
   @override
   String get status;
   set status(String value);
+  @override
   String? get image;
   set image(String? value);
 
