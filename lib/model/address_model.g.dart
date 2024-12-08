@@ -9,7 +9,7 @@ part of 'address_model.dart';
 _$AddressModelImpl _$$AddressModelImplFromJson(Map<String, dynamic> json) =>
     _$AddressModelImpl(
       addressID: (json['addressID'] as num?)?.toInt(),
-      unitNumber: json['unitNumber'] as String? ?? '',
+      unitNumber: json['unitNumber'] as String?,
       street: json['street'] as String,
       barangay: json['barangay'] as String,
       city: json['city'] as String,

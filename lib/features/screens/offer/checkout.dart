@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/features/screens/qr_payment/payment_details_page.dart';
+import 'package:regain_mobile/features/screens/qr_payment/scan_qr_page.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/payment_model.dart';
@@ -56,34 +57,41 @@ class _CheckoutState extends State<Checkout> {
   void _submitOrderCheckout() {
     String _status = "To Ship";
 
-    final payment = PaymentModel(
-      paymentType: _paymentMethod!,
-      amountPaid: widget.offer.offerValue,
-      status: "Pending",
-    );
+    if (_paymentMethod == "Cash on Delivery") {
+      final payment = PaymentModel(
+        paymentType: _paymentMethod!,
+        amountPaid: widget.offer.offerValue,
+        status: "Pending",
+      );
 
-    final orderModel = OrderModel(
-        product: widget.offer.product,
-        buyerUsername: user!.username,
-        deliveryMethod: _deliveryMethod!,
-        deliveryDate: _selectedDateTime,
-        paymentMethod: payment,
-        totalAmount: widget.offer.offerValue,
-        currentStatus: _status);
-    Provider.of<OrderProvider>(context, listen: false)
-        .addOrder(orderModel)
-        .then((response) {
-      if (response.responseStatus == ResponseStatus.SAVED) {
-        Navigator.pushAndRemoveUntil(
+      final orderModel = OrderModel(
+          product: widget.offer.product,
+          buyerUsername: user!.username,
+          deliveryMethod: _deliveryMethod!,
+          deliveryDate: _selectedDateTime,
+          paymentMethod: payment,
+          totalAmount: widget.offer.offerValue,
+          currentStatus: _status);
+      Provider.of<OrderProvider>(context, listen: false)
+          .addOrder(orderModel)
+          .then((response) {
+        if (response.responseStatus == ResponseStatus.SAVED) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    NavigationMenu()), // Replace with your home page
+            (route) => false,
+          );
+          ReGainHelperFunctions.showSnackBar(context, "Order has been placed");
+        }
+      });
+    } else {
+      Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  NavigationMenu()), // Replace with your home page
-          (route) => false,
-        );
-        ReGainHelperFunctions.showSnackBar(context, "Order has been placed");
-      }
-    });
+          MaterialPageRoute(builder: (context) => ScanQRPage()),
+          (route) => false);
+    }
   }
 
   @override
