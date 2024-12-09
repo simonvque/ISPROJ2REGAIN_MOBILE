@@ -100,4 +100,6 @@ abstract class DataSource {
 
   //Verify Otp
   Future<ResponseModel> verifyOtp(String otp);
+
+  // Future<List<>>
 }
