@@ -9,8 +9,7 @@ class FavoriteModel with _$FavoriteModel {
       {int? favoriteID,
       required int userID,
       required int productID,
-      @Default(true) bool isFavorite,
-      int? sellerID}) = _FavoriteModel;
+      @Default(true) bool isFavorite}) = _FavoriteModel;
   factory FavoriteModel.fromJson(Map<String, dynamic> json) =>
       _$FavoriteModelFromJson(json);
 }

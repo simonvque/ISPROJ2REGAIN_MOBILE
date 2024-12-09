@@ -28,8 +28,6 @@ mixin _$FavoriteModel {
   set productID(int value) => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
   set isFavorite(bool value) => throw _privateConstructorUsedError;
-  int? get sellerID => throw _privateConstructorUsedError;
-  set sellerID(int? value) => throw _privateConstructorUsedError;
 
   /// Serializes this FavoriteModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,12 +45,7 @@ abstract class $FavoriteModelCopyWith<$Res> {
           FavoriteModel value, $Res Function(FavoriteModel) then) =
       _$FavoriteModelCopyWithImpl<$Res, FavoriteModel>;
   @useResult
-  $Res call(
-      {int? favoriteID,
-      int userID,
-      int productID,
-      bool isFavorite,
-      int? sellerID});
+  $Res call({int? favoriteID, int userID, int productID, bool isFavorite});
 }
 
 /// @nodoc
@@ -74,7 +67,6 @@ class _$FavoriteModelCopyWithImpl<$Res, $Val extends FavoriteModel>
     Object? userID = null,
     Object? productID = null,
     Object? isFavorite = null,
-    Object? sellerID = freezed,
   }) {
     return _then(_value.copyWith(
       favoriteID: freezed == favoriteID
@@ -93,10 +85,6 @@ class _$FavoriteModelCopyWithImpl<$Res, $Val extends FavoriteModel>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
-      sellerID: freezed == sellerID
-          ? _value.sellerID
-          : sellerID // ignore: cast_nullable_to_non_nullable
-              as int?,
     ) as $Val);
   }
 }
@@ -109,12 +97,7 @@ abstract class _$$FavoriteModelImplCopyWith<$Res>
       __$$FavoriteModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int? favoriteID,
-      int userID,
-      int productID,
-      bool isFavorite,
-      int? sellerID});
+  $Res call({int? favoriteID, int userID, int productID, bool isFavorite});
 }
 
 /// @nodoc
@@ -134,7 +117,6 @@ class __$$FavoriteModelImplCopyWithImpl<$Res>
     Object? userID = null,
     Object? productID = null,
     Object? isFavorite = null,
-    Object? sellerID = freezed,
   }) {
     return _then(_$FavoriteModelImpl(
       favoriteID: freezed == favoriteID
@@ -153,10 +135,6 @@ class __$$FavoriteModelImplCopyWithImpl<$Res>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
-      sellerID: freezed == sellerID
-          ? _value.sellerID
-          : sellerID // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
@@ -168,8 +146,7 @@ class _$FavoriteModelImpl implements _FavoriteModel {
       {this.favoriteID,
       required this.userID,
       required this.productID,
-      this.isFavorite = true,
-      this.sellerID});
+      this.isFavorite = true});
 
   factory _$FavoriteModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$FavoriteModelImplFromJson(json);
@@ -183,12 +160,10 @@ class _$FavoriteModelImpl implements _FavoriteModel {
   @override
   @JsonKey()
   bool isFavorite;
-  @override
-  int? sellerID;
 
   @override
   String toString() {
-    return 'FavoriteModel(favoriteID: $favoriteID, userID: $userID, productID: $productID, isFavorite: $isFavorite, sellerID: $sellerID)';
+    return 'FavoriteModel(favoriteID: $favoriteID, userID: $userID, productID: $productID, isFavorite: $isFavorite)';
   }
 
   /// Create a copy of FavoriteModel
@@ -212,8 +187,7 @@ abstract class _FavoriteModel implements FavoriteModel {
       {int? favoriteID,
       required int userID,
       required int productID,
-      bool isFavorite,
-      int? sellerID}) = _$FavoriteModelImpl;
+      bool isFavorite}) = _$FavoriteModelImpl;
 
   factory _FavoriteModel.fromJson(Map<String, dynamic> json) =
       _$FavoriteModelImpl.fromJson;
@@ -230,9 +204,6 @@ abstract class _FavoriteModel implements FavoriteModel {
   @override
   bool get isFavorite;
   set isFavorite(bool value);
-  @override
-  int? get sellerID;
-  set sellerID(int? value);
 
   /// Create a copy of FavoriteModel
   /// with the given fields replaced by the non-null parameter values.
