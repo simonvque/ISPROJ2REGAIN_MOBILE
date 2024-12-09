@@ -16,6 +16,7 @@ import 'package:regain_mobile/model/product_listing.dart';
 import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_id_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
+import 'package:regain_mobile/model/user_profile_update_model.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
 
@@ -24,8 +25,8 @@ abstract class DataSource {
 
   Future<ResponseModel> addUserID(UserIDModel userID);
 
-  Future<ResponseModel> updateUser(
-      UserModel user, File? profileImage, File? gcashQRcode);
+  Future<ResponseModel> updateUser(UserProfileUpdateModel userProfile,
+      File? profileImage, File? gcashQRcode);
 
   // Future<UserModel?> getUserById(int id);
 
@@ -85,7 +86,7 @@ abstract class DataSource {
   Future<List<GreenZoneModel>> getAllArticles();
 
   Future<List<ViewProduct>> getFilteredProductsByCategory(
-      String category, int userId);
+      String? category, int userId);
 
   Future<List<ViewProduct>> searchProducts(String query, int userId);
 

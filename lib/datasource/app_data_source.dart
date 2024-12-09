@@ -21,6 +21,7 @@ import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_id_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:regain_mobile/model/user_profile_update_model.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
 
@@ -73,8 +74,8 @@ class AppDataSource extends DataSource {
   }
 
   @override
-  Future<ResponseModel> updateUser(
-      UserModel user, File? profileImage, File? gcashQRcode) async {
+  Future<ResponseModel> updateUser(UserProfileUpdateModel userProfile,
+      File? profileImage, File? gcashQRcode) async {
     final url = '$baseUrl${'user/update'}';
 
     try {
@@ -82,16 +83,11 @@ class AppDataSource extends DataSource {
       final request = http.MultipartRequest('PUT', Uri.parse(url));
 
       // Add fields to the request
-      request.fields['id'] = user.id.toString();
-      request.fields['firstName'] = user.firstName ?? '';
-      request.fields['lastName'] = user.lastName ?? '';
-      request.fields['username'] = user.username;
-      request.fields['email'] = user.email ?? '';
-      request.fields['role'] = user.role;
-      request.fields['password'] = user.password;
-      request.fields['phone'] = user.phone ?? '';
-      request.fields['birthday'] = user.birthday?.toIso8601String() ?? '';
-      request.fields['junkshopName'] = user.junkshopName ?? '';
+      request.fields['id'] = userProfile.id?.toString() ?? '';
+      request.fields['firstName'] = userProfile.firstName ?? '';
+      request.fields['lastName'] = userProfile.lastName ?? '';
+      request.fields['username'] = userProfile.username;
+      request.fields['junkshopName'] = userProfile.junkshopName ?? '';
 
       // Add profileImage if provided
       if (profileImage != null) {
@@ -104,6 +100,10 @@ class AppDataSource extends DataSource {
             contentType: mimeType != null ? MediaType.parse(mimeType) : null,
           ),
         );
+      } else if (userProfile.profileImage != null) {
+        // Convert Uint8List to base64 and send as a field
+        request.fields['profileImage'] =
+            base64Encode(userProfile.profileImage!);
       }
 
       // Add gcashQRcode if provided
@@ -117,7 +117,12 @@ class AppDataSource extends DataSource {
             contentType: mimeType != null ? MediaType.parse(mimeType) : null,
           ),
         );
+      } else if (userProfile.gcashQRcode != null) {
+        // Convert Uint8List to base64 and send as a field
+        request.fields['gcashQRcode'] = base64Encode(userProfile.gcashQRcode!);
       }
+
+      print('Request payload fields: ${request.fields}');
 
       // Send the request and wait for a response
       final response = await request.send();
@@ -714,9 +719,11 @@ class AppDataSource extends DataSource {
 
   @override
   Future<List<ViewProduct>> getFilteredProductsByCategory(
-      String category, int userId) async {
-    final url =
-        '$baseUrl${'products/view/filter'}?category=$category&userId=$userId';
+      String? category, int userId) async {
+    final url = category == null || category.isEmpty
+        ? '$baseUrl${'products/view/filter/all?userId=$userId'}'
+        : '$baseUrl${'products/view/filter'}?category=$category&userId=$userId';
+
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {

@@ -123,11 +123,11 @@ class _AddAddressState extends State<AddAddress> {
                   children: [
                     buildTextField(
                         unitNumberController,
-                        'Unit number, apartment, etc.',
+                        'Unit number, house number, etc.',
                         '(optional) ex: Unit 22B'),
                     buildTextField(
                       streetController,
-                      'Street address, house number',
+                      'Street address, apartment, location',
                       'ex: 117 Mindanao Ave',
                       validator: (value) => value == null || value.isEmpty
                           ? "Please enter a street address"
@@ -173,16 +173,16 @@ class _AddAddressState extends State<AddAddress> {
                         RegainButtons(
                           text: 'Validate',
                           onPressed: validateAddress,
-                          type: ButtonType.outlined,
+                          type: ButtonType.filled,
                           size: ButtonSize.small,
-                          txtSize: BtnTxtSize.small,
+                          txtSize: BtnTxtSize.medium,
                         ),
                         RegainButtons(
                           text: 'Submit',
                           onPressed: handleSubmit,
                           type: ButtonType.filled,
                           size: ButtonSize.small,
-                          txtSize: BtnTxtSize.small,
+                          txtSize: BtnTxtSize.medium,
                         ),
                       ],
                     )

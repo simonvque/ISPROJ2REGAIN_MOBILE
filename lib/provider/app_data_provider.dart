@@ -9,6 +9,7 @@ import 'package:regain_mobile/datasource/data_source.dart';
 import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_id_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
+import 'package:regain_mobile/model/user_profile_update_model.dart';
 
 class AppDataProvider extends ChangeNotifier {
   final DataSource _dataSource = AppDataSource();
@@ -49,8 +50,8 @@ class AppDataProvider extends ChangeNotifier {
     // _userId = response.object.
   }
 
-  Future<ResponseModel> updateUser(
-    UserModel userDTO, {
+  Future<ResponseModel> updateUserProfile(
+    UserProfileUpdateModel userProfileDTO, {
     File? profileImage,
     File? gcashQRcode,
     BuildContext? context, // Optional for showing errors
@@ -76,8 +77,9 @@ class AppDataProvider extends ChangeNotifier {
     }
 
     try {
-      final response =
-          await _dataSource.updateUser(userDTO, profileImage, gcashQRcode);
+      // Call the data source method with updated parameters
+      final response = await _dataSource.updateUser(
+          userProfileDTO, profileImage, gcashQRcode);
 
       if (response.statusCode == 200) {
         // Update the local user object with the response data

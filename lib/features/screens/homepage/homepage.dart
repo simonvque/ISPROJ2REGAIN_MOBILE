@@ -119,6 +119,13 @@ class _HomeScreenState extends State<HomepageScreen> {
                             );
                           }
 
+                          // Add "All" to categories for showing all products
+                          final categoriesWithAll = [
+                            'All',
+                            ...provider.categories
+                                .map((category) => category.categoryName)
+                          ];
+
                           return Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: ReGainSizes.md),
@@ -133,11 +140,11 @@ class _HomeScreenState extends State<HomepageScreen> {
                                 dropdownColor: green,
                                 iconEnabledColor: white,
                                 isExpanded: true,
-                                items: provider.categories.map((category) {
+                                items: categoriesWithAll.map((category) {
                                   return DropdownMenuItem<String>(
-                                    value: category.categoryName,
+                                    value: category,
                                     child: Text(
-                                      category.categoryName,
+                                      category,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium
@@ -150,13 +157,24 @@ class _HomeScreenState extends State<HomepageScreen> {
                                     _selectedCategory = newValue!;
                                   });
 
-                                  // Filter products by category
                                   final userId = Provider.of<AppDataProvider>(
                                           context,
                                           listen: false)
                                       .userId;
-                                  await provider.getFilteredProductsByCategory(
-                                      newValue!, userId);
+
+                                  if (newValue == 'All') {
+                                    // Reset to all products
+                                    final allProducts = await provider
+                                        .getAllProductsByUserFave(userId);
+                                    setState(() {
+                                      listAllProducts = allProducts;
+                                    });
+                                  } else {
+                                    // Filter products by category
+                                    await provider
+                                        .getFilteredProductsByCategory(
+                                            newValue!, userId);
+                                  }
                                 },
                                 value: _selectedCategory,
                                 hint: Text(
@@ -173,18 +191,15 @@ class _HomeScreenState extends State<HomepageScreen> {
                       ),
                     ),
 
-                    // Filter icon
+                    // Bell icon
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: ReGainSizes.md),
                       child: IconButton(
-                        icon: const Icon(Icons.filter_list, color: white),
+                        icon: const Icon(Icons.notifications,
+                            color: white), // Changed to bell icon
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const FilterScreen()),
-                          );
+                          // No action performed
                         },
                       ),
                     ),
@@ -208,12 +223,10 @@ class _HomeScreenState extends State<HomepageScreen> {
                                 radius: 20,
                                 backgroundImage: (user?.profileImage != null &&
                                         user!.profileImage!.isNotEmpty)
-                                    ? MemoryImage(user
-                                        .profileImage!) // Use the profile image if present
+                                    ? MemoryImage(user.profileImage!)
                                     : const AssetImage(
-                                        ReGainImages
-                                            .exProfilePic) as ImageProvider<
-                                        Object>, // Use default image if null
+                                            ReGainImages.exProfilePic)
+                                        as ImageProvider<Object>,
                               );
                             },
                           ),
@@ -234,111 +247,111 @@ class _HomeScreenState extends State<HomepageScreen> {
             ),
           ),
 
+          // Invitation Banner
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Container(
+              padding: const EdgeInsets.all(24.0),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  bottom: BorderSide(
+                    color: gray,
+                    width: 0.5,
+                  ),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Invitation Title
+                  Text(
+                    "Discover the Green Zone",
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          color: green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 8.0),
+
+                  // Short Message
+                  Text(
+                    "Explore curated resources and news updates about our environment.",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    textAlign: TextAlign.start,
+                  ),
+                  const SizedBox(height: 16.0),
+
+                  // Image logos of the websites
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 48.0,
+                        width: 48.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.asset(
+                            'assets/images/homepage/denr.png',
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 16.0),
+                      Container(
+                        height: 48.0,
+                        width: 48.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.asset(
+                            'assets/images/homepage/pna.png',
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16.0),
+
+                  // Call to Action Button
+                  RegainButtons(
+                    text: "Visit Green Zone",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const GreenZonePage(),
+                        ),
+                      );
+                    },
+                    type: ButtonType.filled,
+                    txtSize: BtnTxtSize.medium,
+                    size: ButtonSize.xs,
+                  ),
+                ],
+              ),
+            ),
+          ),
+
           // Display Products
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-
-// Invitation Banner
-Padding(
-  padding: const EdgeInsets.only(bottom: 8.0), 
-  child: Container(
-    padding: const EdgeInsets.all(24.0),
-    decoration: const BoxDecoration(
-      color: Colors.white,
-      border: Border(
-        bottom: BorderSide(
-          color: gray, 
-          width: 0.5,              
-        ),
-      ),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Invitation Title
-            Text(
-              "Discover the Green Zone",
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    color: green,
-                    fontWeight: FontWeight.bold,
-                  ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8.0),
-
-            // Short Message
-            Text(
-              "Explore curated resources and news updates about our environment.",
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.start,
-            ),
-            const SizedBox(height: 16.0),
-
-            // Image logos of the websites
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  height: 48.0,
-                  width: 48.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      'assets/images/homepage/denr.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 16.0),
-                Container(
-                  height: 48.0,
-                  width: 48.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      'assets/images/homepage/pna.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-
-            // Call to Action Button
-            RegainButtons(
-              text: "Visit Green Zone",
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const GreenZonePage(),
-                  ),
-                );
-              },
-              type: ButtonType.filled,
-              txtSize: BtnTxtSize.medium,
-              size: ButtonSize.xs,
-            ),
-          ],
-        ),
-      ),
-    ),
-
                   // Grid View Items
                   Consumer<ProductDataProvider>(
                     builder: (context, provider, child) {
                       final productsToDisplay = searchResults.isNotEmpty
                           ? searchResults
-                          : _selectedCategory != null
+                          : _selectedCategory != null &&
+                                  _selectedCategory != 'All'
                               ? provider.filteredProducts
                               : listAllProducts;
 

@@ -4,13 +4,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:provider/provider.dart';
+import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/helper_functions.dart';
-import 'package:regain_mobile/model/user_model.dart';
+import 'package:regain_mobile/model/user_profile_update_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
@@ -23,12 +24,11 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  late UserModel model;
+  late UserProfileUpdateModel model;
 
   final usernameController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
-  final emailController = TextEditingController();
   final junkshopController = TextEditingController();
 
   final _profileKey = GlobalKey<FormState>();
@@ -37,6 +37,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   String? _errorMessage;
   File? _profileImage; // To store the selected profile image
+  File? _gcashQRCode; // To store the selected GCASH QR Code
 
   @override
   void initState() {
@@ -45,19 +46,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   void _getData() {
-    model = Provider.of<AppDataProvider>(context, listen: false).user!;
-
-    // Validate essential fields
-    if (model.username == null || model.username.isEmpty) {
-      throw Exception("Username is required but not provided");
-    }
-    if (model.password == null || model.password.isEmpty) {
-      throw Exception("Password is required but not provided");
-    }
+    final user = Provider.of<AppDataProvider>(context, listen: false).user!;
+    model = UserProfileUpdateModel(
+      id: user.id,
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      junkshopName: user.junkshopName,
+      profileImage: user.profileImage,
+      gcashQRcode: user.gcashQRcode,
+    );
     usernameController.text = model.username;
     firstNameController.text = model.firstName ?? "";
     lastNameController.text = model.lastName ?? "";
-    emailController.text = model.email ?? "";
     junkshopController.text = model.junkshopName ?? "";
   }
 
@@ -86,6 +87,37 @@ class _EditProfilePageState extends State<EditProfilePage> {
       setState(() {
         _profileImage = file;
       });
+    }
+  }
+
+  Future<void> _pickGCashQRCode() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      final file = File(pickedFile.path);
+      final fileSize = file.lengthSync();
+      final mimeType = lookupMimeType(file.path);
+
+      if (fileSize > 2 * 1024 * 1024) {
+        // 2MB limit
+        ReGainHelperFunctions.showSnackBar(
+            context, 'File size must be under 2MB.');
+        return;
+      }
+
+      if (mimeType != 'image/jpeg' && mimeType != 'image/png') {
+        ReGainHelperFunctions.showSnackBar(
+            context, 'Invalid image format. Only JPEG and PNG are supported.');
+        return;
+      }
+
+      setState(() {
+        _gcashQRCode = file;
+      });
+
+      ReGainHelperFunctions.showSnackBar(
+          context, 'Code selected successfully!');
     }
   }
 
@@ -188,6 +220,47 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         borderSide: BorderSide(color: green)),
                     floatingLabelStyle: TextStyle(color: green)),
               ),
+              const SizedBox(height: 10),
+
+              // GCASH QR Code Upload
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'GCASH QR Code',
+                    style: Theme.of(context).textTheme.titleMedium
+                      ?..copyWith(
+                        fontWeight: FontWeight.bold, // Make text bold
+                      ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          _gcashQRCode != null
+                              ? 'Uploaded: ${_gcashQRCode!.path.split('/').last}'
+                              : model.gcashQRcode != null
+                                  ? 'Already Uploaded'
+                                  : 'Not Uploaded',
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: _gcashQRCode != null ||
+                                            model.gcashQRcode != null
+                                        ? Colors.green
+                                        : Colors.red,
+                                  ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.upload_file, color: green),
+                        onPressed: _pickGCashQRCode,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
               const SizedBox(height: 20),
               Row(
                 children: [
@@ -215,38 +288,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void updateProfile() {
     if (_profileKey.currentState!.validate()) {
-      // Check if username and password are not null
-      if (model.username == null || model.password == null) {
-        ReGainHelperFunctions.showSnackBar(
-            context, 'Username or Password cannot be null');
-        return;
-      }
-      final user = UserModel(
+      final updatedProfile = UserProfileUpdateModel(
         id: model.id,
         username: model.username,
         firstName:
             firstNameController.text.isNotEmpty ? firstNameController.text : "",
         lastName:
             lastNameController.text.isNotEmpty ? lastNameController.text : "",
-        email: emailController.text.isNotEmpty ? emailController.text : "",
         junkshopName:
             junkshopController.text.isNotEmpty ? junkshopController.text : "",
-        accountStatus: model.accountStatus,
-        password: model.password,
       );
 
-      print("Updating user: ${user.toJson()}"); // Debug
-
-      if (_profileImage != null) {
-        print("Profile image path: ${_profileImage!.path}");
-      } else {
-        print("No profile image selected.");
-      }
-
       Provider.of<AppDataProvider>(context, listen: false)
-          .updateUser(user, profileImage: _profileImage)
+          .updateUserProfile(
+        updatedProfile,
+        profileImage: _profileImage,
+        gcashQRcode: _gcashQRCode,
+      )
           .then((response) {
-        if (response.statusCode == 200) {
+        if (response.responseStatus == ResponseStatus.SAVED) {
           Navigator.pushNamed(context, RouteManager.routeNavMenu);
           ReGainHelperFunctions.showSnackBar(
               context, 'Profile updated successfully!');
@@ -266,7 +326,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     usernameController.dispose();
     firstNameController.dispose();
     lastNameController.dispose();
-    emailController.dispose();
     junkshopController.dispose();
     super.dispose();
   }

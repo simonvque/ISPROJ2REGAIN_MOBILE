@@ -30,8 +30,8 @@ mixin _$UserModel {
   set lastName(String? value) => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   set username(String value) => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
-  set password(String value) => throw _privateConstructorUsedError;
+  String? get password => throw _privateConstructorUsedError;
+  set password(String? value) => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   set email(String? value) => throw _privateConstructorUsedError;
   String get accountStatus => throw _privateConstructorUsedError;
@@ -78,7 +78,7 @@ abstract class $UserModelCopyWith<$Res> {
       String? firstName,
       String? lastName,
       String username,
-      String password,
+      String? password,
       String? email,
       String accountStatus,
       int? penaltyPoints,
@@ -111,7 +111,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? username = null,
-    Object? password = null,
+    Object? password = freezed,
     Object? email = freezed,
     Object? accountStatus = null,
     Object? penaltyPoints = freezed,
@@ -144,10 +144,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      password: null == password
+      password: freezed == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -206,7 +206,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String? firstName,
       String? lastName,
       String username,
-      String password,
+      String? password,
       String? email,
       String accountStatus,
       int? penaltyPoints,
@@ -237,7 +237,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? username = null,
-    Object? password = null,
+    Object? password = freezed,
     Object? email = freezed,
     Object? accountStatus = null,
     Object? penaltyPoints = freezed,
@@ -270,10 +270,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      password: null == password
+      password: freezed == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -356,7 +356,7 @@ class _$UserModelImpl implements _UserModel {
   @override
   String username;
   @override
-  String password;
+  String? password;
   @override
   @JsonKey()
   String? email;
@@ -414,7 +414,7 @@ abstract class _UserModel implements UserModel {
       String? firstName,
       String? lastName,
       required String username,
-      required String password,
+      required String? password,
       String? email,
       String accountStatus,
       int? penaltyPoints,
@@ -445,8 +445,8 @@ abstract class _UserModel implements UserModel {
   String get username;
   set username(String value);
   @override
-  String get password;
-  set password(String value);
+  String? get password;
+  set password(String? value);
   @override
   String? get email;
   set email(String? value);

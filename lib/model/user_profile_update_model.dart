@@ -3,32 +3,23 @@ import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'user_model.freezed.dart';
-part 'user_model.g.dart';
+part 'user_profile_update_model.freezed.dart';
+part 'user_profile_update_model.g.dart';
 
 @unfreezed
-class UserModel with _$UserModel {
-  factory UserModel({
+class UserProfileUpdateModel with _$UserProfileUpdateModel {
+  factory UserProfileUpdateModel({
     int? id,
-    @Default('') String role,
     @Default('') String? firstName,
     @Default('') String? lastName,
     required String username,
-    required String? password,
-    @Default('') String? email,
-    @Default('Pending') String accountStatus,
-    @Default(0) int? penaltyPoints,
-    String? phone,
-    @Default('') String? profileImagePath,
     @Uint8ListConverter() Uint8List? profileImage,
-    @Default('') String? gcashQR,
     @Uint8ListConverter() Uint8List? gcashQRcode,
-    DateTime? birthday,
     @Default('') String? junkshopName,
     //@Uint8ListConverter() Uint8List? image, ---> causes dart build_runner to error due to null check. May be due to the type coverter
-  }) = _UserModel;
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
+  }) = _UserProfileUpdateModel;
+  factory UserProfileUpdateModel.fromJson(Map<String, dynamic> json) =>
+      _$UserProfileUpdateModelFromJson(json);
 }
 
 // Custom converter for Uint8List

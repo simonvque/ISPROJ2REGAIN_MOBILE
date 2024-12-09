@@ -190,7 +190,7 @@ class ProductDataProvider extends ChangeNotifier {
   }
 
   Future<List<ViewProduct>> getFilteredProductsByCategory(
-      String category, int userId,
+      String? category, int userId,
       {BuildContext? context}) async {
     _isLoading = true;
     _errorMessage = ''; // Reset error message before starting
