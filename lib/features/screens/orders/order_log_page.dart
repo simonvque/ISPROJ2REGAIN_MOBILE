@@ -218,8 +218,6 @@ class OrderLogPage extends StatefulWidget {
 class _OrderLogPageState extends State<OrderLogPage> {
   late String currentStatus;
 
-  bool _GCashEnableButtons = false;
-
   // Temporary data to replace backend call
   final OrderProduct mockOrderProduct = OrderProduct(
     sellerUsername: "seller123",
@@ -280,14 +278,6 @@ class _OrderLogPageState extends State<OrderLogPage> {
   Widget build(BuildContext context) {
     final formattedDate =
         DateFormat('MM/dd/yyyy').format(widget.order.deliveryDate);
-
-    if ((widget.order.paymentMethod?.paymentType == "GCash" &&
-            widget.order.paymentMethod?.status == "Confirmed") ||
-        widget.order.paymentMethod?.paymentType == "Cash on Delivery") {
-      _GCashEnableButtons = true;
-    } else {
-      _GCashEnableButtons = false;
-    }
 
     return Scaffold(
       appBar: buildAppBar(
@@ -429,11 +419,9 @@ class _OrderLogPageState extends State<OrderLogPage> {
               ),
               const SizedBox(height: 20),
               // Conditional button based on delivery type
-              if (widget.order.deliveryMethod == "Buyer Pick-up" &&
-                  _GCashEnableButtons)
+              if (widget.order.deliveryMethod == "Buyer Pick-up")
                 _buildPickUpButtons(context),
-              if (widget.order.deliveryMethod == "Seller Drop-off" &&
-                  _GCashEnableButtons)
+              if (widget.order.deliveryMethod == "Seller Drop-off")
                 _buildDeliverButtons(context),
             ],
           ),
