@@ -20,14 +20,16 @@ ViewProduct _$ViewProductFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ViewProduct {
-  int get productID => throw _privateConstructorUsedError;
-  set productID(int value) => throw _privateConstructorUsedError;
+  int? get productID => throw _privateConstructorUsedError;
+  set productID(int? value) => throw _privateConstructorUsedError;
   String get productName => throw _privateConstructorUsedError;
   set productName(String value) => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   set location(String value) => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   set price(String value) => throw _privateConstructorUsedError;
+  int? get sellerID => throw _privateConstructorUsedError;
+  set sellerID(int? value) => throw _privateConstructorUsedError;
   String get sellerUsername => throw _privateConstructorUsedError;
   set sellerUsername(String value) => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -62,10 +64,11 @@ abstract class $ViewProductCopyWith<$Res> {
       _$ViewProductCopyWithImpl<$Res, ViewProduct>;
   @useResult
   $Res call(
-      {int productID,
+      {int? productID,
       String productName,
       String location,
       String price,
+      int? sellerID,
       String sellerUsername,
       String description,
       String weight,
@@ -91,10 +94,11 @@ class _$ViewProductCopyWithImpl<$Res, $Val extends ViewProduct>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? productID = null,
+    Object? productID = freezed,
     Object? productName = null,
     Object? location = null,
     Object? price = null,
+    Object? sellerID = freezed,
     Object? sellerUsername = null,
     Object? description = null,
     Object? weight = null,
@@ -105,10 +109,10 @@ class _$ViewProductCopyWithImpl<$Res, $Val extends ViewProduct>
     Object? image = freezed,
   }) {
     return _then(_value.copyWith(
-      productID: null == productID
+      productID: freezed == productID
           ? _value.productID
           : productID // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       productName: null == productName
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
@@ -121,6 +125,10 @@ class _$ViewProductCopyWithImpl<$Res, $Val extends ViewProduct>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
+      sellerID: freezed == sellerID
+          ? _value.sellerID
+          : sellerID // ignore: cast_nullable_to_non_nullable
+              as int?,
       sellerUsername: null == sellerUsername
           ? _value.sellerUsername
           : sellerUsername // ignore: cast_nullable_to_non_nullable
@@ -166,10 +174,11 @@ abstract class _$$ViewProductImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int productID,
+      {int? productID,
       String productName,
       String location,
       String price,
+      int? sellerID,
       String sellerUsername,
       String description,
       String weight,
@@ -193,10 +202,11 @@ class __$$ViewProductImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? productID = null,
+    Object? productID = freezed,
     Object? productName = null,
     Object? location = null,
     Object? price = null,
+    Object? sellerID = freezed,
     Object? sellerUsername = null,
     Object? description = null,
     Object? weight = null,
@@ -207,10 +217,10 @@ class __$$ViewProductImplCopyWithImpl<$Res>
     Object? image = freezed,
   }) {
     return _then(_$ViewProductImpl(
-      productID: null == productID
+      productID: freezed == productID
           ? _value.productID
           : productID // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       productName: null == productName
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
@@ -223,6 +233,10 @@ class __$$ViewProductImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
+      sellerID: freezed == sellerID
+          ? _value.sellerID
+          : sellerID // ignore: cast_nullable_to_non_nullable
+              as int?,
       sellerUsername: null == sellerUsername
           ? _value.sellerUsername
           : sellerUsername // ignore: cast_nullable_to_non_nullable
@@ -263,10 +277,11 @@ class __$$ViewProductImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ViewProductImpl implements _ViewProduct {
   _$ViewProductImpl(
-      {required this.productID,
+      {this.productID,
       required this.productName,
       required this.location,
       required this.price,
+      this.sellerID,
       required this.sellerUsername,
       required this.description,
       required this.weight,
@@ -280,13 +295,15 @@ class _$ViewProductImpl implements _ViewProduct {
       _$$ViewProductImplFromJson(json);
 
   @override
-  int productID;
+  int? productID;
   @override
   String productName;
   @override
   String location;
   @override
   String price;
+  @override
+  int? sellerID;
   @override
   String sellerUsername;
   @override
@@ -307,7 +324,7 @@ class _$ViewProductImpl implements _ViewProduct {
 
   @override
   String toString() {
-    return 'ViewProduct(productID: $productID, productName: $productName, location: $location, price: $price, sellerUsername: $sellerUsername, description: $description, weight: $weight, category: $category, canDeliver: $canDeliver, isFavorite: $isFavorite, status: $status, image: $image)';
+    return 'ViewProduct(productID: $productID, productName: $productName, location: $location, price: $price, sellerID: $sellerID, sellerUsername: $sellerUsername, description: $description, weight: $weight, category: $category, canDeliver: $canDeliver, isFavorite: $isFavorite, status: $status, image: $image)';
   }
 
   /// Create a copy of ViewProduct
@@ -328,10 +345,11 @@ class _$ViewProductImpl implements _ViewProduct {
 
 abstract class _ViewProduct implements ViewProduct {
   factory _ViewProduct(
-      {required int productID,
+      {int? productID,
       required String productName,
       required String location,
       required String price,
+      int? sellerID,
       required String sellerUsername,
       required String description,
       required String weight,
@@ -345,8 +363,8 @@ abstract class _ViewProduct implements ViewProduct {
       _$ViewProductImpl.fromJson;
 
   @override
-  int get productID;
-  set productID(int value);
+  int? get productID;
+  set productID(int? value);
   @override
   String get productName;
   set productName(String value);
@@ -356,6 +374,9 @@ abstract class _ViewProduct implements ViewProduct {
   @override
   String get price;
   set price(String value);
+  @override
+  int? get sellerID;
+  set sellerID(int? value);
   @override
   String get sellerUsername;
   set sellerUsername(String value);

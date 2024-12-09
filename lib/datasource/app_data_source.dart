@@ -36,13 +36,13 @@ class AppDataSource extends DataSource {
 
   // for cloud
   // final _ipAddPort = '159.223.37.215:40002';
-  final _ipAddPort = '192.168.68.105:9191';
+  final _ipAddPort = '192.168.1.15:9191';
 
   get ipAddPort => _ipAddPort;
 
   // baseUrl = emulator IP + Spring Boot backend port + route
   // final String baseUrl = 'http://159.223.37.215:40002/api/';
-  final String baseUrl = 'http://192.168.68.105:9191/api/';
+  final String baseUrl = 'http://192.168.1.15:9191/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};

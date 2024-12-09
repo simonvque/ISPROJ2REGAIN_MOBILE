@@ -319,7 +319,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                         productCategory: widget.item.category,
                         productPrice: widget.item.price.toString(),
                         reporterID: reporterID,
-                        reportedListingID: widget.item.productID, // Product ID
+                        reportedListingID: widget.item.productID!, // Product ID
                       ),
                     ),
                   );
@@ -467,7 +467,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
     if (widget.item.isFavorite == false) {
       final fave = FavoriteModel(
           userID: Provider.of<AppDataProvider>(context, listen: false).userId,
-          productID: widget.item.productID);
+          productID: widget.item.productID!);
       await Provider.of<FavoritesDataProvider>(context, listen: false)
           .addFavorite(fave)
           .then((response) {
@@ -483,7 +483,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
           Provider.of<AppDataProvider>(context, listen: false).userId;
       final toDelete = widget.item.productID;
       await Provider.of<FavoritesDataProvider>(context, listen: false)
-          .deleteFavorite(userDeleting, toDelete)
+          .deleteFavorite(userDeleting, toDelete!)
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
           setState(() {
