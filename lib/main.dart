@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ForgotPasswordProvider>(
             create: (context) => ForgotPasswordProvider()),
         ChangeNotifierProvider<RatingProvider>(
+            create: (context) => RatingProvider()),
         Provider<AppDataSource>(
           create: (_) => AppDataSource(), // Add AppDataSource here
         ),
