@@ -10,7 +10,6 @@ class ViewProduct with _$ViewProduct {
       required String productName,
       required String location,
       required String price,
-      int? sellerID,
       required String sellerUsername,
       required String description,
       required String weight,
