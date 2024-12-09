@@ -13,6 +13,7 @@ import 'package:regain_mobile/model/offers_model.dart';
 import 'package:regain_mobile/model/order_log.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
+import 'package:regain_mobile/model/rating_model.dart';
 import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_id_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
@@ -100,6 +101,11 @@ abstract class DataSource {
 
   //Verify Otp
   Future<ResponseModel> verifyOtp(String otp);
+  //addRating
+  Future<ResponseModel> addRating(Map<String, dynamic> ratingPayload);
 
-  // Future<List<>>
+  //getRating
+  Future<List<Rating>> getSellerRatings(int userId);
+
+  //UpdateFeedback
 }

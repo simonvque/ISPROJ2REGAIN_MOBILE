@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/app_data_source.dart';
+import 'package:regain_mobile/features/screens/homepage/util/rating_util.dart';
+import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
+import 'package:regain_mobile/model/rating_model.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/favorites_data_provider.dart';
+import 'package:regain_mobile/provider/rating_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 
 import 'package:regain_mobile/features/screens/report_features/report_page.dart';
@@ -46,14 +50,41 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
   late String ipAddress = dataSource.ipAddPort;
   Uint8List? sellerProfileImage;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    isFavorite = widget.item.isFavorite;
-    _fetchSellerProfileImage(widget.item.sellerUsername);
-    super.initState();
-  }
+  //for rating
+  double averageRating = 0.0;
+  int totalReviews = 0;
 
+@override
+void initState() {
+  super.initState(); // Call the parent class's initState first.
+  
+  isFavorite = widget.item.isFavorite; // Initialize state variables.
+  
+  // Fetch the seller's profile image (asynchronous but not affecting UI immediately).
+  _fetchSellerProfileImage(widget.item.sellerUsername);
+
+  // Fetch ratings and update state after the data is fetched.
+  fetchSellerRatings().then((ratings) {
+    if (ratings.isNotEmpty) {
+      setState(() {
+        averageRating = ratings.map((e) => e.rateValue).reduce((a, b) => a + b) / ratings.length;
+        totalReviews = ratings.length;
+      });
+    }
+  });
+}
+
+    Future<List<Rating>> fetchSellerRatings() async {
+      try {
+        final sellerId = await _fetchSellerIdByUsername(widget.item.sellerUsername, ipAddress);
+        final ratings = await Provider.of<RatingProvider>(context, listen: false).getSellerRatings(sellerId);
+        return ratings;
+      } catch (e) {
+        debugPrint('Error fetching seller ratings: $e');
+        return [];
+      }
+    }
+    
   Future<void> _fetchSellerProfileImage(String username) async {
     final dataSource = AppDataSource();
     final profileImage = await dataSource.getSellerProfileImage(username);
@@ -242,13 +273,33 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                                 '@${widget.item.sellerUsername}',
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
-                              const Row(
-                                children: [
-                                  Icon(Icons.star, color: Colors.yellow),
-                                  SizedBox(width: 4),
-                                  Text('4.2 (6 Reviews)'),
-                                ],
-                              ),
+                              
+                          FutureBuilder<List<Rating>>(
+                            future: fetchSellerRatings(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return const CircularProgressIndicator();
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                return const Text('No reviews available');
+                              } else {
+                                return Row(
+                                  children: [
+                                    Icon(Icons.star, color: Colors.yellow),
+                                    SizedBox(width: 4),
+                                    Text('${averageRating.toStringAsFixed(1)} ($totalReviews Reviews)'),
+                                    TextButton(
+                                      onPressed: () {
+                                        // Add logic to navigate to reviews page if necessary
+                                      },
+                                      child: const Text('View all reviews', style: TextStyle(color: Colors.blue)),
+                                    ),
+                                  ],
+                                );
+                              }
+                            },
+                          ),
                             ],
                           ),
                         ],
