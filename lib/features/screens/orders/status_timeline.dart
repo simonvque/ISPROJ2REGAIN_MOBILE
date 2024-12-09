@@ -201,7 +201,7 @@ class _StatusTimelineState extends State<StatusTimeline> {
   }
 
   void _fetchData() async {
-    final userId = Provider.of<AppDataProvider>(context, listen: false).userId;
+    //final userId = Provider.of<AppDataProvider>(context, listen: false).userId;
     final List<OrderLog> logList =
         await Provider.of<OrderProvider>(context, listen: true)
             .getOrderLogs(widget.order.orderID!);
@@ -238,27 +238,27 @@ class _StatusTimelineState extends State<StatusTimeline> {
   @override
   Widget build(BuildContext context) {
     //final currentStatus = widget.order.currentStatus;
-    final logs = Provider.of<OrderProvider>(context, listen: true).orderLogs;
+    //final logs = Provider.of<OrderProvider>(context, listen: true).orderLogs;
     //debugPrint('logs ' + logs.toString());
     //debugPrint('fetchData ' + finalLog.toString());
 
-    final OrderProduct mockOrderProduct = OrderProduct(
-      sellerUsername: "seller123",
-      buyerUsername: "buyer123",
-      productName: "Product 1",
-      price: "150.00",
-      location: "Barangay XYZ, Manila",
-      isForDelivery: true,
-      deliveryDate: "2024-11-30",
-      paymentMode: "Cash on Delivery",
-      statusList: [
-        OrderStatus.toShip,
-        OrderStatus.inTransit,
-        OrderStatus.delivered,
-        OrderStatus.received,
-        OrderStatus.cancelled,
-      ], // Mock status list
-    );
+    // final OrderProduct mockOrderProduct = OrderProduct(
+    //   sellerUsername: "seller123",
+    //   buyerUsername: "buyer123",
+    //   productName: "Product 1",
+    //   price: "150.00",
+    //   location: "Barangay XYZ, Manila",
+    //   isForDelivery: true,
+    //   deliveryDate: "2024-11-30",
+    //   paymentMode: "Cash on Delivery",
+    //   statusList: [
+    //     OrderStatus.toShip,
+    //     OrderStatus.inTransit,
+    //     OrderStatus.delivered,
+    //     OrderStatus.received,
+    //     OrderStatus.cancelled,
+    //   ], // Mock status list
+    // );
 
     //finalLog.add(initialDetail);
 
