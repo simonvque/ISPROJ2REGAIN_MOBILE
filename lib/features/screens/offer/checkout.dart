@@ -34,6 +34,7 @@ class _CheckoutState extends State<Checkout> {
   final _checkoutOrderKey = GlobalKey<FormState>();
 
   late bool _enableSellerDropOff;
+  late bool _enableGCash;
 
   String? _paymentMethod = 'Cash on Delivery';
 
@@ -57,6 +58,9 @@ class _CheckoutState extends State<Checkout> {
 
     user = Provider.of<AppDataProvider>(context, listen: false).user!;
     userId = Provider.of<AppDataProvider>(context, listen: false).userId;
+    (user!.gcashQRcode == null)
+        ? (_enableGCash = false)
+        : (_enableGCash = true);
     Provider.of<AddressDataProvider>(context, listen: false)
         .getUserAddresses(userId);
   }
@@ -227,18 +231,20 @@ class _CheckoutState extends State<Checkout> {
                           ),
                           Text('Cash on Delivery',
                               style: Theme.of(context).textTheme.bodyMedium),
-                          Radio(
-                            value: 'GCash',
-                            groupValue: _paymentMethod,
-                            activeColor: const Color(0xFF12CF8A),
-                            onChanged: (valuePayment) {
-                              setState(() {
-                                _paymentMethod = valuePayment;
-                              });
-                            },
-                          ),
-                          Text('GCash',
-                              style: Theme.of(context).textTheme.bodyMedium),
+                          if (_enableGCash)
+                            Radio(
+                              value: 'GCash',
+                              groupValue: _paymentMethod,
+                              activeColor: const Color(0xFF12CF8A),
+                              onChanged: (valuePayment) {
+                                setState(() {
+                                  _paymentMethod = valuePayment;
+                                });
+                              },
+                            ),
+                          if (_enableGCash)
+                            Text('GCash',
+                                style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       ),
                     ],
