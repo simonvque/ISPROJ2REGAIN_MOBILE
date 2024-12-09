@@ -17,6 +17,7 @@ import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/order_log.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/product_listing.dart';
+import 'package:regain_mobile/model/rating_model.dart';
 import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/model/user_id_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
@@ -35,14 +36,14 @@ class AppDataSource extends DataSource {
   AppDataSource._privateConstructor();
 
   // for cloud
-  // final _ipAddPort = '159.223.37.215:40002';
-  final _ipAddPort = '192.168.1.15:9191';
+  final _ipAddPort = '159.223.37.215:40002';
+  // final _ipAddPort = '192.168.1.4:9191';
 
   get ipAddPort => _ipAddPort;
 
   // baseUrl = emulator IP + Spring Boot backend port + route
-  // final String baseUrl = 'http://159.223.37.215:40002/api/';
-  final String baseUrl = 'http://192.168.1.15:9191/api/';
+  final String baseUrl = 'http://159.223.37.215:40002/api/';
+  // final String baseUrl = 'http://192.168.1.4:9191/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -920,4 +921,70 @@ class AppDataSource extends DataSource {
       rethrow;
     }
   }
+
+  Future<ResponseModel> addRating(Map<String, dynamic> ratingPayload) async {
+  final url = '$baseUrl${'rating/add'}'; 
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: header, 
+      body: jsonEncode(ratingPayload),
+    );
+
+    return await _getResponseModel(response); 
+  } catch (error) {
+    print('Error adding rating: $error');
+    rethrow;  
+  }
+}
+
+Future<List<Rating>> getSellerRatings(int userId) async { 
+  final url = '$baseUrl${'rating/user/$userId'}'; 
+
+  try {
+    final response = await http.get(
+      Uri.parse(url),
+      headers: header,
+    );
+
+    if (response.statusCode == 200) {
+      // Parse the response body into a list of Rating objects
+      List<dynamic> responseList = jsonDecode(response.body);
+      List<Rating> ratings = responseList
+          .map((ratingJson) => Rating.fromJson(ratingJson))
+          .toList();  // Convert each JSON object into Rating
+
+      return ratings;
+    } else {
+      throw Exception('Failed to fetch ratings: ${response.body}');
+    }
+  } catch (error) {
+    print('Error fetching seller ratings: $error');
+    rethrow;
+  }
+}
+
+// Future<void> updateComment(String comment, String newComment) async {
+  
+//   // Fetch all ratings
+//   List<Rating> ratings = await getSellerRatings(userId);
+
+//   // Find the rating ID by matching the comment
+//   Rating? targetRating = ratings.firstWhere(
+//       (rating) => rating.comments == comment);
+
+//   final url = '$baseUrl/rating/update-comment/${targetRating.ratingId}';
+//   final response = await http.put(
+//     Uri.parse(url),
+//     headers: header,
+//     body: jsonEncode({"comments": newComment}),
+//   );
+
+//   if (response.statusCode == 200) {
+//     print('Comment updated successfully');
+//   } else {
+//     print('Failed to update comment');
+//   }
+// }
+
 }

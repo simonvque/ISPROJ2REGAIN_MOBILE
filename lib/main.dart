@@ -12,6 +12,7 @@ import 'package:regain_mobile/provider/green_zone_provider.dart';
 import 'package:regain_mobile/provider/offers_data_provider.dart';
 import 'package:regain_mobile/provider/order_provider.dart';
 import 'package:regain_mobile/provider/product_data_provider.dart';
+import 'package:regain_mobile/provider/rating_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 import 'package:regain_mobile/themes/theme.dart';
 
@@ -52,6 +53,8 @@ class MyApp extends StatelessWidget {
             create: (context) => OrderProvider()),
         ChangeNotifierProvider<ForgotPasswordProvider>(
             create: (context) => ForgotPasswordProvider()),
+        ChangeNotifierProvider<RatingProvider>(
+            create: (context) => RatingProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

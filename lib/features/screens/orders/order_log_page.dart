@@ -191,6 +191,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/features/screens/orders/review.dart';
 import 'package:regain_mobile/features/screens/orders/status_timeline.dart';
 import 'package:regain_mobile/features/screens/orders/temp_orderprod.dart';
 import 'package:regain_mobile/helper_functions.dart';
@@ -486,17 +487,22 @@ class _OrderLogPageState extends State<OrderLogPage> {
         txtSize: BtnTxtSize.large,
       );
     }
-    // else if (currentStatus == "Received") {
-    //   return RegainButtons(
-    //     text: 'Received',
-    //     onPressed: () {
-    //       // Handle action for "Received" button
-    //     },
-    //     type: ButtonType.filled,
-    //     size: ButtonSize.large,
-    //     txtSize: BtnTxtSize.large,
-    //   );
-    // }
+    else if (currentStatus == "Received") {
+      return RegainButtons(
+        text: 'Review this Product',
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ReviewsPage(sellerUsername: widget.order.product.sellerUsername )
+              ),
+            );
+        },
+        type: ButtonType.filled,
+        size: ButtonSize.large,
+        txtSize: BtnTxtSize.large,
+      );
+    }
 
     return SizedBox.shrink(); // Return an empty widget if no status matches
   }
@@ -560,17 +566,22 @@ class _OrderLogPageState extends State<OrderLogPage> {
         txtSize: BtnTxtSize.large,
       );
     }
-    // else if (order.currentStatus == "Received" && widget.role == "buyer") {
-    //   return RegainButtons(
-    //     text: 'Review',
-    //     onPressed: () {
-    //       // Handle action for "Received" button
-    //     },
-    //     type: ButtonType.filled,
-    //     size: ButtonSize.large,
-    //     txtSize: BtnTxtSize.large,
-    //   );
-    // }
+    else if (currentStatus == "Received" && widget.role == "buyer") {
+      return RegainButtons(
+        text: 'Review this Product',
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ReviewsPage(sellerUsername: widget.order.product.sellerUsername)
+              ),
+            );
+        },
+        type: ButtonType.filled,
+        size: ButtonSize.large,
+        txtSize: BtnTxtSize.large,
+      );
+    }
 
     return SizedBox.shrink(); // Return an empty widget if no status matches
   }
