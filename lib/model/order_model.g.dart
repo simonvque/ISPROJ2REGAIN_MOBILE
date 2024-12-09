@@ -21,6 +21,7 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
           : PaymentModel.fromJson(
               json['paymentMethod'] as Map<String, dynamic>),
       totalAmount: json['totalAmount'] as String,
+      commissionFee: json['commissionFee'] as String?,
       currentStatus: json['currentStatus'] as String,
       address: json['address'] == null
           ? null
@@ -37,6 +38,7 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
       'deliveryDate': instance.deliveryDate.toIso8601String(),
       'paymentMethod': instance.paymentMethod,
       'totalAmount': instance.totalAmount,
+      'commissionFee': instance.commissionFee,
       'currentStatus': instance.currentStatus,
       'address': instance.address,
     };

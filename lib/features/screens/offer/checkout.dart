@@ -2,14 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
+import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/features/screens/qr_payment/payment_details_page.dart';
 import 'package:regain_mobile/features/screens/qr_payment/scan_qr_page.dart';
 import 'package:regain_mobile/helper_functions.dart';
+import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/payment_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
 import 'package:regain_mobile/nav.dart';
+import 'package:regain_mobile/provider/address_data_provider.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/order_provider.dart';
 
@@ -37,6 +40,7 @@ class _CheckoutState extends State<Checkout> {
   String? _deliveryMethod = 'Buyer Pick-up';
   DateTime _dateTimeNow = DateTime.now();
   late DateTime _selectedDateTime;
+  AddressModel? _selectedLocation;
 
   late DateTime maxTime;
 
@@ -52,133 +56,150 @@ class _CheckoutState extends State<Checkout> {
     maxTime = _dateTimeNow.add(const Duration(days: 1095));
 
     user = Provider.of<AppDataProvider>(context, listen: false).user!;
+    userId = Provider.of<AppDataProvider>(context, listen: false).userId;
+    Provider.of<AddressDataProvider>(context, listen: false)
+        .getUserAddresses(userId);
   }
 
   void _submitOrderCheckout() {
-    String _status = "To Ship";
+    if (_checkoutOrderKey.currentState!.validate()) {
+      String _status = "To Ship";
 
-    if (_paymentMethod == "Cash on Delivery") {
       final payment = PaymentModel(
         paymentType: _paymentMethod!,
         amountPaid: widget.offer.offerValue,
         status: "Pending",
       );
 
-      final orderModel = OrderModel(
-          product: widget.offer.product,
-          buyerUsername: user!.username,
-          deliveryMethod: _deliveryMethod!,
-          deliveryDate: _selectedDateTime,
-          paymentMethod: payment,
-          totalAmount: widget.offer.offerValue,
-          currentStatus: _status);
-      Provider.of<OrderProvider>(context, listen: false)
-          .addOrder(orderModel)
-          .then((response) {
-        if (response.responseStatus == ResponseStatus.SAVED) {
-          Navigator.pushAndRemoveUntil(
+      final orderModel;
+      if (_deliveryMethod == "Seller Drop-off") {
+        orderModel = OrderModel(
+            product: widget.offer.product,
+            buyerUsername: user!.username,
+            deliveryMethod: _deliveryMethod!,
+            deliveryDate: _selectedDateTime,
+            paymentMethod: payment,
+            totalAmount: widget.offer.offerValue,
+            currentStatus: _status,
+            address: _selectedLocation!);
+      } else {
+        orderModel = OrderModel(
+            product: widget.offer.product,
+            buyerUsername: user!.username,
+            deliveryMethod: _deliveryMethod!,
+            deliveryDate: _selectedDateTime,
+            paymentMethod: payment,
+            totalAmount: widget.offer.offerValue,
+            currentStatus: _status);
+      }
+
+      if (_paymentMethod == "Cash on Delivery") {
+        Provider.of<OrderProvider>(context, listen: false)
+            .addOrder(orderModel)
+            .then((response) {
+          if (response.responseStatus == ResponseStatus.SAVED) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      NavigationMenu()), // Replace with your home page
+              (route) => false,
+            );
+            ReGainHelperFunctions.showSnackBar(
+                context, "Order has been placed");
+          }
+        });
+      } else {
+        Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    NavigationMenu()), // Replace with your home page
-            (route) => false,
-          );
-          ReGainHelperFunctions.showSnackBar(context, "Order has been placed");
-        }
-      });
-    } else {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => ScanQRPage()),
-          (route) => false);
+                builder: (context) => ScanQRPage(
+                      order: orderModel,
+                    )),
+            (route) => false);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(CupertinoIcons.arrow_left, color: Colors.white),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: const Text(
-            'Checkout',
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'Montserrat-Bold',
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: green,
+        leading: IconButton(
+          icon: const Icon(CupertinoIcons.arrow_left, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text(
+          'Checkout',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Montserrat-Bold',
           ),
         ),
-        body: SingleChildScrollView(
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _checkoutOrderKey,
           child: Column(
             children: [
               //ORDER DETAILS
-              Form(
-                key: _checkoutOrderKey,
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Order Details',
-                          style: Theme.of(context).textTheme.headlineMedium),
-                      const SizedBox(height: 10),
-                      Container(
-                        padding: const EdgeInsets.all(16.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(8.0),
-                          color: Colors.white,
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              'assets/images/homepage/plastic.png', // Replace with your image asset
-                              width: 100,
-                              height: 100,
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Item Name: ${widget.offer.product.productName}',
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    'Location: ${widget.offer.product.location}',
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    'Weight: ${widget.offer.product.weight}',
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                      'Total Price: P${widget.offer.offerValue}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+              Container(
+                alignment: Alignment.topLeft,
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Order Details',
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: Colors.white,
                       ),
-                    ],
-                  ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            'assets/images/homepage/plastic.png', // Replace with your image asset
+                            width: 100,
+                            height: 100,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Item Name: ${widget.offer.product.productName}',
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  'Location: ${widget.offer.product.location}',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  'Weight: ${widget.offer.product.weight}',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                const SizedBox(height: 5),
+                                Text('Total Price: P${widget.offer.offerValue}',
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
               //PAYEMENT DETAILS
@@ -231,7 +252,7 @@ class _CheckoutState extends State<Checkout> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       Text('Shipping Details',
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.headlineSmall),
@@ -295,7 +316,47 @@ class _CheckoutState extends State<Checkout> {
                             ],
                           ),
                         ),
-                      )
+                      ),
+
+                      // dropdown buyer's address if seller drop-off is chosen
+                      if (_deliveryMethod == "Seller Drop-off")
+                        Container(
+                          child: Consumer<AddressDataProvider>(
+                            builder: (context, value, child) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 12.0),
+                              child: DropdownButtonFormField<AddressModel>(
+                                value: _selectedLocation,
+                                decoration: InputDecoration(
+                                  hintText: 'Location',
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderSide:
+                                          BorderSide(color: Colors.grey)),
+                                ),
+                                items: value.userAddress.map((address) {
+                                  return DropdownMenuItem<AddressModel>(
+                                    value: address,
+                                    child: Text(
+                                        '${address.city} - ${address.street}'),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedLocation = value;
+                                  });
+                                },
+                                validator: (value) {
+                                  if (_deliveryMethod == "Seller Drop-off" &&
+                                      value == null) {
+                                    return 'Please select a valid location';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -315,11 +376,6 @@ class _CheckoutState extends State<Checkout> {
           ),
         ),
       ),
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: const AppBarTheme(color: Color(0xFF12CF8A)),
-      ),
-      debugShowCheckedModeBanner: false,
     );
   }
 

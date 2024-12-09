@@ -561,116 +561,114 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
       );
     else
       return Consumer<OrderProvider>(
-        builder: (context, provider, child) => Expanded(
-          child: ListView.builder(
-            itemCount: provider.ordersSeller!.length,
-            itemBuilder: (context, index) {
-              final order = provider.ordersSeller![index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0, vertical: 10.0), // Adjust spacing
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => OrderLogPage(
-                                  order: order,
-                                  role: role,
-                                )));
-                    debugPrint(
-                        "Navigating to log page for Order ID: ${order.orderID}");
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment
-                          .start, // Align text to the top to avoid misalignment
-                      children: [
-                        // Photo Box
-                        Container(
-                          width: 72,
-                          height: 72,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade300,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: const Icon(Icons.image,
-                              color: Colors.grey), // Placeholder image
+        builder: (context, provider, child) => ListView.builder(
+          itemCount: provider.ordersSeller!.length,
+          itemBuilder: (context, index) {
+            final order = provider.ordersSeller![index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0, vertical: 10.0), // Adjust spacing
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OrderLogPage(
+                                order: order,
+                                role: role,
+                              )));
+                  debugPrint(
+                      "Navigating to log page for Order ID: ${order.orderID}");
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start, // Align text to the top to avoid misalignment
+                    children: [
+                      // Photo Box
+                      Container(
+                        width: 72,
+                        height: 72,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
-                        const SizedBox(
-                            width: 16.0), // Space between image and text
+                        child: const Icon(Icons.image,
+                            color: Colors.grey), // Placeholder image
+                      ),
+                      const SizedBox(
+                          width: 16.0), // Space between image and text
 
-                        // Product Info
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Product Name
-                              Text(
-                                '${order.product.productName}',
-                                style: const TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                softWrap:
-                                    true, // Ensure the text wraps instead of being truncated
+                      // Product Info
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Product Name
+                            Text(
+                              '${order.product.productName}',
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
                               ),
-                              const SizedBox(height: 4.0),
-                              // Username
-                              if (role == "buyer")
-                                Text(
-                                  "User: ${order.product.sellerUsername}",
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                    color: gray,
-                                  ),
-                                  softWrap:
-                                      true, // Ensure the text wraps instead of being truncated
-                                )
-                              else if (role == "seller")
-                                Text(
-                                  "User: ${order.buyerUsername}",
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                    color: gray,
-                                  ),
-                                  softWrap:
-                                      true, // Ensure the text wraps instead of being truncated
-                                ),
-                              const SizedBox(height: 4.0),
-                              // Price
+                              softWrap:
+                                  true, // Ensure the text wraps instead of being truncated
+                            ),
+                            const SizedBox(height: 4.0),
+                            // Username
+                            if (role == "buyer")
                               Text(
-                                "${order.totalAmount}",
+                                "User: ${order.product.sellerUsername}",
                                 style: const TextStyle(
                                   fontSize: 14.0,
-                                  color: black,
+                                  color: gray,
+                                ),
+                                softWrap:
+                                    true, // Ensure the text wraps instead of being truncated
+                              )
+                            else if (role == "seller")
+                              Text(
+                                "User: ${order.buyerUsername}",
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                  color: gray,
                                 ),
                                 softWrap:
                                     true, // Ensure the text wraps instead of being truncated
                               ),
-                            ],
-                          ),
+                            const SizedBox(height: 4.0),
+                            // Price
+                            Text(
+                              "${order.totalAmount}",
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                                color: black,
+                              ),
+                              softWrap:
+                                  true, // Ensure the text wraps instead of being truncated
+                            ),
+                          ],
                         ),
+                      ),
 
-                        // Order Status
-                        Text(
-                          order.currentStatus,
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                            color: green600,
-                          ),
-                          softWrap:
-                              true, // Ensure the text wraps instead of being truncated
+                      // Order Status
+                      Text(
+                        order.currentStatus,
+                        style: const TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold,
+                          color: green600,
                         ),
-                      ],
-                    ),
+                        softWrap:
+                            true, // Ensure the text wraps instead of being truncated
+                      ),
+                    ],
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       );
   }

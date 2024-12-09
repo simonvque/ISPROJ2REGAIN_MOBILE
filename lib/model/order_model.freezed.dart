@@ -36,6 +36,8 @@ mixin _$OrderModel {
   set paymentMethod(PaymentModel? value) => throw _privateConstructorUsedError;
   String get totalAmount => throw _privateConstructorUsedError;
   set totalAmount(String value) => throw _privateConstructorUsedError;
+  String? get commissionFee => throw _privateConstructorUsedError;
+  set commissionFee(String? value) => throw _privateConstructorUsedError;
   String get currentStatus => throw _privateConstructorUsedError;
   set currentStatus(String value) => throw _privateConstructorUsedError;
   AddressModel? get address => throw _privateConstructorUsedError;
@@ -66,6 +68,7 @@ abstract class $OrderModelCopyWith<$Res> {
       DateTime deliveryDate,
       PaymentModel? paymentMethod,
       String totalAmount,
+      String? commissionFee,
       String currentStatus,
       AddressModel? address});
 
@@ -97,6 +100,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? deliveryDate = null,
     Object? paymentMethod = freezed,
     Object? totalAmount = null,
+    Object? commissionFee = freezed,
     Object? currentStatus = null,
     Object? address = freezed,
   }) {
@@ -133,6 +137,10 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
               as String,
+      commissionFee: freezed == commissionFee
+          ? _value.commissionFee
+          : commissionFee // ignore: cast_nullable_to_non_nullable
+              as String?,
       currentStatus: null == currentStatus
           ? _value.currentStatus
           : currentStatus // ignore: cast_nullable_to_non_nullable
@@ -200,6 +208,7 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       DateTime deliveryDate,
       PaymentModel? paymentMethod,
       String totalAmount,
+      String? commissionFee,
       String currentStatus,
       AddressModel? address});
 
@@ -232,6 +241,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? deliveryDate = null,
     Object? paymentMethod = freezed,
     Object? totalAmount = null,
+    Object? commissionFee = freezed,
     Object? currentStatus = null,
     Object? address = freezed,
   }) {
@@ -268,6 +278,10 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
               as String,
+      commissionFee: freezed == commissionFee
+          ? _value.commissionFee
+          : commissionFee // ignore: cast_nullable_to_non_nullable
+              as String?,
       currentStatus: null == currentStatus
           ? _value.currentStatus
           : currentStatus // ignore: cast_nullable_to_non_nullable
@@ -292,6 +306,7 @@ class _$OrderModelImpl implements _OrderModel {
       required this.deliveryDate,
       this.paymentMethod,
       required this.totalAmount,
+      this.commissionFee,
       required this.currentStatus,
       this.address});
 
@@ -315,13 +330,15 @@ class _$OrderModelImpl implements _OrderModel {
   @override
   String totalAmount;
   @override
+  String? commissionFee;
+  @override
   String currentStatus;
   @override
   AddressModel? address;
 
   @override
   String toString() {
-    return 'OrderModel(orderID: $orderID, product: $product, buyerUsername: $buyerUsername, orderDate: $orderDate, deliveryMethod: $deliveryMethod, deliveryDate: $deliveryDate, paymentMethod: $paymentMethod, totalAmount: $totalAmount, currentStatus: $currentStatus, address: $address)';
+    return 'OrderModel(orderID: $orderID, product: $product, buyerUsername: $buyerUsername, orderDate: $orderDate, deliveryMethod: $deliveryMethod, deliveryDate: $deliveryDate, paymentMethod: $paymentMethod, totalAmount: $totalAmount, commissionFee: $commissionFee, currentStatus: $currentStatus, address: $address)';
   }
 
   /// Create a copy of OrderModel
@@ -350,6 +367,7 @@ abstract class _OrderModel implements OrderModel {
       required DateTime deliveryDate,
       PaymentModel? paymentMethod,
       required String totalAmount,
+      String? commissionFee,
       required String currentStatus,
       AddressModel? address}) = _$OrderModelImpl;
 
@@ -380,6 +398,9 @@ abstract class _OrderModel implements OrderModel {
   @override
   String get totalAmount;
   set totalAmount(String value);
+  @override
+  String? get commissionFee;
+  set commissionFee(String? value);
   @override
   String get currentStatus;
   set currentStatus(String value);

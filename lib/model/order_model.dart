@@ -17,6 +17,7 @@ class OrderModel with _$OrderModel {
       required DateTime deliveryDate,
       PaymentModel? paymentMethod,
       required String totalAmount,
+      String? commissionFee,
       required String currentStatus,
       AddressModel? address}) = _OrderModel;
   factory OrderModel.fromJson(Map<String, dynamic> json) =>

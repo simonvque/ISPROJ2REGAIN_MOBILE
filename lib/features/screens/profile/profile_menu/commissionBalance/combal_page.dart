@@ -154,10 +154,10 @@ class CommissionPageState extends State<CommissionPage> {
               RegainButtons(
                 text: 'Pay my balance',
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ScanQRPage()),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => const ScanQRPage()),
+                  // );
                 },
                 type: ButtonType.filled,
                 size: ButtonSize.large,
