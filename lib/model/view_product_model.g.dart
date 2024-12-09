@@ -8,10 +8,11 @@ part of 'view_product_model.dart';
 
 _$ViewProductImpl _$$ViewProductImplFromJson(Map<String, dynamic> json) =>
     _$ViewProductImpl(
-      productID: (json['productID'] as num).toInt(),
+      productID: (json['productID'] as num?)?.toInt(),
       productName: json['productName'] as String,
       location: json['location'] as String,
       price: json['price'] as String,
+      sellerID: (json['sellerID'] as num?)?.toInt(),
       sellerUsername: json['sellerUsername'] as String,
       description: json['description'] as String,
       weight: json['weight'] as String,
@@ -28,6 +29,7 @@ Map<String, dynamic> _$$ViewProductImplToJson(_$ViewProductImpl instance) =>
       'productName': instance.productName,
       'location': instance.location,
       'price': instance.price,
+      'sellerID': instance.sellerID,
       'sellerUsername': instance.sellerUsername,
       'description': instance.description,
       'weight': instance.weight,

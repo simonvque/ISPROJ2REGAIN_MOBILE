@@ -109,7 +109,7 @@ class SellerOfferList extends StatelessWidget {
                     List<ViewOffersModel> sellerOffers =
                         await Provider.of<OffersDataProvider>(context,
                                 listen: false)
-                            .getOffersByProductID(product.productID);
+                            .getOffersByProductID(product.productID!);
 
                     Navigator.push(
                         context,
