@@ -3,12 +3,18 @@ import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/features/screens/qr_payment/payment_details_page.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 class ScanQRPage extends StatelessWidget {
-  const ScanQRPage({super.key});
+  final OrderModel order;
+
+  const ScanQRPage({
+    super.key,
+    required this.order,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +84,9 @@ class ScanQRPage extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PaymentDetailsPage(),
+                    builder: (context) => PaymentDetailsPage(
+                      order: order,
+                    ),
                   ),
                 );
               },
