@@ -15,6 +15,7 @@ import 'package:regain_mobile/provider/product_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 import 'package:regain_mobile/themes/theme.dart';
 
+import 'datasource/app_data_source.dart';
 import 'features/screens/chatfeatures/chat_service.dart';
 
 void main() {
@@ -52,6 +53,9 @@ class MyApp extends StatelessWidget {
             create: (context) => OrderProvider()),
         ChangeNotifierProvider<ForgotPasswordProvider>(
             create: (context) => ForgotPasswordProvider()),
+        Provider<AppDataSource>(
+          create: (_) => AppDataSource(), // Add AppDataSource here
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -169,10 +171,26 @@ class _CheckoutState extends State<Checkout> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Image.asset(
-                            'assets/images/homepage/plastic.png', // Replace with your image asset
+                          // Product Image Section
+                          Container(
                             width: 100,
                             height: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: Colors.grey.shade200,
+                              image: widget.offer.product.image != null &&
+                                      widget.offer.product.image!.isNotEmpty
+                                  ? DecorationImage(
+                                      image: MemoryImage(base64Decode(
+                                          widget.offer.product.image!)),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/homepage/plastic.png'), // Placeholder asset
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
                           ),
                           const SizedBox(width: 10),
                           Expanded(

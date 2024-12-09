@@ -1,191 +1,5 @@
-// import 'package:flutter/material.dart';
-// import 'package:intl/intl.dart'; // Import for date formatting
-// import 'package:regain_mobile/features/screens/orders/status_timeline.dart';
-// import 'package:regain_mobile/features/screens/orders/temp_orderprod.dart';
-// import 'package:regain_mobile/themes/app_bar.dart';
-// import 'package:regain_mobile/model/order_model.dart';
-
-// class OrderLogPage extends StatelessWidget {
-//   // final OrderProduct order;
-//   final OrderModel orderModel;
-
-//   const OrderLogPage({Key? key, required this.orderModel}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: buildAppBar(
-//           context,
-//           // orderModel.productName,
-//           orderModel.product.productName),
-//       body: SingleChildScrollView(
-//         child: Padding(
-//           padding: const EdgeInsets.all(16.0),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Text(
-//                 orderModel.product.productName,
-//                 style: Theme.of(context).textTheme.titleLarge,
-//               ),
-//               Text(
-//                 'Seller: ${orderModel.product.sellerUsername}',
-//                 style: Theme.of(context).textTheme.bodyMedium,
-//               ),
-//               const SizedBox(height: 20),
-//               Text(
-//                 'About Receiver:',
-//                 style: Theme.of(context).textTheme.titleSmall,
-//               ),
-//               const SizedBox(height: 4),
-//               Text(
-//                 'Buyer: ${orderModel.buyerUsername}',
-//                 style: Theme.of(context).textTheme.bodySmall,
-//               ),
-//               const SizedBox(height: 4),
-//               Text(
-//                 'Buyer preferred delivery date: ${orderModel.deliveryDate}',
-//                 style: Theme.of(context).textTheme.bodySmall,
-//               ),
-//               const SizedBox(height: 4),
-//               Text(
-//                 'Mode of payment: ${orderModel.paymentMethod!.paymentType}',
-//                 style: Theme.of(context).textTheme.bodySmall,
-//               ),
-//               const SizedBox(height: 20),
-//               Text(
-//                 //conditional if the location is for delivery method (buyer address) or pickup method (seller address)
-//                 (orderModel.deliveryMethod == "Seller Drop-off")
-//                     ? 'Location (Delivery): ${orderModel.address!.city}'
-//                     : 'Location (Pick Up): ${orderModel.product.location}',
-//                 style: Theme.of(context).textTheme.titleMedium,
-//               ),
-//               const SizedBox(height: 50),
-//               Align(
-//                 alignment: Alignment.centerRight,
-//                 child: Text(
-//                   'Total price: PHP ${orderModel.totalAmount}',
-//                   style: Theme.of(context).textTheme.headlineSmall,
-//                 ),
-//               ),
-//               const SizedBox(height: 60),
-//               Text(
-//                 'Status Timeline:',
-//                 style: Theme.of(context).textTheme.bodyLarge,
-//               ),
-//               const SizedBox(height: 8),
-//               // StatusTimeline(
-//               //     order: orderModel), // Display the status timeline widget
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// import 'package:flutter/material.dart';
-// import 'package:regain_mobile/features/screens/orders/status_timeline.dart';
-// import 'package:regain_mobile/features/screens/orders/temp_orderprod.dart';  // Import your status timeline
-
-// class OrderLogPage extends StatelessWidget {
-//   // Temporary data to replace backend call
-//   final OrderProduct mockOrderProduct = OrderProduct(
-//     sellerUsername: "seller123",
-//     buyerUsername: "buyer123",
-//     productName: "Product 1",
-//     price: "150.00",
-//     location: "Barangay XYZ, Manila",
-//     isForDelivery: true,
-//     deliveryDate: "2024-11-30",
-//     paymentMode: "Cash on Delivery",
-//     statusList: [
-//       OrderStatus.toShip,
-//       OrderStatus.inTransit,
-//       OrderStatus.delivered,
-//       OrderStatus.received,
-//       OrderStatus.cancelled,
-//     ], // Mock status list
-//   );
-
-//   OrderLogPage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(mockOrderProduct.productName), // Display product name
-//       ),
-//       body: SingleChildScrollView(
-//         child: Padding(
-//           padding: const EdgeInsets.all(16.0),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               // Product Name
-//               Text(
-//                 mockOrderProduct.productName,
-//                 style: Theme.of(context).textTheme.titleLarge,
-//               ),
-//               // Seller Username
-//               Text(
-//                 'Seller: ${mockOrderProduct.sellerUsername}',
-//                 style: Theme.of(context).textTheme.bodyMedium,
-//               ),
-//               const SizedBox(height: 20),
-//               Text(
-//                 'About Receiver:',
-//                 style: Theme.of(context).textTheme.titleSmall,
-//               ),
-//               const SizedBox(height: 4),
-//               // Buyer Username
-//               Text(
-//                 'Buyer: ${mockOrderProduct.buyerUsername}',
-//                 style: Theme.of(context).textTheme.bodySmall,
-//               ),
-//               const SizedBox(height: 4),
-//               // Delivery Date
-//               Text(
-//                 'Buyer preferred delivery date: ${mockOrderProduct.deliveryDate}',
-//                 style: Theme.of(context).textTheme.bodySmall,
-//               ),
-//               const SizedBox(height: 4),
-//               // Payment Mode
-//               Text(
-//                 'Mode of payment: ${mockOrderProduct.paymentMode}',
-//                 style: Theme.of(context).textTheme.bodySmall,
-//               ),
-//               const SizedBox(height: 20),
-//               Text(
-//                 // Conditional location message based on delivery method
-//                 (mockOrderProduct.isForDelivery)
-//                     ? 'Location (Delivery): ${mockOrderProduct.location}'
-//                     : 'Location (Pick Up): ${mockOrderProduct.location}',
-//                 style: Theme.of(context).textTheme.titleMedium,
-//               ),
-//               const SizedBox(height: 50),
-//               Align(
-//                 alignment: Alignment.centerRight,
-//                 child: Text(
-//                   'Total price: PHP ${mockOrderProduct.price}',
-//                   style: Theme.of(context).textTheme.headlineSmall,
-//                 ),
-//               ),
-//               const SizedBox(height: 60),
-//               Text(
-//                 'Status Timeline:',
-//                 style: Theme.of(context).textTheme.bodyLarge,
-//               ),
-//               const SizedBox(height: 8),
-//               // Pass the mockOrderProduct to the StatusTimeline widget
-//               StatusTimeline(order: mockOrderProduct),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -279,6 +93,17 @@ class _OrderLogPageState extends State<OrderLogPage> {
     final formattedDate =
         DateFormat('MM/dd/yyyy').format(widget.order.deliveryDate);
 
+    // Decode Base64 image from order's product
+    Uint8List? decodedImage;
+    if (widget.order.product.image != null &&
+        widget.order.product.image!.isNotEmpty) {
+      try {
+        decodedImage = base64Decode(widget.order.product.image!);
+      } catch (e) {
+        debugPrint('Error decoding product image: $e');
+      }
+    }
+
     return Scaffold(
       appBar: buildAppBar(
         context,
@@ -292,16 +117,24 @@ class _OrderLogPageState extends State<OrderLogPage> {
             children: [
               Row(
                 children: [
-                  // Photo Box
+                  // Product Image
                   Container(
-                    width: 48,
-                    height: 48,
+                    width: 72,
+                    height: 72,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade300,
                       borderRadius: BorderRadius.circular(8.0),
+                      image: decodedImage != null
+                          ? DecorationImage(
+                              image: MemoryImage(decodedImage),
+                              fit: BoxFit.cover,
+                            )
+                          : DecorationImage(
+                              image: AssetImage(
+                                  'assets/images/logo/logo.png'), // Replace with your placeholder asset
+                              fit: BoxFit.cover,
+                            ),
                     ),
-                    child: const Icon(Icons.image,
-                        color: Colors.grey), // Placeholder image
                   ),
                   const SizedBox(width: 16.0), // Space between image and text
 

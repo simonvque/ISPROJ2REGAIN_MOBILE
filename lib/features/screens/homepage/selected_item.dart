@@ -432,12 +432,15 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                           Provider.of<AppDataProvider>(context, listen: false)
                               .user!
                               .username;
+                      final dataSource =
+                          Provider.of<AppDataSource>(context, listen: false);
                       return OfferPricePopup(
                         sellerUsername: widget.item.sellerUsername,
                         defaultOfferPrice: widget.item.price,
                         prod: widget.item,
                         buyerName: username,
-                      ); // Display OfferPricePopup as a dialog
+                        dataSource: dataSource,
+                      );
                     },
                   );
                 },
