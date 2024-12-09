@@ -16,6 +16,7 @@ import 'package:regain_mobile/provider/rating_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
 import 'package:regain_mobile/themes/theme.dart';
 
+import 'datasource/app_data_source.dart';
 import 'features/screens/chatfeatures/chat_service.dart';
 
 void main() {
@@ -54,7 +55,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ForgotPasswordProvider>(
             create: (context) => ForgotPasswordProvider()),
         ChangeNotifierProvider<RatingProvider>(
-            create: (context) => RatingProvider()),
+        Provider<AppDataSource>(
+          create: (_) => AppDataSource(), // Add AppDataSource here
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

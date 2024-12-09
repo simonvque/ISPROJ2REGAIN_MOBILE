@@ -6,10 +6,11 @@ part 'view_product_model.g.dart';
 @unfreezed
 class ViewProduct with _$ViewProduct {
   factory ViewProduct(
-      {required int productID,
+      {int? productID,
       required String productName,
       required String location,
       required String price,
+      int? sellerID,
       required String sellerUsername,
       required String description,
       required String weight,

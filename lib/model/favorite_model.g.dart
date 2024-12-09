@@ -12,7 +12,6 @@ _$FavoriteModelImpl _$$FavoriteModelImplFromJson(Map<String, dynamic> json) =>
       userID: (json['userID'] as num).toInt(),
       productID: (json['productID'] as num).toInt(),
       isFavorite: json['isFavorite'] as bool? ?? true,
-      sellerID: (json['sellerID'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$FavoriteModelImplToJson(_$FavoriteModelImpl instance) =>
@@ -21,5 +20,4 @@ Map<String, dynamic> _$$FavoriteModelImplToJson(_$FavoriteModelImpl instance) =>
       'userID': instance.userID,
       'productID': instance.productID,
       'isFavorite': instance.isFavorite,
-      'sellerID': instance.sellerID,
     };

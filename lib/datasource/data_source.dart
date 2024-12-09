@@ -101,7 +101,6 @@ abstract class DataSource {
 
   //Verify Otp
   Future<ResponseModel> verifyOtp(String otp);
-
   //addRating
   Future<ResponseModel> addRating(Map<String, dynamic> ratingPayload);
 
@@ -109,5 +108,4 @@ abstract class DataSource {
   Future<List<Rating>> getSellerRatings(int userId);
 
   //UpdateFeedback
-
 }
