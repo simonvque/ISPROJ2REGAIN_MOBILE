@@ -414,6 +414,7 @@ class _OrderLogPageState extends State<OrderLogPage> {
               //StatusTimeline(order: mockOrderProduct),
               StatusTimeline(
                 order: widget.order,
+                currentStatus: currentStatus,
                 //orderModel: widget.order,
               ),
               const SizedBox(height: 20),

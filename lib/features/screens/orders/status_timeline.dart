@@ -157,11 +157,13 @@ import 'package:regain_mobile/provider/order_provider.dart';
 
 class StatusTimeline extends StatefulWidget {
   final OrderModel order;
+  final String currentStatus;
   //final OrderModel orderModel;
 
   const StatusTimeline({
     super.key,
     required this.order,
+    required this.currentStatus,
     //required this.orderModel,
   });
 
@@ -180,17 +182,28 @@ class _StatusTimelineState extends State<StatusTimeline> {
     super.initState();
   }
 
+  // @override
+  // void didUpdateWidget(covariant StatusTimeline oldWidget) {
+  //   // TODO: implement didUpdateWidget
+  //   if (oldWidget.currentStatus != widget.currentStatus) {
+  //     currentStatus = widget.currentStatus;
+  //   }
+  //   super.didUpdateWidget(oldWidget);
+  // }
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
+    finalLog = [];
     _fetchData();
+    currentStatus = widget.currentStatus;
     super.didChangeDependencies();
   }
 
   void _fetchData() async {
-    final userId = Provider.of<AppDataProvider>(context, listen: true).userId;
+    final userId = Provider.of<AppDataProvider>(context, listen: false).userId;
     final List<OrderLog> logList =
-        await Provider.of<OrderProvider>(context, listen: false)
+        await Provider.of<OrderProvider>(context, listen: true)
             .getOrderLogs(widget.order.orderID!);
 
     var initialDetail = {
@@ -198,7 +211,7 @@ class _StatusTimelineState extends State<StatusTimeline> {
       'timestamp': '${widget.order.orderDate}'
     };
 
-    for (int x = 0; x < logList!.length; x++) {
+    for (int x = 0; x < logList.length; x++) {
       int oneLess = x - 1;
       if (x == 0) {
         finalLog.add(initialDetail);
@@ -210,9 +223,14 @@ class _StatusTimelineState extends State<StatusTimeline> {
         finalLog.add(detail);
       }
     }
-    String last = logList.last.timeStamp.toString();
-    var lastItem = {'status': currentStatus, 'timestamp': '${last}'};
-    finalLog.add(lastItem);
+
+    if (logList.isNotEmpty && logList.last.prevStatus != currentStatus) {
+      String last = logList.last.timeStamp.toString();
+      var lastItem = {'status': currentStatus, 'timestamp': '${last}'};
+      finalLog.add(lastItem);
+    } else {
+      finalLog.add(initialDetail);
+    }
 
     setState(() {});
   }
@@ -222,7 +240,7 @@ class _StatusTimelineState extends State<StatusTimeline> {
     //final currentStatus = widget.order.currentStatus;
     final logs = Provider.of<OrderProvider>(context, listen: true).orderLogs;
     //debugPrint('logs ' + logs.toString());
-    debugPrint('fetchData ' + finalLog.toString());
+    //debugPrint('fetchData ' + finalLog.toString());
 
     final OrderProduct mockOrderProduct = OrderProduct(
       sellerUsername: "seller123",
