@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/app_data_source.dart';
+import 'package:regain_mobile/features/validations/form_validators.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
@@ -33,6 +34,8 @@ class ReportPageState extends State<ReportPage> {
   late String reportType;
   String? selectedIssue;
   bool showError = false;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Product report categories with IDs
   final Map<String, int> productIssues = {
@@ -72,7 +75,7 @@ class ReportPageState extends State<ReportPage> {
   }
 
   Future<void> submitReport() async {
-    if (selectedIssue == null || detailsController.text.trim().isEmpty) {
+    if (!_formKey.currentState!.validate()) {
       setState(() {
         showError = true;
       });
@@ -195,6 +198,7 @@ class ReportPageState extends State<ReportPage> {
                   onSubmit: submitReport,
                   detailsController: detailsController,
                   showError: showError,
+                  formKey: _formKey,
                 ),
               ],
             ],
@@ -210,6 +214,7 @@ class AddDetailsSection extends StatelessWidget {
   final VoidCallback onSubmit;
   final TextEditingController detailsController;
   final bool showError;
+  final GlobalKey<FormState> formKey;
 
   const AddDetailsSection({
     super.key,
@@ -217,63 +222,69 @@ class AddDetailsSection extends StatelessWidget {
     required this.onSubmit,
     required this.detailsController,
     required this.showError,
+    required this.formKey,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Selected issue:', style: Theme.of(context).textTheme.bodySmall),
-        Text(selectedIssue, style: Theme.of(context).textTheme.bodyLarge),
-        const SizedBox(height: 12),
-        RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: 'Add details ',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              TextSpan(
-                text: '*',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(color: Colors.red),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 8),
-        TextField(
-          controller: detailsController,
-          maxLines: 6,
-          textInputAction: TextInputAction.done,
-          decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-            border: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: showError ? Colors.red : Colors.grey),
+    return Form(
+      key: formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Selected issue:', style: Theme.of(context).textTheme.bodySmall),
+          Text(selectedIssue, style: Theme.of(context).textTheme.bodyLarge),
+          const SizedBox(height: 12),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Add details ',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                TextSpan(
+                  text: '*',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(color: Colors.red),
+                ),
+              ],
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: showError ? Colors.red : Colors.green),
-            ),
-            hintText: 'Please provide additional details.',
-            hintStyle: Theme.of(context).textTheme.titleMedium,
-            errorText: showError ? 'This field is required.' : null,
           ),
-        ),
-        const SizedBox(height: 20),
-        RegainButtons(
-          text: 'Submit Report',
-          onPressed: onSubmit,
-          type: ButtonType.filled,
-          size: ButtonSize.large,
-          txtSize: BtnTxtSize.large,
-        ),
-      ],
+          const SizedBox(height: 8),
+          TextFormField(
+            controller: detailsController,
+            maxLines: 6,
+            textInputAction: TextInputAction.done,
+            decoration: InputDecoration(
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+              border: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: showError ? Colors.red : Colors.grey),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: showError ? Colors.red : Colors.green),
+              ),
+              hintText: 'Please provide additional details.',
+              hintStyle: Theme.of(context).textTheme.titleMedium,
+              errorMaxLines: 5,
+            ),
+            validator: (value) => Validators.ReportValidation(value,
+                fieldName: 'additional details'),
+          ),
+          const SizedBox(height: 20),
+          RegainButtons(
+            text: 'Submit Report',
+            onPressed: onSubmit,
+            type: ButtonType.filled,
+            size: ButtonSize.large,
+            txtSize: BtnTxtSize.large,
+          ),
+        ],
+      ),
     );
   }
 }
