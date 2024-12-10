@@ -7,7 +7,7 @@ part 'payment_model.g.dart';
 class PaymentModel with _$PaymentModel {
   factory PaymentModel(
       {int? id,
-      required String paymentType,
+      String? paymentType,
       required String amountPaid,
       String? referenceNumber,
       String? status,

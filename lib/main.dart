@@ -6,6 +6,7 @@ import 'package:regain_mobile/provider/address_data_provider.dart';
 
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/category_data_provider.dart';
+import 'package:regain_mobile/provider/commissions_provider.dart';
 import 'package:regain_mobile/provider/favorites_data_provider.dart';
 import 'package:regain_mobile/provider/forgot_password_provider.dart';
 import 'package:regain_mobile/provider/green_zone_provider.dart';
@@ -56,6 +57,8 @@ class MyApp extends StatelessWidget {
             create: (context) => ForgotPasswordProvider()),
         ChangeNotifierProvider<RatingProvider>(
             create: (context) => RatingProvider()),
+        ChangeNotifierProvider<CommissionsProvider>(
+            create: (context) => CommissionsProvider()),
         Provider<AppDataSource>(
           create: (_) => AppDataSource(), // Add AppDataSource here
         ),

@@ -28,8 +28,6 @@ mixin _$ViewProduct {
   set location(String value) => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   set price(String value) => throw _privateConstructorUsedError;
-  int? get sellerID => throw _privateConstructorUsedError;
-  set sellerID(int? value) => throw _privateConstructorUsedError;
   String get sellerUsername => throw _privateConstructorUsedError;
   set sellerUsername(String value) => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -68,7 +66,6 @@ abstract class $ViewProductCopyWith<$Res> {
       String productName,
       String location,
       String price,
-      int? sellerID,
       String sellerUsername,
       String description,
       String weight,
@@ -98,7 +95,6 @@ class _$ViewProductCopyWithImpl<$Res, $Val extends ViewProduct>
     Object? productName = null,
     Object? location = null,
     Object? price = null,
-    Object? sellerID = freezed,
     Object? sellerUsername = null,
     Object? description = null,
     Object? weight = null,
@@ -125,10 +121,6 @@ class _$ViewProductCopyWithImpl<$Res, $Val extends ViewProduct>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
-      sellerID: freezed == sellerID
-          ? _value.sellerID
-          : sellerID // ignore: cast_nullable_to_non_nullable
-              as int?,
       sellerUsername: null == sellerUsername
           ? _value.sellerUsername
           : sellerUsername // ignore: cast_nullable_to_non_nullable
@@ -178,7 +170,6 @@ abstract class _$$ViewProductImplCopyWith<$Res>
       String productName,
       String location,
       String price,
-      int? sellerID,
       String sellerUsername,
       String description,
       String weight,
@@ -206,7 +197,6 @@ class __$$ViewProductImplCopyWithImpl<$Res>
     Object? productName = null,
     Object? location = null,
     Object? price = null,
-    Object? sellerID = freezed,
     Object? sellerUsername = null,
     Object? description = null,
     Object? weight = null,
@@ -233,10 +223,6 @@ class __$$ViewProductImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
-      sellerID: freezed == sellerID
-          ? _value.sellerID
-          : sellerID // ignore: cast_nullable_to_non_nullable
-              as int?,
       sellerUsername: null == sellerUsername
           ? _value.sellerUsername
           : sellerUsername // ignore: cast_nullable_to_non_nullable
@@ -281,7 +267,6 @@ class _$ViewProductImpl implements _ViewProduct {
       required this.productName,
       required this.location,
       required this.price,
-      this.sellerID,
       required this.sellerUsername,
       required this.description,
       required this.weight,
@@ -303,8 +288,6 @@ class _$ViewProductImpl implements _ViewProduct {
   @override
   String price;
   @override
-  int? sellerID;
-  @override
   String sellerUsername;
   @override
   String description;
@@ -324,7 +307,7 @@ class _$ViewProductImpl implements _ViewProduct {
 
   @override
   String toString() {
-    return 'ViewProduct(productID: $productID, productName: $productName, location: $location, price: $price, sellerID: $sellerID, sellerUsername: $sellerUsername, description: $description, weight: $weight, category: $category, canDeliver: $canDeliver, isFavorite: $isFavorite, status: $status, image: $image)';
+    return 'ViewProduct(productID: $productID, productName: $productName, location: $location, price: $price, sellerUsername: $sellerUsername, description: $description, weight: $weight, category: $category, canDeliver: $canDeliver, isFavorite: $isFavorite, status: $status, image: $image)';
   }
 
   /// Create a copy of ViewProduct
@@ -349,7 +332,6 @@ abstract class _ViewProduct implements ViewProduct {
       required String productName,
       required String location,
       required String price,
-      int? sellerID,
       required String sellerUsername,
       required String description,
       required String weight,
@@ -374,9 +356,6 @@ abstract class _ViewProduct implements ViewProduct {
   @override
   String get price;
   set price(String value);
-  @override
-  int? get sellerID;
-  set sellerID(int? value);
   @override
   String get sellerUsername;
   set sellerUsername(String value);

@@ -11,6 +11,7 @@ import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
+import 'package:regain_mobile/model/commissions_total.dart';
 import 'package:regain_mobile/model/error_details_model.dart';
 import 'package:regain_mobile/model/green_zone_model.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
@@ -36,14 +37,14 @@ class AppDataSource extends DataSource {
   AppDataSource._privateConstructor();
 
   // for cloud
-  final _ipAddPort = '159.223.37.215:40002';
-  // final _ipAddPort = '192.168.1.4:9191';
+  // final _ipAddPort = '159.223.37.215:40002';
+  final _ipAddPort = '192.168.1.15:9191';
 
   get ipAddPort => _ipAddPort;
 
   // baseUrl = emulator IP + Spring Boot backend port + route
-  final String baseUrl = 'http://159.223.37.215:40002/api/';
-  // final String baseUrl = 'http://192.168.1.4:9191/api/';
+  // final String baseUrl = 'http://159.223.37.215:40002/api/';
+  final String baseUrl = 'http://192.168.1.15:9191/api/';
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -923,49 +924,66 @@ class AppDataSource extends DataSource {
   }
 
   Future<ResponseModel> addRating(Map<String, dynamic> ratingPayload) async {
-  final url = '$baseUrl${'rating/add'}'; 
-  try {
-    final response = await http.post(
-      Uri.parse(url),
-      headers: header, 
-      body: jsonEncode(ratingPayload),
-    );
+    final url = '$baseUrl${'rating/add'}';
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: header,
+        body: jsonEncode(ratingPayload),
+      );
 
-    return await _getResponseModel(response); 
-  } catch (error) {
-    print('Error adding rating: $error');
-    rethrow;  
-  }
-}
-
-Future<List<Rating>> getSellerRatings(int userId) async { 
-  final url = '$baseUrl${'rating/user/$userId'}'; 
-
-  try {
-    final response = await http.get(
-      Uri.parse(url),
-      headers: header,
-    );
-
-    if (response.statusCode == 200) {
-      // Parse the response body into a list of Rating objects
-      List<dynamic> responseList = jsonDecode(response.body);
-      List<Rating> ratings = responseList
-          .map((ratingJson) => Rating.fromJson(ratingJson))
-          .toList();  // Convert each JSON object into Rating
-
-      return ratings;
-    } else {
-      throw Exception('Failed to fetch ratings: ${response.body}');
+      return await _getResponseModel(response);
+    } catch (error) {
+      print('Error adding rating: $error');
+      rethrow;
     }
-  } catch (error) {
-    print('Error fetching seller ratings: $error');
-    rethrow;
   }
-}
+
+  Future<List<Rating>> getSellerRatings(int userId) async {
+    final url = '$baseUrl${'rating/user/$userId'}';
+
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: header,
+      );
+
+      if (response.statusCode == 200) {
+        // Parse the response body into a list of Rating objects
+        List<dynamic> responseList = jsonDecode(response.body);
+        List<Rating> ratings = responseList
+            .map((ratingJson) => Rating.fromJson(ratingJson))
+            .toList(); // Convert each JSON object into Rating
+
+        return ratings;
+      } else {
+        throw Exception('Failed to fetch ratings: ${response.body}');
+      }
+    } catch (error) {
+      print('Error fetching seller ratings: $error');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<CommissionsTotal?> getTotalCommissions(int userId) async {
+    final url = '$baseUrl${'commissions/total/$userId'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final map = json.decode(response.body);
+        return CommissionsTotal.fromJson(map);
+      }
+      return null;
+
+      //return await _getResponseModel(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
 
 // Future<void> updateComment(String comment, String newComment) async {
-  
+
 //   // Fetch all ratings
 //   List<Rating> ratings = await getSellerRatings(userId);
 
@@ -986,5 +1004,4 @@ Future<List<Rating>> getSellerRatings(int userId) async {
 //     print('Failed to update comment');
 //   }
 // }
-
 }

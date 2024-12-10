@@ -111,5 +111,5 @@ abstract class DataSource {
   //UpdateFeedback
 
   // get unpaid commissions and existing total balance
-  // Future<CommissionsTotal> getTotalCommissions()
+  Future<CommissionsTotal?> getTotalCommissions(int userId);
 }

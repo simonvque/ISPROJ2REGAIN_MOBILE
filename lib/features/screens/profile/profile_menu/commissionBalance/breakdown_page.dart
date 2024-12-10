@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:regain_mobile/model/commissions_model.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 
 // Sample commission breakdown data
@@ -9,16 +10,23 @@ List<Map<String, String>> commissionBreakdown = [
 ];
 
 class CommissionBreakdownScreen extends StatelessWidget {
-  const CommissionBreakdownScreen({super.key});
+  final List<CommissionsModel> commsList;
+  final String commBal;
+
+  CommissionBreakdownScreen({
+    super.key,
+    required this.commsList,
+    required this.commBal,
+  });
 
   @override
   Widget build(BuildContext context) {
     // Calculate total commission
-    double totalCommission = 0.0;
-    for (var item in commissionBreakdown) {
-      totalCommission += double.parse(
-          item['fee']!.substring(4)); // Extract the number from "PHP 10.00"
-    }
+    // double totalCommission = 0.0;
+    // for (var item in commissionBreakdown) {
+    //   totalCommission += double.parse(
+    //       item['fee']!.substring(4)); // Extract the number from "PHP 10.00"
+    // }
 
     return Scaffold(
       appBar: buildAppBar(context, 'Balance Breakdown'),
@@ -33,17 +41,32 @@ class CommissionBreakdownScreen extends StatelessWidget {
                   // Scrollable List of Commission Breakdown
                   Expanded(
                     child: ListView.builder(
-                      itemCount: commissionBreakdown.length,
+                      itemCount: commsList.length,
                       itemBuilder: (context, index) {
+                        CommissionsModel commRecord = commsList[index];
+                        bool _showPayment = false;
+                        if (commRecord.payment != null) _showPayment = true;
                         return ListTile(
                           contentPadding:
                               const EdgeInsets.symmetric(vertical: 8.0),
+                          subtitle: (_showPayment)
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        'Payment ${commRecord.payment!.referenceNumber} : ${commRecord.payment!.amountPaid}'),
+                                    Text(
+                                        'Status: ${commRecord.payment!.status}'),
+                                  ],
+                                )
+                              : Text('No payment'),
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(commissionBreakdown[index]['product']!),
+                              Text(commRecord.order!.product.productName),
                               Text(
-                                commissionBreakdown[index]['fee']!,
+                                commRecord.commissionBalance,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
@@ -73,7 +96,7 @@ class CommissionBreakdownScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Text(
-                  'PHP ${totalCommission.toStringAsFixed(2)}',
+                  'PHP ${commBal}',
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
