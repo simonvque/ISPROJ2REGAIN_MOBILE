@@ -129,12 +129,10 @@ class _ChangePWPageState extends State<ChangePWPage> {
   }
 
   // void updatePassword() {
-  //   if (_changePWKey.currentContext!.validate()) {
+  //   if (_changePWKey.currentState!.validate()) {
   //     final user = UserModel(
   //       id: model.id,
   //       username: model.username,
-  //       contactNumber: confirmPWController.text,
-  //       lastName: currentPWController.text,
   //       password: newPWController.text,
   //     );
   //   }

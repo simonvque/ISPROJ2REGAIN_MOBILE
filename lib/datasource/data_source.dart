@@ -31,7 +31,7 @@ abstract class DataSource {
   Future<ResponseModel> updateUser(UserProfileUpdateModel userProfile,
       File? profileImage, File? gcashQRcode);
 
-  // Future<UserModel?> getUserById(int id);
+  Future<ResponseModel> deleteUser(int id, UserModel user);
 
   Future<ResponseModel> login(UserModel user);
 

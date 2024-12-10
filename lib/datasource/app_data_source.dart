@@ -152,20 +152,17 @@ class AppDataSource extends DataSource {
     }
   }
 
-  // @override
-  // Future<UserModel?> getUserById(int id) async {
-  //   final url = '$baseUrl${'user/$id'}';
-  //   try {
-  //     final response = await http.get(Uri.parse(url));
-  //     if (response.statusCode == 200) {
-  //       final map = json.decode(response.body);
-  //       return UserModel.fromJson(map);
-  //     }
-  //     return null;
-  //   } catch (error) {
-  //     rethrow;
-  //   }
-  // }
+  @override
+  Future<ResponseModel> deleteUser(int id, UserModel model) async {
+    final url = '$baseUrl${'user/delete/$id'}';
+    try {
+      final response = await http.put(Uri.parse(url),
+          headers: header, body: jsonEncode(model));
+      return await _getResponseModel(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
 
   Future<ResponseModel> _getResponseModel(http.Response response) async {
     ResponseStatus status = ResponseStatus.NONE;

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/features/screens/profile/settings/delete_acc_page.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/features/screens/profile/settings/about/privacypol_page.dart';
@@ -32,6 +33,18 @@ class SettingsPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const ChangePWPage()));
+            },
+            type: ButtonType.transparentOutlined,
+            size: ButtonSize.large,
+            txtSize: BtnTxtSize.large,
+            leftIcon: CupertinoIcons.lock_shield,
+            rightIcon: CupertinoIcons.chevron_forward,
+          ),
+          RegainButtons(
+            text: 'Delete account',
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DeleteAccountPage()));
             },
             type: ButtonType.transparentOutlined,
             size: ButtonSize.large,
