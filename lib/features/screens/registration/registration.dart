@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/features/screens/registration/registration_id.dart';
+import 'package:regain_mobile/features/validations/form_validators.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/routes/route_manager.dart';
@@ -81,29 +82,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     children: [
                       // Username
                       RegainTextbox(
-                          controller: usernameController,
-                          validator: (value) {
-                            // insert validations here
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a username';
-                            }
-                            return null;
-                          },
-                          errorText: errorText,
-                          labelText: ReGainTexts.username,
-                          isUnderlineBorder: true),
+                        controller: usernameController,
+                        validator: (value) => Validators.usernameValidation(
+                            value,
+                            fieldName: 'username'),
+                        errorText: errorText,
+                        labelText: ReGainTexts.username,
+                        isUnderlineBorder: true,
+                      ),
+
                       const SizedBox(
                           height: ReGainSizes.spaceBtwInputFields / 2),
 
                       // Password
                       PasswordTextFormField(
                           controller: passwordController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter a password";
-                            }
-                            return null;
-                          },
+                          validator: Validators.passwordValidation,
                           labelText: ReGainTexts.password),
                       const SizedBox(
                           height: ReGainSizes.spaceBtwInputFields / 2),
@@ -111,15 +105,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       // Confirm Password >> NOT YET IMPLEMENTED
                       PasswordTextFormField(
                           controller: matchingPasswordController,
-                          validator: (value) {
-                            String confirmValue = passwordController.text;
-                            if (value == null ||
-                                value.isEmpty ||
-                                value != confirmValue) {
-                              return "Please confirm your password";
-                            }
-                            return null;
-                          },
+                          validator: (value) =>
+                              Validators.confirmPasswordValidation(
+                                  value, passwordController.text),
                           labelText: ReGainTexts.confirmPassword),
                       const SizedBox(
                           height: ReGainSizes.spaceBtwInputFields / 2),
@@ -127,14 +115,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       // Email
                       RegainTextbox(
                         controller: emailController,
-                        validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              validateEmail(value) == false) {
-                            return "Please enter a valid email";
-                          }
-                          return null;
-                        },
+                        validator: Validators.emailValidation,
                         errorText: errorText,
                         labelText: ReGainTexts.email,
                         keyboardType: TextInputType.text,

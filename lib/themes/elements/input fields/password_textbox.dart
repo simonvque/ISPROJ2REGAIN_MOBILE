@@ -18,7 +18,7 @@ class PasswordTextFormField extends StatefulWidget {
     this.errorText,
     required this.labelText,
     this.focusedBorderColor = green,
-    this.isUnderlineBorder = false,
+    this.isUnderlineBorder = true,
   });
 
   @override

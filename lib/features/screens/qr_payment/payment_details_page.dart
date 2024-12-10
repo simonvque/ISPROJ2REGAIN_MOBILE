@@ -12,6 +12,7 @@ import 'package:regain_mobile/nav.dart';
 import 'package:regain_mobile/provider/order_provider.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
+import 'package:regain_mobile/features/validations/form_validators.dart';
 
 class PaymentDetailsPage extends StatefulWidget {
   final OrderModel order;
@@ -144,13 +145,10 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                   border: UnderlineInputBorder(
                     borderSide: BorderSide(color: green),
                   ),
+                  errorMaxLines: 10,
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a valid reference number';
-                  }
-                  return null;
-                },
+                validator: (value) => Validators.RefNumberValidation(value,
+                    fieldName: 'reference number'),
               ),
               const SizedBox(height: 20),
               const Text(
@@ -162,18 +160,16 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
               ),
               TextFormField(
                 controller: _amountPaidController,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Enter the amount you paid',
                   border: UnderlineInputBorder(
                     borderSide: BorderSide(color: green),
                   ),
+                  errorMaxLines: 3,
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a valid amount';
-                  }
-                  return null;
-                },
+                validator: (value) =>
+                    Validators.amountValidation(value, fieldName: 'amount'),
               ),
               const SizedBox(height: 20),
               const SizedBox(

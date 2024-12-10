@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/features/validations/form_validators.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/product_listing.dart';
@@ -119,26 +120,16 @@ class _AddProductState extends State<AddProduct> {
             _buildTextField(
               controller: productNameController,
               hintText: 'Name of the Product',
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please enter a valid product name";
-                }
-                return null;
-              },
+              validator: (value) => Validators.productNameValidation(value,
+                  fieldName: 'product name'),
             ),
             _buildTextField(
               controller: priceController,
               hintText: 'Price',
               prefixText: '₱',
               keyboardType: TextInputType.number,
-              validator: (value) {
-                if (value == null ||
-                    value.isEmpty ||
-                    !_validateDecimalInput(value)) {
-                  return "Please enter a valid price";
-                }
-                return null;
-              },
+              validator: (value) =>
+                  Validators.priceValidation(value, fieldName: 'price'),
             ),
             Consumer<CategoryDataProvider>(
               builder: (context, provider, child) =>
@@ -149,18 +140,14 @@ class _AddProductState extends State<AddProduct> {
               hintText: 'Weight',
               suffixText: 'kg',
               keyboardType: TextInputType.number,
-              validator: (value) {
-                if (value == null ||
-                    value.isEmpty ||
-                    !_validateDecimalInput(value)) {
-                  return "Please enter a valid weight";
-                }
-                return null;
-              },
+              validator: (value) =>
+                  Validators.weightValidation(value, fieldName: 'weight'),
             ),
             _buildTextField(
               controller: descController,
               hintText: 'Description',
+              validator: (value) => Validators.descriptionValidation(value,
+                  fieldName: 'description'),
               maxLines: 5,
             ),
             _buildLocationDropdown(context),
@@ -287,6 +274,7 @@ class _AddProductState extends State<AddProduct> {
         maxLines: maxLines,
         decoration: InputDecoration(
           hintText: hintText,
+          errorMaxLines: 10,
           prefixText: prefixText,
           suffixText: suffixText,
           border: const OutlineInputBorder(),
@@ -318,7 +306,7 @@ class _AddProductState extends State<AddProduct> {
         },
         validator: (value) {
           if (value == null) {
-            return 'Please select a valid category';
+            return 'Please select a category';
           }
           return null;
         },
@@ -349,7 +337,7 @@ class _AddProductState extends State<AddProduct> {
           },
           validator: (value) {
             if (value == null) {
-              return 'Please select a valid location';
+              return 'Please select a location';
             }
             return null;
           },
