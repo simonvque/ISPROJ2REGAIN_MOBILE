@@ -11,6 +11,8 @@ import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
+import 'package:regain_mobile/model/commissions_model.dart';
+import 'package:regain_mobile/model/commissions_total.dart';
 import 'package:regain_mobile/model/error_details_model.dart';
 import 'package:regain_mobile/model/green_zone_model.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
@@ -39,11 +41,13 @@ class AppDataSource extends DataSource {
   // final _ipAddPort = '159.223.37.215:40002';
   final _ipAddPort = '192.168.154.111:9191';
 
+
   get ipAddPort => _ipAddPort;
 
   // baseUrl = emulator IP + Spring Boot backend port + route
   // final String baseUrl = 'http://159.223.37.215:40002/api/';
   final String baseUrl = 'http://192.168.154.111:9191/api/';
+
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -150,20 +154,17 @@ class AppDataSource extends DataSource {
     }
   }
 
-  // @override
-  // Future<UserModel?> getUserById(int id) async {
-  //   final url = '$baseUrl${'user/$id'}';
-  //   try {
-  //     final response = await http.get(Uri.parse(url));
-  //     if (response.statusCode == 200) {
-  //       final map = json.decode(response.body);
-  //       return UserModel.fromJson(map);
-  //     }
-  //     return null;
-  //   } catch (error) {
-  //     rethrow;
-  //   }
-  // }
+  @override
+  Future<ResponseModel> deleteUser(int id, UserModel model) async {
+    final url = '$baseUrl${'user/delete/$id'}';
+    try {
+      final response = await http.put(Uri.parse(url),
+          headers: header, body: jsonEncode(model));
+      return await _getResponseModel(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
 
   Future<ResponseModel> _getResponseModel(http.Response response) async {
     ResponseStatus status = ResponseStatus.NONE;
@@ -937,6 +938,8 @@ class AppDataSource extends DataSource {
       rethrow;
     }
   }
+  
+  
 
   Future<List<Rating>> getSellerRatings(int userId) async {
     final url = '$baseUrl${'rating/user/$userId'}';
@@ -960,6 +963,37 @@ class AppDataSource extends DataSource {
       }
     } catch (error) {
       print('Error fetching seller ratings: $error');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<CommissionsTotal?> getTotalCommissions(int userId) async {
+    final url = '$baseUrl${'commissions/total/$userId'}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final map = json.decode(response.body);
+        return CommissionsTotal.fromJson(map);
+      }
+      return null;
+
+      //return await _getResponseModel(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ResponseModel> addPaymentForCommissions(
+      int userId, List<CommissionsModel> commList) async {
+    final url = '$baseUrl${'commissions/addPayment/$userId'}';
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: header, body: jsonEncode(commList));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
       rethrow;
     }
   }

@@ -9,7 +9,7 @@ part of 'payment_model.dart';
 _$PaymentModelImpl _$$PaymentModelImplFromJson(Map<String, dynamic> json) =>
     _$PaymentModelImpl(
       id: (json['id'] as num?)?.toInt(),
-      paymentType: json['paymentType'] as String,
+      paymentType: json['paymentType'] as String?,
       amountPaid: json['amountPaid'] as String,
       referenceNumber: json['referenceNumber'] as String?,
       status: json['status'] as String?,

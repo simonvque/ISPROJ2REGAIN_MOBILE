@@ -204,8 +204,10 @@ class ProfileMenu extends StatelessWidget {
           text: 'Logout',
           onPressed: () {
             Provider.of<AppDataProvider>(context, listen: false).resetUser();
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()));
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                (route) => false);
             ReGainHelperFunctions.showSnackBar(
                 context, "Logged out successfully");
           },

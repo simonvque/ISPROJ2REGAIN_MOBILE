@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/commissionBalance/breakdown_page.dart';
 import 'package:regain_mobile/features/screens/qr_payment/scan_qr_page.dart';
+import 'package:regain_mobile/model/commissions_model.dart';
+import 'package:regain_mobile/model/commissions_total.dart';
+import 'package:regain_mobile/model/response_model.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
+import 'package:regain_mobile/provider/commissions_provider.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
@@ -15,13 +21,6 @@ class CommissionPage extends StatefulWidget {
 class CommissionPageState extends State<CommissionPage> {
   double commissionAmount = 25.00;
   static const double commissionLimit = 50.00;
-
-  // final status = getStatus(commissionAmount);
-  // String? commissionBalance =
-  //     Provider.of<AppDataProvider>(context, listen: false)
-  //         .user
-  //         ?.commissionBalance;
-  // commissionBalance ??= commissionAmount.toString();
 
   Map<String, dynamic> getStatus(double amount) {
     if (amount >= commissionLimit) {
@@ -38,8 +37,33 @@ class CommissionPageState extends State<CommissionPage> {
   }
 
   @override
+  void didChangeDependencies() {
+    _fetchData();
+    super.didChangeDependencies();
+  }
+
+  void _fetchData() async {
+    int userId = Provider.of<AppDataProvider>(context, listen: false).userId;
+    await Provider.of<CommissionsProvider>(context, listen: false)
+        .getCommissions(userId);
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final status = getStatus(commissionAmount);
+    List<CommissionsModel>? comms =
+        Provider.of<CommissionsProvider>(context, listen: true).commissionsList;
+
+    String commAmount = "0.00";
+    if (comms.isNotEmpty) {
+      CommissionsTotal combal =
+          Provider.of<CommissionsProvider>(context, listen: true)
+              .commissionsModel;
+      commAmount = combal.totalBal;
+      //List<CommissionsModel> commList = comms.commsList!;
+    }
+
+    final status = getStatus(double.parse(commAmount));
     double screenWidth = MediaQuery.of(context).size.width;
     double padding = screenWidth > 600 ? 40 : 24;
     double fontSize = screenWidth > 600 ? 24 : 20;
@@ -77,7 +101,7 @@ class CommissionPageState extends State<CommissionPage> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                'PHP ${commissionAmount.toStringAsFixed(2)}',
+                                'PHP ${commAmount}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineLarge
@@ -128,8 +152,10 @@ class CommissionPageState extends State<CommissionPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              const CommissionBreakdownScreen()));
+                          builder: (context) => CommissionBreakdownScreen(
+                                commsList: comms,
+                                commBal: commAmount,
+                              )));
                 },
                 style: TextButton.styleFrom(
                   foregroundColor: black,
@@ -154,10 +180,13 @@ class CommissionPageState extends State<CommissionPage> {
               RegainButtons(
                 text: 'Pay my balance',
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const ScanQRPage()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ScanQRPage(
+                              commList: comms,
+                            )),
+                  );
                 },
                 type: ButtonType.filled,
                 size: ButtonSize.large,
