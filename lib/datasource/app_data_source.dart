@@ -11,6 +11,7 @@ import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/data_source.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
+import 'package:regain_mobile/model/commissions_model.dart';
 import 'package:regain_mobile/model/commissions_total.dart';
 import 'package:regain_mobile/model/error_details_model.dart';
 import 'package:regain_mobile/model/green_zone_model.dart';
@@ -978,6 +979,20 @@ class AppDataSource extends DataSource {
 
       //return await _getResponseModel(response);
     } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ResponseModel> addPaymentForCommissions(
+      int userId, List<CommissionsModel> commList) async {
+    final url = '$baseUrl${'commissions/addPayment/$userId'}';
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: header, body: jsonEncode(commList));
+      return await _getResponseModel(response);
+    } catch (error) {
+      print(error.toString());
       rethrow;
     }
   }

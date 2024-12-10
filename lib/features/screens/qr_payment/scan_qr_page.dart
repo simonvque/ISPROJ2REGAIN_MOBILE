@@ -3,17 +3,20 @@ import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/model/commissions_model.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/features/screens/qr_payment/payment_details_page.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 class ScanQRPage extends StatelessWidget {
-  final OrderModel order;
+  final OrderModel? order;
+  final List<CommissionsModel>? commList;
 
   const ScanQRPage({
     super.key,
-    required this.order,
+    this.order,
+    this.commList,
   });
 
   @override
@@ -86,6 +89,7 @@ class ScanQRPage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => PaymentDetailsPage(
                       order: order,
+                      commList: commList,
                     ),
                   ),
                 );

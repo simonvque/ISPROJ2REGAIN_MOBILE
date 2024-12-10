@@ -16,11 +16,6 @@ class CommissionsProvider extends ChangeNotifier {
 
   List<CommissionsModel> get commissionsList => _commissionsList;
 
-  // Future<ResponseModel> addAddress(PaymentModel paymentModel) async {
-  //   return _dataSource.addAddress(paymentModel);
-  //   notifyListeners()
-  // }
-
   Future<List<CommissionsModel>> getCommissions(int id) async {
     CommissionsTotal? commTotal = await _dataSource.getTotalCommissions(id);
     _commissionsModel = commTotal;
@@ -30,5 +25,13 @@ class CommissionsProvider extends ChangeNotifier {
     }
     return _commissionsList;
     //notifyListeners();
+  }
+
+  Future<ResponseModel> addPayment(int id, List<CommissionsModel> list) async {
+    ResponseModel res = await _dataSource.addPaymentForCommissions(id, list);
+    if (res.statusCode == 200) {
+      notifyListeners();
+    }
+    return res;
   }
 }

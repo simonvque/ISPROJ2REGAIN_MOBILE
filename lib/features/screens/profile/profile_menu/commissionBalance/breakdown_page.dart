@@ -55,7 +55,7 @@ class CommissionBreakdownScreen extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                        'Payment ${commRecord.payment!.referenceNumber} : ${commRecord.payment!.amountPaid}'),
+                                        'Ref no. ${commRecord.payment!.referenceNumber}: Php${commRecord.payment!.amountPaid}'),
                                     Text(
                                         'Status: ${commRecord.payment!.status}'),
                                   ],

@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/model/category.dart';
+import 'package:regain_mobile/model/commissions_model.dart';
 import 'package:regain_mobile/model/commissions_total.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/green_zone_model.dart';
@@ -112,4 +113,7 @@ abstract class DataSource {
 
   // get unpaid commissions and existing total balance
   Future<CommissionsTotal?> getTotalCommissions(int userId);
+
+  Future<ResponseModel> addPaymentForCommissions(
+      int userId, List<CommissionsModel> commList);
 }

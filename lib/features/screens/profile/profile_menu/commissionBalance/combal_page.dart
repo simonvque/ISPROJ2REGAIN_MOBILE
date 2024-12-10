@@ -22,13 +22,6 @@ class CommissionPageState extends State<CommissionPage> {
   double commissionAmount = 25.00;
   static const double commissionLimit = 50.00;
 
-  // final status = getStatus(commissionAmount);
-  // String? commissionBalance =
-  //     Provider.of<AppDataProvider>(context, listen: false)
-  //         .user
-  //         ?.commissionBalance;
-  // commissionBalance ??= commissionAmount.toString();
-
   Map<String, dynamic> getStatus(double amount) {
     if (amount >= commissionLimit) {
       return {
@@ -45,7 +38,6 @@ class CommissionPageState extends State<CommissionPage> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     _fetchData();
     super.didChangeDependencies();
   }
@@ -54,7 +46,7 @@ class CommissionPageState extends State<CommissionPage> {
     int userId = Provider.of<AppDataProvider>(context, listen: false).userId;
     await Provider.of<CommissionsProvider>(context, listen: false)
         .getCommissions(userId);
-    setState(() {});
+    //setState(() {});
   }
 
   @override
@@ -188,10 +180,13 @@ class CommissionPageState extends State<CommissionPage> {
               RegainButtons(
                 text: 'Pay my balance',
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const ScanQRPage()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ScanQRPage(
+                              commList: comms,
+                            )),
+                  );
                 },
                 type: ButtonType.filled,
                 size: ButtonSize.large,

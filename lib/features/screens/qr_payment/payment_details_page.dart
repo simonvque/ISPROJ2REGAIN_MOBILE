@@ -6,19 +6,23 @@ import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
 import 'package:regain_mobile/helper_functions.dart';
+import 'package:regain_mobile/model/commissions_model.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/model/payment_model.dart';
 import 'package:regain_mobile/nav.dart';
+import 'package:regain_mobile/provider/commissions_provider.dart';
 import 'package:regain_mobile/provider/order_provider.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
 class PaymentDetailsPage extends StatefulWidget {
-  final OrderModel order;
+  final OrderModel? order;
+  final List<CommissionsModel>? commList;
 
   const PaymentDetailsPage({
     super.key,
-    required this.order,
+    this.order,
+    this.commList,
   });
 
   @override
@@ -35,30 +39,21 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
     //final orderModel = widget.order;
     if (_gCashKey.currentState!.validate()) {
       final payment = PaymentModel(
-        paymentType: widget.order.paymentMethod!.paymentType,
+        paymentType: widget.order!.paymentMethod!.paymentType,
         amountPaid: _amountPaidController.text,
         referenceNumber: _referenceController.text,
         status: "Pending",
       );
 
       final orderModel = OrderModel(
-          product: widget.order.product,
-          buyerUsername: widget.order.buyerUsername,
-          deliveryMethod: widget.order.deliveryMethod,
-          deliveryDate: widget.order.deliveryDate,
+          product: widget.order!.product,
+          buyerUsername: widget.order!.buyerUsername,
+          deliveryMethod: widget.order!.deliveryMethod,
+          deliveryDate: widget.order!.deliveryDate,
           paymentMethod: payment,
-          totalAmount: widget.order.totalAmount,
-          currentStatus: widget.order.currentStatus,
-          address: widget.order.address);
-
-      // orderModel = OrderModel(
-      //   product: widget.offer.product,
-      //   buyerUsername: user!.username,
-      //   deliveryMethod: _deliveryMethod!,
-      //   deliveryDate: _selectedDateTime,
-      //   paymentMethod: payment,
-      //   totalAmount: widget.offer.offerValue,
-      //   currentStatus: _status);
+          totalAmount: widget.order!.totalAmount,
+          currentStatus: widget.order!.currentStatus,
+          address: widget.order!.address);
 
       Provider.of<OrderProvider>(context, listen: false)
           .addOrder(orderModel)
@@ -72,6 +67,40 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
             (route) => false,
           );
           ReGainHelperFunctions.showSnackBar(context, "Order has been placed");
+        }
+      });
+    }
+  }
+
+  void _submitCommBalPayment() {
+    if (_gCashKey.currentState!.validate()) {
+      final payment = PaymentModel(
+        amountPaid: _amountPaidController.text,
+        referenceNumber: _referenceController.text,
+        status: "Pending",
+      );
+
+      List<CommissionsModel> paymentList = [];
+      widget.commList?.forEach((value) => paymentList.add(CommissionsModel(
+          commissionID: value.commissionID,
+          userID: value.userID,
+          order: value.order,
+          commissionBalance: value.commissionBalance,
+          status: value.status,
+          payment: payment)));
+
+      Provider.of<CommissionsProvider>(context, listen: false)
+          .addPayment(widget.commList!.first.userID, paymentList)
+          .then((response) {
+        if (response.responseStatus == ResponseStatus.SAVED) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    NavigationMenu()), // Replace with your home page
+            (route) => false,
+          );
+          ReGainHelperFunctions.showSnackBar(context, "Payment has been added");
         }
       });
     }
@@ -183,13 +212,11 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                 text: 'Confirm Payment',
                 onPressed: () {
                   //where to redirect
-                  _submitOrder();
-                  // Navigator.pushReplacement(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => NavigationMenu(),
-                  //   ),
-                  // );
+                  if (widget.order != null && widget.commList == null) {
+                    _submitOrder();
+                  } else if (widget.order == null && widget.commList != null) {
+                    _submitCommBalPayment();
+                  }
                 },
                 type: ButtonType.filled,
                 txtSize: BtnTxtSize.large,
