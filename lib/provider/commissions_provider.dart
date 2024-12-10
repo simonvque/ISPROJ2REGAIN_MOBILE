@@ -23,15 +23,15 @@ class CommissionsProvider extends ChangeNotifier {
     if (commTotal.commsList == null) {
       _commissionsList = [];
     }
+
     return _commissionsList;
-    //notifyListeners();
   }
 
   Future<ResponseModel> addPayment(int id, List<CommissionsModel> list) async {
     ResponseModel res = await _dataSource.addPaymentForCommissions(id, list);
-    if (res.statusCode == 200) {
-      notifyListeners();
-    }
+    // if (res.statusCode == 200) {
+    //   notifyListeners();
+    // }
     return res;
   }
 }

@@ -93,12 +93,11 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
           .addPayment(widget.commList!.first.userID, paymentList)
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
-          Navigator.pushAndRemoveUntil(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) =>
                     NavigationMenu()), // Replace with your home page
-            (route) => false,
           );
           ReGainHelperFunctions.showSnackBar(context, "Payment has been added");
         }

@@ -46,7 +46,7 @@ class CommissionPageState extends State<CommissionPage> {
     int userId = Provider.of<AppDataProvider>(context, listen: false).userId;
     await Provider.of<CommissionsProvider>(context, listen: false)
         .getCommissions(userId);
-    //setState(() {});
+    setState(() {});
   }
 
   @override
