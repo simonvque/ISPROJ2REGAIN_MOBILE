@@ -80,7 +80,7 @@ class _ReviewPageState extends State<ReviewsPage> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop(); 
                 if (response.statusCode == 200) {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
@@ -121,14 +121,13 @@ class _ReviewPageState extends State<ReviewsPage> {
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
-                    overflow: TextOverflow.ellipsis, // To handle long usernames
+                    overflow: TextOverflow.ellipsis, 
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 40),
 
-            // "How was your experience?" title
             const Text(
               'How was your experience?',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -142,7 +141,6 @@ class _ReviewPageState extends State<ReviewsPage> {
               },
             ),
             const SizedBox(height: 16),
-            // Feedback TextField
             TextField(
               controller: _feedbackController,
               decoration: const InputDecoration(
@@ -152,7 +150,6 @@ class _ReviewPageState extends State<ReviewsPage> {
             ),
             const SizedBox(height: 48),
 
-            // Submit Button
             RegainButtons(
               text: 'Submit',
               onPressed: _submitRating,

@@ -8,6 +8,7 @@ import 'package:regain_mobile/features/screens/green_zone/green_zone_page.dart';
 import 'package:regain_mobile/features/screens/login/login.dart';
 import 'package:regain_mobile/features/screens/orders/my_orders_page.dart';
 import 'package:regain_mobile/features/screens/profile/manage_addresses.dart';
+import 'package:regain_mobile/features/screens/profile/my_reviews_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/commissionBalance/combal_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/contactus_page.dart';
 import 'package:regain_mobile/features/screens/profile/profile_menu/listing_page.dart';
@@ -108,6 +109,22 @@ class ProfileMenu extends StatelessWidget {
           rightIcon: CupertinoIcons.chevron_forward,
         ),
         RegainButtons(
+          text: 'My Reviews',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MyCommentsPage(),
+              ),
+            );
+          },
+          type: ButtonType.transparentOutlined,
+          size: ButtonSize.large,
+          txtSize: BtnTxtSize.large,
+          leftIcon: CupertinoIcons.star_circle,
+          rightIcon: CupertinoIcons.chevron_forward,
+        ),
+        RegainButtons(
           text: 'Addresses',
           onPressed: () {
             Navigator.push(
@@ -173,30 +190,30 @@ class ProfileMenu extends StatelessWidget {
           leftIcon: CupertinoIcons.exclamationmark_circle,
           rightIcon: CupertinoIcons.chevron_forward,
         ),
-        RegainButtons(
-          text: 'Settings',
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SettingsPage()));
-          },
-          type: ButtonType.transparentOutlined,
-          size: ButtonSize.large,
-          txtSize: BtnTxtSize.large,
-          leftIcon: CupertinoIcons.settings,
-          rightIcon: CupertinoIcons.chevron_forward,
-        ),
-        RegainButtons(
-          text: 'Contact us',
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ContactUsPage()));
-          },
-          type: ButtonType.transparentOutlined,
-          size: ButtonSize.large,
-          txtSize: BtnTxtSize.large,
-          leftIcon: CupertinoIcons.chat_bubble_2,
-          rightIcon: CupertinoIcons.chevron_forward,
-        ),
+        // RegainButtons(
+        //   text: 'Settings',
+        //   onPressed: () {
+        //     Navigator.push(context,
+        //         MaterialPageRoute(builder: (context) => const SettingsPage()));
+        //   },
+        //   type: ButtonType.transparentOutlined,
+        //   size: ButtonSize.large,
+        //   txtSize: BtnTxtSize.large,
+        //   leftIcon: CupertinoIcons.settings,
+        //   rightIcon: CupertinoIcons.chevron_forward,
+        // ),
+        // RegainButtons(
+        //   text: 'Contact us',
+        //   onPressed: () {
+        //     Navigator.push(context,
+        //         MaterialPageRoute(builder: (context) => const ContactUsPage()));
+        //   },
+        //   type: ButtonType.transparentOutlined,
+        //   size: ButtonSize.large,
+        //   txtSize: BtnTxtSize.large,
+        //   leftIcon: CupertinoIcons.chat_bubble_2,
+        //   rightIcon: CupertinoIcons.chevron_forward,
+        // ),
         const SizedBox(
           height: ReGainSizes.spaceBtwSections,
         ),
