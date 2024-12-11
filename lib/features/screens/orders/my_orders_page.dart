@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/features/screens/homepage/selected_item.dart';
 import 'package:regain_mobile/features/screens/orders/order_log_page.dart';
 import 'package:regain_mobile/model/order_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
@@ -151,14 +152,23 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Product Name
-                          Text(
-                            '${order.product.productName}',
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
+                          GestureDetector(
+                            child: Text(
+                              '${order.product.productName}',
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              softWrap:
+                                  true, // Ensure the text wraps instead of being truncated
                             ),
-                            softWrap:
-                                true, // Ensure the text wraps instead of being truncated
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SelectedItemScreen(
+                                          item: order.product)));
+                            },
                           ),
                           const SizedBox(height: 4.0),
                           // Username
