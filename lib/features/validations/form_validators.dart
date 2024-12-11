@@ -307,4 +307,104 @@ class Validators {
     }
     return null;
   }
+
+  /// Validates a unit number
+  static String? unitNumberValidation(String? value,
+      {String fieldName = 'unit number'}) {
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+
+    // Allows letters, numbers, spaces, and periods
+    final regex = RegExp(r'^[a-zA-Z0-9\s.]+$');
+    if (!regex.hasMatch(value)) {
+      return '${capitalize(fieldName)} can only contain letters, numbers, spaces, and periods';
+    }
+
+    // Ensure it contains at least one letter or number
+    if (!RegExp(r'[a-zA-Z0-9]').hasMatch(value)) {
+      return '${capitalize(fieldName)} must contain at least one letter or number';
+    }
+
+    return null;
+  }
+
+  /// Validates a Philippine ZIP code: exactly 4 digits.
+  static String? zipCodeValidation(String? value,
+      {String fieldName = 'ZIP code'}) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a $fieldName';
+    }
+
+    // Exactly 4 digits
+    final regex = RegExp(r'^\d{4}$');
+    if (!regex.hasMatch(value)) {
+      return '${capitalize(fieldName)} must be a 4-digit number';
+    }
+
+    return null;
+  }
+
+  /// Validates a barangay
+  static String? barangayValidation(String? value,
+      {String fieldName = 'barangay'}) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a $fieldName';
+    }
+
+    // Allows letters, numbers, spaces, and dashes
+    final regex = RegExp(r'^[a-zA-Z0-9\s-]+$');
+    if (!regex.hasMatch(value)) {
+      return '${capitalize(fieldName)} can only contain letters, numbers, spaces, and dashes';
+    }
+
+    // Ensure it contains at least one letter
+    if (!RegExp(r'[a-zA-Z]').hasMatch(value)) {
+      return '${capitalize(fieldName)} must contain at least one letter';
+    }
+
+    return null;
+  }
+
+  /// Validates a city or state
+  static String? cityStateValidation(String? value,
+      {String fieldName = 'city or state'}) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a $fieldName';
+    }
+
+    // Allows letters, spaces, and dashes
+    final regex = RegExp(r'^[a-zA-Z\s-]+$');
+    if (!regex.hasMatch(value)) {
+      return '${capitalize(fieldName)} can only contain letters, spaces, and dashes';
+    }
+
+    // Ensure it contains at least one letter
+    if (!RegExp(r'[a-zA-Z]').hasMatch(value)) {
+      return '${capitalize(fieldName)} must contain at least one letter';
+    }
+
+    return null;
+  }
+
+  /// Validates a street address
+  static String? streetAddressValidation(String? value,
+      {String fieldName = 'street address'}) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a $fieldName';
+    }
+
+    // Allows letters, numbers, spaces, periods, commas, and dashes
+    final regex = RegExp(r'^[a-zA-Z0-9\s.,-]+$');
+    if (!regex.hasMatch(value)) {
+      return '${capitalize(fieldName)} can only contain letters, numbers, spaces, periods, commas, and dashes';
+    }
+
+    // Ensure it contains at least one letter
+    if (!RegExp(r'[a-zA-Z]').hasMatch(value)) {
+      return '${capitalize(fieldName)} must contain at least one letter';
+    }
+
+    return null;
+  }
 }

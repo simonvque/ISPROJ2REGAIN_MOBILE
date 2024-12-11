@@ -50,6 +50,10 @@ class AppDataProvider extends ChangeNotifier {
     // _userId = response.object.
   }
 
+  Future<ResponseModel> deleteUser(int id, UserModel userDTO) async {
+    return _dataSource.deleteUser(id, userDTO);
+  }
+
   Future<ResponseModel> updateUserProfile(
     UserProfileUpdateModel userProfileDTO, {
     File? profileImage,
@@ -137,4 +141,6 @@ class AppDataProvider extends ChangeNotifier {
       return null; // Return null on failure
     }
   }
+
+  getUsernameById(int ratedUserId) {}
 }

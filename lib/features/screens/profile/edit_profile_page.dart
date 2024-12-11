@@ -28,6 +28,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late UserProfileUpdateModel model;
 
   final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final junkshopController = TextEditingController();
@@ -58,6 +59,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       gcashQRcode: user.gcashQRcode,
     );
     usernameController.text = model.username;
+    emailController.text = user.email!;
     firstNameController.text = model.firstName ?? "";
     lastNameController.text = model.lastName ?? "";
     junkshopController.text = model.junkshopName ?? "";
@@ -179,6 +181,32 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   errorText: _errorMessage,
                   labelText: "Username",
                   hintText: "Your unique username",
+                  hintStyle: const TextStyle(fontSize: 12, color: Colors.grey),
+                  filled: true,
+                  fillColor: Colors.grey[200], // Light grey background
+                  disabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: green),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  floatingLabelStyle: const TextStyle(color: green),
+                  labelStyle: const TextStyle(color: Colors.grey),
+                ),
+                style: const TextStyle(
+                    color: Colors.grey), // Text color for non-editable look
+              ),
+
+              TextFormField(
+                controller: emailController,
+                readOnly: true, // Makes the field non-editable
+                decoration: InputDecoration(
+                  errorText: _errorMessage,
+                  labelText: "Email",
+                  hintText: "Your unique email address",
                   hintStyle: const TextStyle(fontSize: 12, color: Colors.grey),
                   filled: true,
                   fillColor: Colors.grey[200], // Light grey background

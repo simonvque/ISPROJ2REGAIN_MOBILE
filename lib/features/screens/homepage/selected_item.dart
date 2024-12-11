@@ -5,15 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/app_data_source.dart';
-import 'package:regain_mobile/features/screens/homepage/util/rating_util.dart';
-import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/favorite_model.dart';
 import 'package:regain_mobile/model/rating_model.dart';
 import 'package:regain_mobile/model/view_product_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/favorites_data_provider.dart';
 import 'package:regain_mobile/provider/rating_provider.dart';
-import 'package:regain_mobile/routes/route_manager.dart';
 
 import 'package:regain_mobile/features/screens/report_features/report_page.dart';
 
@@ -22,7 +19,6 @@ import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../chatfeatures/chat.dart';
 import '../offer/offerpopup.dart';
-// import '../offer/temp_view_product.dart';
 
 class SelectedItemScreen extends StatefulWidget {
   final ViewProduct item;
@@ -33,16 +29,6 @@ class SelectedItemScreen extends StatefulWidget {
 }
 
 class _SelectedItemScreenState extends State<SelectedItemScreen> {
-  // Declare variables for item details
-  // final String item = 'Plastic Straw';
-  // final String price = 'PHP 100';
-  // final String description =
-  //     'Hello! I have 2 bags of plastic straws available at my home. They are mostly made of polypropylene. Is anyone interested? Already 2 years long now. It is essential to understand that these straws are durable and can be used for various purposes. They are eco-friendly and can be recycled. Please let me know if you are interested.';
-
-  // final String category = 'Plastic';
-  // final String weight = '1 kg';
-  // final String location = 'Pasig City';
-  // final bool isSellerDropOff = false;
   bool? isFavorite;
   bool isDescriptionExpanded = false;
 
@@ -56,11 +42,12 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
 
   @override
   void initState() {
-    super.initState(); // Call the parent class's initState first.
 
-    isFavorite = widget.item.isFavorite; // Initialize state variables.
+    super.initState();
 
-    // Fetch the seller's profile image (asynchronous but not affecting UI immediately).
+    isFavorite = widget.item.isFavorite;
+
+    // Fetch the seller's profile image
     _fetchSellerProfileImage(widget.item.sellerUsername);
 
     // Fetch ratings and update state after the data is fetched.
@@ -129,10 +116,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> reviewTags = ['Timeliness', 'Professional', 'Friendly'];
-
     final user = Provider.of<AppDataProvider>(context, listen: false).user;
-
     // Decode the base64 image string from the item
     Uint8List? decodedImage;
     if (widget.item.image != null && widget.item.image!.isNotEmpty) {
@@ -254,6 +238,8 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                           ),
                         ],
                       ),
+//////////////////////// RATE AND REVIEWS
+//////////////////////// RATE AND REVIEWS
                       const SizedBox(height: 16),
                       Text(
                         'About Seller',
@@ -277,12 +263,16 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                                 '@${widget.item.sellerUsername}',
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
+                              const SizedBox(height: 8),
                               FutureBuilder<List<Rating>>(
                                 future: fetchSellerRatings(),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
-                                    return const CircularProgressIndicator();
+                                    return SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: CircularProgressIndicator());
                                   } else if (snapshot.hasError) {
                                     return Text('Error: ${snapshot.error}');
                                   } else if (!snapshot.hasData ||
@@ -295,14 +285,6 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                                         SizedBox(width: 4),
                                         Text(
                                             '${averageRating.toStringAsFixed(1)} ($totalReviews Reviews)'),
-                                        TextButton(
-                                          onPressed: () {
-                                            // Add logic to navigate to reviews page if necessary
-                                          },
-                                          child: const Text('View all reviews',
-                                              style: TextStyle(
-                                                  color: Colors.blue)),
-                                        ),
                                       ],
                                     );
                                   }
@@ -315,19 +297,101 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                       const SizedBox(height: 16),
                       Text(
                         'Reviews',
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 8,
-                        children: reviewTags.map((tag) {
-                          return Chip(
-                            label: Text(tag),
-                            backgroundColor: green,
-                            labelStyle: const TextStyle(color: white),
-                            side: BorderSide.none,
-                          );
-                        }).toList(),
+                      FutureBuilder<List<Rating>>(
+                        future: fetchSellerRatings(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text('Error: ${snapshot.error}'));
+                          } else if (!snapshot.hasData ||
+                              snapshot.data!.isEmpty) {
+                            return const Center(
+                                child: Text('No reviews available'));
+                          } else {
+                            List<Rating> ratings = snapshot.data!;
+                            return Column(
+                              children: ratings.map((rating) {
+                                return Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  padding: const EdgeInsets.all(16.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 20,
+                                        backgroundColor: Colors.grey[400],
+                                        child: const Icon(Icons.person,
+                                            color: Colors.white),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Anonymous User',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              rating.comments,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Row(
+                                              children: List.generate(
+                                                rating.rateValue,
+                                                (index) => const Icon(
+                                                    Icons.star,
+                                                    color: Colors.amber,
+                                                    size: 16),
+                                              ),
+                                            ),
+                                            if (rating.dateEdited != null) ...[
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                'Edited',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall
+                                                    ?.copyWith(
+                                                      color: Colors.grey,
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                    ),
+                                              ),
+                                            ],
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            );
+                          }
+                        },
                       ),
                       const SizedBox(height: 16),
                     ],
@@ -337,91 +401,119 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
             ),
           ),
           Positioned(
-            top: 16,
+            top: 48,
             left: 16,
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: green.withOpacity(0.6),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back, color: white),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
           ),
+
 //////////////////////// REPORTS PAGE
 //////////////////////// REPORTS PAGE
           Positioned(
-            top: 16,
+            top: 48,
             right: 16,
-            child: PopupMenuButton<String>(
-              icon: const Icon(Icons.flag, color: Colors.white),
-              onSelected: (String reportType) async {
-                final appDataProvider =
-                    Provider.of<AppDataProvider>(context, listen: false);
-                final reporterID = appDataProvider.userId;
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: green.withOpacity(0.6),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: black.withOpacity(0.2),
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: PopupMenuButton<String>(
+                icon: const Icon(Icons.flag, color: white),
+                onSelected: (String reportType) async {
+                  final appDataProvider =
+                      Provider.of<AppDataProvider>(context, listen: false);
+                  final reporterID = appDataProvider.userId;
 
-                if (reporterID == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('You must be logged in to report an item.'),
-                    ),
-                  );
-                  return;
-                }
-
-                if (reportType == 'product') {
-                  // Navigate to the ReportPage for reporting a product
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ReportPage(
-                        reportType: 'product', // Pass reportType as 'product'
-                        productName: widget.item.productName,
-                        sellerUsername: widget.item.sellerUsername,
-                        productCategory: widget.item.category,
-                        productPrice: widget.item.price.toString(),
-                        reporterID: reporterID,
-                        reportedListingID: widget.item.productID!, // Product ID
+                  if (reporterID == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content:
+                            Text('You must be logged in to report an item.'),
                       ),
-                    ),
-                  );
-                } else if (reportType == 'user') {
-                  final sellerUsername = widget.item.sellerUsername;
+                    );
+                    return;
+                  }
 
-                  try {
-                    // Fetch seller ID dynamically using the seller's username
-                    final sellerId = await _fetchSellerIdByUsername(
-                        sellerUsername, ipAddress);
-
-                    // Navigate to the ReportPage for reporting a user
+                  if (reportType == 'product') {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => ReportPage(
-                          reportType: 'user', // Pass reportType as 'user'
-                          productName: '',
-                          sellerUsername: sellerUsername,
-                          productCategory: '',
-                          productPrice: '',
+                          reportType: 'product',
+                          productName: widget.item.productName,
+                          sellerUsername: widget.item.sellerUsername,
+                          productCategory: widget.item.category,
+                          productPrice: widget.item.price.toString(),
                           reporterID: reporterID,
-                          reportedListingID:
-                              sellerId, // Seller's User ID fetched dynamically
+                          reportedListingID: widget.item.productID!,
                         ),
                       ),
                     );
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Failed to fetch seller ID: $e')),
-                    );
+                  } else if (reportType == 'user') {
+                    final sellerUsername = widget.item.sellerUsername;
+
+                    try {
+                      final sellerId = await _fetchSellerIdByUsername(
+                          sellerUsername, ipAddress);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ReportPage(
+                            reportType: 'user',
+                            productName: '',
+                            sellerUsername: sellerUsername,
+                            productCategory: '',
+                            productPrice: '',
+                            reporterID: reporterID,
+                            reportedListingID: sellerId,
+                          ),
+                        ),
+                      );
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text('Failed to fetch seller ID: $e')),
+                      );
+                    }
                   }
-                }
-              },
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                const PopupMenuItem<String>(
-                  value: 'product',
-                  child: Text('Report Product'),
-                ),
-                const PopupMenuItem<String>(
-                  value: 'user',
-                  child: Text('Report User'),
-                ),
-              ],
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  const PopupMenuItem<String>(
+                    value: 'product',
+                    child: Text('Report Product'),
+                  ),
+                  const PopupMenuItem<String>(
+                    value: 'user',
+                    child: Text('Report User'),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -454,7 +546,6 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                   );
                   return;
                 }
-
                 try {
                   // Fetch seller ID
                   final sellerId =
@@ -479,42 +570,43 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                 }
               },
             ),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  // -------------------- PLACE OFFER --------------------
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      final username =
-                          Provider.of<AppDataProvider>(context, listen: false)
-                              .user!
-                              .username;
-                      final dataSource =
-                          Provider.of<AppDataSource>(context, listen: false);
-                      return OfferPricePopup(
-                        sellerUsername: widget.item.sellerUsername,
-                        defaultOfferPrice: widget.item.price,
-                        prod: widget.item,
-                        buyerName: username,
-                        dataSource: dataSource,
-                      );
-                    },
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            if (user?.accountStatus != "Frozen")
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // -------------------- PLACE OFFER --------------------
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        final username =
+                            Provider.of<AppDataProvider>(context, listen: false)
+                                .user!
+                                .username;
+                        final dataSource =
+                            Provider.of<AppDataSource>(context, listen: false);
+                        return OfferPricePopup(
+                          sellerUsername: widget.item.sellerUsername,
+                          defaultOfferPrice: widget.item.price,
+                          prod: widget.item,
+                          buyerName: username,
+                          dataSource: dataSource,
+                        );
+                      },
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    foregroundColor: Colors.white,
+                    backgroundColor: green,
                   ),
-                  foregroundColor: Colors.white,
-                  backgroundColor: green,
-                ),
-                child: const Text(
-                  'Place Offer',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  child: const Text(
+                    'Place Offer',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),

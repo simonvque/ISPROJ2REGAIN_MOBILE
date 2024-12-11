@@ -26,20 +26,20 @@ class SettingsPage extends StatelessWidget {
             style:
                 Theme.of(context).textTheme.labelMedium?.copyWith(color: gray),
           ),
-          RegainButtons(
-            text: 'Change password',
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChangePWPage()));
-            },
-            type: ButtonType.transparentOutlined,
-            size: ButtonSize.large,
-            txtSize: BtnTxtSize.large,
-            leftIcon: CupertinoIcons.lock_shield,
-            rightIcon: CupertinoIcons.chevron_forward,
-          ),
+          // RegainButtons(
+          //   text: 'Change password',
+          //   onPressed: () {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //             builder: (context) => const ChangePWPage()));
+          //   },
+          //   type: ButtonType.transparentOutlined,
+          //   size: ButtonSize.large,
+          //   txtSize: BtnTxtSize.large,
+          //   leftIcon: CupertinoIcons.lock_shield,
+          //   rightIcon: CupertinoIcons.chevron_forward,
+          // ),
           RegainButtons(
             text: 'Delete account',
             onPressed: () {
@@ -52,36 +52,36 @@ class SettingsPage extends StatelessWidget {
             leftIcon: CupertinoIcons.lock_shield,
             rightIcon: CupertinoIcons.chevron_forward,
           ),
-          Text(
-            ReGainTexts.lblSettingsAbt,
-            style:
-                Theme.of(context).textTheme.labelMedium?.copyWith(color: gray),
-          ),
-          RegainButtons(
-            text: 'FAQs',
-            onPressed: () {
-              //FAQs page
-            },
-            type: ButtonType.transparentOutlined,
-            size: ButtonSize.large,
-            txtSize: BtnTxtSize.large,
-            leftIcon: CupertinoIcons.question_circle,
-            rightIcon: CupertinoIcons.chevron_forward,
-          ),
-          RegainButtons(
-            text: 'Legal & policies',
-            onPressed: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => const LegalPolPage()));
-            },
-            type: ButtonType.transparentOutlined,
-            size: ButtonSize.large,
-            txtSize: BtnTxtSize.large,
-            leftIcon: CupertinoIcons.doc_plaintext,
-            rightIcon: CupertinoIcons.chevron_forward,
-          ),
+          // Text(
+          //   ReGainTexts.lblSettingsAbt,
+          //   style:
+          //       Theme.of(context).textTheme.labelMedium?.copyWith(color: gray),
+          // ),
+          // RegainButtons(
+          //   text: 'FAQs',
+          //   onPressed: () {
+          //     //FAQs page
+          //   },
+          //   type: ButtonType.transparentOutlined,
+          //   size: ButtonSize.large,
+          //   txtSize: BtnTxtSize.large,
+          //   leftIcon: CupertinoIcons.question_circle,
+          //   rightIcon: CupertinoIcons.chevron_forward,
+          // ),
+          // RegainButtons(
+          //   text: 'Legal & policies',
+          //   onPressed: () {
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => const LegalPolPage()));
+          //   },
+          //   type: ButtonType.transparentOutlined,
+          //   size: ButtonSize.large,
+          //   txtSize: BtnTxtSize.large,
+          //   leftIcon: CupertinoIcons.doc_plaintext,
+          //   rightIcon: CupertinoIcons.chevron_forward,
+          // ),
         ]),
       ),
     );
