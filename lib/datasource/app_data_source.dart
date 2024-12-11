@@ -41,7 +41,6 @@ class AppDataSource extends DataSource {
   // final _ipAddPort = '159.223.37.215:40002';
   final _ipAddPort = '192.168.1.15:9191';
 
-
   get ipAddPort => _ipAddPort;
 
   // baseUrl = emulator IP + Spring Boot backend port + route

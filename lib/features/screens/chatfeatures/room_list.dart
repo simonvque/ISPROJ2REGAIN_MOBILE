@@ -35,12 +35,23 @@ class RoomListScreen extends StatelessWidget {
         String lastMessage = roomJson['lastMessage'] ?? 'No messages yet';
         String timestamp = roomJson['timestamp'] ??
             '2023-01-01T00:00:00Z'; // Handle null timestamp
+        // Determine receiverId
+        String userId1 = roomJson['userId1'].toString(); // First participant
+        String userId2 = roomJson['userId2'].toString(); // Second participant
+        String receiverId = userId1 == userId ? userId2 : userId1;
+        print('userId1: $userId1, userId2: $userId2, currentUserId: $userId');
+
+        if (receiverId.isEmpty) {
+          print('Error: receiverId could not be determined');
+          continue; // Skip this room if receiverId is invalid
+        }
 
         rooms.add(Room(
           roomId: roomId,
           roomName: roomName, // Directly use roomName
           lastMessage: lastMessage,
           timestamp: timestamp,
+          receiverId: receiverId,
         ));
       }
 
@@ -114,6 +125,7 @@ class RoomListScreen extends StatelessWidget {
                             child: ChatScreen(
                               roomId: room.roomId,
                               userId: userId,
+                              receiverId: room.receiverId, // Pass receiverId
                             ),
                           ),
                         ),
@@ -135,12 +147,14 @@ class Room {
   final String roomName;
   final String lastMessage;
   final String timestamp;
+  final String receiverId;
 
   Room({
     required this.roomId,
     required this.roomName,
     required this.lastMessage,
     required this.timestamp,
+    required this.receiverId,
   });
 
   String get timestampFormatted {

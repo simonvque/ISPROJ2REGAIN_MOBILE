@@ -6,9 +6,14 @@ import 'chat_service.dart';
 class ChatScreen extends StatefulWidget {
   final String roomId;
   final String userId;
+  final String receiverId; // Add receiverId
 
-  const ChatScreen({Key? key, required this.roomId, required this.userId})
-      : super(key: key);
+  const ChatScreen({
+    Key? key,
+    required this.roomId,
+    required this.userId,
+    required this.receiverId,
+  }) : super(key: key);
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -24,16 +29,19 @@ class _ChatScreenState extends State<ChatScreen> {
     // Ensure the provider is available
     WidgetsBinding.instance.addPostFrameCallback((_) {
       chatService = Provider.of<ChatService>(context, listen: false);
-      chatService.connect(widget.roomId); // Connect only once here
+      chatService.connect(
+          widget.roomId, widget.userId, context); // Connect only once here
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Chat'),
-      backgroundColor: green,
-      foregroundColor: white,),
+      appBar: AppBar(
+        title: const Text('Chat'),
+        backgroundColor: green,
+        foregroundColor: white,
+      ),
       body: Consumer<ChatService>(
         builder: (context, chatService, child) {
           return Column(
@@ -73,9 +81,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
-                                        color: isSentByUser
-                                            ? black
-                                            : black,
+                                        color: isSentByUser ? black : black,
                                       ),
                                     ),
                                     const SizedBox(height: 16),
@@ -83,9 +89,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                       message.content,
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color: isSentByUser
-                                            ? black
-                                            : black,
+                                        color: isSentByUser ? black : black,
                                         letterSpacing: 0.25,
                                         height: 1.5,
                                       ),
@@ -124,13 +128,13 @@ class _ChatScreenState extends State<ChatScreen> {
                           hintText: 'Type a message...',
                           border: OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: green, 
-                                  width: 2.0, 
-                                ),
-                              ),
+                            borderSide: BorderSide(
+                              color: green,
+                              width: 2.0,
                             ),
                           ),
+                        ),
+                      ),
                     ),
                     IconButton(
                       color: green600,
@@ -138,10 +142,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       onPressed: () {
                         if (messageController.text.isNotEmpty && mounted) {
                           chatService.sendMessage(
-                            widget.userId,
-                            messageController.text,
-                            widget
-                                .userId, // Assuming `receiverId` is optional here
+                            widget.userId, // senderId
+                            messageController.text, // content
+                            widget.receiverId, // receiverId
                           );
                           messageController.clear();
                         }
