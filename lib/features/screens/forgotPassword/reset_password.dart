@@ -19,7 +19,8 @@ class ResetPasswordScreen extends StatefulWidget {
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final TextEditingController otpController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   String? errorMessage;
   String? successMessage;
@@ -49,36 +50,39 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 const SizedBox(height: ReGainSizes.spaceBtwItems),
 
                 // Success Message
-                    if (successMessage != null)
-                      AnimatedOpacity(
-                        opacity: 1.0,
-                        duration: const Duration(milliseconds: 300),
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: ReGainSizes.spaceBtwItems),
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: Colors.green.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.check_circle, color: Colors.green, size: 20),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  successMessage ?? '',
-                                  style: const TextStyle(color: Colors.green),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                if (successMessage != null)
+                  AnimatedOpacity(
+                    opacity: 1.0,
+                    duration: const Duration(milliseconds: 300),
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                          bottom: ReGainSizes.spaceBtwItems),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.green.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
                       ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.check_circle,
+                              color: Colors.green, size: 20),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              successMessage ?? '',
+                              style: const TextStyle(color: Colors.green),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
 
                 // OTP input field
                 if (!isOtpVerified)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: ReGainSizes.spaceBtwItems),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: ReGainSizes.spaceBtwItems),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: List.generate(4, (index) {
@@ -86,7 +90,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           width: 60,
                           child: TextField(
                             controller: TextEditingController(
-                              text: otpController.text.length > index ? otpController.text[index] : '',
+                              text: otpController.text.length > index
+                                  ? otpController.text[index]
+                                  : '',
                             ),
                             keyboardType: TextInputType.number,
                             textAlign: TextAlign.center,
@@ -101,7 +107,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               String currentOtp = otpController.text;
                               if (value.isNotEmpty) {
                                 if (index < currentOtp.length) {
-                                  otpController.text = currentOtp.substring(0, index) + value;
+                                  otpController.text =
+                                      currentOtp.substring(0, index) + value;
                                 } else {
                                   otpController.text += value;
                                 }
@@ -126,7 +133,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     opacity: errorMessage!.isNotEmpty ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 300),
                     child: Container(
-                      margin: const EdgeInsets.only(bottom: ReGainSizes.spaceBtwItems),
+                      margin: const EdgeInsets.only(
+                          bottom: ReGainSizes.spaceBtwItems),
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: Colors.red.withOpacity(0.1),
@@ -147,7 +155,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     ),
                   ),
 
-
                 if (!isOtpVerified)
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
@@ -157,7 +164,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         onPressed: () async {
                           if (otpController.text.length != 4) {
                             setState(() {
-                              errorMessage = 'Please enter a valid 4-digit OTP.';
+                              errorMessage =
+                                  'Please enter a valid 4-digit OTP.';
                             });
                           } else {
                             setState(() {
@@ -168,7 +176,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             if (provider.successMessage.isNotEmpty) {
                               setState(() {
                                 isOtpVerified = true;
-                                successMessage = "OTP verified. You can now reset your password.";
+                                successMessage =
+                                    "OTP verified. You can now reset your password.";
                               });
                             } else {
                               setState(() {
@@ -191,12 +200,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     ),
                   ),
 
-                 // Password field
+                // Password field
                 if (isOtpVerified && !isPasswordReset)
                   Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: ReGainSizes.spaceBtwItems),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: ReGainSizes.spaceBtwItems),
                         child: TextField(
                           controller: passwordController,
                           obscureText: !showPassword,
@@ -205,7 +215,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             prefixIcon: const Icon(Icons.lock),
                             suffixIcon: IconButton(
                               icon: Icon(
-                                showPassword ? Icons.visibility : Icons.visibility_off,
+                                showPassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
                               ),
                               onPressed: () {
                                 setState(() {
@@ -220,9 +232,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           ),
                         ),
                       ),
-
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: ReGainSizes.spaceBtwItems),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: ReGainSizes.spaceBtwItems),
                         child: TextField(
                           controller: confirmPasswordController,
                           obscureText: !showConfirmPassword,
@@ -231,7 +243,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             prefixIcon: const Icon(Icons.lock),
                             suffixIcon: IconButton(
                               icon: Icon(
-                                showConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                                showConfirmPassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
                               ),
                               onPressed: () {
                                 setState(() {
@@ -257,32 +271,50 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           String password = passwordController.text.trim();
-                          String confirmPassword = confirmPasswordController.text.trim();
+                          String confirmPassword =
+                              confirmPasswordController.text.trim();
 
+                          // 1. Check if all fields are filled
                           if (password.isEmpty || confirmPassword.isEmpty) {
                             setState(() {
                               errorMessage = 'Please fill out all fields.';
                             });
-                          } else if (password != confirmPassword) {
+                            return;
+                          }
+
+                          // 2. Validate the password
+                          String? validationError = validatePassword(password);
+                          if (validationError != null) {
+                            setState(() {
+                              errorMessage = validationError;
+                            });
+                            return;
+                          }
+
+                          // 3. Check if passwords match
+                          if (password != confirmPassword) {
                             setState(() {
                               errorMessage = 'Passwords do not match.';
                             });
+                            return;
+                          }
+
+                          // If all validations pass, proceed with password reset
+                          setState(() {
+                            errorMessage = null;
+                          });
+
+                          await provider.resetPassword(
+                              otpController.text, password);
+                          if (provider.successMessage.isNotEmpty) {
+                            setState(() {
+                              successMessage = provider.successMessage;
+                              isPasswordReset = true;
+                            });
                           } else {
                             setState(() {
-                              errorMessage = null;
+                              errorMessage = 'Failed to reset password.';
                             });
-
-                            await provider.resetPassword(otpController.text, password);
-                            if (provider.successMessage.isNotEmpty) {
-                              setState(() {
-                                successMessage = provider.successMessage;
-                                isPasswordReset = true;
-                              });
-                            } else {
-                              setState(() {
-                                errorMessage = 'Failed to reset password.';
-                              });
-                            }
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -307,11 +339,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
-                              ),
-                            );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -331,4 +363,35 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       },
     );
   }
+}
+
+String? validatePassword(String password) {
+  List<String> conditions = [];
+
+  if (password.length < 12) {
+    conditions.add('12+ characters');
+  }
+  if (!password.contains(RegExp(r'[A-Z]'))) {
+    conditions.add('an uppercase letter');
+  }
+  if (!password.contains(RegExp(r'[a-z]'))) {
+    conditions.add('a lowercase letter');
+  }
+  if (!password.contains(RegExp(r'\d'))) {
+    conditions.add('a number');
+  }
+  if (!password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+    conditions.add('a special character');
+  }
+
+  if (conditions.isEmpty) {
+    return null; // No errors
+  }
+
+  // Join the conditions with commas and "and" for the last condition
+  String conditionSentence = conditions.length == 1
+      ? conditions.first
+      : '${conditions.sublist(0, conditions.length - 1).join(", ")}, and ${conditions.last}';
+
+  return 'Password must have: $conditionSentence.';
 }
