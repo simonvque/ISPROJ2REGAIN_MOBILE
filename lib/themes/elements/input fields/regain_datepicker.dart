@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../../../constants/colors.dart';
 
-class RegainTextbox extends StatefulWidget {
+class RegainDatePicker extends StatefulWidget {
   final String? labelText;
   final String? hintText;
   final Color focusedBorderColor;
@@ -15,15 +15,17 @@ class RegainTextbox extends StatefulWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool isUnderlineBorder;
-  TextEditingController? controller;
-  String? Function(String?)? validator;
-  List<TextInputFormatter>? inputFormatters;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final List<TextInputFormatter>? inputFormatters;
   final ValueChanged<String>? onChanged;
+  final bool obscureText;
+  final bool readOnly; // Added for read-only support
+  final VoidCallback? onTap; // Added for onTap support
 
   String? errorText;
-  final bool obscureText;
 
-  RegainTextbox({
+  RegainDatePicker({
     super.key,
     this.controller,
     this.validator,
@@ -42,13 +44,15 @@ class RegainTextbox extends StatefulWidget {
     this.isUnderlineBorder = false,
     this.obscureText = false,
     this.onChanged,
+    this.readOnly = false, // Default is false
+    this.onTap, // Default is null
   });
 
   @override
-  State<RegainTextbox> createState() => _RegainTextboxState();
+  State<RegainDatePicker> createState() => _RegainDatePickerState();
 }
 
-class _RegainTextboxState extends State<RegainTextbox> {
+class _RegainDatePickerState extends State<RegainDatePicker> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -58,6 +62,8 @@ class _RegainTextboxState extends State<RegainTextbox> {
       inputFormatters: widget.inputFormatters,
       obscureText: widget.obscureText,
       onChanged: widget.onChanged,
+      readOnly: widget.readOnly, // Apply read-only property
+      onTap: widget.onTap, // Apply onTap property
       style: TextStyle(color: widget.fontColor),
       decoration: InputDecoration(
         errorText: widget.errorText,

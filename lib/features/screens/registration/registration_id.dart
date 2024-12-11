@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/sizes.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/features/validations/form_validators.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/user_id_model.dart';
 import 'package:regain_mobile/model/user_model.dart';
@@ -15,6 +16,8 @@ import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/features/screens/registration/registration_complete_page.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
+import 'package:regain_mobile/themes/elements/input%20fields/regain_datepicker.dart';
+import 'package:regain_mobile/themes/elements/input%20fields/regain_textbox.dart';
 
 class RegistrationIDPage extends StatefulWidget {
   final UserModel user;
@@ -35,6 +38,8 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
 
   String? errorTxt;
 
+  bool _isLoading = false; // To track loading state
+
   //final idTypeController = TextEditingController();
   String? idType;
   final idNumController = TextEditingController();
@@ -51,6 +56,10 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
         });
         return;
       }
+
+      setState(() {
+        _isLoading = true; // Start loading
+      });
 
       final submittedUser = UserModel(
         lastName: lastNameController.text.trim(),
@@ -86,6 +95,10 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
             errorTxt = response.message;
           });
         }
+      }).whenComplete(() {
+        setState(() {
+          _isLoading = false; // Stop loading
+        });
       });
     }
   }
@@ -194,6 +207,17 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
                   ),
                 ),
               ),
+              if (_idImageFile == null && errorTxt != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    errorTxt!,
+                    style: const TextStyle(
+                      color: red,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
               const SizedBox(height: 20),
               const Text(
                 'ID Type:',
@@ -243,22 +267,12 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              TextFormField(
+              RegainTextbox(
                 controller: idNumController,
-                decoration: InputDecoration(
-                  errorText: errorTxt,
-                  errorMaxLines: 2,
-                  hintText: 'Enter your ID Number',
-                  border: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: green),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter the ID number";
-                  }
-                  return null;
-                },
+                validator: (value) => Validators.idNumberValidation(value,
+                    fieldName: 'ID number'),
+                hintText: 'ID Number',
+                isUnderlineBorder: true,
               ),
               const SizedBox(height: 20),
               const Text(
@@ -268,20 +282,12 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              TextFormField(
+              RegainTextbox(
                 controller: firstNameController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your first name',
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: green),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter a first name";
-                  }
-                  return null;
-                },
+                validator: (value) =>
+                    Validators.nameValidation(value, fieldName: 'first name'),
+                hintText: 'First name',
+                isUnderlineBorder: true,
               ),
               const SizedBox(height: 20),
               const Text(
@@ -291,20 +297,12 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              TextFormField(
+              RegainTextbox(
                 controller: lastNameController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your last name',
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: green),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter a last name";
-                  }
-                  return null;
-                },
+                validator: (value) =>
+                    Validators.nameValidation(value, fieldName: 'last name'),
+                hintText: 'Last name',
+                isUnderlineBorder: true,
               ),
               const SizedBox(height: 20),
               const Text(
@@ -315,9 +313,11 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
                 ),
               ),
               const SizedBox(height: 8),
-              TextFormField(
+              RegainDatePicker(
                 controller: bdayController,
+                hintText: 'Select your Birth Date',
                 readOnly: true,
+                suffixIcon: const Icon(Icons.calendar_today),
                 onTap: () async {
                   _selectedDateTime = await showDatePicker(
                     context: context,
@@ -326,36 +326,52 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
                     lastDate: DateTime.now(),
                   );
                   if (_selectedDateTime != null) {
-                    //validation code here
+                    // Format and set the selected date
                     bdayController.text =
                         DateFormat.yMMMd().format(_selectedDateTime!);
                   }
                 },
-                decoration: const InputDecoration(
-                  hintText: 'Select your Birth Date',
-                  suffixIcon: Icon(Icons.calendar_today),
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: green),
-                  ),
-                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter a valid date";
+                    return "Please enter a birth date";
                   }
+
+                  // Check if the user is at least 18 years old
+                  final DateTime today = DateTime.now();
+                  final DateTime? birthDate = _selectedDateTime;
+
+                  if (birthDate == null) {
+                    return "Please select a birth date";
+                  }
+
+                  final int age = today.year - birthDate.year;
+                  final bool hasHadBirthdayThisYear =
+                      today.month > birthDate.month ||
+                          (today.month == birthDate.month &&
+                              today.day >= birthDate.day);
+
+                  if (age < 18 || (age == 18 && !hasHadBirthdayThisYear)) {
+                    return "User must be at least 18 years old";
+                  }
+
                   return null;
                 },
+                isUnderlineBorder: true,
               ),
               const SizedBox(
                 height: ReGainSizes.spaceBtwSections,
               ),
               RegainButtons(
                 text: ReGainTexts.signUp,
-                onPressed: () {
-                  _addUserID();
-                },
+                onPressed: _isLoading
+                    ? null // Disable the button when loading
+                    : () {
+                        _addUserID();
+                      }, // Call the _addUserID function when not loading
                 type: ButtonType.filled,
                 txtSize: BtnTxtSize.large,
                 size: ButtonSize.large,
+                isLoading: _isLoading, // Pass the loading state
               ),
             ],
           ),

@@ -8,6 +8,7 @@ import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/constants/sizes.dart';
+import 'package:regain_mobile/features/validations/form_validators.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:regain_mobile/helper_functions.dart';
@@ -173,36 +174,60 @@ class _EditProfilePageState extends State<EditProfilePage> {
               const SizedBox(height: 4),
               TextFormField(
                 controller: usernameController,
-                readOnly: usernameNotEditable,
+                readOnly: true, // Makes the field non-editable
                 decoration: InputDecoration(
-                    errorText: _errorMessage,
-                    labelText: "Username",
-                    hintText: "Your unique username",
-                    hintStyle: const TextStyle(fontSize: 12),
-                    focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: green)),
-                    floatingLabelStyle: const TextStyle(color: green)),
+                  errorText: _errorMessage,
+                  labelText: "Username",
+                  hintText: "Your unique username",
+                  hintStyle: const TextStyle(fontSize: 12, color: Colors.grey),
+                  filled: true,
+                  fillColor: Colors.grey[200], // Light grey background
+                  disabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: green),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  floatingLabelStyle: const TextStyle(color: green),
+                  labelStyle: const TextStyle(color: Colors.grey),
+                ),
+                style: const TextStyle(
+                    color: Colors.grey), // Text color for non-editable look
               ),
+
               TextFormField(
                 controller: firstNameController,
                 decoration: const InputDecoration(
-                    labelText: "First name",
-                    hintText: "Enter first name",
-                    hintStyle: TextStyle(fontSize: 12),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: green)),
-                    floatingLabelStyle: TextStyle(color: green)),
+                  labelText: "First name",
+                  hintText: "Enter first name",
+                  hintStyle: TextStyle(fontSize: 12),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: green),
+                  ),
+                  floatingLabelStyle: TextStyle(color: green),
+                ),
+                validator: (value) =>
+                    Validators.nameValidation(value, fieldName: 'first name'),
               ),
+
               TextFormField(
                 controller: lastNameController,
                 decoration: const InputDecoration(
-                    labelText: "Last name",
-                    hintText: "Enter last name",
-                    hintStyle: TextStyle(fontSize: 12),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: green)),
-                    floatingLabelStyle: TextStyle(color: green)),
+                  labelText: "Last name",
+                  hintText: "Enter last name",
+                  hintStyle: TextStyle(fontSize: 12),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: green),
+                  ),
+                  floatingLabelStyle: TextStyle(color: green),
+                ),
+                validator: (value) =>
+                    Validators.nameValidation(value, fieldName: 'last name'),
               ),
+
               const SizedBox(height: 10),
 
               Text(
@@ -213,13 +238,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
               TextFormField(
                 controller: junkshopController,
                 decoration: const InputDecoration(
-                    labelText: "Junk Shop Name",
-                    hintText: "Enter junk shop name",
-                    hintStyle: TextStyle(fontSize: 12),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: green)),
-                    floatingLabelStyle: TextStyle(color: green)),
+                  labelText: "Junk Shop Name",
+                  hintText: "Enter junk shop name",
+                  hintStyle: TextStyle(fontSize: 12),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: green),
+                  ),
+                  floatingLabelStyle: TextStyle(color: green),
+                  errorMaxLines: 10,
+                ),
+                validator: (value) => Validators.junkShopNameValidation(value,
+                    fieldName: 'junk shop name'),
               ),
+
               const SizedBox(height: 10),
 
               // GCASH QR Code Upload
@@ -291,12 +322,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
       final updatedProfile = UserProfileUpdateModel(
         id: model.id,
         username: model.username,
-        firstName:
-            firstNameController.text.isNotEmpty ? firstNameController.text : "",
-        lastName:
-            lastNameController.text.isNotEmpty ? lastNameController.text : "",
-        junkshopName:
-            junkshopController.text.isNotEmpty ? junkshopController.text : "",
+        firstName: firstNameController.text.trim(),
+        lastName: lastNameController.text.trim(),
+        junkshopName: junkshopController.text.trim(),
       );
 
       Provider.of<AppDataProvider>(context, listen: false)

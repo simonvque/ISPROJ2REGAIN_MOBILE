@@ -22,8 +22,8 @@ PaymentModel _$PaymentModelFromJson(Map<String, dynamic> json) {
 mixin _$PaymentModel {
   int? get id => throw _privateConstructorUsedError;
   set id(int? value) => throw _privateConstructorUsedError;
-  String get paymentType => throw _privateConstructorUsedError;
-  set paymentType(String value) => throw _privateConstructorUsedError;
+  String? get paymentType => throw _privateConstructorUsedError;
+  set paymentType(String? value) => throw _privateConstructorUsedError;
   String get amountPaid => throw _privateConstructorUsedError;
   set amountPaid(String value) => throw _privateConstructorUsedError;
   String? get referenceNumber => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ abstract class $PaymentModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
-      String paymentType,
+      String? paymentType,
       String amountPaid,
       String? referenceNumber,
       String? status,
@@ -74,7 +74,7 @@ class _$PaymentModelCopyWithImpl<$Res, $Val extends PaymentModel>
   @override
   $Res call({
     Object? id = freezed,
-    Object? paymentType = null,
+    Object? paymentType = freezed,
     Object? amountPaid = null,
     Object? referenceNumber = freezed,
     Object? status = freezed,
@@ -85,10 +85,10 @@ class _$PaymentModelCopyWithImpl<$Res, $Val extends PaymentModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      paymentType: null == paymentType
+      paymentType: freezed == paymentType
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       amountPaid: null == amountPaid
           ? _value.amountPaid
           : amountPaid // ignore: cast_nullable_to_non_nullable
@@ -119,7 +119,7 @@ abstract class _$$PaymentModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? id,
-      String paymentType,
+      String? paymentType,
       String amountPaid,
       String? referenceNumber,
       String? status,
@@ -140,7 +140,7 @@ class __$$PaymentModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? paymentType = null,
+    Object? paymentType = freezed,
     Object? amountPaid = null,
     Object? referenceNumber = freezed,
     Object? status = freezed,
@@ -151,10 +151,10 @@ class __$$PaymentModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      paymentType: null == paymentType
+      paymentType: freezed == paymentType
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       amountPaid: null == amountPaid
           ? _value.amountPaid
           : amountPaid // ignore: cast_nullable_to_non_nullable
@@ -180,7 +180,7 @@ class __$$PaymentModelImplCopyWithImpl<$Res>
 class _$PaymentModelImpl implements _PaymentModel {
   _$PaymentModelImpl(
       {this.id,
-      required this.paymentType,
+      this.paymentType,
       required this.amountPaid,
       this.referenceNumber,
       this.status,
@@ -192,7 +192,7 @@ class _$PaymentModelImpl implements _PaymentModel {
   @override
   int? id;
   @override
-  String paymentType;
+  String? paymentType;
   @override
   String amountPaid;
   @override
@@ -226,7 +226,7 @@ class _$PaymentModelImpl implements _PaymentModel {
 abstract class _PaymentModel implements PaymentModel {
   factory _PaymentModel(
       {int? id,
-      required String paymentType,
+      String? paymentType,
       required String amountPaid,
       String? referenceNumber,
       String? status,
@@ -239,8 +239,8 @@ abstract class _PaymentModel implements PaymentModel {
   int? get id;
   set id(int? value);
   @override
-  String get paymentType;
-  set paymentType(String value);
+  String? get paymentType;
+  set paymentType(String? value);
   @override
   String get amountPaid;
   set amountPaid(String value);

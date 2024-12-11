@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/features/validations/form_validators.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/category.dart';
 import 'package:regain_mobile/model/product_listing.dart';
@@ -126,26 +127,16 @@ class _EditListingPageState extends State<EditListingPage> {
               _buildTextField(
                 controller: productNameController,
                 hintText: 'Name of the Product',
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter a valid product name";
-                  }
-                  return null;
-                },
+                validator: (value) => Validators.productNameValidation(value,
+                    fieldName: 'product name'),
               ),
               _buildTextField(
                 controller: priceController,
                 hintText: 'Price',
                 prefixText: '₱',
                 keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null ||
-                      value.isEmpty ||
-                      !_validateDecimalInput(value)) {
-                    return "Please enter a valid price";
-                  }
-                  return null;
-                },
+                validator: (value) =>
+                    Validators.priceValidation(value, fieldName: 'price'),
               ),
               Consumer<CategoryDataProvider>(
                 builder: (context, provider, child) =>
@@ -156,18 +147,14 @@ class _EditListingPageState extends State<EditListingPage> {
                 hintText: 'Weight',
                 suffixText: 'kg',
                 keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null ||
-                      value.isEmpty ||
-                      !_validateDecimalInput(value)) {
-                    return "Please enter a valid weight";
-                  }
-                  return null;
-                },
+                validator: (value) =>
+                    Validators.weightValidation(value, fieldName: 'weight'),
               ),
               _buildTextField(
                 controller: descController,
                 hintText: 'Description',
+                validator: (value) => Validators.descriptionValidation(value,
+                    fieldName: 'description'),
                 maxLines: 5,
               ),
               _buildLocationDropdown(context),
@@ -265,6 +252,7 @@ class _EditListingPageState extends State<EditListingPage> {
           hintText: hintText,
           prefixText: prefixText,
           suffixText: suffixText,
+          errorMaxLines: 10,
           border: const OutlineInputBorder(),
         ),
         validator: validator,
