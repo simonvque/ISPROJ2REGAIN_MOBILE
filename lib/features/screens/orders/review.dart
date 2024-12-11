@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/datasource/app_data_source.dart';
 import 'package:regain_mobile/features/screens/orders/my_orders_page.dart';
+import 'package:regain_mobile/features/validations/form_validators.dart';
 import 'package:regain_mobile/model/response_model.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/rating_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:regain_mobile/routes/route_manager.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 
@@ -20,11 +22,13 @@ class ReviewsPage extends StatefulWidget {
 }
 
 class _ReviewPageState extends State<ReviewsPage> {
-  final TextEditingController _feedbackController = TextEditingController();
+  final _reviewKey = GlobalKey<FormState>();
+  final _feedbackController = TextEditingController();
   int _rating = 0;
   late int currentUserId;
   final dataSource = AppDataSource();
   late String ipAddress = dataSource.ipAddPort;
+  String? errorText;
 
   @override
   void didChangeDependencies() {
@@ -35,33 +39,38 @@ class _ReviewPageState extends State<ReviewsPage> {
   }
 
   Future<void> _submitRating() async {
-    if (_rating == 0 || _feedbackController.text.isEmpty) {
+    // if (_rating == 0 || _feedbackController.text.isEmpty) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     const SnackBar(content: Text('Feedback cannot be empty.')),
+    //   );
+    //   return;
+    // }
+    if (_reviewKey.currentState!.validate() && _rating != 0) {
+      try {
+        final sellerId =
+            await _fetchSellerIdByUsername(widget.sellerUsername, ipAddress);
+
+        final ratingPayload = {
+          'ratedUserId': sellerId,
+          'ratedByUserId': currentUserId,
+          'rateValue': _rating,
+          'comments': _feedbackController.text,
+        };
+
+        ResponseModel response =
+            await Provider.of<RatingProvider>(context, listen: false)
+                .addRating(ratingPayload);
+
+        _showDialog(response);
+      } catch (error) {
+        print('Error: $error');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to submit rating: $error')),
+        );
+      }
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Feedback cannot be empty.')),
-      );
-      return;
-    }
-
-    try {
-      final sellerId =
-          await _fetchSellerIdByUsername(widget.sellerUsername, ipAddress);
-
-      final ratingPayload = {
-        'ratedUserId': sellerId,
-        'ratedByUserId': currentUserId,
-        'rateValue': _rating,
-        'comments': _feedbackController.text,
-      };
-
-      ResponseModel response =
-          await Provider.of<RatingProvider>(context, listen: false)
-              .addRating(ratingPayload);
-
-      _showDialog(response);
-    } catch (error) {
-      print('Error: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to submit rating: $error')),
+        SnackBar(content: Text('Stars cannot be empty')),
       );
     }
   }
@@ -80,13 +89,12 @@ class _ReviewPageState extends State<ReviewsPage> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); 
+                //Navigator.of(context).pop();
                 if (response.statusCode == 200) {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const OrderTrackingPage(),
-                    ),
-                  );
+                  Navigator.of(context)
+                      .pushReplacementNamed(RouteManager.routeNavMenu);
+                  // Navigator.of(context)
+                  //     .pushReplacementNamed(RouteManager.routeNavMenu);
                 }
               },
               child: const Text('OK'),
@@ -103,46 +111,51 @@ class _ReviewPageState extends State<ReviewsPage> {
       appBar: buildAppBar(context, 'Submit Review'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'How was your experience with ${widget.sellerUsername}?',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 24),
-            StarRating(
-              onRatingChanged: (rating) {
-                setState(() {
-                  _rating = rating;
-                });
-              },
-            ),
-            const SizedBox(height: 24),
-            TextField(
-              controller: _feedbackController,
-              decoration: const InputDecoration(
-                labelText: 'Write Feedback',
-                border: OutlineInputBorder(),
+        child: Form(
+          key: _reviewKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'How was your experience with ${widget.sellerUsername}?',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-            ),
-            const SizedBox(height: 48),
-
-            RegainButtons(
-              text: 'Submit',
-              onPressed: _submitRating,
-              type: ButtonType.filled,
-              size: ButtonSize.large,
-              txtSize: BtnTxtSize.large,
-            ),
-            Consumer<RatingProvider>(
-              builder: (context, ratingProvider, child) {
-                return ratingProvider.isLoading
-                    ? const CircularProgressIndicator()
-                    : Container();
-              },
-            ),
-          ],
+              const SizedBox(height: 24),
+              StarRating(
+                onRatingChanged: (rating) {
+                  setState(() {
+                    _rating = rating;
+                  });
+                },
+              ),
+              const SizedBox(height: 24),
+              TextFormField(
+                controller: _feedbackController,
+                decoration: const InputDecoration(
+                  errorMaxLines: 3,
+                  labelText: 'Write Feedback',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) =>
+                    Validators.ReportValidation(value, fieldName: 'feedback'),
+              ),
+              const SizedBox(height: 48),
+              RegainButtons(
+                text: 'Submit',
+                onPressed: _submitRating,
+                type: ButtonType.filled,
+                size: ButtonSize.large,
+                txtSize: BtnTxtSize.large,
+              ),
+              Consumer<RatingProvider>(
+                builder: (context, ratingProvider, child) {
+                  return ratingProvider.isLoading
+                      ? const CircularProgressIndicator()
+                      : Container();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
