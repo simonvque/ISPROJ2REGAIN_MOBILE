@@ -15,12 +15,13 @@ import '../selected_item.dart';
 
 class CardItems extends StatelessWidget {
   List<ViewProduct> items;
+  final VoidCallback onRefresh;
   //Product product;
 
   CardItems({
     required this.items,
     // this.imagePath,
-
+    required this.onRefresh,
     super.key,
   });
 
@@ -41,42 +42,24 @@ class CardItems extends StatelessWidget {
       itemBuilder: (context, index) {
         //final Map<String, dynamic> item = items[index];
         final ViewProduct item = items[index];
-        return CardItem(item: item);
+        return CardItem(
+          item: item,
+          onRefresh: onRefresh,
+        );
       },
     );
   }
 }
 
 class CardItem extends StatefulWidget {
-  //final Map<String, dynamic> item;
   final ViewProduct item;
   final dynamic sellerImage;
-
-  //final imagePath;
-
-  // final productID;
-  // final productName;
-  // final location;
-  // final price;
-  // final sellerUsername;
-  // final weight;
-  // final category;
-  // final isSellerDropOff;
-  // final isFavorite;
+  final VoidCallback onRefresh;
 
   const CardItem({
     required this.item,
     this.sellerImage,
-    //required this.imagePath,
-    // required this.productID,
-    // required this.productName,
-    // required this.location,
-    // required this.price,
-    // required this.sellerUsername,
-    // required this.weight,
-    // required this.category,
-    // required this.isSellerDropOff,
-    // required this.isFavorite,
+    required this.onRefresh,
     super.key,
   });
 
@@ -96,43 +79,6 @@ class _CardItemState extends State<CardItem> {
     isFavorite = widget.item.isFavorite;
     super.initState();
   }
-
-  // @override
-  // void didUpdateWidget(oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   if (widget.item.isFavorite != oldWidget.item.isFavorite) {
-  //     isFavorite = widget.item.isFavorite;
-  //   }
-  // }
-
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   super.didChangeDependencies();
-  //   isFavorite = widget.item.isFavorite;
-  // }
-
-  // void _onPressed() async {
-  //   setState(() {
-  //     _isRunning = true;
-  //   });
-
-  //   await this.OnButtonPressed();
-
-  //   setState(() {
-  //     _isRunning = false;
-  //   });
-  // }
-
-  // _getData() async {
-  //   //Provider.of<AppDataProvider>(context, listen: false).setUser(1);
-  //   //final userId = Provider.of<AppDataProvider>(context, listen: false).userId;
-  //   final allProducts =
-  //       await Provider.of<ProductDataProvider>(context, listen: false)
-  //           .getAllProductsByUserFave(1);
-
-  //   productItems = allProducts;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -193,24 +139,16 @@ class _CardItemState extends State<CardItem> {
                   ),
                   IconButton(
                     icon: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: isFavorite ? Colors.red : Colors.black,
+                      widget.item.isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: widget.item.isFavorite ? Colors.red : Colors.black,
                     ),
                     onPressed: () => addFavorite(),
                   ),
                 ],
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Text(
-            //     widget.item.category,
-            //     style: const TextStyle(
-            //       fontSize: 8.0,
-            //       color: Colors.black,
-            //     ),
-            //   ),
-            // ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Row(
@@ -323,41 +261,65 @@ class _CardItemState extends State<CardItem> {
     );
   }
 
+  // addFavorite() async {
+  //   if (widget.item.isFavorite == false) {
+  //     final fave = FavoriteModel(
+  //         userID: Provider.of<AppDataProvider>(context, listen: false).userId,
+  //         productID: widget.item.productID!);
+  //     await Provider.of<FavoritesDataProvider>(context, listen: false)
+  //         .addFavorite(fave)
+  //         .then((response) {
+  //       if (response.responseStatus == ResponseStatus.SAVED) {
+  //         setState(() {
+  //           widget.item.isFavorite = true;
+  //           isFavorite = !isFavorite;
+  //         });
+  //       }
+  //     });
+  //   } else {
+  //     final userDeleting =
+  //         Provider.of<AppDataProvider>(context, listen: false).userId;
+  //     final toDelete = widget.item.productID;
+  //     await Provider.of<FavoritesDataProvider>(context, listen: false)
+  //         .deleteFavorite(userDeleting, toDelete!)
+  //         .then((response) {
+  //       if (response.responseStatus == ResponseStatus.SAVED) {
+  //         setState(() {
+  //           widget.item.isFavorite = false;
+  //           isFavorite = false;
+  //         });
+  //         widget.onRefresh(); // Refresh the favorites list
+  //       }
+  //     });
+  //   }
+  // }
+
   addFavorite() async {
-    if (widget.item.isFavorite == false) {
-      final fave = FavoriteModel(
-          userID: Provider.of<AppDataProvider>(context, listen: false).userId,
-          productID: widget.item.productID!);
+    final userId = Provider.of<AppDataProvider>(context, listen: false).userId;
+    final productId = widget.item.productID!;
+
+    if (!widget.item.isFavorite) {
+      final fave = FavoriteModel(userID: userId, productID: productId);
       await Provider.of<FavoritesDataProvider>(context, listen: false)
           .addFavorite(fave)
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
           setState(() {
             widget.item.isFavorite = true;
-            isFavorite = !isFavorite;
           });
         }
       });
     } else {
-      final userDeleting =
-          Provider.of<AppDataProvider>(context, listen: false).userId;
-      final toDelete = widget.item.productID;
       await Provider.of<FavoritesDataProvider>(context, listen: false)
-          .deleteFavorite(userDeleting, toDelete!)
+          .deleteFavorite(userId, productId)
           .then((response) {
         if (response.responseStatus == ResponseStatus.SAVED) {
           setState(() {
             widget.item.isFavorite = false;
-            isFavorite = !isFavorite;
           });
+          widget.onRefresh(); // Refresh the favorites list
         }
       });
     }
   }
-
-  // void deleteFavorite() {
-  //   if (widget.item.isFavorite == true) {
-
-  //   }
-  // }
 }

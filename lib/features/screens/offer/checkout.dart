@@ -37,6 +37,7 @@ class _CheckoutState extends State<Checkout> {
 
   late bool _enableSellerDropOff;
   late bool _enableGCash;
+  late bool _enableCOD;
 
   String? _paymentMethod = 'Cash on Delivery';
 
@@ -63,6 +64,9 @@ class _CheckoutState extends State<Checkout> {
     (user!.gcashQRcode == null)
         ? (_enableGCash = false)
         : (_enableGCash = true);
+    (user!.accountStatus == "Restricted")
+        ? (_enableCOD = false)
+        : (_enableCOD = true);
     Provider.of<AddressDataProvider>(context, listen: false)
         .getUserAddresses(userId);
   }
@@ -237,18 +241,20 @@ class _CheckoutState extends State<Checkout> {
                       Row(
                         key: GlobalKey(),
                         children: [
-                          Radio(
-                            value: 'Cash on Delivery',
-                            groupValue: _paymentMethod,
-                            activeColor: const Color(0xFF12CF8A),
-                            onChanged: (valuePayment) {
-                              setState(() {
-                                _paymentMethod = valuePayment;
-                              });
-                            },
-                          ),
-                          Text('Cash on Delivery',
-                              style: Theme.of(context).textTheme.bodyMedium),
+                          if (_enableCOD)
+                            Radio(
+                              value: 'Cash on Delivery',
+                              groupValue: _paymentMethod,
+                              activeColor: const Color(0xFF12CF8A),
+                              onChanged: (valuePayment) {
+                                setState(() {
+                                  _paymentMethod = valuePayment;
+                                });
+                              },
+                            ),
+                          if (_enableCOD)
+                            Text('Cash on Delivery',
+                                style: Theme.of(context).textTheme.bodyMedium),
                           if (_enableGCash)
                             Radio(
                               value: 'GCash',

@@ -190,18 +190,18 @@ class ProfileMenu extends StatelessWidget {
           leftIcon: CupertinoIcons.exclamationmark_circle,
           rightIcon: CupertinoIcons.chevron_forward,
         ),
-        // RegainButtons(
-        //   text: 'Settings',
-        //   onPressed: () {
-        //     Navigator.push(context,
-        //         MaterialPageRoute(builder: (context) => const SettingsPage()));
-        //   },
-        //   type: ButtonType.transparentOutlined,
-        //   size: ButtonSize.large,
-        //   txtSize: BtnTxtSize.large,
-        //   leftIcon: CupertinoIcons.settings,
-        //   rightIcon: CupertinoIcons.chevron_forward,
-        // ),
+        RegainButtons(
+          text: 'Settings',
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SettingsPage()));
+          },
+          type: ButtonType.transparentOutlined,
+          size: ButtonSize.large,
+          txtSize: BtnTxtSize.large,
+          leftIcon: CupertinoIcons.settings,
+          rightIcon: CupertinoIcons.chevron_forward,
+        ),
         // RegainButtons(
         //   text: 'Contact us',
         //   onPressed: () {

@@ -9,6 +9,7 @@ import 'package:regain_mobile/features/screens/homepage/selected_item.dart';
 import 'package:regain_mobile/features/screens/offer/checkout.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/viewoffers_model.dart';
+import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/provider/offers_data_provider.dart';
 import 'package:regain_mobile/themes/elements/button_styles.dart';
 import 'package:regain_mobile/themes/elements/input%20fields/regain_textbox.dart';
@@ -126,6 +127,10 @@ class _BuyerOfferTileState extends State<BuyerOfferTile> {
 
   @override
   Widget build(BuildContext context) {
+    String accStatus = Provider.of<AppDataProvider>(context, listen: false)
+        .user!
+        .accountStatus;
+
     return Form(
       key: _updateOfferKey,
       child: Container(
@@ -316,9 +321,10 @@ class _BuyerOfferTileState extends State<BuyerOfferTile> {
                   ),
                 ],
               ),
-            if (widget.offer.isAccepted != null &&
-                widget.offer.isAccepted! &&
-                widget.offer.isOrdered! == false)
+            if ((widget.offer.isAccepted != null &&
+                    widget.offer.isAccepted! &&
+                    widget.offer.isOrdered! == false) &&
+                (accStatus != "Frozen"))
               Align(
                 alignment: Alignment.center,
                 child: RegainButtons(

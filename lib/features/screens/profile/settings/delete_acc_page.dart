@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
@@ -8,6 +9,8 @@ import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/image_strings.dart';
 import 'package:regain_mobile/constants/sizes.dart';
+import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/features/screens/login/login.dart';
 import 'package:regain_mobile/model/user_model.dart';
 import 'package:regain_mobile/themes/app_bar.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +32,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
 
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final junkshopController = TextEditingController();
@@ -58,19 +62,37 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
     );
     usernameController.text = model.username;
     emailController.text = user.email!;
+
     firstNameController.text = model.firstName ?? "";
     lastNameController.text = model.lastName ?? "";
     junkshopController.text = model.junkshopName ?? "";
   }
 
   void _deleteUser() {
-    final user = Provider.of<AppDataProvider>(context, listen: false).user!;
-    final deleteUser = UserModel(
-        id: user.id,
-        username: user.username,
-        password: user.password,
-        accountStatus: "Deleted");
-    //Provider.of<AppDataProvider>(context)
+    if (_profileKey.currentState!.validate()) {
+      final user = Provider.of<AppDataProvider>(context, listen: false).user!;
+      final deleteUser = UserModel(
+          id: user.id,
+          username: user.username,
+          password: passwordController.text,
+          accountStatus: "Deleted");
+      Provider.of<AppDataProvider>(context, listen: false)
+          .deleteUser(user.id!, deleteUser)
+          .then((response) {
+        if (response.statusCode == 200) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              (route) => false);
+          ReGainHelperFunctions.showSnackBar(
+              context, "User deleted successfully");
+        } else {
+          setState(() {
+            _errorMessage = response.message;
+          });
+        }
+      });
+    }
   }
 
   @override
@@ -169,7 +191,111 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: RegainButtons(
                         text: 'Delete Account',
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              bool showPassword = false;
+                              passwordController.text = "";
+
+                              return StatefulBuilder(
+                                  builder: (context, setState) {
+                                return AlertDialog(
+                                  title: Row(
+                                    children: [
+                                      const Icon(
+                                          CupertinoIcons
+                                              .exclamationmark_triangle,
+                                          color: red),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        "Deleting account",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge,
+                                      ),
+                                    ],
+                                  ),
+                                  content: SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              .20,
+                                      child: Column(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              "Are you sure you want to delete your account? Please enter your password.",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: TextField(
+                                              controller: passwordController,
+                                              obscureText: !showPassword,
+                                              decoration: InputDecoration(
+                                                labelText: "Password",
+                                                // prefixIcon:
+                                                //     const Icon(Icons.lock),
+                                                suffixIcon: IconButton(
+                                                  icon: Icon(
+                                                    showPassword
+                                                        ? Icons.visibility
+                                                        : Icons.visibility_off,
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      showPassword =
+                                                          !showPassword;
+                                                    });
+                                                  },
+                                                ),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  borderSide: const BorderSide(
+                                                      color: green),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(
+                                            context); // Close the dialog
+                                      },
+                                      child: Text(
+                                        ReGainTexts.btnCancel,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        // delete function here <<<<<<<<<<<<<
+                                        //deleteProduct();
+                                        Navigator.pop(context);
+                                        _deleteUser();
+                                      },
+                                      child: Text(
+                                        ReGainTexts.btnDelete,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(color: red),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              });
+                            },
+                          );
+                        },
                         type: ButtonType.filled,
                         size: ButtonSize.large,
                         txtSize: BtnTxtSize.large,
@@ -185,6 +311,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
       ),
     );
   }
+
+  Widget? showModal() {}
 
   @override
   void dispose() {

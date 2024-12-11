@@ -266,7 +266,11 @@ class _HomeScreenState extends State<HomepageScreen> {
                               ? provider.filteredProducts
                               : listAllProducts;
 
-                      return CardItems(items: productsToDisplay);
+                      return CardItems(
+                        items: productsToDisplay,
+                        onRefresh:
+                            () {}, // Provide an empty callback or a meaningful one if needed
+                      );
                     },
                   ),
                 ],
