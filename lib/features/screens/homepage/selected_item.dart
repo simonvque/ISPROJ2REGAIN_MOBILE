@@ -42,11 +42,11 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
 
   @override
   void initState() {
-    super.initState(); // Call the parent class's initState first.
+    super.initState();
 
-    isFavorite = widget.item.isFavorite; // Initialize state variables.
+    isFavorite = widget.item.isFavorite;
 
-    // Fetch the seller's profile image (asynchronous but not affecting UI immediately).
+    // Fetch the seller's profile image
     _fetchSellerProfileImage(widget.item.sellerUsername);
 
     // Fetch ratings and update state after the data is fetched.
@@ -58,11 +58,14 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                   ratings.length;
           totalReviews = ratings.length;
         });
-
+      }
+    });
+  }
 
   Future<List<Rating>> fetchSellerRatings() async {
     try {
-      final sellerId = await _fetchSellerIdByUsername(widget.item.sellerUsername, ipAddress);
+      final sellerId =
+          await _fetchSellerIdByUsername(widget.item.sellerUsername, ipAddress);
       final ratings = await Provider.of<RatingProvider>(context, listen: false)
           .getSellerRatings(sellerId);
       return ratings;
@@ -112,6 +115,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<AppDataProvider>(context, listen: false).user;
     // Decode the base64 image string from the item
     Uint8List? decodedImage;
     if (widget.item.image != null && widget.item.image!.isNotEmpty) {
@@ -233,8 +237,8 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                           ),
                         ],
                       ),
-//////////////////////// RATE AND REVIEWS 
-//////////////////////// RATE AND REVIEWS 
+//////////////////////// RATE AND REVIEWS
+//////////////////////// RATE AND REVIEWS
                       const SizedBox(height: 16),
                       Text(
                         'About Seller',
@@ -258,31 +262,33 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                                 '@${widget.item.sellerUsername}',
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
-                          const SizedBox(height: 8),
-                          FutureBuilder<List<Rating>>(
-                            future: fetchSellerRatings(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return SizedBox(
-                                  height:20,
-                                  width: 20,
-                                  child: CircularProgressIndicator()
-                                );
-                              } else if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                                return const Text('No reviews available');
-                              } else {
-                                return Row(
-                                  children: [
-                                    Icon(Icons.star, color: Colors.yellow),
-                                    SizedBox(width: 4),
-                                    Text('${averageRating.toStringAsFixed(1)} ($totalReviews Reviews)'),
-                                  ],
-                                );
-                              }
-                            },
-                          ),
+                              const SizedBox(height: 8),
+                              FutureBuilder<List<Rating>>(
+                                future: fetchSellerRatings(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: CircularProgressIndicator());
+                                  } else if (snapshot.hasError) {
+                                    return Text('Error: ${snapshot.error}');
+                                  } else if (!snapshot.hasData ||
+                                      snapshot.data!.isEmpty) {
+                                    return const Text('No reviews available');
+                                  } else {
+                                    return Row(
+                                      children: [
+                                        Icon(Icons.star, color: Colors.yellow),
+                                        SizedBox(width: 4),
+                                        Text(
+                                            '${averageRating.toStringAsFixed(1)} ($totalReviews Reviews)'),
+                                      ],
+                                    );
+                                  }
+                                },
+                              ),
                             ],
                           ),
                         ],
@@ -296,197 +302,219 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                       FutureBuilder<List<Rating>>(
                         future: fetchSellerRatings(),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return const Center(child: CircularProgressIndicator());
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
                           } else if (snapshot.hasError) {
-                            return Center(child: Text('Error: ${snapshot.error}'));
-                          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                            return const Center(child: Text('No reviews available'));
+                            return Center(
+                                child: Text('Error: ${snapshot.error}'));
+                          } else if (!snapshot.hasData ||
+                              snapshot.data!.isEmpty) {
+                            return const Center(
+                                child: Text('No reviews available'));
                           } else {
                             List<Rating> ratings = snapshot.data!;
                             return Column(
-                                    children: ratings.map((rating) {
-                                      return Container(
-                                        margin: const EdgeInsets.symmetric(vertical: 8.0), 
-                                        padding: const EdgeInsets.all(16.0), 
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey[200], 
-                                          borderRadius: BorderRadius.circular(8.0),
-                                        ),
-                                        child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                              children: ratings.map((rating) {
+                                return Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  padding: const EdgeInsets.all(16.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 20,
+                                        backgroundColor: Colors.grey[400],
+                                        child: const Icon(Icons.person,
+                                            color: Colors.white),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            CircleAvatar(
-                                              radius: 20,
-                                              backgroundColor: Colors.grey[400], 
-                                              child: const Icon(Icons.person, color: Colors.white), 
+                                            Text(
+                                              'Anonymous User',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                             ),
-                                            const SizedBox(width: 12),
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Anonymous User',
-                                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                  ),
-                                                  const SizedBox(height: 4),
-                                                  Text(
-                                                    rating.comments,
-                                                    style: Theme.of(context).textTheme.bodyMedium,
-                                                  ),
-                                                  const SizedBox(height: 8),
-                                                  Row(
-                                                    children: List.generate(
-                                                      rating.rateValue, 
-                                                      (index) => const Icon(Icons.star, color: Colors.amber, size: 16),
-                                                    ),
-                                                  ),
-                                               
-                                                  if (rating.dateEdited != null) ...[
-                                                    const SizedBox(height: 8),
-                                                    Text(
-                                                      'Edited',
-                                                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                                            color: Colors.grey, 
-                                                            fontStyle: FontStyle.italic,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ],
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              rating.comments,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Row(
+                                              children: List.generate(
+                                                rating.rateValue,
+                                                (index) => const Icon(
+                                                    Icons.star,
+                                                    color: Colors.amber,
+                                                    size: 16),
                                               ),
                                             ),
+                                            if (rating.dateEdited != null) ...[
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                'Edited',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall
+                                                    ?.copyWith(
+                                                      color: Colors.grey,
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                    ),
+                                              ),
+                                            ],
                                           ],
                                         ),
-                                      );
-                                    }).toList(),
-                                  );
-
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            );
                           }
                         },
                       ),
                       const SizedBox(height: 16),
-
                     ],
                   ),
                 ),
               ],
             ),
           ),
-              Positioned(
-        top: 48,
-        left: 16,
-        child: Container(
-          width: 40, 
-          height: 40,
-          decoration: BoxDecoration(
-            color: green.withOpacity(0.6),
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2),
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              ),
-            ],
-          ),
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back, color: white),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
-      ),
-
-//////////////////////// REPORTS PAGE
-//////////////////////// REPORTS PAGE
-                  Positioned(
-                    top: 48,
-                    right: 16,
-                    child: Container(
-                      width: 40, 
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: green.withOpacity(0.6), 
-                        shape: BoxShape.circle, 
-                        boxShadow: [
-                          BoxShadow(
-                            color: black.withOpacity(0.2), 
-                            blurRadius: 4, 
-                            offset: Offset(0, 2), 
-                          ),
-                        ],
-                      ),
-                      child: PopupMenuButton<String>(
-                        icon: const Icon(Icons.flag, color: white),
-                        onSelected: (String reportType) async {
-                          final appDataProvider = Provider.of<AppDataProvider>(context, listen: false);
-                          final reporterID = appDataProvider.userId;
-
-                          if (reporterID == null) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('You must be logged in to report an item.'),
-                              ),
-                            );
-                            return;
-                          }
-
-                          if (reportType == 'product') {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ReportPage(
-                                  reportType: 'product',
-                                  productName: widget.item.productName,
-                                  sellerUsername: widget.item.sellerUsername,
-                                  productCategory: widget.item.category,
-                                  productPrice: widget.item.price.toString(),
-                                  reporterID: reporterID,
-                                  reportedListingID: widget.item.productID!,
-                                ),
-                              ),
-                            );
-                          } else if (reportType == 'user') {
-                            final sellerUsername = widget.item.sellerUsername;
-
-                            try {
-                              final sellerId = await _fetchSellerIdByUsername(sellerUsername, ipAddress);
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => ReportPage(
-                                    reportType: 'user',
-                                    productName: '',
-                                    sellerUsername: sellerUsername,
-                                    productCategory: '',
-                                    productPrice: '',
-                                    reporterID: reporterID,
-                                    reportedListingID: sellerId,
-                                  ),
-                                ),
-                              );
-                            } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Failed to fetch seller ID: $e')),
-                              );
-                            }
-                          }
-                        },
-                        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                          const PopupMenuItem<String>(
-                            value: 'product',
-                            child: Text('Report Product'),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'user',
-                            child: Text('Report User'),
-                          ),
-                        ],
-                      ),
-                    ),
+          Positioned(
+            top: 48,
+            left: 16,
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: green.withOpacity(0.6),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
                   ),
+                ],
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back, color: white),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          ),
+
+//////////////////////// REPORTS PAGE
+//////////////////////// REPORTS PAGE
+          Positioned(
+            top: 48,
+            right: 16,
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: green.withOpacity(0.6),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: black.withOpacity(0.2),
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: PopupMenuButton<String>(
+                icon: const Icon(Icons.flag, color: white),
+                onSelected: (String reportType) async {
+                  final appDataProvider =
+                      Provider.of<AppDataProvider>(context, listen: false);
+                  final reporterID = appDataProvider.userId;
+
+                  if (reporterID == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content:
+                            Text('You must be logged in to report an item.'),
+                      ),
+                    );
+                    return;
+                  }
+
+                  if (reportType == 'product') {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ReportPage(
+                          reportType: 'product',
+                          productName: widget.item.productName,
+                          sellerUsername: widget.item.sellerUsername,
+                          productCategory: widget.item.category,
+                          productPrice: widget.item.price.toString(),
+                          reporterID: reporterID,
+                          reportedListingID: widget.item.productID!,
+                        ),
+                      ),
+                    );
+                  } else if (reportType == 'user') {
+                    final sellerUsername = widget.item.sellerUsername;
+
+                    try {
+                      final sellerId = await _fetchSellerIdByUsername(
+                          sellerUsername, ipAddress);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ReportPage(
+                            reportType: 'user',
+                            productName: '',
+                            sellerUsername: sellerUsername,
+                            productCategory: '',
+                            productPrice: '',
+                            reporterID: reporterID,
+                            reportedListingID: sellerId,
+                          ),
+                        ),
+                      );
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text('Failed to fetch seller ID: $e')),
+                      );
+                    }
+                  }
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  const PopupMenuItem<String>(
+                    value: 'product',
+                    child: Text('Report Product'),
+                  ),
+                  const PopupMenuItem<String>(
+                    value: 'user',
+                    child: Text('Report User'),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
