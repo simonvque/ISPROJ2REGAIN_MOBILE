@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:regain_mobile/features/screens/chatfeatures/notificationservice.dart';
 import 'package:regain_mobile/features/screens/filter.dart';
 import 'package:regain_mobile/features/screens/green_zone/green_zone_page.dart';
 import 'package:regain_mobile/features/screens/green_zone/green_zone_page.dart';
@@ -14,6 +15,7 @@ import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
 import '../../../constants/sizes.dart';
 import '../../../themes/elements/input fields/regain_textbox.dart';
+import '../chatfeatures/notifivation_list_screen.dart';
 import '../homepage/widgets/homepage_cards.dart';
 import '../homepage/widgets/homepage_carousel.dart';
 import '../profile/profile_page.dart';
@@ -35,6 +37,15 @@ class _HomeScreenState extends State<HomepageScreen> {
   void initState() {
     super.initState();
     _fetchData();
+    _loadNotifications();
+  }
+
+  Future<void> _loadNotifications() async {
+    final userId = Provider.of<AppDataProvider>(context, listen: false).userId;
+    if (userId != null) {
+      await Provider.of<NotificationService>(context, listen: false)
+          .fetchUnreadNotifications(userId);
+    }
   }
 
   Future<void> _fetchData() async {
@@ -69,6 +80,27 @@ class _HomeScreenState extends State<HomepageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void _openNotifications() {
+      final userId =
+          Provider.of<AppDataProvider>(context, listen: false).userId;
+
+      if (userId != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NotificationListScreen(),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('User not logged in.'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,16 +223,54 @@ class _HomeScreenState extends State<HomepageScreen> {
                       ),
                     ),
 
-                    // Bell icon
+                    // Bell icon with notification badge
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: ReGainSizes.md),
-                      child: IconButton(
-                        icon: const Icon(Icons.notifications,
-                            color: white), // Changed to bell icon
-                        onPressed: () {
-                          // No action performed
-                        },
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.notifications, color: white),
+                            onPressed: () {
+                              _openNotifications();
+                            },
+                          ),
+                          Consumer<NotificationService>(
+                            builder: (context, notificationService, child) {
+                              if (notificationService.unreadCount > 0) {
+                                return Positioned(
+                                  right: 6,
+                                  top: 6,
+                                  child: Container(
+                                    height: 16,
+                                    width: 16,
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      shape: BoxShape.circle,
+                                      border:
+                                          Border.all(color: white, width: 1.5),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      notificationService.unreadCount > 99
+                                          ? '99+'
+                                          : '${notificationService.unreadCount}',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                // Do not show the badge if no notifications exist
+                                return const SizedBox.shrink();
+                              }
+                            },
+                          ),
+                        ],
                       ),
                     ),
 

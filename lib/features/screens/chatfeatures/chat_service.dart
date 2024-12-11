@@ -21,28 +21,27 @@ class ChatService with ChangeNotifier {
   // Store messages
   List<ChatMessage> messages = [];
 
-  Future<void> connect(String roomId) async {
+  Future<void> connect(
+      String roomId, String userId, BuildContext context) async {
     this.roomId = roomId;
 
-    // 1. Fetch chat history
+    // Fetch chat history first
     await fetchChatHistory();
 
-    // 2. Now, connect to WebSocket
+    // Initialize WebSocket
     stompClient = StompClient(
       config: StompConfig(
         url: 'ws://$ipAddress/ws-chat', // WebSocket URL
-
         onConnect: (frame) {
           print('Connected to WebSocket');
-          subscribeToRoom();
+          subscribeToRoom(); // Subscribe to the chat room
+          subscribeToNotifications(userId, context); // Pass context here
         },
         onWebSocketError: (error) {
           print('WebSocket Error: $error');
-          // Handle WebSocket error, show error to the user
         },
         onStompError: (frame) {
           print('STOMP Error: ${frame.body}');
-          // Handle STOMP error, show error to the user
         },
       ),
     );
@@ -137,6 +136,54 @@ class ChatService with ChangeNotifier {
       print('Error sending message: $e');
       // Handle the error, show message to user if needed
     }
+  }
+
+  void subscribeToNotifications(String userId, BuildContext context) {
+    stompClient.subscribe(
+      destination: '/queue/notifications/$userId',
+      callback: (frame) {
+        if (frame.body != null) {
+          handleNotification(frame.body!, context); // Pass context here
+        }
+      },
+    );
+  }
+
+  void handleNotification(String notificationJson, BuildContext context) {
+    try {
+      // Parse and display the notification
+      final notification = jsonDecode(notificationJson);
+      print('Notification received: $notification');
+
+      final sender = notification['sender'] ?? 'Unknown';
+      final message = notification['content'] ?? '';
+      final timestamp = notification['timestamp'] ?? '';
+
+      // Pass the context to showNotification
+      showNotification(context, "Message from $sender", message, timestamp);
+    } catch (e) {
+      print('Error processing notification: $e');
+    }
+  }
+
+  void showNotification(
+      BuildContext context, String title, String message, String timestamp) {
+    // Use the context to show the notification
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(message),
+            Text(timestamp,
+                style: const TextStyle(fontSize: 10, color: Colors.grey)),
+          ],
+        ),
+        duration: const Duration(seconds: 3),
+      ),
+    );
   }
 
   @override

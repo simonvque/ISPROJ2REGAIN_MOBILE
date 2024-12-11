@@ -54,37 +54,41 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
   double averageRating = 0.0;
   int totalReviews = 0;
 
-@override
-void initState() {
-  super.initState(); // Call the parent class's initState first.
-  
-  isFavorite = widget.item.isFavorite; // Initialize state variables.
-  
-  // Fetch the seller's profile image (asynchronous but not affecting UI immediately).
-  _fetchSellerProfileImage(widget.item.sellerUsername);
+  @override
+  void initState() {
+    super.initState(); // Call the parent class's initState first.
 
-  // Fetch ratings and update state after the data is fetched.
-  fetchSellerRatings().then((ratings) {
-    if (ratings.isNotEmpty) {
-      setState(() {
-        averageRating = ratings.map((e) => e.rateValue).reduce((a, b) => a + b) / ratings.length;
-        totalReviews = ratings.length;
-      });
-    }
-  });
-}
+    isFavorite = widget.item.isFavorite; // Initialize state variables.
 
-    Future<List<Rating>> fetchSellerRatings() async {
-      try {
-        final sellerId = await _fetchSellerIdByUsername(widget.item.sellerUsername, ipAddress);
-        final ratings = await Provider.of<RatingProvider>(context, listen: false).getSellerRatings(sellerId);
-        return ratings;
-      } catch (e) {
-        debugPrint('Error fetching seller ratings: $e');
-        return [];
+    // Fetch the seller's profile image (asynchronous but not affecting UI immediately).
+    _fetchSellerProfileImage(widget.item.sellerUsername);
+
+    // Fetch ratings and update state after the data is fetched.
+    fetchSellerRatings().then((ratings) {
+      if (ratings.isNotEmpty) {
+        setState(() {
+          averageRating =
+              ratings.map((e) => e.rateValue).reduce((a, b) => a + b) /
+                  ratings.length;
+          totalReviews = ratings.length;
+        });
       }
+    });
+  }
+
+  Future<List<Rating>> fetchSellerRatings() async {
+    try {
+      final sellerId =
+          await _fetchSellerIdByUsername(widget.item.sellerUsername, ipAddress);
+      final ratings = await Provider.of<RatingProvider>(context, listen: false)
+          .getSellerRatings(sellerId);
+      return ratings;
+    } catch (e) {
+      debugPrint('Error fetching seller ratings: $e');
+      return [];
     }
-    
+  }
+
   Future<void> _fetchSellerProfileImage(String username) async {
     final dataSource = AppDataSource();
     final profileImage = await dataSource.getSellerProfileImage(username);
@@ -273,33 +277,37 @@ void initState() {
                                 '@${widget.item.sellerUsername}',
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
-                              
-                          FutureBuilder<List<Rating>>(
-                            future: fetchSellerRatings(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return const CircularProgressIndicator();
-                              } else if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                                return const Text('No reviews available');
-                              } else {
-                                return Row(
-                                  children: [
-                                    Icon(Icons.star, color: Colors.yellow),
-                                    SizedBox(width: 4),
-                                    Text('${averageRating.toStringAsFixed(1)} ($totalReviews Reviews)'),
-                                    TextButton(
-                                      onPressed: () {
-                                        // Add logic to navigate to reviews page if necessary
-                                      },
-                                      child: const Text('View all reviews', style: TextStyle(color: Colors.blue)),
-                                    ),
-                                  ],
-                                );
-                              }
-                            },
-                          ),
+                              FutureBuilder<List<Rating>>(
+                                future: fetchSellerRatings(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const CircularProgressIndicator();
+                                  } else if (snapshot.hasError) {
+                                    return Text('Error: ${snapshot.error}');
+                                  } else if (!snapshot.hasData ||
+                                      snapshot.data!.isEmpty) {
+                                    return const Text('No reviews available');
+                                  } else {
+                                    return Row(
+                                      children: [
+                                        Icon(Icons.star, color: Colors.yellow),
+                                        SizedBox(width: 4),
+                                        Text(
+                                            '${averageRating.toStringAsFixed(1)} ($totalReviews Reviews)'),
+                                        TextButton(
+                                          onPressed: () {
+                                            // Add logic to navigate to reviews page if necessary
+                                          },
+                                          child: const Text('View all reviews',
+                                              style: TextStyle(
+                                                  color: Colors.blue)),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                },
+                              ),
                             ],
                           ),
                         ],
@@ -429,49 +437,48 @@ void initState() {
               onPressed: addFavorite,
             ),
             IconButton(
-                icon: Icon(
-                  Icons.message,
-                  color: black,
-                ),
-                onPressed: () async {
-                  final appDataProvider =
-                      Provider.of<AppDataProvider>(context, listen: false);
-                  final currentUserId =
-                      appDataProvider.userId; // Get the current user ID
-                  final sellerUsername =
-                      widget.item.sellerUsername; // Get the seller's username
+              icon: const Icon(Icons.message, color: black),
+              onPressed: () async {
+                final appDataProvider =
+                    Provider.of<AppDataProvider>(context, listen: false);
+                final currentUserId =
+                    appDataProvider.userId; // Get the current user ID
+                final sellerUsername =
+                    widget.item.sellerUsername; // Seller's username
 
-                  if (currentUserId == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text(
-                              "You must be logged in to message a seller.")),
-                    );
-                    return;
-                  }
+                if (currentUserId == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content:
+                            Text("You must be logged in to message a seller.")),
+                  );
+                  return;
+                }
 
-                  try {
-                    // Fetch seller ID dynamically
-                    final sellerId = await _fetchSellerIdByUsername(
-                        sellerUsername, ipAddress);
+                try {
+                  // Fetch seller ID
+                  final sellerId =
+                      await _fetchSellerIdByUsername(sellerUsername, ipAddress);
 
-                    // Check if chat room exists between the current user and the seller
-                    final chatRoomId = await _fetchOrCreateChatRoom(
-                        currentUserId, sellerId, ipAddress);
+                  // Fetch or create chat room
+                  final chatRoomId = await _fetchOrCreateChatRoom(
+                      currentUserId, sellerId, ipAddress);
 
-                    // Navigate to the ChatScreen
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ChatScreen(
-                        roomId: chatRoomId,
-                        userId: currentUserId.toString(),
-                      ),
-                    ));
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Failed to initiate chat: $e")),
-                    );
-                  }
-                }),
+                  // Navigate to ChatScreen
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ChatScreen(
+                      roomId: chatRoomId,
+                      userId: currentUserId.toString(),
+                      receiverId: sellerId.toString(),
+                    ),
+                  ));
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Failed to initiate chat: $e")),
+                  );
+                }
+              },
+            ),
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
@@ -563,8 +570,10 @@ Future<String> _fetchOrCreateChatRoom(
 
 Future<String?> _getExistingChatRoom(
     int userId1, int userId2, String ipAdd) async {
-  final url = Uri.parse(
-      'http://$ipAdd/api/chat/room/$userId1-$userId2'); // Adjust API URL accordingly
+  // Ensure consistent ordering of user IDs
+  final sortedIds = [userId1, userId2]..sort();
+  final url =
+      Uri.parse('http://$ipAdd/api/chat/room/${sortedIds[0]}-${sortedIds[1]}');
 
   final response = await http.get(url);
 

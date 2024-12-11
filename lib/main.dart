@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:regain_mobile/features/screens/chatfeatures/notificationservice.dart';
 
 // import 'package:regain_mobile/features/screens/profile/profile_page.dart';
 import 'package:regain_mobile/provider/address_data_provider.dart';
@@ -61,6 +62,9 @@ class MyApp extends StatelessWidget {
             create: (context) => CommissionsProvider()),
         Provider<AppDataSource>(
           create: (_) => AppDataSource(), // Add AppDataSource here
+        ),
+        ChangeNotifierProvider<NotificationService>(
+          create: (_) => NotificationService(),
         ),
       ],
       child: MaterialApp(
