@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/constants/text_strings.dart';
+import 'package:regain_mobile/features/validations/form_validators.dart';
 import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/model/address_model.dart';
 import 'package:regain_mobile/provider/address_data_provider.dart';
@@ -111,17 +112,19 @@ class _EditAddressState extends State<EditAddress> {
                   height: MediaQuery.of(context).size.height * 0.09,
                   width: MediaQuery.of(context).size.width * 0.35,
                   child: TextFormField(
-                    readOnly: true,
-                    controller: zipCodeController,
-                    decoration: InputDecoration(
-                      labelText: 'Zip Code',
-                      labelStyle: TextStyle(
-                          fontSize: 15.0, color: Colors.grey.shade700),
-                      hintText: 'ex: 1651',
-                      hintStyle: const TextStyle(fontSize: 15.0),
-                      border: const OutlineInputBorder(),
-                    ),
-                  ),
+                      readOnly: true,
+                      controller: zipCodeController,
+                      decoration: InputDecoration(
+                        labelText: 'Zip Code',
+                        labelStyle: TextStyle(
+                            fontSize: 15.0, color: Colors.grey.shade700),
+                        hintText: 'ex: 1651',
+                        hintStyle: const TextStyle(fontSize: 15.0),
+                        border: const OutlineInputBorder(),
+                        errorMaxLines: 10,
+                      ),
+                      validator: (value) =>
+                          Validators.zipCodeValidation(value)),
                 ),
               ],
             ),
@@ -129,65 +132,72 @@ class _EditAddressState extends State<EditAddress> {
               padding: const EdgeInsets.all(10.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
-                readOnly: true,
-                controller: streetController,
-                decoration: InputDecoration(
-                  labelText: 'Street address, house number',
-                  labelStyle:
-                      TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
-                  hintText: 'ex: 117 Mindanao Ave',
-                  hintStyle: const TextStyle(fontSize: 15.0),
-                  border: const OutlineInputBorder(),
-                ),
-              ),
+                  readOnly: true,
+                  controller: streetController,
+                  decoration: InputDecoration(
+                    labelText: 'Street address, house number',
+                    labelStyle:
+                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
+                    hintText: 'ex: 117 Mindanao Ave',
+                    hintStyle: const TextStyle(fontSize: 15.0),
+                    border: const OutlineInputBorder(),
+                    errorMaxLines: 10,
+                  ),
+                  validator: (value) =>
+                      Validators.streetAddressValidation(value)),
             ),
             Container(
               padding: const EdgeInsets.all(10.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
-                readOnly: true,
-                controller: barangayController,
-                decoration: InputDecoration(
-                  labelText: 'Barangay, subdivision, etc',
-                  labelStyle:
-                      TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
-                  hintText: 'ex: Bambang',
-                  hintStyle: const TextStyle(fontSize: 15.0),
-                  border: const OutlineInputBorder(),
-                ),
-              ),
+                  readOnly: true,
+                  controller: barangayController,
+                  decoration: InputDecoration(
+                    labelText: 'Barangay, subdivision, etc',
+                    labelStyle:
+                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
+                    hintText: 'ex: Bambang',
+                    hintStyle: const TextStyle(fontSize: 15.0),
+                    border: const OutlineInputBorder(),
+                    errorMaxLines: 10,
+                  ),
+                  validator: (value) => Validators.barangayValidation(value)),
             ),
             Container(
               padding: const EdgeInsets.all(10.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
-                readOnly: true,
-                controller: cityController,
-                decoration: InputDecoration(
-                  labelText: 'City',
-                  labelStyle:
-                      TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
-                  hintText: 'ex: Pasig City',
-                  hintStyle: const TextStyle(fontSize: 15.0),
-                  border: const OutlineInputBorder(),
-                ),
-              ),
+                  readOnly: true,
+                  controller: cityController,
+                  decoration: InputDecoration(
+                    labelText: 'City',
+                    labelStyle:
+                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
+                    hintText: 'ex: Pasig City',
+                    hintStyle: const TextStyle(fontSize: 15.0),
+                    border: const OutlineInputBorder(),
+                    errorMaxLines: 10,
+                  ),
+                  validator: (value) =>
+                      Validators.cityStateValidation(value, fieldName: 'city')),
             ),
             Container(
               padding: const EdgeInsets.all(10.0),
               height: MediaQuery.of(context).size.height * 0.09,
               child: TextFormField(
-                readOnly: true,
-                controller: stateController,
-                decoration: InputDecoration(
-                  labelText: 'State or region',
-                  labelStyle:
-                      TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
-                  hintText: 'ex: Metro Manila',
-                  hintStyle: const TextStyle(fontSize: 15.0),
-                  border: const OutlineInputBorder(),
-                ),
-              ),
+                  readOnly: true,
+                  controller: stateController,
+                  decoration: InputDecoration(
+                    labelText: 'State or region',
+                    labelStyle:
+                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
+                    hintText: 'ex: Metro Manila',
+                    hintStyle: const TextStyle(fontSize: 15.0),
+                    border: const OutlineInputBorder(),
+                    errorMaxLines: 10,
+                  ),
+                  validator: (value) => Validators.cityStateValidation(value,
+                      fieldName: 'state')),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
