@@ -37,7 +37,7 @@ class _ReviewPageState extends State<ReviewsPage> {
   Future<void> _submitRating() async {
     if (_rating == 0 || _feedbackController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Rating and feedback cannot be empty.')),
+        const SnackBar(content: Text('Feedback cannot be empty.')),
       );
       return;
     }
@@ -104,35 +104,13 @@ class _ReviewPageState extends State<ReviewsPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Seller Image and Username Section
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage('assets/images/logo/logo.png'),
-                ),
-                const SizedBox(width: 16),
-                Flexible(
-                  child: Text(
-                    widget.sellerUsername,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    overflow: TextOverflow.ellipsis, 
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 40),
-
-            const Text(
-              'How was your experience?',
+            Text(
+              'How was your experience with ${widget.sellerUsername}?',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
             StarRating(
               onRatingChanged: (rating) {
                 setState(() {
@@ -140,7 +118,7 @@ class _ReviewPageState extends State<ReviewsPage> {
                 });
               },
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
             TextField(
               controller: _feedbackController,
               decoration: const InputDecoration(
@@ -186,6 +164,7 @@ class _StarRatingState extends State<StarRating> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(5, (index) {
         return IconButton(
           iconSize: 40.0,
