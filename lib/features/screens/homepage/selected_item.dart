@@ -289,7 +289,7 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
                       const SizedBox(height: 16),
                       Text(
                         'Reviews',
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 8),
                       FutureBuilder<List<Rating>>(
