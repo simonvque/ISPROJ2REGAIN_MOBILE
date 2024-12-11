@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
 import 'package:regain_mobile/helper_functions.dart';
+import 'package:regain_mobile/features/validations/form_validators.dart';
 import 'package:regain_mobile/provider/address_data_provider.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/model/address_model.dart';
@@ -125,49 +126,38 @@ class _AddAddressState extends State<AddAddress> {
                     buildTextField(
                         unitNumberController,
                         'Unit number, house number, etc.',
-                        '(optional) ex: Unit 22B'),
+                        '(optional) ex: Unit 22B',
+                        validator: (value) =>
+                            Validators.unitNumberValidation(value)),
                     buildTextField(
-                      streetController,
-                      'Street address, apartment, location',
-                      'ex: 117 Mindanao Ave',
-                      validator: (value) => value == null || value.isEmpty
-                          ? "Please enter a street address"
-                          : null,
-                    ),
+                        streetController,
+                        'Street address, apartment, location',
+                        'ex: 117 Mindanao Ave',
+                        validator: (value) =>
+                            Validators.streetAddressValidation(value)),
                     buildTextField(
                       barangayController,
                       'Barangay, subdivision, etc',
                       'ex: Bambang',
-                      validator: (value) => value == null || value.isEmpty
-                          ? "Please enter a barangay"
-                          : null,
+                      validator: (value) =>
+                          Validators.barangayValidation(value),
                     ),
+                    buildTextField(cityController, 'City', 'ex: Pasig City',
+                        validator: (value) => Validators.cityStateValidation(
+                            value,
+                            fieldName: 'city')),
                     buildTextField(
-                      cityController,
-                      'City',
-                      'ex: Pasig City',
-                      validator: (value) => value == null || value.isEmpty
-                          ? "Please enter a city"
-                          : null,
-                    ),
-                    buildTextField(
-                      stateController,
-                      'State or region',
-                      'ex: Metro Manila',
-                      validator: (value) => value == null || value.isEmpty
-                          ? "Please enter a state or region"
-                          : null,
-                    ),
-                    buildTextField(
-                      zipCodeController,
-                      'Zip Code',
-                      'ex: 1651',
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      validator: (value) => value?.length != 4
-                          ? "Please enter a valid zip code"
-                          : null,
-                    ),
+                        stateController, 'State or region', 'ex: Metro Manila',
+                        validator: (value) => Validators.cityStateValidation(
+                            value,
+                            fieldName: 'state')),
+                    buildTextField(zipCodeController, 'Zip Code', 'ex: 1651',
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        validator: (value) =>
+                            Validators.zipCodeValidation(value)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -212,6 +202,7 @@ class _AddAddressState extends State<AddAddress> {
         decoration: InputDecoration(
           labelText: label,
           hintText: hint,
+          errorMaxLines: 10,
           border: const OutlineInputBorder(),
         ),
       ),

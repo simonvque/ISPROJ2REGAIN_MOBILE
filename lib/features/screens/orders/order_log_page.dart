@@ -331,17 +331,16 @@ class _OrderLogPageState extends State<OrderLogPage> {
         size: ButtonSize.large,
         txtSize: BtnTxtSize.large,
       );
-    }
-    else if (currentStatus == "Received") {
+    } else if (currentStatus == "Received" && widget.role == "buyer") {
       return RegainButtons(
         text: 'Review this Product',
         onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ReviewsPage(sellerUsername: widget.order.product.sellerUsername )
-              ),
-            );
+            context,
+            MaterialPageRoute(
+                builder: (context) => ReviewsPage(
+                    sellerUsername: widget.order.product.sellerUsername)),
+          );
         },
         type: ButtonType.filled,
         size: ButtonSize.large,
@@ -410,17 +409,16 @@ class _OrderLogPageState extends State<OrderLogPage> {
         size: ButtonSize.large,
         txtSize: BtnTxtSize.large,
       );
-    }
-    else if (currentStatus == "Received" && widget.role == "buyer") {
+    } else if (currentStatus == "Received" && widget.role == "buyer") {
       return RegainButtons(
         text: 'Review this Product',
         onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ReviewsPage(sellerUsername: widget.order.product.sellerUsername)
-              ),
-            );
+            context,
+            MaterialPageRoute(
+                builder: (context) => ReviewsPage(
+                    sellerUsername: widget.order.product.sellerUsername)),
+          );
         },
         type: ButtonType.filled,
         size: ButtonSize.large,

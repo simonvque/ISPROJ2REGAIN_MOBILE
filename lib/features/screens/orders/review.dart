@@ -29,20 +29,22 @@ class _ReviewPageState extends State<ReviewsPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final appDataProvider = Provider.of<AppDataProvider>(context, listen: false);
+    final appDataProvider =
+        Provider.of<AppDataProvider>(context, listen: false);
     currentUserId = appDataProvider.userId;
   }
 
   Future<void> _submitRating() async {
     if (_rating == 0 || _feedbackController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Rating and feedback cannot be empty.')),
+        const SnackBar(content: Text('Feedback cannot be empty.')),
       );
       return;
     }
 
     try {
-      final sellerId = await _fetchSellerIdByUsername(widget.sellerUsername, ipAddress);
+      final sellerId =
+          await _fetchSellerIdByUsername(widget.sellerUsername, ipAddress);
 
       final ratingPayload = {
         'ratedUserId': sellerId,
@@ -51,7 +53,9 @@ class _ReviewPageState extends State<ReviewsPage> {
         'comments': _feedbackController.text,
       };
 
-      ResponseModel response = await Provider.of<RatingProvider>(context, listen: false).addRating(ratingPayload);
+      ResponseModel response =
+          await Provider.of<RatingProvider>(context, listen: false)
+              .addRating(ratingPayload);
 
       _showDialog(response);
     } catch (error) {
@@ -62,7 +66,7 @@ class _ReviewPageState extends State<ReviewsPage> {
     }
   }
 
-    void _showDialog(ResponseModel response) {
+  void _showDialog(ResponseModel response) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -76,7 +80,7 @@ class _ReviewPageState extends State<ReviewsPage> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop(); 
                 if (response.statusCode == 200) {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
@@ -96,43 +100,17 @@ class _ReviewPageState extends State<ReviewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(
-        context, 'Submit Review'),
+      appBar: buildAppBar(context, 'Submit Review'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Seller Image and Username Section
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundImage: NetworkImage(
-                       'https://via.placeholder.com/150'
-                     ),
-                ),
-                const SizedBox(width: 16),
-                Flexible(
-                  child: Text(
-                    widget.sellerUsername,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    overflow: TextOverflow.ellipsis, // To handle long usernames
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 40),
-
-            // "How was your experience?" title
-            const Text(
-              'How was your experience?',
+            Text(
+              'How was your experience with ${widget.sellerUsername}?',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
             StarRating(
               onRatingChanged: (rating) {
                 setState(() {
@@ -140,8 +118,7 @@ class _ReviewPageState extends State<ReviewsPage> {
                 });
               },
             ),
-            const SizedBox(height: 16),
-            // Feedback TextField
+            const SizedBox(height: 24),
             TextField(
               controller: _feedbackController,
               decoration: const InputDecoration(
@@ -151,7 +128,6 @@ class _ReviewPageState extends State<ReviewsPage> {
             ),
             const SizedBox(height: 48),
 
-            // Submit Button
             RegainButtons(
               text: 'Submit',
               onPressed: _submitRating,
@@ -188,6 +164,7 @@ class _StarRatingState extends State<StarRating> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(5, (index) {
         return IconButton(
           iconSize: 40.0,
@@ -223,5 +200,3 @@ Future<int> _fetchSellerIdByUsername(String username, String ipAdd) async {
     throw Exception('Failed to fetch seller ID. Error: ${response.body}');
   }
 }
-
-

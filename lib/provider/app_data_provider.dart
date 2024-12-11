@@ -141,4 +141,6 @@ class AppDataProvider extends ChangeNotifier {
       return null; // Return null on failure
     }
   }
+
+  getUsernameById(int ratedUserId) {}
 }
