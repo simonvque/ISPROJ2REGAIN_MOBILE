@@ -109,7 +109,11 @@ abstract class DataSource {
   Future<List<Rating>> getSellerRatings(int userId);
 
   //UpdateFeedback
+  Future<ResponseModel> updateComment(int ratingId, String newComment);
 
+  //Get comments sent by user
+  Future<List<Rating>> getRatingsSentByUser(int userId);
+  
   // get unpaid commissions and existing total balance
   // Future<CommissionsTotal> getTotalCommissions()
 }
