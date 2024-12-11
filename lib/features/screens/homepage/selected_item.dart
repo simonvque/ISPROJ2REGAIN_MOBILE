@@ -54,37 +54,41 @@ class _SelectedItemScreenState extends State<SelectedItemScreen> {
   double averageRating = 0.0;
   int totalReviews = 0;
 
-@override
-void initState() {
-  super.initState(); // Call the parent class's initState first.
-  
-  isFavorite = widget.item.isFavorite; // Initialize state variables.
-  
-  // Fetch the seller's profile image (asynchronous but not affecting UI immediately).
-  _fetchSellerProfileImage(widget.item.sellerUsername);
+  @override
+  void initState() {
+    super.initState(); // Call the parent class's initState first.
 
-  // Fetch ratings and update state after the data is fetched.
-  fetchSellerRatings().then((ratings) {
-    if (ratings.isNotEmpty) {
-      setState(() {
-        averageRating = ratings.map((e) => e.rateValue).reduce((a, b) => a + b) / ratings.length;
-        totalReviews = ratings.length;
-      });
-    }
-  });
-}
+    isFavorite = widget.item.isFavorite; // Initialize state variables.
 
-    Future<List<Rating>> fetchSellerRatings() async {
-      try {
-        final sellerId = await _fetchSellerIdByUsername(widget.item.sellerUsername, ipAddress);
-        final ratings = await Provider.of<RatingProvider>(context, listen: false).getSellerRatings(sellerId);
-        return ratings;
-      } catch (e) {
-        debugPrint('Error fetching seller ratings: $e');
-        return [];
+    // Fetch the seller's profile image (asynchronous but not affecting UI immediately).
+    _fetchSellerProfileImage(widget.item.sellerUsername);
+
+    // Fetch ratings and update state after the data is fetched.
+    fetchSellerRatings().then((ratings) {
+      if (ratings.isNotEmpty) {
+        setState(() {
+          averageRating =
+              ratings.map((e) => e.rateValue).reduce((a, b) => a + b) /
+                  ratings.length;
+          totalReviews = ratings.length;
+        });
       }
+    });
+  }
+
+  Future<List<Rating>> fetchSellerRatings() async {
+    try {
+      final sellerId =
+          await _fetchSellerIdByUsername(widget.item.sellerUsername, ipAddress);
+      final ratings = await Provider.of<RatingProvider>(context, listen: false)
+          .getSellerRatings(sellerId);
+      return ratings;
+    } catch (e) {
+      debugPrint('Error fetching seller ratings: $e');
+      return [];
     }
-    
+  }
+
   Future<void> _fetchSellerProfileImage(String username) async {
     final dataSource = AppDataSource();
     final profileImage = await dataSource.getSellerProfileImage(username);
@@ -273,33 +277,37 @@ void initState() {
                                 '@${widget.item.sellerUsername}',
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
-                              
-                          FutureBuilder<List<Rating>>(
-                            future: fetchSellerRatings(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return const CircularProgressIndicator();
-                              } else if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                                return const Text('No reviews available');
-                              } else {
-                                return Row(
-                                  children: [
-                                    Icon(Icons.star, color: Colors.yellow),
-                                    SizedBox(width: 4),
-                                    Text('${averageRating.toStringAsFixed(1)} ($totalReviews Reviews)'),
-                                    TextButton(
-                                      onPressed: () {
-                                        // Add logic to navigate to reviews page if necessary
-                                      },
-                                      child: const Text('View all reviews', style: TextStyle(color: Colors.blue)),
-                                    ),
-                                  ],
-                                );
-                              }
-                            },
-                          ),
+                              FutureBuilder<List<Rating>>(
+                                future: fetchSellerRatings(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const CircularProgressIndicator();
+                                  } else if (snapshot.hasError) {
+                                    return Text('Error: ${snapshot.error}');
+                                  } else if (!snapshot.hasData ||
+                                      snapshot.data!.isEmpty) {
+                                    return const Text('No reviews available');
+                                  } else {
+                                    return Row(
+                                      children: [
+                                        Icon(Icons.star, color: Colors.yellow),
+                                        SizedBox(width: 4),
+                                        Text(
+                                            '${averageRating.toStringAsFixed(1)} ($totalReviews Reviews)'),
+                                        TextButton(
+                                          onPressed: () {
+                                            // Add logic to navigate to reviews page if necessary
+                                          },
+                                          child: const Text('View all reviews',
+                                              style: TextStyle(
+                                                  color: Colors.blue)),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                },
+                              ),
                             ],
                           ),
                         ],
@@ -472,42 +480,43 @@ void initState() {
                     );
                   }
                 }),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  // -------------------- PLACE OFFER --------------------
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      final username =
-                          Provider.of<AppDataProvider>(context, listen: false)
-                              .user!
-                              .username;
-                      final dataSource =
-                          Provider.of<AppDataSource>(context, listen: false);
-                      return OfferPricePopup(
-                        sellerUsername: widget.item.sellerUsername,
-                        defaultOfferPrice: widget.item.price,
-                        prod: widget.item,
-                        buyerName: username,
-                        dataSource: dataSource,
-                      );
-                    },
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            if (user?.accountStatus != "Frozen")
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // -------------------- PLACE OFFER --------------------
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        final username =
+                            Provider.of<AppDataProvider>(context, listen: false)
+                                .user!
+                                .username;
+                        final dataSource =
+                            Provider.of<AppDataSource>(context, listen: false);
+                        return OfferPricePopup(
+                          sellerUsername: widget.item.sellerUsername,
+                          defaultOfferPrice: widget.item.price,
+                          prod: widget.item,
+                          buyerName: username,
+                          dataSource: dataSource,
+                        );
+                      },
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    foregroundColor: Colors.white,
+                    backgroundColor: green,
                   ),
-                  foregroundColor: Colors.white,
-                  backgroundColor: green,
-                ),
-                child: const Text(
-                  'Place Offer',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  child: const Text(
+                    'Place Offer',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),

@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/constants/colors.dart';
+import 'package:regain_mobile/helper_functions.dart';
 import 'package:regain_mobile/provider/address_data_provider.dart';
 import 'package:regain_mobile/provider/app_data_provider.dart';
 import 'package:regain_mobile/model/address_model.dart';
@@ -335,8 +336,7 @@ class _AddAddressState extends State<AddAddress> {
       if (response.responseStatus == ResponseStatus.SAVED) {
         resetFields();
         Navigator.pushReplacementNamed(context, RouteManager.routeNavMenu);
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(response.message)));
+        ReGainHelperFunctions.showSnackBar(context, response.message);
       }
     });
   }

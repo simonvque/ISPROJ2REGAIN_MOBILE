@@ -26,20 +26,20 @@ class SettingsPage extends StatelessWidget {
             style:
                 Theme.of(context).textTheme.labelMedium?.copyWith(color: gray),
           ),
-          RegainButtons(
-            text: 'Change password',
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChangePWPage()));
-            },
-            type: ButtonType.transparentOutlined,
-            size: ButtonSize.large,
-            txtSize: BtnTxtSize.large,
-            leftIcon: CupertinoIcons.lock_shield,
-            rightIcon: CupertinoIcons.chevron_forward,
-          ),
+          // RegainButtons(
+          //   text: 'Change password',
+          //   onPressed: () {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //             builder: (context) => const ChangePWPage()));
+          //   },
+          //   type: ButtonType.transparentOutlined,
+          //   size: ButtonSize.large,
+          //   txtSize: BtnTxtSize.large,
+          //   leftIcon: CupertinoIcons.lock_shield,
+          //   rightIcon: CupertinoIcons.chevron_forward,
+          // ),
           RegainButtons(
             text: 'Delete account',
             onPressed: () {

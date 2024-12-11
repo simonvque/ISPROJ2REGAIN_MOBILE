@@ -218,10 +218,22 @@ class _AddProductState extends State<AddProduct> {
           Future.delayed(const Duration(seconds: 2), () {
             Navigator.pushNamed(context, RouteManager.routeNavMenu);
           });
+        } else if (response.statusCode == 401 || response.statusCode == 403) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              behavior: SnackBarBehavior.floating,
+              content: Text(response.message),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
         } else {
-          ReGainHelperFunctions.showSnackBar(
-            context,
-            'Failed to add product. Please try again.',
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              behavior: SnackBarBehavior.floating,
+              content:
+                  Text('An unexpected error occurred. Please try again later.'),
+              backgroundColor: Colors.redAccent,
+            ),
           );
         }
       }).catchError((error) {

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_launcher_icons/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:regain_mobile/constants/ENUMS.dart';
 import 'package:regain_mobile/datasource/app_data_source.dart';
@@ -39,6 +40,8 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
 
   final TextEditingController _offerController = TextEditingController();
   Uint8List? sellerProfileImage;
+  String? errorTxt;
+
   @override
   void initState() {
     super.initState();
@@ -70,7 +73,7 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
       Provider.of<OffersDataProvider>(context, listen: false)
           .addOffers(newOffer)
           .then((response) {
-        if (response.responseStatus == ResponseStatus.SAVED) {
+        if (response.statusCode == 200) {
           resetFields();
           Navigator.pushAndRemoveUntil(
             context,
@@ -80,6 +83,10 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
             (route) => false,
           );
           ReGainHelperFunctions.showSnackBar(context, "Offer has been placed");
+        } else if (response.statusCode == 401 || response.statusCode == 403) {
+          setState(() {
+            errorTxt = response.message;
+          });
         }
       });
     }
@@ -92,6 +99,7 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
   }
 
   void resetFields() {
+    errorTxt = null;
     _offerController.clear();
   }
 
@@ -103,7 +111,6 @@ class _OfferPricePopupState extends State<OfferPricePopup> {
 
   @override
   Widget build(BuildContext context) {
-    String? errorTxt;
     return Form(
       key: _placeOfferKey,
       child: Container(
