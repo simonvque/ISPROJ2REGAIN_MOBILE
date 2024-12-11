@@ -9,7 +9,7 @@ enum BtnTxtSize { small, medium, large }
 
 class RegainButtons extends StatelessWidget {
   final String text;
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final ButtonType type;
   final ButtonSize size;
   final BtnTxtSize txtSize;
@@ -17,6 +17,8 @@ class RegainButtons extends StatelessWidget {
   final IconData? rightIcon;
   final Color? customColor;
   final bool isUnderlined;
+  final bool isLoading; // New loading state
+  final Widget? customChild; // New custom child for dynamic content
 
   const RegainButtons({
     super.key,
@@ -29,6 +31,8 @@ class RegainButtons extends StatelessWidget {
     this.rightIcon,
     this.customColor,
     this.isUnderlined = false,
+    this.isLoading = false,
+    this.customChild,
   });
 
   @override
@@ -48,31 +52,31 @@ class RegainButtons extends StatelessWidget {
       switch (type) {
         case ButtonType.outlined:
           return OutlinedButton(
-            onPressed: onPressed,
+            onPressed: isLoading ? null : onPressed,
             style: style,
             child: buildButtonContent(innerContext),
           );
         case ButtonType.filled:
           return ElevatedButton(
-            onPressed: onPressed,
+            onPressed: isLoading ? null : onPressed,
             style: style,
             child: buildButtonContent(innerContext),
           );
         case ButtonType.transparentOutlined:
           return OutlinedButton(
-            onPressed: onPressed,
+            onPressed: isLoading ? null : onPressed,
             style: style,
             child: buildButtonContent(innerContext),
           );
         case ButtonType.text:
           return TextButton(
-            onPressed: onPressed,
+            onPressed: isLoading ? null : onPressed,
             style: style,
             child: buildButtonContent(innerContext),
           );
         default:
           return OutlinedButton(
-            onPressed: onPressed,
+            onPressed: isLoading ? null : onPressed,
             style: style,
             child: buildButtonContent(innerContext),
           );
@@ -81,6 +85,17 @@ class RegainButtons extends StatelessWidget {
   }
 
   Widget buildButtonContent(BuildContext context) {
+    if (isLoading) {
+      // Show a loading spinner if the button is in a loading state
+      return const SizedBox(
+        height: 20,
+        width: 20,
+        child: CircularProgressIndicator(
+          color: Colors.white, // Adjust color based on button style
+          strokeWidth: 2.0,
+        ),
+      );
+    }
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [

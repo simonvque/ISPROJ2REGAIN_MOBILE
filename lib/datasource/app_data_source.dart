@@ -41,13 +41,11 @@ class AppDataSource extends DataSource {
   // final _ipAddPort = '159.223.37.215:40002';
   final _ipAddPort = '192.168.154.111:9191';
 
-
   get ipAddPort => _ipAddPort;
 
   // baseUrl = emulator IP + Spring Boot backend port + route
   // final String baseUrl = 'http://159.223.37.215:40002/api/';
   final String baseUrl = 'http://192.168.154.111:9191/api/';
-
 
   // header info for http request
   Map<String, String> get header => {'Content-Type': 'application/json'};
@@ -938,8 +936,6 @@ class AppDataSource extends DataSource {
       rethrow;
     }
   }
-  
-  
 
   Future<List<Rating>> getSellerRatings(int userId) async {
     final url = '$baseUrl${'rating/user/$userId'}';

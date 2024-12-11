@@ -29,7 +29,8 @@ class _ReviewPageState extends State<ReviewsPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final appDataProvider = Provider.of<AppDataProvider>(context, listen: false);
+    final appDataProvider =
+        Provider.of<AppDataProvider>(context, listen: false);
     currentUserId = appDataProvider.userId;
   }
 
@@ -42,7 +43,8 @@ class _ReviewPageState extends State<ReviewsPage> {
     }
 
     try {
-      final sellerId = await _fetchSellerIdByUsername(widget.sellerUsername, ipAddress);
+      final sellerId =
+          await _fetchSellerIdByUsername(widget.sellerUsername, ipAddress);
 
       final ratingPayload = {
         'ratedUserId': sellerId,
@@ -51,7 +53,9 @@ class _ReviewPageState extends State<ReviewsPage> {
         'comments': _feedbackController.text,
       };
 
-      ResponseModel response = await Provider.of<RatingProvider>(context, listen: false).addRating(ratingPayload);
+      ResponseModel response =
+          await Provider.of<RatingProvider>(context, listen: false)
+              .addRating(ratingPayload);
 
       _showDialog(response);
     } catch (error) {
@@ -62,7 +66,7 @@ class _ReviewPageState extends State<ReviewsPage> {
     }
   }
 
-    void _showDialog(ResponseModel response) {
+  void _showDialog(ResponseModel response) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -96,8 +100,7 @@ class _ReviewPageState extends State<ReviewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(
-        context, 'Submit Review'),
+      appBar: buildAppBar(context, 'Submit Review'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -108,9 +111,7 @@ class _ReviewPageState extends State<ReviewsPage> {
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundImage: NetworkImage(
-                       'https://via.placeholder.com/150'
-                     ),
+                  backgroundImage: AssetImage('assets/images/logo/logo.png'),
                 ),
                 const SizedBox(width: 16),
                 Flexible(
@@ -223,5 +224,3 @@ Future<int> _fetchSellerIdByUsername(String username, String ipAdd) async {
     throw Exception('Failed to fetch seller ID. Error: ${response.body}');
   }
 }
-
-

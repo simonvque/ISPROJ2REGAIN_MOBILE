@@ -38,6 +38,8 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
 
   String? errorTxt;
 
+  bool _isLoading = false; // To track loading state
+
   //final idTypeController = TextEditingController();
   String? idType;
   final idNumController = TextEditingController();
@@ -54,6 +56,10 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
         });
         return;
       }
+
+      setState(() {
+        _isLoading = true; // Start loading
+      });
 
       final submittedUser = UserModel(
         lastName: lastNameController.text.trim(),
@@ -89,6 +95,10 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
             errorTxt = response.message;
           });
         }
+      }).whenComplete(() {
+        setState(() {
+          _isLoading = false; // Stop loading
+        });
       });
     }
   }
@@ -353,12 +363,15 @@ class _RegistrationIDPageState extends State<RegistrationIDPage> {
               ),
               RegainButtons(
                 text: ReGainTexts.signUp,
-                onPressed: () {
-                  _addUserID();
-                },
+                onPressed: _isLoading
+                    ? null // Disable the button when loading
+                    : () {
+                        _addUserID();
+                      }, // Call the _addUserID function when not loading
                 type: ButtonType.filled,
                 txtSize: BtnTxtSize.large,
                 size: ButtonSize.large,
+                isLoading: _isLoading, // Pass the loading state
               ),
             ],
           ),
